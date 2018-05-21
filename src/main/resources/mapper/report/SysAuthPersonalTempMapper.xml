@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bitnei.cloud.report.mapper.SysAuthPersonalTempMapper" >
+
+  <select id="findPersonalAuth" parameterType="String" resultType="java.util.HashMap">
+      SELECT
+      *
+      FROM
+      (
+      SELECT
+      srna.id AS id,
+      ssm.SIM_CART_NUMBER AS sim_card,
+      ssm.iccid AS iccid,
+      srna.authentication_result AS authentication_result,
+      srna.vin AS vin,
+      stmu.serial_number AS serial_number,
+      sop.owner_name AS owner_name,
+      sop.owner_cert_id AS owner_cert_id,
+      sop.mobile_phone AS mobile_phone,
+      sop.sex AS sex,
+      srna.remarks AS remarks,
+      '1' AS category,
+      srna.UPDATE_TIME as update_time
+      FROM
+      `sys_real_name_authentication` AS srna
+      LEFT JOIN sys_owner_people AS sop ON sop.id = srna.AUTHENTICATION_ID
+      LEFT JOIN sys_vehicle AS sv ON srna.vin = sv.vin
+      LEFT JOIN sys_term_model_unit AS stmu ON stmu.id = sv.term_id AND stmu.delete_flag = 1
+      LEFT JOIN sys_sim_management AS ssm ON ssm.iccid = stmu.iccid AND ssm.delete_type = 1
+      WHERE
+      srna.AUTHENTICATION_TYPE = 1
+      AND sop.OWNER_TYPE = 4
+      UNION ALL
+      SELECT
+      ID AS id,
+      SIM_CART_NUMBER AS sim_card,
+      ICCID AS iccid,
+      '0' AS authentication_result,
+      VIN AS vin,
+      SERIAL_NUMBER AS serial_number,
+      OWNER_NAME AS owner_name,
+      OWNER_CERT_ID AS owner_cert_id,
+      MOBILE_PHONE AS mobile_phone,
+      SEX AS sex,
+      '' AS remarks,
+      '2' AS category,
+      UPDATE_TIME as update_time
+      FROM
+      sys_authentication_personal_temp AS sapt
+      ) AS tab
+      WHERE
+      1 = 1
+      <if test="iccid != null">
+          and iccid like concat('%',#{iccid},'%' )
+      </if>
+      <if test="sim_card != null">
+          and sim_card like concat('%',#{sim_card},'%' )
+      </if>
+      <if test="authentication_result != null">
+          and authentication_result = #{authentication_result}
+      </if>
+      <if test="vin != null">
+          and vin like concat('%',#{vin},'%' )
+      </if>
+      <if test="serial_number != null">
+          and serial_number like concat('%',#{serial_number},'%' )
+      </if>
+      <if test="owner_name != null">
+          and owner_name like concat('%',#{owner_name},'%' )
+      </if>
+      <if test="owner_cert_id != null">
+          and owner_cert_id like concat('%',#{owner_cert_id},'%' )
+      </if>
+      <if test="mobile_phone != null">
+          and mobile_phone like concat('%',#{mobile_phone},'%' )
+      </if>
+      ORDER BY  update_time DESC
+  </select>
+
+    <select id="findid" resultMap="ResultOfString" parameterType="java.lang.String">
+           SELECT
+                id
+            FROM
+                `sys_owner_people`
+            WHERE
+               owner_cert_id= #{OWNER_CERT_ID};
+    </select>
+
+  <select id="findById" resultMap="ResultMap" parameterType="java.lang.String">
+SELECT
+	*
+FROM
+	(
+		SELECT
+			srna.id,
+			stmu.sim_card AS sim_cart_number,
+			stmu.iccid,
+			srna.vin,
+			stmu.serial_number,
+			sop.owner_name,
+			sop.owner_cert_id,
+			sop.owner_cert_type,
+			sop.owner_cert_addr,
+			sop.mobile_phone,
+			sop.address,
+			sop.email,
+			stmu.imei,
+			ssm.imsi,
+			srna.CREATE_TIME,
+			srna.UPDATE_TIME,
+			sop.sex,
+			srna.CREATE_USER_ID,
+			srna.UPDATE_USER_ID,
+			sop.pic1,
+			sop.pic2,
+			sop.face_pic,
+            srna.AUTHENTICATION_RESULT,
+            srna.REMARKS,
+            srna.line_name_en,
+            srna.channel_id
+		FROM
+			`sys_real_name_authentication` AS srna
+		LEFT JOIN sys_owner_people AS sop ON sop.id = srna.AUTHENTICATION_ID
+		LEFT JOIN sys_vehicle AS sv ON srna.vin = sv.vin
+		LEFT JOIN sys_term_model_unit AS stmu ON stmu.id = sv.term_id
+		AND stmu.delete_flag = 1
+		LEFT JOIN sys_sim_management AS ssm ON ssm.iccid = stmu.iccid
+		AND ssm.delete_type = 1
+		WHERE
+			srna.AUTHENTICATION_TYPE = 1
+		AND sop.OWNER_TYPE = 4
+		UNION ALL
+			SELECT
+				ID,
+				SIM_CART_NUMBER,
+				ICCID,
+				VIN,
+				SERIAL_NUMBER,
+				OWNER_NAME,
+				OWNER_CERT_ID,
+				OWNER_CERT_TYPE,
+				OWNER_CERT_ADDR,
+				MOBILE_PHONE,
+				ADDRESS,
+				EMAIL,
+				IMEI,
+				IMSI,
+				CREATE_TIME,
+				UPDATE_TIME,
+				SEX,
+				CREATE_USER_ID,
+				UPDATE_USER_ID,
+				pic1,
+				pic2,
+				FACE_PIC,
+                '0',
+                '',
+                line_name_en,
+                channel_id
+			FROM
+				sys_authentication_personal_temp AS sapt
+	) AS tab
+        where ID = #{id}
+  </select>
+
+  <select id="findUser"  resultMap="ResultOfInteger" parameterType="java.lang.String">
+            SELECT
+                COUNT(*) AS num
+            FROM
+                `sys_owner_people`
+            where
+            owner_cert_id = #{OWNER_CERT_ID}
+  </select>
+
+    <resultMap id="ResultOfInteger" type="java.lang.Integer">
+        <result column="num" property="budget" jdbcType="INTEGER" />
+    </resultMap>
+
+    <resultMap id="ResultOfString" type="java.lang.String">
+        <result column="id" property="budget" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="findUsers" resultMap="ResultOfInteger" parameterType="java.lang.String">
+            SELECT
+                COUNT(*) AS num
+            FROM
+                `sys_real_name_authentication` AS srna
+            LEFT JOIN sys_owner_people AS sop ON srna.AUTHENTICATION_ID = sop.id
+            WHERE
+                srna.AUTHENTICATION_TYPE = 1
+            AND AUTHENTICATION_RESULT IN (1, 2)
+            AND OWNER_CERT_ID=#{OWNER_CERT_ID}
+    </select>
+
+  <resultMap id="BaseResultMap" type="com.bitnei.cloud.report.domain.SysAuthenticationPersonalTempEntity" >
+    <constructor >
+      <idArg column="ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATE_TIME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="OWNER_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SEX" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="OWNER_CERT_TYPE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="OWNER_CERT_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="OWNER_CERT_ADDR" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MOBILE_PHONE" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="ADDRESS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="EMAIL" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="VIN" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SERIAL_NUMBER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="IMEI" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SIM_CART_NUMBER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ICCID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="IMSI" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATE_USER_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UPDATE_USER_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UPDATE_TIME" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="line_name_en" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="channel_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMap" type="com.bitnei.cloud.report.domain.SysAuthenticationPersonalTempEntity" >
+    <constructor >
+      <idArg column="ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATE_TIME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="OWNER_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SEX" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="OWNER_CERT_TYPE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="OWNER_CERT_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="OWNER_CERT_ADDR" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MOBILE_PHONE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="EMAIL" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="VIN" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SERIAL_NUMBER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="IMEI" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SIM_CART_NUMBER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ICCID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="IMSI" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATE_USER_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UPDATE_USER_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UPDATE_TIME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="PIC1" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+      <arg column="PIC2" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+      <arg column="FACE_PIC" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+        <arg column="line_name_en" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="channel_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CREATE_TIME, OWNER_NAME, SEX, OWNER_CERT_TYPE, OWNER_CERT_ID, OWNER_CERT_ADDR, 
+    MOBILE_PHONE, EMAIL, VIN, SERIAL_NUMBER, IMEI, SIM_CART_NUMBER, ICCID, IMSI, CREATE_USER_ID, 
+    UPDATE_USER_ID, UPDATE_TIME, line_name_en, channel_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    PIC1, PIC2, FACE_PIC
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_authentication_personal_temp
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_authentication_personal_temp
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.bitnei.cloud.report.domain.SysAuthenticationPersonalTempEntity" >
+    insert into sys_authentication_personal_temp (ID, CREATE_TIME, OWNER_NAME, 
+      SEX, OWNER_CERT_TYPE, OWNER_CERT_ID, 
+      OWNER_CERT_ADDR, MOBILE_PHONE, ADDRESS, EMAIL,
+      VIN, SERIAL_NUMBER, IMEI, 
+      SIM_CART_NUMBER, ICCID, IMSI, 
+      CREATE_USER_ID, UPDATE_USER_ID, UPDATE_TIME, 
+      PIC1, PIC2, FACE_PIC, line_name_en, channel_id
+      )
+    values (#{id,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{ownerName,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=CHAR}, #{ownerCertType,jdbcType=VARCHAR}, #{ownerCertId,jdbcType=VARCHAR}, 
+      #{ownerCertAddr,jdbcType=VARCHAR}, #{mobilePhone,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR},
+      #{email,jdbcType=VARCHAR}, #{vin,jdbcType=VARCHAR}, #{serialNumber,jdbcType=VARCHAR}, #{imei,jdbcType=VARCHAR},
+      #{simCartNumber,jdbcType=VARCHAR}, #{iccid,jdbcType=VARCHAR}, #{imsi,jdbcType=VARCHAR}, 
+      #{createUserId,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, 
+      #{pic1,jdbcType=LONGVARCHAR}, #{pic2,jdbcType=LONGVARCHAR}, #{facePic,jdbcType=LONGVARCHAR},
+       #{lineNameEn,jdbcType=LONGVARCHAR}, #{channelId,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bitnei.cloud.report.domain.SysAuthenticationPersonalTempEntity" >
+    insert into sys_authentication_personal_temp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="ownerName != null" >
+        OWNER_NAME,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="ownerCertType != null" >
+        OWNER_CERT_TYPE,
+      </if>
+      <if test="ownerCertId != null" >
+        OWNER_CERT_ID,
+      </if>
+      <if test="ownerCertAddr != null" >
+        OWNER_CERT_ADDR,
+      </if>
+      <if test="mobilePhone != null" >
+        MOBILE_PHONE,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="vin != null" >
+        VIN,
+      </if>
+      <if test="serialNumber != null" >
+        SERIAL_NUMBER,
+      </if>
+      <if test="imei != null" >
+        IMEI,
+      </if>
+      <if test="simCartNumber != null" >
+        SIM_CART_NUMBER,
+      </if>
+      <if test="iccid != null" >
+        ICCID,
+      </if>
+      <if test="imsi != null" >
+        IMSI,
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID,
+      </if>
+      <if test="updateUserId != null" >
+        UPDATE_USER_ID,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="pic1 != null" >
+        PIC1,
+      </if>
+      <if test="pic2 != null" >
+        PIC2,
+      </if>
+      <if test="facePic != null" >
+        FACE_PIC,
+      </if>
+      <if test="lineNameEn != null" >
+        line_name_en,
+      </if>
+      <if test="channelId != null" >
+        channel_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerName != null" >
+        #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="ownerCertType != null" >
+        #{ownerCertType,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCertId != null" >
+        #{ownerCertId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCertAddr != null" >
+        #{ownerCertAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null" >
+        #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="vin != null" >
+        #{vin,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null" >
+        #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="imei != null" >
+        #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="simCartNumber != null" >
+        #{simCartNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="imsi != null" >
+        #{imsi,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="pic1 != null" >
+        #{pic1,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pic2 != null" >
+        #{pic2,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="facePic != null" >
+        #{facePic,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="lineNameEn != null" >
+        #{lineNameEn,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="channelId != null" >
+        #{channelId,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bitnei.cloud.report.domain.SysAuthenticationPersonalTempEntity" >
+    update sys_authentication_personal_temp
+    <set >
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerName != null" >
+        OWNER_NAME = #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="ownerCertType != null" >
+        OWNER_CERT_TYPE = #{ownerCertType,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCertId != null" >
+        OWNER_CERT_ID = #{ownerCertId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCertAddr != null" >
+        OWNER_CERT_ADDR = #{ownerCertAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null" >
+        MOBILE_PHONE = #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="vin != null" >
+        VIN = #{vin,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null" >
+        SERIAL_NUMBER = #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="imei != null" >
+        IMEI = #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="simCartNumber != null" >
+        SIM_CART_NUMBER = #{simCartNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        ICCID = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="imsi != null" >
+        IMSI = #{imsi,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        UPDATE_USER_ID = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="pic1 != null" >
+        PIC1 = #{pic1,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pic2 != null" >
+        PIC2 = #{pic2,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="facePic != null" >
+        FACE_PIC = #{facePic,jdbcType=LONGVARCHAR},
+      </if>
+        <if test="address != null" >
+            ADDRESS = #{address,jdbcType=LONGVARCHAR},
+        </if>
+        <if test="lineNameEn != null" >
+            line_name_en=#{lineNameEn,jdbcType=LONGVARCHAR},
+        </if>
+        <if test="channelId != null" >
+            channel_id=#{channelId,jdbcType=LONGVARCHAR},
+        </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bitnei.cloud.report.domain.SysAuthenticationPersonalTempEntity" >
+    update sys_authentication_personal_temp
+    set CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      OWNER_NAME = #{ownerName,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=CHAR},
+      OWNER_CERT_TYPE = #{ownerCertType,jdbcType=VARCHAR},
+      OWNER_CERT_ID = #{ownerCertId,jdbcType=VARCHAR},
+      OWNER_CERT_ADDR = #{ownerCertAddr,jdbcType=VARCHAR},
+      MOBILE_PHONE = #{mobilePhone,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      VIN = #{vin,jdbcType=VARCHAR},
+      SERIAL_NUMBER = #{serialNumber,jdbcType=VARCHAR},
+      IMEI = #{imei,jdbcType=VARCHAR},
+      SIM_CART_NUMBER = #{simCartNumber,jdbcType=VARCHAR},
+      ICCID = #{iccid,jdbcType=VARCHAR},
+      IMSI = #{imsi,jdbcType=VARCHAR},
+      CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      UPDATE_USER_ID = #{updateUserId,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=VARCHAR},
+      PIC1 = #{pic1,jdbcType=LONGVARCHAR},
+      PIC2 = #{pic2,jdbcType=LONGVARCHAR},
+      FACE_PIC = #{facePic,jdbcType=LONGVARCHAR},
+      line_name_en=#{lineNameEn,jdbcType=LONGVARCHAR},
+      channel_id=#{channelId,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+    <update id="update" parameterType="java.util.HashMap">
+        update sys_authentication_personal_temp
+            set CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+              OWNER_NAME = #{ownerName,jdbcType=VARCHAR},
+              SEX = #{sex,jdbcType=CHAR},
+              OWNER_CERT_TYPE = #{ownerCertType,jdbcType=VARCHAR},
+              OWNER_CERT_ID = #{ownerCertId,jdbcType=VARCHAR},
+              OWNER_CERT_ADDR = #{ownerCertAddr,jdbcType=VARCHAR},
+              MOBILE_PHONE = #{mobilePhone,jdbcType=VARCHAR},
+              EMAIL = #{email,jdbcType=VARCHAR},
+              VIN = #{vin,jdbcType=VARCHAR},
+              SERIAL_NUMBER = #{serialNumber,jdbcType=VARCHAR},
+              IMEI = #{imei,jdbcType=VARCHAR},
+              SIM_CART_NUMBER = #{simCartNumber,jdbcType=VARCHAR},
+              ICCID = #{iccid,jdbcType=VARCHAR},
+              IMSI = #{imsi,jdbcType=VARCHAR},
+              CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+              UPDATE_USER_ID = #{updateUserId,jdbcType=VARCHAR},
+              UPDATE_TIME = #{updateTime,jdbcType=VARCHAR},
+              PIC1 = #{pic1,jdbcType=LONGVARCHAR},
+              PIC2 = #{pic2,jdbcType=LONGVARCHAR},
+              FACE_PIC = #{facePic,jdbcType=LONGVARCHAR},
+              line_name_en=#{lineNameEn,jdbcType=LONGVARCHAR},
+              channel_id=#{channelId,jdbcType=LONGVARCHAR}
+            where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.String">
+        delete from
+        sys_authentication_personal_temp
+        where
+        id = #{value}
+    </delete>
+</mapper>

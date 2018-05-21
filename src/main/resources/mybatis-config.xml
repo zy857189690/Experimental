@@ -1,0 +1,5 @@
+<plugins>
+    <!--<plugin interceptor="org.mybatis.example.ExamplePlugin">-->
+        <!--<property name="someProperty" value="100"/>-->
+    <!--</plugin>-->
+</plugins>

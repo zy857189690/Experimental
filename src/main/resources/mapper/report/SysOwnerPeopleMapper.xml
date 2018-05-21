@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bitnei.cloud.report.mapper.SysOwnerPeopleMapper" >
+    <resultMap id="tailResults" type="com.bitnei.cloud.report.domain.SysOwnerPeopleEntity" autoMapping="true">
+
+    </resultMap>
+    <resultMap id="BaseResultMap" type="com.bitnei.cloud.report.domain.SysOwnerPeopleEntity" >
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="owner_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="address" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="email" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="fax" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="mobile_phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="tel_phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="is_msg_notice" jdbcType="DECIMAL" javaType="java.lang.Short" />
+      <arg column="add_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="uint_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="add_user_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="OWNER_TYPE" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="DEPARTMENT_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="POST_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="JOB_NUMBER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sex" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="owner_cert_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="owner_cert_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="owner_cert_addr" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="pic1" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+        <arg column="pic2" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+        <arg column="face_pic" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+        <arg column="update_user_id" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+        <arg column="update_time" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMap" type="com.bitnei.cloud.report.domain.SysOwnerPeopleEntity" >
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="owner_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="address" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="email" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="fax" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="mobile_phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="tel_phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="is_msg_notice" jdbcType="DECIMAL" javaType="java.lang.Short" />
+      <arg column="add_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="uint_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="add_user_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="OWNER_TYPE" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="DEPARTMENT_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="POST_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="JOB_NUMBER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sex" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="owner_cert_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="owner_cert_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="owner_cert_addr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="pic1" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+      <arg column="pic2" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+      <arg column="face_pic" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+      <arg column="update_user_id" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+      <arg column="update_time" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, owner_name, address, email, fax, mobile_phone, tel_phone, is_msg_notice, add_time, 
+    uint_id, add_user_id, OWNER_TYPE, DEPARTMENT_ID, POST_ID, JOB_NUMBER, create_time, 
+    sex, owner_cert_type, owner_cert_id, owner_cert_addr,update_user_id,update_time,pic1,pic2,face_pic
+  </sql>
+  <sql id="Blob_Column_List" >
+    pic1, pic2, face_pic
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_owner_people
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_owner_people
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.bitnei.cloud.report.domain.SysOwnerPeopleEntity" >
+    insert into sys_owner_people (id, owner_name, address, 
+      email, fax, mobile_phone, 
+      tel_phone, is_msg_notice, add_time, 
+      uint_id, add_user_id, OWNER_TYPE, 
+      DEPARTMENT_ID, POST_ID, JOB_NUMBER, 
+      create_time, sex, owner_cert_type, 
+      owner_cert_id, owner_cert_addr, pic1, 
+      pic2, face_pic,update_time)
+    values (#{id,jdbcType=VARCHAR}, #{ownerName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, #{mobilePhone,jdbcType=VARCHAR}, 
+      #{telPhone,jdbcType=VARCHAR}, #{isMsgNotice,jdbcType=DECIMAL}, #{addTime,jdbcType=TIMESTAMP},
+      #{uintId,jdbcType=VARCHAR}, #{addUserId,jdbcType=VARCHAR}, #{ownerType,jdbcType=INTEGER}, 
+      #{departmentId,jdbcType=VARCHAR}, #{postId,jdbcType=VARCHAR}, #{jobNumber,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, #{ownerCertType,jdbcType=VARCHAR}, 
+      #{ownerCertId,jdbcType=VARCHAR}, #{ownerCertAddr,jdbcType=VARCHAR}, #{pic1,jdbcType=LONGVARCHAR}, 
+      #{pic2,jdbcType=LONGVARCHAR}, #{facePic,jdbcType=LONGVARCHAR}, #{updateTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bitnei.cloud.report.domain.SysOwnerPeopleEntity" >
+    insert into sys_owner_people
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ownerName != null" >
+        owner_name,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="fax != null" >
+        fax,
+      </if>
+      <if test="mobilePhone != null" >
+        mobile_phone,
+      </if>
+      <if test="telPhone != null" >
+        tel_phone,
+      </if>
+      <if test="isMsgNotice != null" >
+        is_msg_notice,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="uintId != null" >
+        uint_id,
+      </if>
+      <if test="addUserId != null" >
+        add_user_id,
+      </if>
+      <if test="ownerType != null" >
+        OWNER_TYPE,
+      </if>
+      <if test="departmentId != null" >
+        DEPARTMENT_ID,
+      </if>
+      <if test="postId != null" >
+        POST_ID,
+      </if>
+      <if test="jobNumber != null" >
+        JOB_NUMBER,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="ownerCertType != null" >
+        owner_cert_type,
+      </if>
+      <if test="ownerCertId != null" >
+        owner_cert_id,
+      </if>
+      <if test="ownerCertAddr != null" >
+        owner_cert_addr,
+      </if>
+      <if test="pic1 != null" >
+        pic1,
+      </if>
+      <if test="pic2 != null" >
+        pic2,
+      </if>
+      <if test="facePic != null" >
+        face_pic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerName != null" >
+        #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null" >
+        #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="telPhone != null" >
+        #{telPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="isMsgNotice != null" >
+        #{isMsgNotice,jdbcType=DECIMAL},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uintId != null" >
+        #{uintId,jdbcType=VARCHAR},
+      </if>
+      <if test="addUserId != null" >
+        #{addUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerType != null" >
+        #{ownerType,jdbcType=INTEGER},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="postId != null" >
+        #{postId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobNumber != null" >
+        #{jobNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="ownerCertType != null" >
+        #{ownerCertType,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCertId != null" >
+        #{ownerCertId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCertAddr != null" >
+        #{ownerCertAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="pic1 != null" >
+        #{pic1,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pic2 != null" >
+        #{pic2,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="facePic != null" >
+        #{facePic,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bitnei.cloud.report.domain.SysOwnerPeopleEntity" >
+    update sys_owner_people
+    <set >
+      <if test="ownerName != null" >
+        owner_name = #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null" >
+        mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="telPhone != null" >
+        tel_phone = #{telPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="isMsgNotice != null" >
+        is_msg_notice = #{isMsgNotice,jdbcType=DECIMAL},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uintId != null" >
+        uint_id = #{uintId,jdbcType=VARCHAR},
+      </if>
+      <if test="addUserId != null" >
+        add_user_id = #{addUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerType != null" >
+        OWNER_TYPE = #{ownerType,jdbcType=INTEGER},
+      </if>
+      <if test="departmentId != null" >
+        DEPARTMENT_ID = #{departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="postId != null" >
+        POST_ID = #{postId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobNumber != null" >
+        JOB_NUMBER = #{jobNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="ownerCertType != null" >
+        owner_cert_type = #{ownerCertType,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCertId != null" >
+        owner_cert_id = #{ownerCertId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerCertAddr != null" >
+        owner_cert_addr = #{ownerCertAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="pic1 != null" >
+        pic1 = #{pic1,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pic2 != null" >
+        pic2 = #{pic2,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="facePic != null" >
+        face_pic = #{facePic,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bitnei.cloud.report.domain.SysOwnerPeopleEntity" >
+    update sys_owner_people
+    set owner_name = #{ownerName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      tel_phone = #{telPhone,jdbcType=VARCHAR},
+      is_msg_notice = #{isMsgNotice,jdbcType=DECIMAL},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      uint_id = #{uintId,jdbcType=VARCHAR},
+      add_user_id = #{addUserId,jdbcType=VARCHAR},
+      OWNER_TYPE = #{ownerType,jdbcType=INTEGER},
+      DEPARTMENT_ID = #{departmentId,jdbcType=VARCHAR},
+      POST_ID = #{postId,jdbcType=VARCHAR},
+      JOB_NUMBER = #{jobNumber,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      owner_cert_type = #{ownerCertType,jdbcType=VARCHAR},
+      owner_cert_id = #{ownerCertId,jdbcType=VARCHAR},
+      owner_cert_addr = #{ownerCertAddr,jdbcType=VARCHAR},
+      pic1 = #{pic1,jdbcType=LONGVARCHAR},
+      pic2 = #{pic2,jdbcType=LONGVARCHAR},
+      face_pic = #{facePic,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+    <!-- 分页查询 -->
+    <select id="pagerModel" resultMap="tailResults" parameterType="java.util.HashMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        sys_owner_people d
+        where
+        owner_type = 4
+        <if test="ownerName != null">
+          AND owner_name LIKE concat('%',#{ownerName},'%')
+        </if>
+        <if test="mobilePhone != null">
+          AND mobile_phone LIKE concat('%',#{mobilePhone},'%')
+        </if>
+        <if test="ownerCertId != null">
+          AND owner_cert_id LIKE concat('%',#{ownerCertId},'%')
+        </if>
+        <if test="address != null">
+          AND address LIKE concat('%',#{address},'%')
+        </if>
+      ORDER BY update_time DESC
+    </select>
+
+  <!-- 根据id查询 -->
+  <select id="findById" resultType="com.bitnei.cloud.report.domain.SysOwnerPeopleEntity"  parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List"/>
+    from
+    sys_owner_people d
+    where
+    d.id=#{value}
+  </select>
+
+  <!-- 更新 -->
+  <update id="update" parameterType="java.util.HashMap">
+    update sys_owner_people set
+    id=id,owner_name=#{ownerName},sex=#{sex},owner_cert_type=#{ownerCertType},owner_cert_id=#{ownerCertId},owner_cert_addr=#{ownerCertAddr}
+    ,mobile_phone=#{mobilePhone},address=#{address},email=#{email},update_time=NOW(),update_user_id=#{updateUserId},pic1=#{pic1},pic2=#{pic2},face_pic=#{facePic}
+    where id = #{id}
+  </update>
+
+  <!-- 删除 -->
+  <delete id="delete" parameterType="java.lang.String">
+    delete from
+    sys_owner_people
+    where
+    id = #{value}
+  </delete>
+
+  <!-- 查询身份 -->
+  <select id="findOwnerByOwnerCert" resultMap="tailResults"  parameterType="com.bitnei.cloud.report.domain.SysOwnerPeopleEntity">
+    select
+    <include refid="Base_Column_List"/>
+    from
+    sys_owner_people d
+    where
+    d.owner_cert_type=#{ownerCertType} and owner_cert_id=#{ownerCertId}
+  </select>
+
+  <!-- 查询身份 -->
+  <select id="findOwnerByOwnerCertForUpdate" resultMap="tailResults"  parameterType="com.bitnei.cloud.report.domain.SysOwnerPeopleEntity">
+    select
+    <include refid="Base_Column_List"/>
+    from
+    sys_owner_people d
+    where
+    id!=#{id} AND d.owner_cert_type=#{ownerCertType} and owner_cert_id=#{ownerCertId}
+  </select>
+
+  <!--根据证件号修改-->
+  <update id="updateByCertId" parameterType="com.bitnei.cloud.report.domain.SysOwnerPeopleEntity" >
+    update sys_owner_people
+    <set >
+    <if test="ownerName != null" >
+      owner_name = #{ownerName,jdbcType=VARCHAR},
+    </if>
+    <if test="address != null" >
+      address = #{address,jdbcType=VARCHAR},
+    </if>
+    <if test="email != null" >
+      email = #{email,jdbcType=VARCHAR},
+    </if>
+    <if test="fax != null" >
+      fax = #{fax,jdbcType=VARCHAR},
+    </if>
+    <if test="mobilePhone != null" >
+      mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+    </if>
+    <if test="telPhone != null" >
+      tel_phone = #{telPhone,jdbcType=VARCHAR},
+    </if>
+    <if test="isMsgNotice != null" >
+      is_msg_notice = #{isMsgNotice,jdbcType=DECIMAL},
+    </if>
+    <if test="addTime != null" >
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+    </if>
+    <if test="uintId != null" >
+      uint_id = #{uintId,jdbcType=VARCHAR},
+    </if>
+    <if test="addUserId != null" >
+      add_user_id = #{addUserId,jdbcType=VARCHAR},
+    </if>
+    <if test="ownerType != null" >
+      OWNER_TYPE = #{ownerType,jdbcType=INTEGER},
+    </if>
+    <if test="departmentId != null" >
+      DEPARTMENT_ID = #{departmentId,jdbcType=VARCHAR},
+    </if>
+    <if test="postId != null" >
+      POST_ID = #{postId,jdbcType=VARCHAR},
+    </if>
+    <if test="jobNumber != null" >
+      JOB_NUMBER = #{jobNumber,jdbcType=VARCHAR},
+    </if>
+    <if test="createTime != null" >
+      create_time = #{createTime,jdbcType=VARCHAR},
+    </if>
+    <if test="sex != null" >
+      sex = #{sex,jdbcType=CHAR},
+    </if>
+    <if test="ownerCertType != null" >
+      owner_cert_type = #{ownerCertType,jdbcType=VARCHAR},
+    </if>
+    <if test="ownerCertId != null" >
+      owner_cert_id = #{ownerCertId,jdbcType=VARCHAR},
+    </if>
+    <if test="ownerCertAddr != null" >
+      owner_cert_addr = #{ownerCertAddr,jdbcType=VARCHAR},
+    </if>
+    <if test="pic1 != null" >
+      pic1 = #{pic1,jdbcType=LONGVARCHAR},
+    </if>
+    <if test="pic2 != null" >
+      pic2 = #{pic2,jdbcType=LONGVARCHAR},
+    </if>
+    <if test="facePic != null" >
+      face_pic = #{facePic,jdbcType=LONGVARCHAR},
+    </if>
+  </set>
+    where owner_cert_id = #{ownerCertId,jdbcType=VARCHAR}
+  </update>
+
+  <!-- 查询身份 -->
+  <select id="selectByOwnerCert" resultMap="tailResults"  parameterType="com.bitnei.cloud.report.domain.SysOwnerPeopleEntity">
+    select
+    <include refid="Base_Column_List"/>
+    from
+    sys_owner_people d
+    where
+    owner_cert_id=#{ownerCertId}
+  </select>
+</mapper>

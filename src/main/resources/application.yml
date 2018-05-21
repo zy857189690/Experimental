@@ -1,0 +1,7 @@
+spring:
+  profiles:
+    active: yf
+  messages:
+    encoding: UTF-8
+banner:
+  charset: UTF-8

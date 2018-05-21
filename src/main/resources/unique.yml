@@ -1,0 +1,7 @@
+initCache: true
+unique:
+  base_username_index:
+    table: base_user
+    field: username
+    sql: select id as id,username as unique_name from base_user
+    description: 用户名唯一

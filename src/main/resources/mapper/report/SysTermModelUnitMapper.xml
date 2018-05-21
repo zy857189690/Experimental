@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bitnei.cloud.report.mapper.SysTermModelUnitMapper" >
+  <resultMap id="BaseResultMap" type="com.bitnei.cloud.report.domain.SysTermModelUnitEntity" >
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sys_term_model_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="serial_number" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="iccid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="update_time" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_user" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="update_user" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="delete_time" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="delete_flag" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="unit_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="unit_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="support_protocol" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="vin" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sim_card" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="imei" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, sys_term_model_id, serial_number, iccid, create_time, update_time, create_user, 
+    update_user, delete_time, delete_flag, unit_name, unit_type, support_protocol, vin, 
+    sim_card, imei
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_term_model_unit
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_term_model_unit
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.bitnei.cloud.report.domain.SysTermModelUnitEntity" >
+    insert into sys_term_model_unit (id, sys_term_model_id, serial_number, 
+      iccid, create_time, update_time, 
+      create_user, update_user, delete_time, 
+      delete_flag, unit_name, unit_type, 
+      support_protocol, vin, sim_card, 
+      imei)
+    values (#{id,jdbcType=VARCHAR}, #{sysTermModelId,jdbcType=VARCHAR}, #{serialNumber,jdbcType=VARCHAR}, 
+      #{iccid,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, #{deleteTime,jdbcType=VARCHAR}, 
+      #{deleteFlag,jdbcType=VARCHAR}, #{unitName,jdbcType=VARCHAR}, #{unitType,jdbcType=VARCHAR}, 
+      #{supportProtocol,jdbcType=VARCHAR}, #{vin,jdbcType=VARCHAR}, #{simCard,jdbcType=VARCHAR}, 
+      #{imei,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bitnei.cloud.report.domain.SysTermModelUnitEntity" >
+    insert into sys_term_model_unit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sysTermModelId != null" >
+        sys_term_model_id,
+      </if>
+      <if test="serialNumber != null" >
+        serial_number,
+      </if>
+      <if test="iccid != null" >
+        iccid,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="deleteTime != null" >
+        delete_time,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="unitName != null" >
+        unit_name,
+      </if>
+      <if test="unitType != null" >
+        unit_type,
+      </if>
+      <if test="supportProtocol != null" >
+        support_protocol,
+      </if>
+      <if test="vin != null" >
+        vin,
+      </if>
+      <if test="simCard != null" >
+        sim_card,
+      </if>
+      <if test="imei != null" >
+        imei,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="sysTermModelId != null" >
+        #{sysTermModelId,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null" >
+        #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteTime != null" >
+        #{deleteTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="unitName != null" >
+        #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="unitType != null" >
+        #{unitType,jdbcType=VARCHAR},
+      </if>
+      <if test="supportProtocol != null" >
+        #{supportProtocol,jdbcType=VARCHAR},
+      </if>
+      <if test="vin != null" >
+        #{vin,jdbcType=VARCHAR},
+      </if>
+      <if test="simCard != null" >
+        #{simCard,jdbcType=VARCHAR},
+      </if>
+      <if test="imei != null" >
+        #{imei,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bitnei.cloud.report.domain.SysTermModelUnitEntity" >
+    update sys_term_model_unit
+    <set >
+      <if test="sysTermModelId != null" >
+        sys_term_model_id = #{sysTermModelId,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null" >
+        serial_number = #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null" >
+        iccid = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteTime != null" >
+        delete_time = #{deleteTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="unitName != null" >
+        unit_name = #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="unitType != null" >
+        unit_type = #{unitType,jdbcType=VARCHAR},
+      </if>
+      <if test="supportProtocol != null" >
+        support_protocol = #{supportProtocol,jdbcType=VARCHAR},
+      </if>
+      <if test="vin != null" >
+        vin = #{vin,jdbcType=VARCHAR},
+      </if>
+      <if test="simCard != null" >
+        sim_card = #{simCard,jdbcType=VARCHAR},
+      </if>
+      <if test="imei != null" >
+        imei = #{imei,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bitnei.cloud.report.domain.SysTermModelUnitEntity" >
+    update sys_term_model_unit
+    set sys_term_model_id = #{sysTermModelId,jdbcType=VARCHAR},
+      serial_number = #{serialNumber,jdbcType=VARCHAR},
+      iccid = #{iccid,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      delete_time = #{deleteTime,jdbcType=VARCHAR},
+      delete_flag = #{deleteFlag,jdbcType=VARCHAR},
+      unit_name = #{unitName,jdbcType=VARCHAR},
+      unit_type = #{unitType,jdbcType=VARCHAR},
+      support_protocol = #{supportProtocol,jdbcType=VARCHAR},
+      vin = #{vin,jdbcType=VARCHAR},
+      sim_card = #{simCard,jdbcType=VARCHAR},
+      imei = #{imei,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

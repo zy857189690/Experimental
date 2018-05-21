@@ -1,0 +1,47 @@
+server:
+  port: 88
+  context-path: /module-demo
+ucenter:
+  cdn: http://127.0.0.1:8080
+spring:
+  redis:
+    database: 5
+    host: 127.0.0.1
+    port: 6379
+    password:
+    mybatis:
+      index: 13
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.6.146:3306/ev_wtm?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password:
+    max-idle: 10
+    max-wait: 10000
+    max-active: 20
+    min-idle: 5
+    initial-size: 5
+    validation-query: SELECT 1
+    test-on-borrow: false
+    jdbc-interceptors: ConnectionState;SlowQueryReport(threshold=3000)
+mybatis:
+  mapper-locations: classpath*:mapper/*/*Mapper.xml
+  type-aliases-package: com.bitnei.cloud.*.mapper
+  configuration:
+      map-underscore-to-camel-case: true
+  mapperRefresher:
+    period: 3
+    initialDelay: 30
+    enabled: true
+#pagehelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+  rowBoundsWithCount: true
+smc:
+  querySql: SELECT 1
+download-path: D:\\
+

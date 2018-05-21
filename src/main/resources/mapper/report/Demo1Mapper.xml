@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitnei.cloud.report.mapper.Demo1Mapper">
+    <!--<cache type="com.bitnei.cloud.common.cache.MybatisRedisCache" eviction="LRU" flushInterval="6000000" size="1024" readOnly="false"/>-->
+    <resultMap id="tailResults" type="com.bitnei.cloud.report.domain.Demo1" autoMapping="true">
+        <association property="tails" javaType="java.util.HashMap">
+        </association>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="baseColumns">
+        d.*
+    </sql>
+    <sql id="moreColumns">
+        d.*
+    </sql>
+
+    <!-- 查询所有的结果 -->
+    <select id="all" resultType="com.bitnei.cloud.report.domain.Demo1">
+        select
+        <include refid="baseColumns"/>
+        from
+        report_demo1 d
+    </select>
+
+    <!-- 根据id查询 -->
+    <select id="findById" resultType="com.bitnei.cloud.report.domain.Demo1"  parameterType="java.lang.String">
+        select
+        <include refid="moreColumns"/>
+        from
+        report_demo1 d
+        where
+        d.id=#{value}
+    </select>
+
+    <!-- 增加 -->
+    <insert id="insert" parameterType="java.util.HashMap">
+        insert into
+        report_demo1 (id,name,dict_field,name_field,create_time,create_by)
+        values
+        (#{id},#{name},#{dictField},#{nameField},#{createTime},#{createBy})
+    </insert>
+
+    <!-- 更新 -->
+    <update id="update" parameterType="java.util.HashMap">
+        update report_demo1 set
+        id=id,name=#{name},dict_field=#{dictField},name_field=#{nameField},update_time=#{updateTime},update_by=#{updateBy}
+        where id = #{id}
+    </update>
+
+    <!-- 删除 -->
+    <delete id="delete" parameterType="java.lang.String">
+        delete from
+        report_demo1
+        where
+        id = #{value}
+    </delete>
+
+    <!-- 分页查询 -->
+    <select id="pagerModel" resultMap="tailResults" parameterType="java.util.HashMap">
+        select
+        <include refid="moreColumns"/>
+        from
+        report_demo1 d
+        where
+        1=1
+        <if test="dictField != null">
+        and d.dict_field = #{dictField}
+        </if>
+        <if test="nameField != null">
+        and d.name_field = #{nameField}
+        </if>
+
+    </select>
+</mapper>

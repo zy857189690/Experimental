@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitnei.cloud.report.mapper.AuthLogMapper">
+
+    <select id="findAuthLog" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT
+        oper,
+        ip,
+        time,
+        times,
+        action,
+        result,
+        module_name,
+        change_info
+        FROM
+        sys_log
+        WHERE module_name in('个人实名认证','企业实名认证')
+        <if test="module_name != null">
+            and module_name like concat('%',#{module_name},'%' )
+        </if>
+        <if test="oper != null">
+            and oper like concat('%',#{oper},'%' )
+        </if>
+        <if test="startTime != null">
+            and time &gt; #{startTime}
+        </if>
+        <if test="endTime != null">
+            and time &lt; #{endTime}
+        </if>
+        ORDER BY time DESC
+    </select>
+
+</mapper>

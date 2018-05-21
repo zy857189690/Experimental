@@ -1,0 +1,10 @@
+project:
+  creator:
+    author: chenpeng
+    right: 北京理工新源信息科技有限公司
+    projectName: 基础框架
+    dbType: Mysql
+  style:
+    fontSize: 14
+  dev:
+    mode: dev     #dev开发模式，prod运行模式

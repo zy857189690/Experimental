@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitnei.cloud.report.mapper.EnterpriseAuthMapper">
+  <resultMap id="BaseResultMap" type="com.bitnei.cloud.report.domain.EnterpriseAuth">
+    <result column="sys_vehicle.vin" jdbcType="VARCHAR" property="vin" />
+    <result column="sys_vehicle.vehicle_id" jdbcType="VARCHAR" property="vehicleId" />
+    <result column="sys_term_model_unit.sys_term_model_unit_id" jdbcType="VARCHAR" property="sysTermModelUnitId" />
+    <result column="sys_term_model_unit.serial_number" jdbcType="VARCHAR" property="serialNumber" />
+    <result column="sys_vehicle.iccid" jdbcType="VARCHAR" property="iccid" />
+    <result column="sys_sim_management.sys_sim_management_id" jdbcType="VARCHAR" property="sysSimManagementId" />
+    <result column="sys_sim_management.sim_cart_number" jdbcType="VARCHAR" property="simCartNumber" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sys_vehicle.vin vin,
+    sys_vehicle.id vehicle_id,
+    sys_term_model_unit.id sys_term_model_unit_id,
+    sys_term_model_unit.serial_number serial_number,
+    sys_sim_management.iccid iccid,
+    sys_sim_management.id sys_sim_management_id,
+    sys_sim_management.sim_cart_number sim_cart_number,
+    sys_term_model_unit.imei imei
+  </sql>
+  <select id="selectByExample" parameterType="com.bitnei.cloud.report.domain.EnterpriseAuth" resultType="com.bitnei.cloud.report.domain.EnterpriseAuth">
+    select
+    <include refid="Base_Column_List" />
+      from sys_vehicle
+    LEFT JOIN sys_term_model_unit ON sys_term_model_unit.id = sys_vehicle.term_id
+    LEFT JOIN sys_sim_management ON sys_sim_management.iccid = sys_term_model_unit.iccid
+      AND sys_sim_management.delete_type = 1
+    WHERE sys_vehicle.vin=#{vin,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findBySimCardId" parameterType="java.lang.String" resultType="com.bitnei.cloud.report.domain.EnterpriseAuth">
+    SELECT
+	c.vin,
+	c.id as vehicle_id,
+	b.id as sys_term_model_unit_id,
+	b.serial_number as serial_number,
+	a.iccid,
+	a.id as sys_sim_management_id,
+	a.sim_cart_number as sim_cart_number,
+	a.imsi,
+	b.imei
+  FROM
+      sys_sim_management as a
+      LEFT JOIN sys_term_model_unit as b on a.iccid=b.iccid and b.delete_flag=1
+      left JOIN sys_vehicle as c on b.id = c.term_id
+  WHERE
+	a.id = #{id} and a.delete_type=1
+  </select>
+</mapper>

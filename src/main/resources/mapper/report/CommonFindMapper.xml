@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitnei.cloud.report.mapper.CommonFindMapper">
+
+    <select id="findVIN" parameterType="String" resultType="java.util.HashMap">
+                SELECT
+                sv.vin AS vin,
+                svm.model_notice_id AS vehModeNo,
+                stmu.serial_number AS serial_number,
+                stmu.imei AS imei,
+                ssm.sim_cart_number AS sim_card,
+                ssm.iccid AS iccid,
+                ssm.imsi AS imsi
+                FROM
+                `sys_vehicle` AS sv
+                LEFT JOIN sys_veh_model AS svm ON sv.veh_model_id = svm.id
+                AND svm.state = 1
+                LEFT JOIN sys_term_model_unit AS stmu ON sv.term_id = stmu.id
+                AND stmu.delete_flag = 1
+                LEFT JOIN sys_sim_management AS ssm ON stmu.iccid = ssm.iccid
+                AND ssm.delete_type = 1
+                WHERE
+                1 = 1
+            <if test="vin != null">
+                and sv.vin like concat('%',#{vin},'%' )
+            </if>
+            <if test="vehModeNo != null">
+                and svm.model_notice_id like concat('%',#{vehModeNo},'%' )
+            </if>
+    </select>
+
+    <select id="findPersonal" parameterType="String" resultType="java.util.HashMap">
+        SELECT
+        owner_name AS name,
+        mobile_phone AS phone,
+        owner_cert_type AS certType,
+        owner_cert_id AS certId,
+        owner_cert_addr AS certAddr,
+        address AS address,
+        sex AS sex,
+        email AS email,
+        pic1 AS pic1,
+        pic2 AS pic2,
+        face_pic AS facePic
+        FROM
+        `sys_owner_people`
+        WHERE
+        OWNER_TYPE = 4
+                <if test="name != null">
+                    and owner_name like concat('%',#{name},'%' )
+                </if>
+                <if test="phone != null">
+                    and mobile_phone like concat('%',#{phone},'%' )
+                </if>
+                <if test="certId != null">
+                    and owner_cert_id like concat('%',#{certId},'%' )
+                </if>
+                <if test="certAddr != null">
+                    and owner_cert_addr like concat('%',#{certAddr},'%' )
+                </if>
+                ORDER BY update_time DESC
+    </select>
+
+</mapper>
