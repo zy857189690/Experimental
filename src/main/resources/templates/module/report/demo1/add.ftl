@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>演示管理1-新增</title>
-<#include "../../../inc/css.ftl">
+    <<#include "../../../inc/meta.ftl">
+    <<#include  "../../../inc/js.ftl">
 </head>
 <body class="body">
 <form class="layui-form layui-form-pane"  method="post">
@@ -39,7 +40,6 @@
     </div>
 
 </form>
-<#include "../../../inc/js.ftl">
 <script>
 
     layui.use(['form', 'layedit', 'layer','laydate'], function(){

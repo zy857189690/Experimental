@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource version="1.0" name="bqcz-report">
+    <menu name="吉利报表模块deom1" parent-name="/" icon="" order="11" id="module-report-form_HBReqB0nld4dae5">
+        <menu name="列表页面" url="/report/demo1/list" icon="" order="1" id="module-report-form_6p1WjLLETw2UmFM">
+            <button name="查看" url="/report/demo1/view" id="module-report-form_Wa793sI8SzotOWB" />
+            <button name="新增" url="/report/demo1/add" id="module-report-form_w3B1YCzybJXavVL" />
+            <button name="编辑" url="/report/demo1/update" id="module-report-form_s5H00hd7r1ngcpX" />
+            <button name="删除" url="/report/demo1/del" id="module-report-form_yCwmBbBEPrkGzWc" />
+            <button name="导出" url="/report/demo1/export" id="module-report-form_bZGmrIs1RRv3ybx" />
+        </menu>
+    </menu>
+
+</resource>
