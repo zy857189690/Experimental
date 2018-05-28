@@ -2,8 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<<#include "../../../inc/meta.ftl">
-<<#include  "../../../inc/js.ftl">
+<<#include "../../../../inc/meta.ftl">
+<<#include  "../../../../inc/js.ftl">
     <style type="text/css">
         .td_input a:not(.bg_button) {
             right: 20px !important;
