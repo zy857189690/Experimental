@@ -43,10 +43,6 @@
                 mu.path LIKE CONCAT ('%', #{userUnitPath} ,'%')
             </when>
             <when test=" isLeader != null and isLeader == 1 and areaPath == '/0/' and unitTypeCode != '0001' ">
-                SELECT
-                *
-                FROM
-                sys_vehicle veh
                 LEFT JOIN sys_unit uu ON uu.id = veh.use_uint_id
                 WHERE
                 uu.path LIKE CONCAT ('%', #{userUnitPath} ,'%')
