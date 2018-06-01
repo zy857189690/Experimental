@@ -53,9 +53,11 @@ public class PublicDealUtil {
                     List<Map<String, Object>> slist = initTreeDate(list, m.get("id").toString());
                     if (null != slist && slist.size() > 0) {
                         m.put("children", slist);
+                        m.put("state", "closed");
+                    } else {
+                        m.put("state", "open");
                     }
                 }
-                m.put("state", "closed");
                 rlist.add(m);
             }
         }

@@ -21,7 +21,7 @@
                                 <label>查询时间：</label>
                             </td>
                             <td class="td_input">
-                                <input type="text" name="query.sbeginDate" value="2018-01-01" id="sbeginDate" style="height: 30px;width: 168px" class="easyui-datebox" data-options="editable:false"/>
+                                <input type="text" name="query.sbeginDate" value="2018-01-01" id="sbeginDate" style="height: 30px; width: 168px" class="easyui-datebox" data-options="editable:false"/>
                                 <input type="hidden" value="2018-01-01" name="query.beginDate" id="beginDate"/>
                                 至
                                 <input type="text" name="query.sendDate" value="2018-07-01" id="sendDate" style="height: 30px;width: 168px" class="easyui-datebox" data-options="editable:false"/>
@@ -31,47 +31,25 @@
                                 <label>车辆种类：</label>
                             </td>
                             <td class="td_input">
-                                <select id="vehTypeId" name="query.vehTypeId" class="easyui-combobox" style="width:168px;">
-                                    <option value="aa">aitem1</option>
-                                    <option>bitem2</option>
-                                    <option>bitem3</option>
-                                    <option>ditem4</option>
-                                    <option>eitem5</option>
-                                </select>
+                                <input id="vehTypeId" name="query.vehTypeId" style="width: 170px;" />
                             </td>
                             <td class="td_label">
                                 <label>车辆型号：</label>
                             </td>
                             <td class="td_input">
-                                <select id="vehModelName" name="query.vehModelName" class="easyui-combobox" style="width:168px;">
-                                    <option value="aa">aitem1</option>
-                                    <option>bitem2</option>
-                                    <option>bitem3</option>
-                                    <option>ditem4</option>
-                                    <option>eitem5</option>
-                                </select>
+                                <input id="vehModelName" name="query.vehModelName" style="width: 170px;" />
                             </td>
                             <td class="td_label">
                                 <label>运营单位：</label>
                             </td>
                             <td class="td_input">
-                                <select id="useUnitId" name="query.useUnitId" class="easyui-combobox" style="width:168px;">
-                                    <option value="aa">aitem1</option>
-                                    <option>bitem2</option>
-                                    <option>bitem3</option>
-                                    <option>ditem4</option>
-                                    <option>eitem5</option>
-                                </select>
+                                <input id="useUnitId" name="query.useUnitId" style="width: 170px;"/>
                             </td>
                             <td class="td_label">
                                 <label>上牌区域：</label>
                             </td>
                             <td class="td_input">
-                                <#--<select id="areaId" name="query.areaId" class="easyui-combobox" style="width:168px;">-->
-                                <#--<select id="areaId" name="query.areaId" class="easyui-combotree" style="width:168px;"-->
-                                        <#--data-options="url:'${base}/report/operation/dayStatistics/queryAreaList', required:true">-->
-                                <#--</select>-->
-                                <input id="areaId" name="query.areaId" />
+                                <input id="areaId" name="query.areaId" style="width: 170px;"/>
                             </td>
                             <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
                                 <a href="#" onclick="search_item()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
@@ -107,10 +85,8 @@
     var monitoringTable;//车辆监控情况统计表格
 
     $(function(){
-        $('#areaId').combotree({
-            url: '${base}/report/common/queryAreaList',
-            required:true
-        });
+
+        initSelectChoose();
         loadMonitoringTable({});
     });
     /**
@@ -127,12 +103,27 @@
                 sortOrder: "",
                 columns: [[
                     {title: '日期', field: 'reportDate', align:'center', width: '20%', sortable: false},
-                    {title: '车辆录入总数（辆）', field: 'dayCount', align:'center', width: '20%', sortable: false},
-                    {title: '新增录入车辆数（辆）', field: 'newVehCount', align:'center', width: '20%', sortable: false},
-                    {title: '未监控车辆数（辆）', field: 'notOnlineCount', align:'center', width: '20%', sortable: false},
-                    {title: '监控比例（%）', field: 'phone', align:'center', width: '18%', sortable: false,  formatter: function(val, row, index){
+                    {title: '车辆录入总数（辆）', field: 'dayCount', align:'center', width: '20%', sortable: false, formatter: function(val, row, index){
+                        if (undefined != val && parseInt(val) > 0) {
+                            return "<a href='javascript:void(0);' onclick='showVehListByDialog()'>" + val + "</a>";
+                        }
+                        return val;
+                    }},
+                    {title: '新增录入车辆数（辆）', field: 'newVehCount', align:'center', width: '20%', sortable: false, formatter: function(val, row, index){
+                        if (undefined != val && parseInt(val) > 0) {
+                            return "<a href='javascript:void(0);' onclick='showVehListByDialog()'>" + val + "</a>";
+                        }
+                        return val;
+                    }},
+                    {title: '通讯异常车辆数（辆）', field: 'notOnlineCount', align:'center', width: '20%', sortable: false, formatter: function(val, row, index){
+                        if (undefined != val && parseInt(val) > 0) {
+                            return "<a href='javascript:void(0);' onclick='showVehListByDialog()'>" + val + "</a>";
+                        }
+                        return val;
+                    }},
+                    {title: '正常监控车辆比例（%）', field: 'phone', align:'center', width: '18%', sortable: false, formatter: function(val, row, index){
                         if (undefined != row.dayCount && undefined != row.notOnlineCount && row.dayCount > 0) {
-                            return ((parseInt(row.dayCount) - parseInt(row.notOnlineCount)) / parseInt(row.dayCount)).toFixed(2);
+                            return ((parseInt(row.dayCount) - parseInt(row.notOnlineCount)) / parseInt(row.dayCount)).toFixed(2) + "%";
                         }
                         return "-";
                     }},
@@ -145,11 +136,42 @@
     }
 
     /**
+     * 弹框展示相关车辆列表
+     **/
+    function showVehListByDialog() {
+
+    }
+
+    /**
      * 导出
      * @param id
      */
     function exportExcel(id) {
 
+    }
+
+    /**
+     * 初始化下拉选择框
+     */
+    function initSelectChoose() {
+        //上牌区域
+        $('#areaId').combotree({
+            url: '${base}/report/common/queryAreaList'
+        });
+        //运营单位
+        $('#useUnitId').combotree({
+            url: '${base}/report/common/queryUnitList'
+        });
+        //车辆型号
+        $('#vehModelName').combobox({
+            url: '${base}/report/common/queryVehModelList',
+            valueField: 'id',
+            textField: 'text'
+        });
+        //车辆种类
+        $('#vehTypeId').combotree({
+            url: '${base}/report/common/queryVehTypeList'
+        });
     }
 
 </script>

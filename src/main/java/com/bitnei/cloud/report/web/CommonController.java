@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,7 +31,7 @@ public class CommonController {
     private ICommonService commonService;
 
     /**
-     * 查询区域列表
+     * 查询区域树形下拉列表
      *
      * @return
      */
@@ -38,5 +39,39 @@ public class CommonController {
     @ResponseBody
     public String queryAreaList() {
         return commonService.queryAreaList();
+    }
+
+    /**
+     * 查询单位树形下拉列表
+     *
+     * @return
+     */
+    @RequestMapping("/queryUnitList")
+    @ResponseBody
+    public String queryUnitList() {
+        return commonService.queryUnitList();
+    }
+
+    /**
+     * 查询车辆型号下拉列表
+     *
+     * @return
+     */
+    @RequestMapping("/queryVehModelList")
+    @ResponseBody
+    public String queryVehModelList() {
+        String result = commonService.queryVehModelList();
+        return result;
+    }
+
+    /**
+     * 查询车辆种类下拉列表
+     *
+     * @return
+     */
+    @RequestMapping("/queryVehTypeList")
+    @ResponseBody
+    public String queryVehTypeList() {
+        return commonService.queryVehTypeList();
     }
 }

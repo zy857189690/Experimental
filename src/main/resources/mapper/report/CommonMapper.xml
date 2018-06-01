@@ -3,7 +3,7 @@
 <mapper namespace="com.bitnei.cloud.report.mapper.CommonMapper">
     <!--<cache type="com.bitnei.cloud.common.cache.MybatisRedisCache" eviction="LRU" flushInterval="6000000" size="1024" readOnly="false"/>-->
 
-    <!--查询区域列表-->
+    <!--查询区域下拉列表-->
     <select id="queryAreaList" resultType="java.util.HashMap">
         SELECT
             id,
@@ -20,5 +20,58 @@
             parent_code
         FROM
             sys_area ORDER BY levels
+    </select>
+
+    <!--查询单位下拉列表-->
+    <select id="queryUnitList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT
+            NAME AS text,
+            is_root,
+            address,
+            max_users_count,
+            reserve1,
+            reserve2,
+            reserve3,
+            path,
+            logoimg,
+            id,
+            parent_id,
+            unit_type_id,
+            contactor_id,
+            organization_code,
+            unit_type_fs_id,
+            telephone
+        FROM
+            sys_unit
+        WHERE
+            1 = 1
+        ORDER BY parent_id
+    </select>
+
+    <!--查询车辆型号下拉列表-->
+    <select id="queryVehModelList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT
+            veh_model_name AS text,
+            id
+        FROM
+            sys_veh_model
+    </select>
+
+    <!--查询车辆种类下拉列表-->
+    <select id="queryVehTypeList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT
+            NAME AS text,
+            type,
+            val,
+            note,
+            order_num,
+            id,
+            parent_id
+        FROM
+            sys_dict
+        WHERE
+            type = '2'
+        ORDER BY
+            parent_id
     </select>
 </mapper>

@@ -15,6 +15,7 @@ import com.bitnei.cloud.service.impl.BaseService;
 import com.bitnei.commons.datatables.DataGridOptions;
 import com.bitnei.commons.datatables.PagerModel;
 import com.bitnei.commons.util.UtilHelper;
+import com.sun.xml.internal.bind.v2.TODO;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.support.RequestContext;
@@ -66,8 +67,7 @@ public class CommonService extends BaseService implements ICommonService {
      */
     @Override
     public String queryAreaList() {
-        Map<String, Object> params = new HashMap<String, Object>();
-        List<Map<String, Object>> list = findBySqlId("queryAreaList", params);
+        List<Map<String, Object>> list = findBySqlId("queryAreaList", null);
         if (null != list && list.size() > 0) {
             Map<String, Object> rMap = list.get(0);
             rMap.put("children", PublicDealUtil.initTreeDate(list, rMap.get("id").toString()));
@@ -77,5 +77,48 @@ public class CommonService extends BaseService implements ICommonService {
         return null;
     }
 
+    /**
+     * 查询单位树形下拉列表
+     * @return
+     */
+    @Override
+    public String queryUnitList() {
+        List<Map<String, Object>> list = findBySqlId("queryUnitList", null);
+        if (null != list && list.size() > 0) {
+            Map<String, Object> rMap = list.get(0);
+            rMap.put("children", PublicDealUtil.initTreeDate(list, rMap.get("id").toString()));
+            rMap.put("state", "open");
+            return "[" + JSONObject.toJSONString(rMap) + "]";
+        }
+        return null;
+    }
 
+    /**
+     * 查询车辆型号下拉列表
+     * @return
+     */
+    @Override
+    public String queryVehModelList() {
+        List<Map<String, Object>> list = findBySqlId("queryVehModelList", null);
+        return JSONObject.toJSONString(list);
+    }
+
+    /**
+     * 查询车辆种类树形下拉列表
+     * @return
+     */
+    @Override
+    public String queryVehTypeList() {
+        List<Map<String, Object>> list = findBySqlId("queryVehTypeList", null);
+        if (null != list && list.size() > 0) {
+            Map<String, Object> rMap = new HashMap<String, Object>();
+            rMap.put("id", "0");
+            rMap.put("text", "全部");
+            rMap.put("parent_id", "-1");
+            rMap.put("state", "open");
+            rMap.put("children", PublicDealUtil.initTreeDate(list, rMap.get("id").toString()));
+            return "[" + JSONObject.toJSONString(rMap) + "]";
+        }
+        return null;
+    }
 }
