@@ -1,6 +1,7 @@
 package com.bitnei.cloud.report.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bitnei.cloud.common.PublicDealUtil;
 import com.bitnei.cloud.common.bean.ExcelData;
 import com.bitnei.cloud.common.util.DataLoader;
 import com.bitnei.cloud.common.util.DateUtil;
@@ -69,37 +70,12 @@ public class CommonService extends BaseService implements ICommonService {
         List<Map<String, Object>> list = findBySqlId("queryAreaList", params);
         if (null != list && list.size() > 0) {
             Map<String, Object> rMap = list.get(0);
-            rMap.put("children", initTreeDate(list, rMap.get("id").toString()));
+            rMap.put("children", PublicDealUtil.initTreeDate(list, rMap.get("id").toString()));
             rMap.put("state", "open");
             return "[" + JSONObject.toJSONString(rMap) + "]";
         }
         return null;
     }
 
-    /**
-     * 遍历数据，构建树形结构数据
-     *
-     * @param list
-     * @param parentId
-     * @return
-     */
-    public List<Map<String, Object>> initTreeDate(List<Map<String, Object>> list, String parentId) {
-        if (null == list || list.size() == 0 || StringUtils.isEmpty(parentId)) {
-            return null;
-        }
-        List<Map<String, Object>> rlist = new ArrayList<Map<String, Object>>();
-        for (Map<String, Object> m : list) {
-            if (null != m && null != m.get("parent_id") && parentId.equals(m.get("parent_id").toString())) {
-                if (null != m.get("id")) {
-                    List<Map<String, Object>> slist = initTreeDate(list, m.get("id").toString());
-                    if (null != slist && slist.size() > 0) {
-                        m.put("children", slist);
-                    }
-                }
-                m.put("state", "closed");
-                rlist.add(m);
-            }
-        }
-        return rlist;
-    }
+
 }
