@@ -1,13 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resource version="1.0" name="bqcz-report">
-    <menu name="吉利报表模块deom1" parent-name="/" icon="" order="11" id="module-report-form_HBReqB0nld4dae5">
-        <menu name="列表页面" url="/report/demo1/list" icon="" order="1" id="module-report-form_6p1WjLLETw2UmFM">
-            <button name="查看" url="/report/demo1/view" id="module-report-form_Wa793sI8SzotOWB" />
-            <button name="新增" url="/report/demo1/add" id="module-report-form_w3B1YCzybJXavVL" />
-            <button name="编辑" url="/report/demo1/update" id="module-report-form_s5H00hd7r1ngcpX" />
-            <button name="删除" url="/report/demo1/del" id="module-report-form_yCwmBbBEPrkGzWc" />
-            <button name="导出" url="/report/demo1/export" id="module-report-form_bZGmrIs1RRv3ybx" />
+    <menu name="吉利报表" parent-name="/" icon="" order="14" id="jiliReport_WAV2A2BlbccYPF58jvzwpHh">
+        <menu name="列表页面" url="/report/demo1/list" icon="" order="1" id="jiliReport_CtqcuEDzZhZR5Cj518Z7aPT">
+            <button name="查看" url="/report/demo1/view" id="jiliReport_W4dKMYk1qbZYZr5xfPp8Xtk" />
+            <button name="新增" url="/report/demo1/add" id="jiliReport_OHP7HcbcZKqHmmjcycEBGe7" />
+            <button name="编辑" url="/report/demo1/update" id="jiliReport_zkQlrIv7sbc98vp3bja0WR1" />
+            <button name="删除" url="/report/demo1/del" id="jiliReport_BM1BlZ7EBsCsG4bMUVTKzJR" />
+            <button name="导出" url="/report/demo1/export" id="jiliReport_wE6wtpT9YMxfBVgdpLomxUU" />
+        </menu>
+        <menu name="运营分析" parent-name="/" icon="" order="2" id="jiliReport_eEIknYYqpZqvYzfpid1uf7Z">
+            <menu name="日汇总报表" url="/report/operation/dayStatistics/list" icon="" order="1" id="jiliReport_2rdBVFLUAHe9dXPp9Op8jMU">
+                <button name="查看" url="/report/operation/dayStatistics/view" id="jiliReport_HA3YOAVLwmXGGCi3slWWzF7" />
+                <button name="新增" url="/report/operation/dayStatistics/add" id="jiliReport_l6X5YjBsznT7AP3fhkcSYSR" />
+                <button name="编辑" url="/report/operation/dayStatistics/update" id="jiliReport_8uFrnqTUyT4XxGM3Yhj2gAt" />
+                <button name="删除" url="/report/operation/dayStatistics/del" id="jiliReport_Mu3l1GKBzqvPsFFdHWmcFmt" />
+                <button name="导出" url="/report/operation/dayStatistics/export" id="jiliReport_JrrRdWwzyGBMRJQPDh6Rlov" />
+            </menu>
+            <menu name="区域里程月报" url="/report/operation/areaMileage/list" icon="" order="2" id="jiliReport_8WjOTULF9TaeHfimOAvR6ut">
+                <button name="查看" url="/report/operation/areaMileage/view" id="jiliReport_oWXF1fIQefo5W2yYW20i7SH" />
+                <button name="新增" url="/report/operation/areaMileage/add" id="jiliReport_3vCFAR90rzVyVnJLwKf4BSZ" />
+                <button name="编辑" url="/report/operation/areaMileage/update" id="jiliReport_BfgkQQQMioSaxLfZdn4mwDs" />
+                <button name="删除" url="/report/operation/areaMileage/del" id="jiliReport_ebnslVH4yoQgzBgVSdWtRmo" />
+                <button name="导出" url="/report/operation/areaMileage/export" id="jiliReport_ST8Kzycjo9zta9JsXwC9A71" />
+            </menu>
+            <menu name="里程监控月报" url="/report/operation/mileageMonitor/list" icon="" order="3" id="jiliReport_6nTK76EmsvSJFIFoaU5XVDD">
+                <button name="查看" url="/report/operation/mileageMonitor/view" id="jiliReport_B7ePyar2Maw3zwlWI5009gs" />
+                <button name="新增" url="/report/operation/mileageMonitor/add" id="jiliReport_XT9RSHGYNVicgpMMJ3irnuA" />
+                <button name="编辑" url="/report/operation/mileageMonitor/update" id="jiliReport_B5k3UOF3Q8H9fWbOtnuonW4" />
+                <button name="删除" url="/report/operation/mileageMonitor/del" id="jiliReport_dYqml6keWSb9TZHth74WoS4" />
+                <button name="导出" url="/report/operation/mileageMonitor/export" id="jiliReport_n2lUpSS5pA3hqq6OA9sw60v" />
+            </menu>
+        </menu>
+        <menu name="工况分析" parent-name="/" icon="" order="2" id="jiliReport_tHDVL6rhRq9iuoxbq8Z0jW7">
+            <menu name="单车日报表" url="/report/workCondition/dayVeh/list" icon="" order="1" id="jiliReport_4eTt14EprrYA9ydY3JjsB3y">
+                <button name="查看" url="/report/workCondition/dayVeh/view" id="jiliReport_odDWLrQ4x3pMrbeYBLzhu29" />
+                <button name="新增" url="/report/workCondition/dayVeh/add" id="jiliReport_QClhr6rA514A0T2hBeFcch3" />
+                <button name="编辑" url="/report/workCondition/dayVeh/update" id="jiliReport_yUy00plCrNeFgpYpwQVLZbp" />
+                <button name="删除" url="/report/workCondition/dayVeh/del" id="jiliReport_988mYiVWfaIdSuWc0M9DO9N" />
+                <button name="导出" url="/report/workCondition/dayVeh/export" id="jiliReport_IOJcxTWqzlXPNeYLM5ZayA2" />
+            </menu>
+            <menu name="车辆历史状态报表" url="/report/workCondition/vehHistory/list" icon="" order="2" id="jiliReport_xgU921zBWYpdjLtU7mIHVAr">
+                <button name="查看" url="/report/workCondition/vehHistory/view" id="jiliReport_sY859i74cDYhjslPLRrLeUP" />
+                <button name="新增" url="/report/workCondition/vehHistory/add" id="jiliReport_MSEifjoEBwWukE497UNha5a" />
+                <button name="编辑" url="/report/workCondition/vehHistory/update" id="jiliReport_RcwDfXA4czAbhul49UJb1WK" />
+                <button name="删除" url="/report/workCondition/vehHistory/del" id="jiliReport_vjHHQWi7a68HdLSkSI96h52" />
+                <button name="导出" url="/report/workCondition/vehHistory/export" id="jiliReport_I3UVE4dqe06s4jfHAZCzpTW" />
+            </menu>
+        </menu>
+        <menu name="异常分析" parent-name="/" icon="" order="3" id="jiliReport_uQ8chz3FYlgH2PcA6mPkIud">
+            <menu name="异常车辆统计" url="/report/anomaly/anomalyVeh/list" icon="" order="1" id="jiliReport_ufZH301ejL5F3TdEQa0UTKB">
+                <button name="查看" url="/report/anomaly/anomalyVeh/view" id="jiliReport_pii0m9sLutOdk8R2gmrma8F" />
+                <button name="新增" url="/report/anomaly/anomalyVeh/add" id="jiliReport_H7YeFU6o9cWoh6ZC4B3TJmk" />
+                <button name="编辑" url="/report/anomaly/anomalyVeh/update" id="jiliReport_qCMo0Y9mQ5jUTTPMLvWLycu" />
+                <button name="删除" url="/report/anomaly/anomalyVeh/del" id="jiliReport_vu0RHIeqZ9Ik7GaQyMUQdgd" />
+                <button name="导出" url="/report/anomaly/anomalyVeh/export" id="jiliReport_q1kgYBAQFzjzZD43srIqV2x" />
+            </menu>
         </menu>
     </menu>
-
 </resource>

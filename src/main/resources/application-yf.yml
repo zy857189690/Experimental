@@ -1,6 +1,6 @@
 server:
   port: 8889
-  context-path: /module-report-form
+  context-path: /jiliReport
 ucenter:
   cdn: http://192.168.1.106:8080
 spring:
