@@ -121,4 +121,15 @@ public class CommonService extends BaseService implements ICommonService {
         }
         return null;
     }
+
+    /**
+     * 查询车辆阶段下拉列表
+     *
+     * @return
+     */
+    @Override
+    public String queryVehStageList() {
+        List<Map<String, Object>> list = findBySqlId("queryVehStageList", null);
+        return JSONObject.toJSONString(list);
+    }
 }

@@ -65,4 +65,15 @@ public class CommonController {
     public String queryVehTypeList() {
         return commonService.queryVehTypeList();
     }
+
+    /**
+     * 查询车辆阶段下拉列表
+     *
+     * @return
+     */
+    @RequestMapping("/queryVehStageList")
+    @ResponseBody
+    public String queryVehStageList() {
+        return commonService.queryVehStageList();
+    }
 }

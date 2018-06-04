@@ -74,4 +74,9 @@
         ORDER BY
             parent_id
     </select>
+
+    <!--查询车辆阶段-->
+    <select id="queryVehStageList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT id,name AS text FROM sys_dict WHERE type='500' ORDER BY order_num
+    </select>
 </mapper>
