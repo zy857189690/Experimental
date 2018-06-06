@@ -60,6 +60,12 @@
                         <td class="td_input">
                             <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.nameField"  autocomplete="off" >
                         </td>
+                        <td class="td_label">
+                            <label>文件上传</label>
+                        </td>
+                        <td class="td_input">
+                            <input type="file" id="file" name="myfile" />
+                            <input type="button" onclick="UpladFile()" value="上传" /> </td>
 
                     <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
                         <a href="#" onclick="searchDatagrid('form_search','table')" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
@@ -76,25 +82,25 @@
 
 </body>
 <script>
-    <#--$('#table').datagrid({-->
-        <#--url: '${base}/report/demo1/datagrid',-->
-        <#--sortName: "createTime",-->
-        <#--sortOrder: "desc",-->
-        <#--columns: [[-->
-            <#--{field: 'ck', checkbox: true, width: '20'},-->
-            <#--{field: 'name', title: '名称'},-->
-            <#--{field: 'dictField', title: '字典值'},-->
-            <#--{field: 'nameField', title: '名称值'},-->
-            <#--{field: 'createTime', title: '创建时间'},-->
-            <#--{field: 'createBy', title: '创建人'},-->
-            <#--{field: 'updateTime', title: '更新时间'},-->
-            <#--{field: 'updateBy', title: '更新人'},-->
-        <#--]],-->
-        <#--toolbar: "#toolbar",-->
-        <#--pagination: true,-->
-        <#--nowrap: true-->
+    $('#table').datagrid({
+        url: '${base}/report/demo1/datagrid',
+        sortName: "createTime",
+        sortOrder: "desc",
+        columns: [[
+            {field: 'ck', checkbox: true, width: '20'},
+            {field: 'name', title: '名称'},
+            {field: 'dictField', title: '字典值'},
+            {field: 'nameField', title: '名称值'},
+            {field: 'createTime', title: '创建时间'},
+            {field: 'createBy', title: '创建人'},
+            {field: 'updateTime', title: '更新时间'},
+            {field: 'updateBy', title: '更新人'},
+        ]],
+        toolbar: "#toolbar",
+        pagination: true,
+        nowrap: true
 
-    <#--});-->
+    });
 
 //    toolbar2Menu("table");
 
@@ -143,7 +149,56 @@
 
     }
 
+    /***
+     * 文件上传
+     * @constructor
+     */
+    function UpladFile() {
+        var fileObj = document.getElementById("file").files[0]; // 获取文件对象
 
+        var FileController = "${base}/report/operation/dayMileageCheck/fileMin";                    // 接收上传文件的后台地址
+
+        // FormData 对象
+
+        var form = new FormData();
+
+        form.append("author", "hooyes");                        // 可以增加表单数据
+
+        form.append("file", fileObj);                           // 文件对象
+        // XMLHttpRequest 对象
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open("post", FileController, true);
+
+        xhr.onload = function (data) {
+
+        };
+        xhr.send(form);
+        xhr.onreadystatechange =function(){
+            if (xhr.readyState == 4){
+                 // alert(xhr.responseText);
+                  var data =  eval("("+xhr.responseText+")");
+                alert(data.code)
+                if (data.code == 0) {
+                    $.messager.show({
+                        title:'文件解析结果',
+                        msg:'解析成功.',
+                        timeout:2000,
+                        showType:'slide'
+                    });
+                } else {
+                    $.messager.show({
+                        title:'文件解析结果',
+                        msg:'解析失败.',
+                        timeout:2000,
+                        showType:'slide'
+                    });
+                }
+            }
+        }
+
+    }
 
 </script>
 </html>
