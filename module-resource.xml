@@ -9,7 +9,7 @@
             <button name="导出" url="/report/demo1/export" id="jiliReport_wE6wtpT9YMxfBVgdpLomxUU" />
         </menu>
         <menu name="运营分析" parent-name="/" icon="" order="2" id="jiliReport_eEIknYYqpZqvYzfpid1uf7Z">
-            <menu name="日汇总报表" url="/report/operation/dayStatistics/list" icon="" order="1" id="jiliReport_2rdBVFLUAHe9dXPp9Op8jMU">
+            <menu name="车辆运行统计" url="/report/operation/dayStatistics/list" icon="" order="1" id="jiliReport_2rdBVFLUAHe9dXPp9Op8jMU">
                 <button name="查看" url="/report/operation/dayStatistics/view" id="jiliReport_HA3YOAVLwmXGGCi3slWWzF7" />
                 <button name="新增" url="/report/operation/dayStatistics/add" id="jiliReport_l6X5YjBsznT7AP3fhkcSYSR" />
                 <button name="编辑" url="/report/operation/dayStatistics/update" id="jiliReport_8uFrnqTUyT4XxGM3Yhj2gAt" />
@@ -29,6 +29,13 @@
                 <button name="编辑" url="/report/operation/mileageMonitor/update" id="jiliReport_B5k3UOF3Q8H9fWbOtnuonW4" />
                 <button name="删除" url="/report/operation/mileageMonitor/del" id="jiliReport_dYqml6keWSb9TZHth74WoS4" />
                 <button name="导出" url="/report/operation/mileageMonitor/export" id="jiliReport_n2lUpSS5pA3hqq6OA9sw60v" />
+            </menu>
+            <menu name="单日里程核算日报" url="/report/operation/dayMileageCheck/list" icon="" order="4" id="jiliReport_PLwN0LXmp9LfivQycuGBc5n">
+                <button name="查看" url="/report/operation/dayMileageCheck/view" id="jiliReport_4cQv5kzosZztX3bExZ1iOlZ" />
+                <button name="新增" url="/report/operation/dayMileageCheck/add" id="jiliReport_bZpU4tURIA5dc1ZG5krvQ3V" />
+                <button name="编辑" url="/report/operation/dayMileageCheck/update" id="jiliReport_XJxCpD6OtqLpBY4RtE9hxJB" />
+                <button name="删除" url="/report/operation/dayMileageCheck/del" id="jiliReport_GIhvqnOrNFn773vVShMbEUW" />
+                <button name="导出" url="/report/operation/dayMileageCheck/export" id="jiliReport_CUNy2q2n9IyyMiDVrLSdnjT" />
             </menu>
         </menu>
         <menu name="工况分析" parent-name="/" icon="" order="2" id="jiliReport_tHDVL6rhRq9iuoxbq8Z0jW7">
