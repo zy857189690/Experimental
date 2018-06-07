@@ -117,8 +117,12 @@ public class ConnectionGdApi {
 			return address;
 		}
 
+		//经纬度作偏移处理
+		LatLng latLng = CoordinateConvertUtil.transformFromWGSToGCJ(Double.parseDouble(lng), Double.parseDouble(lat));
+		String rectifyDeviationLngLat = String.format("%s,%s",latLng.longitude,latLng.latitude);
+
 		//通过高德API获取地址
-		JSONObject result = queryAreaNameByLnglat(location);
+		JSONObject result = queryAreaNameByLnglat(rectifyDeviationLngLat);
 		if (null != result && result.get("infocode").toString().equals("10000")) {
 			address = JSONObject.parseObject(result.get("regeocode").toString()).get("formatted_address").toString();
 			addressCacheService.put(location,address);
