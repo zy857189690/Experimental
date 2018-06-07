@@ -112,7 +112,7 @@ public class ConnectionGdApi {
 	 */
 	public static String getAddress(String lng,String lat){
 
-		if (org.springframework.util.StringUtils.isEmpty(lng) || org.springframework.util.StringUtils.isEmpty(lat) || NumberUtils.toDouble(lng,0)==0 ||  NumberUtils.toDouble(lat,0)==0){
+		if (org.springframework.util.StringUtils.isEmpty(lng) || org.springframework.util.StringUtils.isEmpty(lat) || NumberUtils.toDouble(lng,0)==0 ||  NumberUtils.toDouble(lat,0)==0 || "null".equals(lng) || "null".equals(lat)){
 			return UNKNOWN_ADDRESS;
 		}
 		String location = String.format("%s,%s",lng,lat);

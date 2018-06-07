@@ -12,6 +12,7 @@
         svm.veh_model_name AS vehModelName,
         svm.model_notice_id AS modelNoticeId,
         smu.name AS manuUnitName,
+        sd2.name AS registerstatus,
         sun.name AS useUnitName,
         area.name AS areaName,
         veh.first_reg AS firstReg,
@@ -20,13 +21,13 @@
         DATE_FORMAT(vhs.last_can_valid_time,'%Y-%m-%d %h:%i:%s') AS lastCanValidTime,
         DATE_FORMAT(vhs.last_charge_time,'%Y-%m-%d %h:%i:%s') AS lastChargeTime,
         vhs.charge_discharge_state AS chargeDischargeState,
-        vhs.gps_total_mileage AS gpsTotalMileage,
         vhs.gauges_mileage AS gaugesMileage,
         vhs.total_voltage AS totalVoltage,
         vhs.total_current AS totalCurrent,
         vhs.speed,
         vhs.soc,
-        "" AS "地理位置",
+        vhs.position_lon AS lng,
+        vhs.position_lat AS lat,
         stmu.term_part_firmware_number AS termPartFirmwareNumber,
         stmu.term_bar_code AS termBarCode,
         stmu.serial_number AS serialNumber,
@@ -35,14 +36,14 @@
         veh_history_state vhs,
         sys_vehicle veh
         LEFT JOIN sys_veh_model svm ON veh.veh_model_id = svm.id
-        LEFT JOIN sys_dict sd ON svm.veh_model_type_id = sd.id
+        LEFT JOIN sys_dict sd ON svm.veh_model_type_id = sd.id AND sd.type = 2
+        LEFT JOIN sys_dict sd2 ON veh.registerstatus = sd2.val  AND sd2.type = 500
         LEFT JOIN sys_unit smu ON veh.manu_unit_id = smu.id
         LEFT JOIN sys_unit sun ON veh.use_uint_id = sun.id
         LEFT JOIN sys_area area ON area.id = veh.sys_division_id
         LEFT JOIN sys_term_model_unit stmu ON veh.term_id = stmu.id
         <include refid="Common.userVehiclePermission"/>
         AND veh.uuid = vhs.vid
-        AND type = 2
         <if test="startTime != null and endTime != null">
             AND UNIX_TIMESTAMP(vhs.report_date) >= UNIX_TIMESTAMP(#{startTime})
             AND UNIX_TIMESTAMP(#{endTime}) >= UNIX_TIMESTAMP(vhs.report_date)
@@ -68,11 +69,8 @@
         <if test="areaName != null and areaName != '0'.toString()">
             AND veh.sys_division_id = #{areaName}
         </if>
-        <if test="gpsTotalMileage != null">
-            AND vhs.gps_total_mileage > #{gpsTotalMileage}
-        </if>
-        <if test="vehStage != null and vehStage != '0'.toString()">
-
+        <if test="vehStage != null and vehStage != '-1'.toString()">
+            AND veh.registerstatus = #{vehStage}
         </if>
         ORDER BY vhs.report_date,veh.license_plate,veh.vin DESC
     </select>

@@ -1,5 +1,7 @@
 package com.bitnei.cloud.report.service.impl;
 
+import com.bitnei.cloud.common.CommonDataTypeRetrun;
+import com.bitnei.cloud.common.ConnectionGdApi;
 import com.bitnei.cloud.common.bean.ExcelData;
 import com.bitnei.cloud.common.util.DataLoader;
 import com.bitnei.cloud.common.util.DateUtil;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.RequestContext;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 车辆历史状态统计servive
@@ -29,6 +32,8 @@ public class VehHistoryService extends BaseService implements IVehHistoryService
 
 		DataGridOptions options = ServletUtil.getDataLayOptions();
 		PagerModel pm = findPagerModel("pagerModel",options);
+		List<Map> list = pm.getRows();
+		this.cyclicData(list);
 		return pm;
 	}
 
@@ -36,6 +41,7 @@ public class VehHistoryService extends BaseService implements IVehHistoryService
 	public void export() {
 
 		List list = findBySqlId("pagerModel",ServletUtil.getQueryParams());
+		this.cyclicData(list);
 		DataLoader.loadNames(list);
 		DataLoader.loadDictNames(list);
 
@@ -48,8 +54,26 @@ public class VehHistoryService extends BaseService implements IVehHistoryService
 		ed.setData(list);
 		String outName = String.format("%s-导出-%s.xls", "车辆历史状态报表", DateUtil.getNow());
 		EasyExcel.renderResponse(srcFile,outName,ed);
+	}
 
+	/**
+	 * 循环返回数据中的数据，处理位置/充电状态信息
+	 * @param list
+	 */
+	private void cyclicData(List<Map> list){
 
+		for (Map<String, String> map : list) {
 
+			//处理位置问题
+			String lng = String.valueOf(map.get("lng"));
+			String lat = String.valueOf(map.get("lat"));
+			String address = ConnectionGdApi.getAddress(lng,lat);
+			map.put("location", address);
+
+			//处理充放电状态chargeDischargeStateName
+			String chargeDischargeState = String.valueOf(map.get("chargeDischargeState"));
+			String chargeDischargeStateName = CommonDataTypeRetrun.findChargeDischargeState(chargeDischargeState);
+			map.put("chargeDischargeStateName", chargeDischargeStateName);
+		}
 	}
 }
