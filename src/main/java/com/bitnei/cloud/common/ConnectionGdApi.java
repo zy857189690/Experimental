@@ -104,6 +104,12 @@ public class ConnectionGdApi {
 		return null;
 	}
 
+	/**
+	 * 通过经纬度获取详细信息地址(通过高德API，经纬度已作偏移处理)
+	 * @param lng
+	 * @param lat
+	 * @return
+	 */
 	public static String getAddress(String lng,String lat){
 
 		if (org.springframework.util.StringUtils.isEmpty(lng) || org.springframework.util.StringUtils.isEmpty(lat) || NumberUtils.toDouble(lng,0)==0 ||  NumberUtils.toDouble(lat,0)==0){
