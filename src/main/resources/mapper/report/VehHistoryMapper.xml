@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitnei.cloud.report.mapper.VehHistoryMapper">
+
+    <!-- 分页查询 -->
+    <select id="pagerModel" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT
+        DATE_FORMAT(vhs.report_date, '%Y-%m-%d %h:%i:%s') AS reportDate,
+        veh.license_plate AS licensePlate,
+        veh.vin,
+        sd.name AS vehTypeName,
+        svm.veh_model_name AS vehModelName,
+        svm.model_notice_id AS modelNoticeId,
+        smu.name AS manuUnitName,
+        sun.name AS useUnitName,
+        area.name AS areaName,
+        veh.first_reg AS firstReg,
+        veh.sale_time AS saleTime,
+        DATE_FORMAT(vhs.last_communication_time,'%Y-%m-%d %h:%i:%s') AS lastCommunicationTime,
+        DATE_FORMAT(vhs.last_can_valid_time,'%Y-%m-%d %h:%i:%s') AS lastCanValidTime,
+        DATE_FORMAT(vhs.last_charge_time,'%Y-%m-%d %h:%i:%s') AS lastChargeTime,
+        vhs.charge_discharge_state AS chargeDischargeState,
+        vhs.gps_total_mileage AS gpsTotalMileage,
+        vhs.gauges_mileage AS gaugesMileage,
+        vhs.total_voltage AS totalVoltage,
+        vhs.total_current AS totalCurrent,
+        vhs.speed,
+        vhs.soc,
+        "" AS "地理位置",
+        stmu.term_part_firmware_number AS termPartFirmwareNumber,
+        stmu.term_bar_code AS termBarCode,
+        stmu.serial_number AS serialNumber,
+        stmu.iccid
+        FROM
+        veh_history_state vhs,
+        sys_vehicle veh
+        LEFT JOIN sys_veh_model svm ON veh.veh_model_id = svm.id
+        LEFT JOIN sys_dict sd ON svm.veh_model_type_id = sd.id
+        LEFT JOIN sys_unit smu ON veh.manu_unit_id = smu.id
+        LEFT JOIN sys_unit sun ON veh.use_uint_id = sun.id
+        LEFT JOIN sys_area area ON area.id = veh.sys_division_id
+        LEFT JOIN sys_term_model_unit stmu ON veh.term_id = stmu.id
+        <include refid="Common.userVehiclePermission"/>
+        AND veh.uuid = vhs.vid
+        AND type = 2
+        <if test="startTime != null and endTime != null">
+            AND UNIX_TIMESTAMP(vhs.report_date) >= UNIX_TIMESTAMP(#{startTime})
+            AND UNIX_TIMESTAMP(#{endTime}) >= UNIX_TIMESTAMP(vhs.report_date)
+        </if>
+        <if test="gaugesMileage != null">
+            AND vhs.gauges_mileage > #{gaugesMileage}
+        </if>
+        <if test="licensePlate != null">
+            AND veh.license_plate like CONCAT('%',#{licensePlate},'%')
+        </if>
+        <if test="vin != null">
+            AND veh.vin like CONCAT('%',#{vin},'%')
+        </if>
+        <if test="vehTypeName != null and vehTypeName != '0'.toString() ">
+            AND svm.veh_model_type_id = #{vehTypeName}
+        </if>
+        <if test="vehModelName != null and vehModelName != '-1'">
+            AND veh.veh_model_id = #{vehModelName}
+        </if>
+        <if test="useUnitName != null and useUnitName != '0'.toString()">
+            AND veh.use_uint_id = #{useUnitName}
+        </if>
+        <if test="areaName != null and areaName != '0'.toString()">
+            AND veh.sys_division_id = #{areaName}
+        </if>
+        <if test="gpsTotalMileage != null">
+            AND vhs.gps_total_mileage > #{gpsTotalMileage}
+        </if>
+        <if test="vehStage != null and vehStage != '0'.toString()">
+
+        </if>
+        ORDER BY vhs.report_date,veh.license_plate,veh.vin DESC
+    </select>
+
+</mapper>

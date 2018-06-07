@@ -99,7 +99,14 @@ public class CommonService extends BaseService implements ICommonService {
      */
     @Override
     public String queryVehModelList() {
-        List<Map<String, Object>> list = findBySqlId("queryVehModelList", null);
+        List<Map<String, Object>> list = new ArrayList<>();
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", -1);
+        map.put("text", "全部");
+        list.add(map);
+        list.addAll(list);
+        list.addAll(findBySqlId("queryVehModelList", null));
+
         return JSONObject.toJSONString(list);
     }
 
@@ -129,7 +136,12 @@ public class CommonService extends BaseService implements ICommonService {
      */
     @Override
     public String queryVehStageList() {
-        List<Map<String, Object>> list = findBySqlId("queryVehStageList", null);
+        List<Map<String, Object>> list = new ArrayList<>();
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", -1);
+        map.put("text", "全部");
+        list.add(map);
+        list.addAll(findBySqlId("queryVehStageList", null));
         return JSONObject.toJSONString(list);
     }
 }
