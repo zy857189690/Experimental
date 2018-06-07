@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitnei.cloud.report.mapper.DayVehMapper">
+    <!--<cache type="com.bitnei.cloud.common.cache.MybatisRedisCache" eviction="LRU" flushInterval="6000000" size="1024" readOnly="false"/>-->
+    <resultMap id="dayVehInfo" type="com.bitnei.cloud.report.domain.DayVehInfo" autoMapping="true">
+    </resultMap>
+
+    <!-- 按照查询时间段的日期倒序排序
+       有结果返回就要用select，sql标签是不返回结果的
+   -->
+    <select id="reportDate_desc"  resultMap="dayVehInfo" parameterType="java.util.HashMap">
+        SELECT
+        DATE_FORMAT(v_e.report_date, '%Y-%m-%d') AS reportDate,
+        veh.license_plate AS licensePlate,
+        veh.vin AS vin,
+        s_d.name AS vehTypeId,
+        s_v_m.veh_model_name AS vehModelName,
+        s_v_m.model_notice_id AS modelNoticeId,
+        s_t_m.term_part_firmware_numbers AS termPartFirmwareNumbers,
+        t_u.term_bar_code AS termBarCode,
+        t_u.term_vendor_code AS termVendorCode,
+        s_m.re_name AS manuUnitId,
+        s_u.name AS useUintId,
+        s_a.name AS sysDivisionId,
+        DATE_FORMAT(veh.entry_date,'%Y-%m-%d %h:%i:%s') AS entryDate,
+        veh.sale_time AS saleTime,
+        v_e.daily_active_total_time AS dailyActiveTotalTime,
+        v_r.run_time_sum AS runTimeSum,
+        v_r.run_times AS runTimes,
+        v_r.run_km AS runKm,
+        v_r.run_km_max AS runKmMax,
+        v_m_c.last_end_mileage AS lastEndMileage,
+        v_c.charge_times AS chargeTimes,
+        v_c.charge_time_sum AS chargeTimeSum,
+        v_c.charge_time_max AS chargeTimeMax,
+        v_e.single_charge_max_mileage AS singleChargeMaxMileage,
+        v_r.run_speed_max AS runSpeedMax,
+        v_r.run_speed_avg AS runSpeedAvg,
+        DATE_FORMAT(v_m_c.last_commit_time,'%Y-%m-%d %h:%i:%s') AS lastCommunTime
+        FROM
+        sys_vehicle AS veh
+        LEFT JOIN veh_dayreport_expansion v_e ON veh.vin = v_e.vin
+        LEFT JOIN sys_dict s_d ON veh.veh_type_id = s_d.id
+        LEFT JOIN sys_veh_model s_v_m ON veh.veh_model_id = s_v_m.id
+        LEFT JOIN sys_term_model_unit t_u ON veh.vin = t_u.vin
+        LEFT JOIN sys_term_model s_t_m ON s_t_m.id = t_u.sys_term_model_id
+        LEFT JOIN sys_manufacturer s_m ON veh.manu_unit_id = s_m.fou_unit_id
+        LEFT JOIN sys_unit s_u ON veh.use_uint_id = s_u.id
+        LEFT JOIN sys_area s_a ON veh.sys_division_id = s_a.id
+        LEFT JOIN veh_dayreport_runstate v_r ON veh.uuid = v_r.vid
+        LEFT JOIN veh_dayreport_mileage_check v_m_c ON veh.vin = v_m_c.vin
+        LEFT JOIN veh_dayreport_chargestate v_c ON veh.uuid = v_c.vid
+        <include refid="Common.userVehiclePermission"/>
+        <if test="sbeginDate != null and sbeginDate != ''">
+            AND v_e.report_date <![CDATA[>=]]> #{sbeginDate}
+        </if>
+        <if test="sendDate != null and sendDate != ''">
+            AND v_e.report_date <![CDATA[<=]]> #{sendDate}
+        </if>
+        <if test="licensePlate != null and licensePlate != ''">
+            AND veh.license_plate LIKE concat(concat('%',#{licensePlate}),'%')
+        </if>
+        <if test="vin != null and vin != ''">
+            AND veh.vin LIKE concat(concat('%',#{vin}),'%')
+        </if>
+        <if test="vehTypeId != null and vehTypeId != ''">
+            AND veh.veh_type_id = #{vehTypeId}
+        </if>
+        <if test="vehModelName != null and vehModelName != ''">
+            AND s_v_m.id = #{vehModelName}
+        </if>
+        <if test="useUintId != null and useUintId != ''">
+            AND s_u.id = #{useUintId}
+        </if>
+        <if test="sysDivisionId != null and sysDivisionId != ''">
+            AND s_a.id = #{sysDivisionId}
+        </if>
+        GROUP BY veh.license_plate
+        ORDER BY v_e.report_date,veh.license_plate,veh.vin DESC
+    </select>
+
+    <!--查询车辆种类下拉列表-->
+    <select id="queryVehTypeList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT
+            NAME AS text,
+            type,
+            val,
+            note,
+            order_num,
+            id,
+            parent_id
+        FROM
+            sys_dict
+        WHERE
+            type = '2'
+        ORDER BY
+            parent_id
+    </select>
+    <!--查询车辆型号下拉列表-->
+    <select id="queryVehModelList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT
+            veh_model_name AS text,
+            id
+        FROM
+            sys_veh_model
+    </select>
+
+    <!--查询单位下拉列表-->
+    <select id="queryUnitList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT
+            NAME AS text,
+            is_root,
+            address,
+            max_users_count,
+            reserve1,
+            reserve2,
+            reserve3,
+            path,
+            logoimg,
+            id,
+            parent_id,
+            unit_type_id,
+            contactor_id,
+            organization_code,
+            unit_type_fs_id,
+            telephone
+        FROM
+            sys_unit
+        WHERE
+            1 = 1
+        ORDER BY parent_id
+    </select>
+
+    <!--查询区域下拉列表-->
+    <select id="queryAreaList" resultType="java.util.HashMap">
+        SELECT
+          id,
+          NAME AS text,
+          parent_id,
+          path,
+          levels,
+          is_root,
+          order_num,
+          lng,
+          lat,
+          statist,
+          code,
+          parent_code
+        FROM
+          sys_area ORDER BY levels
+    </select>
+</mapper>
