@@ -52,7 +52,8 @@
     <select id="queryVehModelList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
         SELECT
             veh_model_name AS text,
-            id
+            id,
+            model_notice_id AS modelNoticeId
         FROM
             sys_veh_model
     </select>
