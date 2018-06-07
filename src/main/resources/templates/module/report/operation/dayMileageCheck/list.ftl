@@ -18,7 +18,7 @@
 
 <div region="center" style="overflow: hidden;width: 100%;">
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
-        <@shiro.hasPermission name="/report/demo1/view">
+       <#-- <@shiro.hasPermission name="/report/demo1/view">
             <a href="#" onclick="view_item()" class="easyui-linkbutton"
                data-options="iconCls:'icon-view'" menu="0">查看</a>
         </@shiro.hasPermission>
@@ -33,7 +33,7 @@
         <@shiro.hasPermission name="/report/demo1/del">
         <a href="#" onclick="del_item()" class="easyui-linkbutton"
            data-options="iconCls:'icon-remove'" >删除</a>
-        </@shiro.hasPermission>
+        </@shiro.hasPermission>-->
         <@shiro.hasPermission name="/report/demo1/export">
             <a href="#" onclick="exportDatagrid('${base}/report/demo1/export','form_search','table')" class="easyui-linkbutton"
                data-options="iconCls:'icon-export'" menu="0">导出</a>
@@ -48,24 +48,94 @@
         <form id="form_search" name="" class="sui-form cg-form">
             <table class="table_search">
                 <tr>
+                    <td class="td_label">
+                        <label>条件查询</label>
+                    </td>
+                    <td class="td_input">
+                        <input type="radio" name="adminFlag" data-options="selected:true" value="0" style="width: height: 26px;width:100px;" ></input>
+
+                    </td>
+                    <td class="td_label">
+                        <label>导入查询</label>
+                    </td>
+                    <td class="td_input">
+                        <input type="radio" name="adminFlag" value="1"  style="width: height: 26px;width:100px;"></input>
+                     </td>
+                </tr>
+                <tr>
                         <td class="td_label">
-                            <label>字典值</label>
+                            <label>统计日期</label>
                         </td>
                         <td class="td_input">
-                            <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.dictField"  autocomplete="off" >
+                            <input id="dd" type="text" class="easyui-datebox" style="width: height: 26px;width:100px;" required="required">
+                         </td>
+                    <td class="td_label">
+                        <label>至</label>
+                    </td>
+                    <td class="td_input">
+                              <input id="dd" type="text" class="easyui-datebox" style="width: height: 26px;width:100px;"  required="required">
                         </td>
-                        <td class="td_label">
-                            <label>名称值</label>
+
+                    <td class="td_label">
+                            <label>VIN</label>
                         </td>
                         <td class="td_input">
-                            <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.nameField"  autocomplete="off" >
+                            <input type="text"class="input-fat input" style="width: height: 26px;width:100px;"   name="query.dictField"  autocomplete="off" >
+                        </td>
+
+                    <td class="td_label">
+                            <label>车牌号</label>
+                        </td>
+                        <td class="td_input">
+                            <input type="text"class="input-fat input" style="width: height: 26px;width:100px;"   name="query.dictField"  autocomplete="off" >
+                        </td>
+                    <td class="td_label">
+                            <label>车辆种类</label>
+                        </td>
+                        <td class="td_input">
+                            <input type="text"class="input-fat input" style="width: height: 26px;width:100px;"   name="query.dictField"  autocomplete="off" >
+                        </td>
+                    <td class="td_label">
+                            <label>运营单位</label>
+                        </td>
+                        <td class="td_input">
+                            <input type="text"class="input-fat input" style="width: height: 26px;width:100px;"   name="query.dictField"  autocomplete="off" >
+                        </td>
+                    <td class="td_label">
+                            <label>上牌区域</label>
+                        </td>
+                        <td class="td_input">
+                            <input type="text"class="input-fat input" style="width: height: 26px;width:100px;"   name="query.dictField"  autocomplete="off" >
+                        </td>
+                    <td class="td_label">
+                            <label>当日有效里程大于（km）</label>
+                        </td>
+                        <td class="td_input">
+                            <input type="text"class="input-fat input" style="width: height: 26px;width:100px;"   name="query.dictField"  autocomplete="off" >
+                        </td>
+                    <td class="td_label">
+                            <label>当日轨迹里程大于（km）</label>
+                        </td>
+                        <td class="td_input">
+                            <input type="text"class="input-fat input" style="width: height: 26px;width:100px;"   name="query.dictField"  autocomplete="off" >
+                        </td>
+                    <td class="td_label">
+                            <label>当日在线里程大于（km）</label>
+                        </td>
+                        <td class="td_input">
+                            <input type="text"class="input-fat input" style="width: height: 26px;width:100px;"   name="query.dictField"  autocomplete="off" >
                         </td>
                         <td class="td_label">
                             <label>文件上传</label>
                         </td>
                         <td class="td_input">
-                            <input type="file" id="file" name="myfile" />
-                            <input type="button" onclick="UpladFile()" value="上传" /> </td>
+                            <input type="file" id="file" style="width: height: 26px;width:100px;" name="myfile" />
+                            <input type="button" onclick="UpladFile()" value="文件解析" />
+                        </td>
+
+                        <td class="td_input">
+                            <input type="button" onclick="downFile()" value="导入查询模板下载" />
+                        </td>
 
                     <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
                         <a href="#" onclick="searchDatagrid('form_search','table')" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
@@ -83,18 +153,35 @@
 </body>
 <script>
     $('#table').datagrid({
-        url: '${base}/report/demo1/datagrid',
-        sortName: "createTime",
+        url: '${base}/report/operation/dayMileageCheck/datagrid',
+        sortName: "ID",
         sortOrder: "desc",
         columns: [[
             {field: 'ck', checkbox: true, width: '20'},
-            {field: 'name', title: '名称'},
-            {field: 'dictField', title: '字典值'},
-            {field: 'nameField', title: '名称值'},
-            {field: 'createTime', title: '创建时间'},
-            {field: 'createBy', title: '创建人'},
-            {field: 'updateTime', title: '更新时间'},
-            {field: 'updateBy', title: '更新人'},
+            {field: 'id', title: '序号', width: '90'},
+            {field: 'id', title: 'id', width: '20'},
+            {field: 'id', title: 'VIN', width:  90 },
+            {field: 'id', title: '车牌号', width: '90'},
+            {field: 'id', title: '统计日期', width: '90'},
+            {field: 'id', title: '当日首次上线时间', width: '90'},
+            {field: 'id', title: '当日开始里程(KM)', width: '90'},
+            {field: 'id', title: '当日最后通讯时间', width: '90'},
+            {field: 'id', title: '当日结束里程(KM)', width: '90'},
+            {field: 'id', title: '核查数据总条数(条)', width: '90'},
+            {field: 'id', title: '含无效数据条数(条)', width: '90'},
+            {field: 'id', title: '含异常数据条数(条)', width: '90'},
+            {field: 'id', title: '当日上线里程(KM)', width: '90'},
+            {field: 'id', title: '总跳变扣除里程(KM)', width: '90'},
+            {field: 'id', title: '总连续电流扣除里程(KM)', width: '90'},
+            {field: 'id', title: '当日有效里程(KM)', width: '90'},
+            {field: 'id', title: '当日轨迹里程(KM)', width: '90'},
+            {field: 'id', title: '有效里程和轨迹里程相对误差（百分比）', width: '90'},
+            {field: 'id', title: '上线里程和有效里程相对误差（百分比）', width: '90'},
+            {field: 'id', title: '单日核算里程(KM)', width: '90'},
+            {field: 'id', title: '上牌区域', width: '90'},
+            {field: 'id', title: '运营单位', width: '90'},
+            {field: 'id', title: '车辆型号', width: '90'},
+            {field: 'id', title: '车辆种类', width: '90'},
         ]],
         toolbar: "#toolbar",
         pagination: true,
@@ -200,5 +287,10 @@
 
     }
 
+    /*模板下载*/
+    function downFile() {
+        var downUrl = "${base}/report/operation/dayMileageCheck/downLooadModel?moduleName=model&fileName=templateQuery.xlsx";
+        window.open(downUrl);
+    }
 </script>
 </html>

@@ -4,20 +4,24 @@ import com.bitnei.cloud.common.ExcelUtil;
 import com.bitnei.cloud.common.annotation.Module;
 import com.bitnei.cloud.common.annotation.SLog;
 import com.bitnei.cloud.common.bean.AppBean;
-import org.apache.commons.collections.map.HashedMap;
+import com.bitnei.cloud.report.service.IDayMileageCheckService;
+import com.bitnei.cloud.report.service.IDemo1Service;
+import com.bitnei.commons.datatables.PagerModel;
 import org.apache.log4j.Logger;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.io.File;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +33,11 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/report/operation/dayMileageCheck")
 public class DayMileageCheckController {
+    @Value("${file.base}")
+    private String base;
+    @Value("${file.templateQuery}")
+    private String templateQuery;
+
     //模板文件目录
     public final static String BASE = "/module/report/operation/dayMileageCheck/";
 
@@ -49,6 +58,10 @@ public class DayMileageCheckController {
     public final static String URL_EXPORT = BASE_REQ_PATH + "/export";
     //导入
     public final static String URL_IMPORT = BASE_REQ_PATH + "/import";
+
+
+    @Autowired
+    private IDayMileageCheckService  dayMileageCheckService;
 
     /**
      * 运营分析-跳转列表页面
@@ -97,4 +110,43 @@ public class DayMileageCheckController {
         app.setMessage("");
         return app;
     }
+
+
+    /**
+     * 表格查询
+     * @return
+     */
+    @PostMapping(value = "/datagrid")
+    @ResponseBody
+    public PagerModel datagrid(){
+
+        PagerModel pm = dayMileageCheckService.pageQuery();
+        return pm;
+
+    }
+
+    /**
+     * 导出
+     * @return
+     */
+    @GetMapping(value = "/export")
+    public void export(){
+
+        dayMileageCheckService.export();
+        return ;
+
+    }
+    /**
+     * 导出
+     * @return
+     */
+    @GetMapping(value = "/downLooadModel")
+    public void downLooadModel(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            ExcelUtil.downloadModel(request, response, base, templateQuery);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
