@@ -5,3 +5,9 @@ spring:
     encoding: UTF-8
 banner:
   charset: UTF-8
+file:
+  base: /opt/file
+  templateQuery: /template/templateQuery.xlsx
+  vehcheckUpdateTemplate: /template/
+  vehcheckUpdateUploadFileName: vehcheckUpdateUploadFile.xlsx
+  travelLawBatchVehTemplateFile: /template/travelLaw/
