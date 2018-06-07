@@ -78,6 +78,6 @@
 
     <!--查询车辆阶段-->
     <select id="queryVehStageList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-        SELECT id,name AS text FROM sys_dict WHERE type='500' ORDER BY order_num
+        SELECT name AS text,val AS id FROM sys_dict WHERE type='500' ORDER BY order_num
     </select>
 </mapper>
