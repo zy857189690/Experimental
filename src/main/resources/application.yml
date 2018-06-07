@@ -8,6 +8,3 @@ banner:
 file:
   base: /opt/file
   templateQuery: /template/templateQuery.xlsx
-  vehcheckUpdateTemplate: /template/
-  vehcheckUpdateUploadFileName: vehcheckUpdateUploadFile.xlsx
-  travelLawBatchVehTemplateFile: /template/travelLaw/
