@@ -103,10 +103,9 @@ public class CommonService extends BaseService implements ICommonService {
         Map<String, Object> map = new HashMap<>();
         map.put("id", -1);
         map.put("text", "全部");
+        map.put("modelNoticeId", "全部");
         list.add(map);
-        list.addAll(list);
         list.addAll(findBySqlId("queryVehModelList", null));
-
         return JSONObject.toJSONString(list);
     }
 

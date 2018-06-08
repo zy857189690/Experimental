@@ -2,6 +2,7 @@ package com.bitnei.cloud.report.web;
 
 import com.bitnei.cloud.common.annotation.Module;
 import com.bitnei.cloud.common.annotation.SLog;
+import com.bitnei.cloud.common.bean.AppBean;
 import com.bitnei.cloud.common.util.DateUtil;
 import com.bitnei.cloud.report.service.IVehHistoryService;
 import com.bitnei.commons.datatables.PagerModel;
@@ -9,12 +10,12 @@ import org.apache.log4j.Logger;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
@@ -80,5 +81,36 @@ public class VehHistoryController {
         return ;
 
     }
+
+	/**
+     * 导入查询实现
+     * @param file
+     * @return
+     * @throws Exception
+     */
+    @PostMapping(value = "/improtSearch")
+    @ResponseBody
+    @RequiresPermissions(URL_LIST)
+    public AppBean improtSearch(MultipartFile file,String identity) throws Exception{
+
+        if (file == null) {
+            return new AppBean(-1, "文件获取失败！");
+        }
+
+        Long fileSize = file.getSize();
+        if (fileSize > 10240 * 1024) {
+            return new AppBean(-1, "文件大小超出最大10M限制！");
+        }
+
+        String fileName = file.getOriginalFilename();
+        String suffixName = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
+        if (!".xls".equals(suffixName) && !".xlsx".equals(suffixName)) {
+            return new AppBean(-1, "上传文件格式不正确，确认文件后缀名为xls、xlsx！");
+        }
+
+        AppBean appBean = vehHistoryService.importQuery(file, identity);
+        return appBean;
+    }
+
 
 }

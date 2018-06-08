@@ -15,8 +15,8 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://192.168.1.106:3306/evsmc?useUnicode=true&characterEncoding=utf-8
-    username: root
-    password: 123456
+    username: dev
+    password: dev
     max-idle: 10
     max-wait: 10000
     max-active: 20
@@ -44,4 +44,9 @@ pagehelper:
 smc:
   querySql: SELECT 1
 download-path: /Users/jack/Documents/temp
+#高德地图配置
+gdApi:
+  webApiUrl: http://restapi.amap.com/v3/geocode/regeo
+  webApiKey: 02a4c4dc8e96bf0f6ff0b97177bc8ec3
+
 
