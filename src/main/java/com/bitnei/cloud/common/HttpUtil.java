@@ -22,20 +22,37 @@ public class HttpUtil {
 	 * @param param
 	 * @return
 	 */
-	private static JSONObject httpPost(String url,String param) {
+	public static JSONObject httpPost(String url,String param) {
 		JSONObject jsonResult = null;
 		HttpRequest httpRequest = HttpRequest.post(url).bodyText(param,"application/json","UTF-8");
 		HttpResponse httpResponse = httpRequest.send();
+		jsonResult = httpResponseBody(httpResponse);
+		return jsonResult;
+	}
+
+	public static JSONObject httpGet(String url){
+		JSONObject jsonResult = null;
+		HttpRequest httpRequest = HttpRequest.get(url);
+		HttpResponse httpResponse = httpRequest.send();
+		jsonResult = httpResponseBody(httpResponse);
+		return jsonResult;
+	}
+
+	/**
+	 * 处理http返回数据
+	 * @param httpResponse
+	 * @return
+	 */
+	private static JSONObject httpResponseBody(HttpResponse httpResponse) {
 		if (httpResponse.statusCode() == 200) {
 			String str;
 			str = httpResponse.charset("UTF-8").bodyText();
 			if (StringUtils.isEmpty(str)) {
 				return null;
 			}
-			jsonResult = JSONObject.parseObject(str);
+			return JSONObject.parseObject(str);
 		}
-		return jsonResult;
+		return null;
 	}
-
 
 }
