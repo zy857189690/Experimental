@@ -14,6 +14,15 @@
 </head>
 <body class="easyui-layout" fit="true" id="fullid">
 
+<div id="win" class="easyui-window" title="导入查询" style="width:400px;height:200px;top:105px;"
+     data-options="iconCls:'icon-save',modal:true,closed:true">
+    <div id="cc" class="easyui-layout">
+        <label>导入查询文件</label>
+        <input type="file" id="file" style="width:100px;" name="query.myfile" />
+        <a href="#" onclick="importSearchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+    </div>
+</div>
+
 <div region="center" style="overflow: hidden;width: 100%;">
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
         <@shiro.hasPermission name="/report/workCondition/vehHistory/export">
@@ -99,7 +108,7 @@
                     <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
                         <a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
                         <a href="#" onclick="resetDatagrid('form_search','table')" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
-                        <a href="#" onclick="resetDatagrid('form_search','table')" data-options="iconCls:'icon-reset'">导入查询</a>
+                        <a href="#" onclick="importSeach()" data-options="iconCls:'icon-reset'">导入查询</a>
                         <a href="#" onclick="resetDatagrid('form_search','table')" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
                     </td>
                 </tr>
@@ -166,9 +175,7 @@
 </script>
 <script language="javascript">
 
-    /*查询事件*/
-    function searchButton(){
-
+    function checkTime(){
         //时间校验
         var endTime = $('#endTime').datetimebox("getValue");
         var startTime = $('#startTime').datetimebox("getValue");
@@ -176,23 +183,28 @@
         startTime = new Date(startTime);
         if (endTime < startTime) {
             $.messager.alert('提示','开始时间必须小于结束时间！');
-            return;
+            return false;
         }
         if (endTime < startTime) {
             $.messager.alert('提示','结束时间必须大于开始时间！');
-            return;
+            return false;
         }
         var startTimeFormat = startTime.Format("yyyy-MM-dd");
         var endTimeFormate = endTime.Format("yyyy-MM-dd");
-        debugger;
         var days = (new Date(endTimeFormate).getTime() - new Date(startTimeFormat).getTime()) / 86400000;
         if (days > 6){
             $.messager.alert('提示','选择开始时间与结束时间间隔最大为七天！');
-            return;
+            return false;
         }
+        return true;
+    }
 
-        //请求查询
-        searchDatagrid('form_search','table');
+    /*查询事件*/
+    function searchButton(){
+        if (checkTime()) {
+            //请求查询
+            searchDatagrid('form_search','table');
+        }
     }
 
     /**
@@ -243,6 +255,73 @@
                 $(this).combobox("setValue", val[0].id);
             }
         });
+    }
+
+    //导入查询弹窗口
+    function importSeach(){
+        $('#win').window('open');
+    }
+
+    //导入查询弹窗查询事件
+    function importSearchButton(){
+        if (!checkTime()) {
+            return;
+        }
+        var formData = new FormData($( "#form_search" )[0]);
+        var file = document.getElementById("file").files[0];
+        if (fileCheck(file)) {
+            formData.append("file",file);
+
+            //importType 导入查询标识，用于区分SQL拼接
+            formData.append("identity", "importType");
+            $.ajax({
+                url : "${base}/report/workCondition/vehHistory/improtSearch",
+                type : 'POST',
+                data : formData,
+                async : false,
+                cache : false,
+                contentType : false,
+                processData : false,
+                success : function(data) {
+                    if (data.code == 0) {
+                        debugger;
+                        var loadData = data.message.length == 0 ? {} :$.parseJSON(data.message);
+                        $('#table').datagrid('loadData', loadData);
+                        $('#win').window('close');
+                        $.messager.alert('提示','查询成功！');
+                    } else {
+                        $.messager.alert('提示',data.message);
+                    }
+                },
+                error : function(data) {
+                    $.messager.alert('提示','请求系统失败！！');
+                }
+            });
+        }else {
+            $.messager.alert('提示','请求失败！');
+        }
+    }
+
+    /**
+     * 检验文件的格式
+     * @param file
+     */
+    function fileCheck(file){
+        if (file == undefined || file == null || file == "") {
+            $.messager.alert('提示','请选择导入查询文件！');
+            return false;
+        }
+        if (file.size > 10240 * 1024) {
+            $.messager.alert('提示','文件大小超出最大为10M限制！');
+            return false;
+        }
+        var fileName = file.name;
+        var suffixName = (fileName.substr(fileName.lastIndexOf("."))).toLowerCase();
+        if (suffixName != ".xls" && suffixName != ".xlsx") {
+            $.messager.alert('提示','上传文件格式不正确，确认文件后缀名为xls、xlsx！');
+            return false;
+        }
+        return true;
     }
 
 </script>

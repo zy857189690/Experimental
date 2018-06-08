@@ -51,11 +51,23 @@
         <if test="gaugesMileage != null">
             AND vhs.gauges_mileage > #{gaugesMileage}
         </if>
-        <if test="licensePlate != null">
+        <if test="licensePlate != null and identity == null ">
             AND veh.license_plate like CONCAT('%',#{licensePlate},'%')
         </if>
-        <if test="vin != null">
+        <if test="vin != null and identity == null ">
             AND veh.vin like CONCAT('%',#{vin},'%')
+        </if>
+        <if test="vinList != null and identity == 'importType'">
+            AND veh.vin IN
+            <foreach collection="vinList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="licensePlateList != null and identity == 'importType'">
+            OR veh.license_plate IN
+            <foreach collection="licensePlateList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
         </if>
         <if test="vehTypeName != null and vehTypeName != '0'.toString() ">
             AND svm.veh_model_type_id = #{vehTypeName}
