@@ -1,6 +1,7 @@
 package com.bitnei.cloud.report.web;
 
 import com.bitnei.cloud.common.ExcelUtil;
+import com.bitnei.cloud.common.MemCacheManager;
 import com.bitnei.cloud.common.annotation.Module;
 import com.bitnei.cloud.common.annotation.SLog;
 import com.bitnei.cloud.common.bean.AppBean;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -103,7 +105,14 @@ public class DayMileageCheckController {
         if (lisVin.size() == 0) {
             return new AppBean(-1, "文件内容不能为空！");
         }
-
+//Excel文件内容放入缓存
+        //WebUser user = ServletUtil.getUser();
+        //获取sessionId
+        HttpSession session = request.getSession();
+        //清空缓存车辆信息
+        MemCacheManager.getInstance().remove(session.getId() + "InstantVeh");
+        //添加缓存的车辆信息
+        MemCacheManager.getInstance().set(session.getId() + "InstantVeh", lisVin);
         AppBean app = new AppBean();
         app.getData().put("path", "");
         app.getData().put("fileName", "");
