@@ -33,7 +33,7 @@ public class DayMileageCheckService  extends BaseService implements IDayMileageC
     @Override
     public PagerModel pageQuery() {
         DataGridOptions options = ServletUtil.getDataLayOptions();
-        options.getParams().put("vehtype", options.getParams().get("vehtype[]")==null?"":options.getParams().get("vehtype[]"));
+        options.getParams().put("vehtype", options.getParams().get("vehtype")==null?"":options.getParams().get("vehtype"));
         // 判断是条件查询还是导入查询
         PagerModel pm = null;
         if("0".equals(options.getParams().get("adminFlag"))){
