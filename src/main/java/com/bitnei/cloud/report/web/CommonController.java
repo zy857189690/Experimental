@@ -1,12 +1,18 @@
 package com.bitnei.cloud.report.web;
 
+import com.bitnei.cloud.common.ExcelUtil;
 import com.bitnei.cloud.common.annotation.Module;
 import com.bitnei.cloud.report.service.ICommonService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 公共接口
@@ -17,6 +23,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/report/common")
 public class CommonController {
 
+    @Value("${file.base}")
+    private String base;
+    @Value("${file.templateQuery}")
+    private String templateQuery;
     private final Logger logger = Logger.getLogger(getClass());
     @Autowired
     private ICommonService commonService;
@@ -75,5 +85,19 @@ public class CommonController {
     @ResponseBody
     public String queryVehStageList() {
         return commonService.queryVehStageList();
+    }
+
+    /**
+     * 下载模板公用类
+     * @param request
+     * @param response
+     */
+    @GetMapping(value = "/downLoadModel")
+    public void downLooadModel(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            ExcelUtil.downloadModel(request, response, base, templateQuery);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

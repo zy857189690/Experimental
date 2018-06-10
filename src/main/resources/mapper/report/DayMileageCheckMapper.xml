@@ -11,8 +11,85 @@
     <sql id="baseColumns">
         d.*
     </sql>
+
+    <!-- 添加查询条件 -->
+    <sql id="addQueryCriteria">
+        <if test="reportDateStart!=null and reportDateStart!=''">
+            AND   VDMC.REPORT_DATE &gt;=   #{reportDateStart,jdbcType=VARCHAR}
+        </if>
+        <if test="reportDateEnd!=null and reportDateEnd!=''">
+            AND   VDMC.REPORT_DATE &lt;= #{reportDateEnd,jdbcType=VARCHAR}
+        </if>
+
+        <if test="vin!=null and vin!=''">
+            <bind name="vin" value="'%'+vin+'%'"/>
+            AND SV.VIN LIKE  #{vin}
+        </if>
+        <if test="licensePlate!=null and licensePlate!=''">
+            <bind name="licensePlate" value="'%'+licensePlate+'%'"/>
+            AND SV.LICENSE_PLATE LIKE  #{licensePlate}
+        </if>
+
+
+
+
+        <if test="dayVaildMileage!=null and dayVaildMileage!=''">
+            AND   VDMC.DAY_VAILD_MILEAGE &gt;= #{dayVaildMileage}
+        </if>
+        <if test="dayGpsMileage!=null and dayGpsMileage!=''">
+            AND   VDMC.DAY_GPS_MILEAGE &gt;= #{dayGpsMileage}
+        </if>
+        <if test="dayOnlineMileage!=null and dayOnlineMileage!=''">
+            AND   VDMC.DAY_VAILD_MILEAGE &gt;= #{dayOnlineMileage}
+        </if>
+
+        /*字典查询项*/
+        /*运营单位*/
+        <if test="unit!=null and unit!=''">
+            AND  UNITUSE.id = #{unit}
+        </if>
+        /* 车型*/
+        <if test="vehModelNum!=null and vehModelNum!=''">
+            AND  SVM.id = #{vehModelNum}
+        </if>
+        /* 车辆种类 */
+        <if test="vehtype!=null and vehtype!=''">
+            AND  SYSDICT.id = #{vehtype}
+        </if>
+        /* 上牌区域*/
+        <if test="veharea!=null and veharea!=''">
+            AND  SYSAREA.id =  #{veharea}
+        </if>
+
+    </sql>
+
     <sql id="moreColumns">
-        d.*
+        VDMC.ID,
+        VDMC.REPORT_DATE,
+        VDMC.FIRST_ONLINE_TIME,
+        VDMC.FIRST_START_MILEAGE ,
+        VDMC.LAST_COMMIT_TIME,
+        VDMC.LAST_END_MILEAGE,
+        VDMC.CHECK_DATA_TOTAL_NUM,
+        VDMC.INVALID_NUM,
+        VDMC.ABNORMAL_NUM,
+        VDMC.DAY_ONLINE_MILEAGE,
+        VDMC.DEDUCT_JUMP_MILEAGE,
+        VDMC.DEDUCT_CURRENT_MILEAGE,
+        VDMC.DAY_VAILD_MILEAGE,
+        VDMC.DAY_GPS_MILEAGE,
+        VDMC.VAILD_GPS_DEVIATION,
+        VDMC.ONLINE_VAILD_DEVIATION,
+        VDMC.DAY_CHECK_MILEAGE,
+        SU.NAME AS MAKER,
+        SV.LICENSE_PLATE,
+        SV.VIN,
+        SVM.VEH_MODEL_NUM,
+        SYSDICT.NAME AS VEHTYPE,
+        SYSAREA.NAME AS  VEHAREA,
+        UNITUSE.NAME  AS UNIT,
+        SUT.CODE AS UNIT_TYPE_CODE,
+        SUT.NAME AS UNIT_TYPE_NAME
     </sql>
 
     <!-- 查询所有的结果 -->
@@ -58,18 +135,73 @@
 
     <!-- 分页查询 -->
     <select id="pagerModel" resultMap="tailResults" parameterType="java.util.HashMap">
-        select
+        SELECT
         <include refid="moreColumns"/>
-        from
-        veh_dayreport_fullstate d
+        FROM       VEH_DAYREPORT_MILEAGE_CHECK VDMC
+        LEFT JOIN  SYS_VEHICLE SV ON VDMC.VIN = SV.VIN
+        LEFT JOIN  SYS_UNIT SU    ON  SU.ID =  SV.MANU_UNIT_ID
+        LEFT JOIN  SYS_VEH_MODEL  SVM ON SV.VEH_MODEL_ID=SVM.ID
+        LEFT JOIN  SYS_DICT SYSDICT  ON SYSDICT.ID = SV.VEH_TYPE_ID
+        LEFT JOIN  SYS_AREA SYSAREA   ON   SYSAREA.ID = SV.SYS_DIVISION_ID
+        LEFT JOIN  SYS_UNIT UNITUSE    ON  UNITUSE.ID =  SV.USE_UINT_ID
+        LEFT JOIN  SYS_UNIT_TYPE  SUT ON  SU.UNIT_TYPE_ID= SUT.ID
         where
         1=1
-        <if test="dictField != null">
-        and d.dict_field = #{dictField}
+
+        <if  test="adminFlag == 0">
+            <include refid="addQueryCriteria"/>
         </if>
-        <if test="nameField != null">
-        and d.name_field = #{nameField}
+
+        <if  test="adminFlag == 1">
+            <if test="vehicId!=null and vehicId!=''">
+                AND    VDMC.ID  IN   ${vehicId}
+            </if>
         </if>
 
     </select>
+
+    <!-- 根据车牌vin查询出所有的车的ID -->
+    <select id="findInForVinAndLic" resultMap="tailResults" parameterType="java.util.HashMap">
+        SELECT
+        <include refid="moreColumns"/>
+        FROM       VEH_DAYREPORT_MILEAGE_CHECK VDMC
+        LEFT JOIN  SYS_VEHICLE SV ON VDMC.VIN = SV.VIN
+        LEFT JOIN  SYS_UNIT SU    ON  SU.ID =  SV.MANU_UNIT_ID
+        LEFT JOIN  SYS_VEH_MODEL  SVM ON SV.VEH_MODEL_ID=SVM.ID
+        LEFT JOIN  SYS_DICT SYSDICT  ON SYSDICT.ID = SV.VEH_TYPE_ID
+        LEFT JOIN  SYS_AREA SYSAREA   ON   SYSAREA.ID = SV.SYS_DIVISION_ID
+        LEFT JOIN  SYS_UNIT UNITUSE    ON  UNITUSE.ID =  SV.USE_UINT_ID
+        LEFT JOIN  SYS_UNIT_TYPE  SUT ON  SU.UNIT_TYPE_ID= SUT.ID
+        where
+        1=1
+        <if test="vin!=null and vin!=''">
+            AND SV.vin    =  #{vin}
+        </if>
+        <if test="lic!=null and lic!=''">
+            AND SV.LICENSE_PLATE    =  #{lic}
+        </if>
+    </select>
+
+
+
+    <!--  按照id查询 -->
+    <select id="pagerModelForId" resultMap="tailResults" parameterType="java.util.HashMap">
+        SELECT
+        <include refid="moreColumns"/>
+        FROM       VEH_DAYREPORT_MILEAGE_CHECK VDMC
+        LEFT JOIN  SYS_VEHICLE SV ON VDMC.VIN = SV.VIN
+        LEFT JOIN  SYS_UNIT SU    ON  SU.ID =  SV.MANU_UNIT_ID
+        LEFT JOIN  SYS_VEH_MODEL  SVM ON SV.VEH_MODEL_ID=SVM.ID
+        LEFT JOIN  SYS_DICT SYSDICT  ON SYSDICT.ID = SV.VEH_TYPE_ID
+        LEFT JOIN  SYS_AREA SYSAREA   ON   SYSAREA.ID = SV.SYS_DIVISION_ID
+        LEFT JOIN  SYS_UNIT UNITUSE    ON  UNITUSE.ID =  SV.USE_UINT_ID
+        LEFT JOIN  SYS_UNIT_TYPE  SUT ON  SU.UNIT_TYPE_ID= SUT.ID
+        where
+        1=1
+
+                <if test="listId!=null and listId!=''">
+                    AND    VDMC.ID  IN   ${listId}
+                </if>
+    </select>
+
 </mapper>

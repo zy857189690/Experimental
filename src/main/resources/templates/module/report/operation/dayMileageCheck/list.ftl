@@ -35,8 +35,7 @@
            data-options="iconCls:'icon-remove'" >删除</a>
         </@shiro.hasPermission>-->
         <@shiro.hasPermission name="/report/demo1/export">
-            <a href="#" onclick="exportDatagrid('${base}/report/demo1/export','form_search','table')" class="easyui-linkbutton"
-               data-options="iconCls:'icon-export'" menu="0">导出</a>
+             <input type="button" value="导出" onclick="gridList()"  />
         </@shiro.hasPermission>
 
     </div>
@@ -52,14 +51,14 @@
                         <label>条件查询</label>
                     </td>
                     <td class="td_input">
-                        <input type="radio" name="adminFlag" data-options="selected:true" value="0" style="width: height: 26px;width:100px;" ></input>
+                        <input type="radio" name="query.adminFlag"  checked="checked"  value="0" style="width: height: 26px;width:100px;" ></input>
 
                     </td>
                     <td class="td_label">
                         <label>导入查询</label>
                     </td>
                     <td class="td_input">
-                        <input type="radio" name="adminFlag" value="1"  style="width: height: 26px;width:100px;"></input>
+                        <input type="radio" name="query.adminFlag" value="1"  style="width: height: 26px;width:100px;"></input>
                      </td>
                 </tr>
                 <tr>
@@ -67,63 +66,69 @@
                             <label>统计日期</label>
                         </td>
                         <td class="td_input">
-                            <input id="dd" type="text" class="easyui-datebox" style="width: height: 26px;width:100px;" required="required">
+                            <input id="dd" type="text" class="easyui-datebox" name="query.reportDateStart"  style="width: height: 26px;width:100px;" >
                          </td>
                     <td class="td_label">
                         <label>至</label>
                     </td>
                     <td class="td_input">
-                              <input id="dd" type="text" class="easyui-datebox" style="width: height: 26px;width:100px;"  required="required">
+                              <input id="dd" type="text" class="easyui-datebox"  name="query.reportDateEnd" style="width: height: 26px;width:100px;"  >
                         </td>
 
                     <td class="td_label">
                             <label>VIN</label>
                         </td>
                         <td class="td_input">
-                            <input type="text"class="input-fat input" style="width: height: 26px;width:100px;"   name="query.dictField"  autocomplete="off" >
+                            <input type="text" class="input-fat input" name="query.vin"  style="width: height: 26px;width:100px;"     autocomplete="off" >
                         </td>
 
                     <td class="td_label">
                             <label>车牌号</label>
                         </td>
                         <td class="td_input">
-                            <input type="text"class="input-fat input" style="width: height: 26px;width:100px;"   name="query.dictField"  autocomplete="off" >
+                            <input type="text" class="input-fat input" name="query.licensePlate"  style="width: height: 26px;width:100px;"     autocomplete="off" >
                         </td>
                     <td class="td_label">
                             <label>车辆种类</label>
                         </td>
                         <td class="td_input">
-                            <input type="text"class="input-fat input" style="width: height: 26px;width:100px;"   name="query.dictField"  autocomplete="off" >
+                            <input type="text" id="vehTypeId" class="input-fat input" name="query.vehtype"  style="width: height: 26px;width:100px;"     autocomplete="off" >
+                        </td>
+                    <td class="td_label">
+                            <label>车型型号</label>
+                        </td>
+                        <td class="td_input">
+                            <input type="text" id="vehModelName" class="input-fat input" name="query.vehModelNum"  style="width: height: 26px;width:100px;"     autocomplete="off" >
                         </td>
                     <td class="td_label">
                             <label>运营单位</label>
                         </td>
                         <td class="td_input">
-                            <input type="text"class="input-fat input" style="width: height: 26px;width:100px;"   name="query.dictField"  autocomplete="off" >
+                            <input type="text" id="useUnitId" class="input-fat input" name="query.unit"  style="width: height: 26px;width:100px;"     autocomplete="off" >
                         </td>
                     <td class="td_label">
                             <label>上牌区域</label>
                         </td>
                         <td class="td_input">
-                            <input type="text"class="input-fat input" style="width: height: 26px;width:100px;"   name="query.dictField"  autocomplete="off" >
+                            <input type="text" id="areaId" class="input-fat input" name="query.veharea"  style="width: height: 26px;width:100px;"     autocomplete="off" >
                         </td>
                     <td class="td_label">
                             <label>当日有效里程大于（km）</label>
                         </td>
                         <td class="td_input">
-                            <input type="text"class="input-fat input" style="width: height: 26px;width:100px;"   name="query.dictField"  autocomplete="off" >
+                            <input type="text" class="input-fat input" name="query.dayVaildMileage"  style="width: height: 26px;width:100px;"     autocomplete="off" >
                         </td>
                     <td class="td_label">
                             <label>当日轨迹里程大于（km）</label>
                         </td>
                         <td class="td_input">
-                            <input type="text"class="input-fat input" style="width: height: 26px;width:100px;"   name="query.dictField"  autocomplete="off" >
+                            <input type="text" class="input-fat input" name="query.dayGpsMileage"  style="width: height: 26px;width:100px;"     autocomplete="off" >
                         </td>
                     <td class="td_label">
                             <label>当日在线里程大于（km）</label>
                         </td>
                         <td class="td_input">
-                            <input type="text"class="input-fat input" style="width: height: 26px;width:100px;"   name="query.dictField"  autocomplete="off" >
+                            <input type="text" class="input-fat input"   name="query.dayOnlineMileage"  style="width: height: 26px;width:100px;"   autocomplete="off" >
                         </td>
                         <td class="td_label">
                             <label>文件上传</label>
@@ -157,31 +162,32 @@
         sortName: "ID",
         sortOrder: "desc",
         columns: [[
-            {field: 'ck', checkbox: true, width: '20'},
-            {field: 'id', title: '序号', width: '90'},
-            {field: 'id', title: 'id', width: '20'},
-            {field: 'id', title: 'VIN', width:  90 },
-            {field: 'id', title: '车牌号', width: '90'},
-            {field: 'id', title: '统计日期', width: '90'},
-            {field: 'id', title: '当日首次上线时间', width: '90'},
-            {field: 'id', title: '当日开始里程(KM)', width: '90'},
-            {field: 'id', title: '当日最后通讯时间', width: '90'},
-            {field: 'id', title: '当日结束里程(KM)', width: '90'},
-            {field: 'id', title: '核查数据总条数(条)', width: '90'},
-            {field: 'id', title: '含无效数据条数(条)', width: '90'},
-            {field: 'id', title: '含异常数据条数(条)', width: '90'},
-            {field: 'id', title: '当日上线里程(KM)', width: '90'},
-            {field: 'id', title: '总跳变扣除里程(KM)', width: '90'},
-            {field: 'id', title: '总连续电流扣除里程(KM)', width: '90'},
-            {field: 'id', title: '当日有效里程(KM)', width: '90'},
-            {field: 'id', title: '当日轨迹里程(KM)', width: '90'},
-            {field: 'id', title: '有效里程和轨迹里程相对误差（百分比）', width: '90'},
-            {field: 'id', title: '上线里程和有效里程相对误差（百分比）', width: '90'},
-            {field: 'id', title: '单日核算里程(KM)', width: '90'},
-            {field: 'id', title: '上牌区域', width: '90'},
-            {field: 'id', title: '运营单位', width: '90'},
-            {field: 'id', title: '车辆型号', width: '90'},
-            {field: 'id', title: '车辆种类', width: '90'},
+            {field: 'ck', checkbox: true,align:'center', width: '20'},
+            {field: 'id', title: '序号',align:'center', width: '90', formatter: function (value, row, index) {
+                return index+1;
+            }},
+            {field: 'vin', title: 'VIN',align:'center', width: '100' },
+            {field: 'licensePlate', title: '车牌号',align:'center', width: '100'},
+            {field: 'reportDate', title: '统计日期',align:'center', width: '100'},
+            {field: 'firstOnlineTime', title: '当日首次上线时间',align:'center', width: '160'},
+            {field: 'firstStartMileage', title: '当日开始里程(KM)',align:'center', width: '160'},
+            {field: 'lastCommitTime', title: '当日最后通讯时间',align:'center', width: '160'},
+            {field: 'lastEndMileage', title: '当日结束里程(KM)',align:'center', width: '160'},
+            {field: 'checkDataTotalNum', title: '核查数据总条数(条)',align:'center', width: '160'},
+            {field: 'invalidNum', title: '含无效数据条数(条)',align:'center', width: '160'},
+            {field: 'abnormalNum', title: '含异常数据条数(条)',align:'center', width: '160'},
+            {field: 'dayOnlineMileage', title: '当日上线里程(KM)',align:'center', width: '140'},
+            {field: 'deductJumpMileage', title: '总跳变扣除里程(KM)',align:'center', width: '160'},
+            {field: 'deductCurrentMileage', title: '总连续电流扣除里程(KM)',align:'center', width: '160'},
+            {field: 'dayVaildMileage', title: '当日有效里程(KM)',align:'center', width: '160'},
+            {field: 'dayGpsMileage', title: '当日轨迹里程(KM)',align:'center', width: '160'},
+            {field: 'vaildGpsDeviation', title: '有效里程和轨迹里程相对误差（百分比）',align:'center', width: '220'},
+            {field: 'onlineVaildDeviation', title: '上线里程和有效里程相对误差（百分比）',align:'center', width: '220'},
+            {field: 'dayCheckMileage', title: '单日核算里程(KM)',align:'center', width: '160'},
+            {field: 'veharea', title: '上牌区域',align:'center', width: '90'},
+            {field: 'unit', title: '运营单位',align:'center', width: '90'},
+            {field: 'vehModelNum', title: '车辆型号',align:'center', width: '90'},
+            {field: 'vehtype', title: '车辆种类',align:'center', width: '90'},
         ]],
         toolbar: "#toolbar",
         pagination: true,
@@ -193,6 +199,10 @@
 
 </script>
 <script language="javascript">
+    $(function(){
+
+        initSelectChoose();
+    });
     /**
      * 增加
      */
@@ -266,7 +276,6 @@
             if (xhr.readyState == 4){
                  // alert(xhr.responseText);
                   var data =  eval("("+xhr.responseText+")");
-                alert(data.code)
                 if (data.code == 0) {
                     $.messager.show({
                         title:'文件解析结果',
@@ -274,6 +283,7 @@
                         timeout:2000,
                         showType:'slide'
                     });
+                    searchDatagrid('form_search','table')
                 } else {
                     $.messager.show({
                         title:'文件解析结果',
@@ -291,6 +301,77 @@
     function downFile() {
         var downUrl = "${base}/report/operation/dayMileageCheck/downLooadModel?moduleName=model&fileName=templateQuery.xlsx";
         window.open(downUrl);
+    }
+
+    /*导出列表*/
+    function gridList() {
+       var url= '${base}/report/operation/dayMileageCheck/export';
+       var formId= 'form_search';
+       var gridId=  'table';
+       var listId="";
+
+        if (formId == undefined || formId == null) {
+            formId = "form_search";
+        }
+        var myUrl = url;
+        var searchParames = $('#' + formId).serializeObject();
+        //获取选中行数据
+        var rows = $("#" + gridId).datagrid("getSelections");
+        if(rows.length <= 0){
+            alert("请勾选导出的数据");
+            return;
+        }
+        for(var i=0;i<rows.length;i++){
+            listId+="\'"+rows[i].id+"\',";
+        }
+        if(rows.length>0){
+            listId="("+listId+ "\'\')";
+
+        }
+        var rowAll = $("#" + gridId).datagrid("getRows");
+        //定义是否是选中导出
+        var stutsEx;
+        if(rowAll.length == rows.length){
+            stutsEx= '';
+        }else {
+                stutsEx= '1';
+        }
+
+        searchParames['query.listId'] = listId;
+        searchParames['query.stutsEx'] = stutsEx;
+        myUrl += '?exportId=' + new Date().getTime();
+        for (var key in searchParames) {
+            var value = searchParames[key];
+            if (value != "") {
+                myUrl += ("&" + key + "=" + value);
+            }
+        }
+        window.open(myUrl, '_blank');
+    }
+
+
+    /**
+     * 初始化下拉选择框
+     */
+    function initSelectChoose() {
+        //上牌区域
+        $('#areaId').combotree({
+            url: '${base}/report/common/queryAreaList'
+        });
+        //运营单位
+        $('#useUnitId').combotree({
+            url: '${base}/report/common/queryUnitList'
+        });
+        //车辆型号
+        $('#vehModelName').combobox({
+            url: '${base}/report/common/queryVehModelList',
+            valueField: 'id',
+            textField: 'text'
+        });
+        //车辆种类
+        $('#vehTypeId').combotree({
+            url: '${base}/report/common/queryVehTypeList'
+        });
     }
 </script>
 </html>
