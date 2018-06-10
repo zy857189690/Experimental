@@ -109,6 +109,59 @@ public class VehHistoryService extends BaseService implements IVehHistoryService
 		return appBean;
 	}
 
+	@Override
+	public void importExport(MultipartFile file, String identity) throws Exception{
+
+		DataGridOptions options = ServletUtil.getDataLayOptions();
+		List<Map> lisVin  =  ExcelUtil.getVehicleInformation(file);
+
+		//循环处理VIN、车牌号
+		List<String> vinList = new ArrayList<>();
+		List<String> licensePlateList = new ArrayList<>();
+
+		for (Map<String, String> map : lisVin) {
+			String vin = map.get("vin");
+			if (!StringUtils.isEmpty(vin)) {
+				vinList.add(vin);
+				continue;
+			}
+			String licensePlate = map.get("lic");
+			if (!StringUtils.isEmpty(licensePlate)) {
+				licensePlateList.add(licensePlate);
+			}
+		}
+
+		boolean sign = false;
+		if (vinList.size() > 0 || licensePlateList.size() > 0 ) {
+			options.getParams().put("vinList",vinList);
+			sign = true;
+		}
+
+		if (licensePlateList.size() > 0 ) {
+			options.getParams().put("licensePlateList", licensePlateList);
+			sign = true;
+		}
+
+		if (sign) {
+			options.getParams().put("identity", identity);
+		}
+
+		List list = findBySqlId("pagerModel",ServletUtil.getQueryParams());
+		this.cyclicData(list);
+		DataLoader.loadNames(list);
+		DataLoader.loadDictNames(list);
+
+		String srcBase = RequestContext.class.getResource("/templates/").getFile();
+		String srcFile = srcBase +"module/report/workCondition/vehHistory/export.xls";
+
+		ExcelData ed = new ExcelData();
+		ed.setTitle("车辆历史状态报表");
+		ed.setExportTime(DateUtil.getNow());
+		ed.setData(list);
+		String outName = String.format("%s-导出-%s.xls", "车辆历史状态报表", DateUtil.getNow());
+		EasyExcel.renderResponse(srcFile,outName,ed);
+	}
+
 	/**
 	 * 循环返回数据中的数据，处理位置/充电状态信息
 	 * @param list
@@ -127,6 +180,11 @@ public class VehHistoryService extends BaseService implements IVehHistoryService
 			String chargeDischargeState = String.valueOf(map.get("chargeDischargeState"));
 			String chargeDischargeStateName = CommonDataTypeRetrun.findChargeDischargeState(chargeDischargeState);
 			map.put("chargeDischargeStateName", chargeDischargeStateName);
+
+			//车辆状态名称
+			String vehState = String.valueOf(map.get("vehState"));
+			String vehStateName = CommonDataTypeRetrun.findVehStateName(vehState);
+			map.put("vehStateName", vehStateName);
 		}
 	}
 }

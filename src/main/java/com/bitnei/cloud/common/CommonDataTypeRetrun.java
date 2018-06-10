@@ -37,4 +37,33 @@ public class CommonDataTypeRetrun {
 		}
 		return name;
 	}
+
+	/**
+	 * 车辆状态标识转换成车辆状态名称
+	 * @param vehState
+	 * @return
+	 */
+	public static String findVehStateName(String vehState) {
+		String name;
+		switch (vehState) {
+			case "1":
+				name = "启动";
+				break;
+			case "2":
+				name = "熄火";
+				break;
+			case "3":
+				name = "其他";
+				break;
+			case "254":
+				name = "异常";
+				break;
+			case "255":
+				name = "无效";
+				break;
+			default:
+				name = "";
+		}
+		return name;
+	}
 }

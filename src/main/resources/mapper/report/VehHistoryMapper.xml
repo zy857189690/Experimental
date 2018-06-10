@@ -13,6 +13,7 @@
         svm.model_notice_id AS modelNoticeId,
         smu.name AS manuUnitName,
         sd2.name AS registerstatus,
+        vhs.state AS vehState,
         sun.name AS useUnitName,
         area.name AS areaName,
         veh.first_reg AS firstReg,

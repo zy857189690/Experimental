@@ -31,4 +31,9 @@ public interface IVehHistoryService {
 	 */
 	AppBean importQuery(MultipartFile file, String identity) throws Exception;
 
+	/**
+	 * 导入查询导出
+	 */
+	void importExport(MultipartFile file, String identity) throws Exception;
+
 }

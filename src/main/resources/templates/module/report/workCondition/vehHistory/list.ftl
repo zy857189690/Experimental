@@ -2,20 +2,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<<#include "../../../../inc/meta.ftl">
-<<#include  "../../../../inc/js.ftl">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<#include "../../../../inc/meta.ftl">
+<#include  "../../../../inc/js.ftl">
     <style type="text/css">
         .td_input a:not(.bg_button) {
             right: 20px !important;
         }
     </style>
-    <script language="javascript">
-    </script>
 </head>
 <body class="easyui-layout" fit="true" id="fullid">
 
-<div id="win" class="easyui-window" title="导入查询" style="width:400px;height:200px;top:105px;"
-     data-options="iconCls:'icon-save',modal:true,closed:true">
+<div id="win" class="easyui-window" title="导入查询" style="width:400px;height:200px;top:105px;" data-options="modal:true,closed:true">
     <div id="cc" class="easyui-layout">
         <label>导入查询文件</label>
         <input type="file" id="file" style="width:100px;" name="query.myfile" />
@@ -23,12 +21,64 @@
     </div>
 </div>
 
+<div id="report" class="easyui-window" title="报表说明" style="width:853px;height:100%;" data-options="modal:true,closed:true">
+    <div class="easyui-layout">
+        <table class="easyui-datagrid">
+            <thead>
+            <tr>
+                <th data-options="field:'code'">名称</th>
+                <th data-options="field:'name'">定义</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>车辆阶段</td><td>待检测、待入库、入库、出厂待销售、已销售、运营中、已报废</td>
+            </tr>
+            <tr>
+                <td>仪表里程</td><td>最后一帧上传的里程数据</td>
+            </tr>
+            <tr>
+                <td>车辆状态</td><td>32960协议里的状态：启动、熄火、其他、异常、无效</td>
+            </tr>
+            <tr>
+                <td>总电压</td><td>生成快照时的上传数据</td>
+            </tr>
+            <tr>
+                <td>总电流</td><td>生成快照时的上传数据</td>
+            </tr>
+            <tr>
+                <td>车速</td><td>生成快照时的上传数据，显示实际上传数值，车速数值为空的则该字段为空</td>
+            </tr>
+            <tr>
+                <td>SOC</td><td>生成快照时的上传数据</td>
+            </tr>
+            <tr>
+                <td>地理位置</td><td>生成快照时的地理位置，GPS数值转译后的实际地理名称</td>
+            </tr>
+            <tr>
+                <td>最后通讯时间</td><td>车辆在生成快照前，最后与平台通讯的时间，含自动唤醒</td>
+            </tr>
+            <tr>
+                <td>有效CAN数据最后上传时间</td><td>CAN数据有效性仅作车速、里程、总电压、总电流、GPS经纬度、SOC值、时间有效性的判断；  上述字段均不为空，有效范围内</td>
+            </tr>
+            <tr>
+                <td>最后一次充电时间</td><td>是最后一次上传充电状态的时间（包含停车充电或充电完成状态的时间）</td>
+            </tr>
+            <tr>
+                <td>充放电状态</td><td>32960协议里的状态：停车充电、行驶充电、未充电、充电完成、异常、无效</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 <div region="center" style="overflow: hidden;width: 100%;">
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
         <@shiro.hasPermission name="/report/workCondition/vehHistory/export">
-            <a href="#" onclick="exportDatagrid('${base}/report/workCondition/vehHistory/export','form_search','table')" class="easyui-linkbutton"
+            <a href="#" onclick="exportData()" class="easyui-linkbutton"
                data-options="iconCls:'icon-export'" menu="0">导出</a>
         </@shiro.hasPermission>
+            <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0">报表说明</a>
     </div>
     <div id="table" name="datagrid" style="width: 100%;height: 100%"></div>
 </div>
@@ -107,9 +157,9 @@
 
                     <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
                         <a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
-                        <a href="#" onclick="resetDatagrid('form_search','table')" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
+                        <a href="#" onclick="resetButton()" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
                         <a href="#" onclick="importSeach()" data-options="iconCls:'icon-reset'">导入查询</a>
-                        <a href="#" onclick="resetDatagrid('form_search','table')" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
+                        <a href="#" onclick="downFile()" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
                     </td>
                 </tr>
             </table>
@@ -125,7 +175,23 @@
         initSelectChoose();
     });
 
+    //序列化搜索条件
     var queryParams = $('#form_search').serializeObject();
+
+    //重置使用参数对象(暂时存储初次加载的数据，用于重置事件)
+    var resetQueryParams = queryParams;
+
+    //重置
+    function resetButton(){
+        identity = "";
+    var startTimeTemp = "${startTime}";
+    var endTimeTemp = "${endTime}";
+        $("#startTime").datetimebox("setValue",startTimeTemp);
+        $("#endTime").datetimebox("setValue",endTimeTemp);
+        //初始化条件
+        initSelectChoose();
+        $('#table').datagrid("load", resetQueryParams);
+    }
 
    $('#table').datagrid({
         url: '${base}/report/workCondition/vehHistory/datagrid',
@@ -144,6 +210,7 @@
             {field: 'modelNoticeId', title: '车辆公告型号',align:'center',sortable: false},
             {field: 'manuUnitName', title: '车辆厂商',align:'center',sortable: false},
             {field: 'registerstatus', title: '车辆阶段',align:'center',sortable: false},
+            {field: 'vehStateName', title: '车辆状态',align:'center',sortable: false},
             {field: 'useUnitName', title: '运营单位',align:'center',sortable: false},
             {field: 'areaName', title: '上牌区域',align:'center',sortable: false},
             {field: 'firstReg', title: '激活时间',align:'center',sortable: false},
@@ -173,8 +240,13 @@
     toolbar2Menu("table");
 
 </script>
-<script language="javascript">
+<script language="javascript" charset=”utf-8″>
 
+
+    //标记导出功能是普通导出(值为"")，还是导入查询后的导出功能(值为"importType")
+    var identity = "";导出功能
+
+    /*校验开始时间/结束时间是否合法*/
     function checkTime(){
         //时间校验
         var endTime = $('#endTime').datetimebox("getValue");
@@ -201,15 +273,14 @@
 
     /*查询事件*/
     function searchButton(){
+        identity = "";
         if (checkTime()) {
             //请求查询
             searchDatagrid('form_search','table');
         }
     }
 
-    /**
-     * 初始化下拉选择框
-     */
+    /*初始化下拉选择框*/
     function initSelectChoose() {
         //上牌区域
         $('#areaId').combotree({
@@ -257,12 +328,12 @@
         });
     }
 
-    //导入查询弹窗口
+    /*导入查询弹窗口*/
     function importSeach(){
         $('#win').window('open');
     }
 
-    //导入查询弹窗查询事件
+    /*导入查询弹窗查询事件*/
     function importSearchButton(){
         if (!checkTime()) {
             return;
@@ -274,6 +345,7 @@
 
             //importType 导入查询标识，用于区分SQL拼接
             formData.append("identity", "importType");
+            identity = "importType";
             $.ajax({
                 url : "${base}/report/workCondition/vehHistory/improtSearch",
                 type : 'POST',
@@ -284,7 +356,6 @@
                 processData : false,
                 success : function(data) {
                     if (data.code == 0) {
-                        debugger;
                         var loadData = data.message.length == 0 ? {} :$.parseJSON(data.message);
                         $('#table').datagrid('loadData', loadData);
                         $('#win').window('close');
@@ -297,8 +368,6 @@
                     $.messager.alert('提示','请求系统失败！！');
                 }
             });
-        }else {
-            $.messager.alert('提示','请求失败！');
         }
     }
 
@@ -322,6 +391,77 @@
             return false;
         }
         return true;
+    }
+
+    /*模板下载*/
+    function downFile() {
+        <#--var downUrl = "${base}/report/workCondition/vehHistory/downLooadModel?moduleName=model&fileName=templateQuery.xlsx";-->
+        <#--window.open(downUrl);-->
+    }
+
+    /*报表说明弹框*/
+    function reportSpecification(){
+        $('#report').window("open");
+    }
+
+    /*导出功能*/
+    function exportData() {
+        //校验开始结束时间是否合法
+        if (!checkTime()) {
+            return;
+        }
+
+        //普通的导出
+        if (identity == "") {
+            exportDatagrid('${base}/report/workCondition/vehHistory/export', 'form_search', 'table');
+        }
+        //导入查询后的导出
+        if (identity == "importType") {
+            var xhh = new XMLHttpRequest();
+            var formData = new FormData($("#form_search")[0]);
+            var formData = new FormData($("#form_search")[0]);
+            var file = document.getElementById("file").files[0];
+
+            if (fileCheck(file)) {
+                formData.append("file", file);
+                //importType 导入查询标识，用于区分SQL拼接
+                formData.append("identity", "importType");
+                xhh.response
+                xhh.open("post", "${base}/report/workCondition/vehHistory/importExport");
+                xhh.responseType = 'blob';
+                xhh.onreadystatechange = function () {
+                    if (xhh.readyState === 4 && xhh.status === 200) {
+                        var name = xhh.getResponseHeader("Content-disposition");
+                        var contentType = xhh.getResponseHeader("Content-type");
+                        console.log("name:" + name + "==" + contentType);
+                        var dataStr = new Date().Format("yyyyMMddhhmmss");
+                        var filename = name.substring(20, name.length);
+                        var blob = new Blob([xhh.response], {type: 'text/xls'});
+                        var csvUrl = URL.createObjectURL(blob);
+                        var link = document.createElement('a');
+                        link.href = csvUrl;
+                        var suf = checkSuffixes(contentType);
+                        link.download = "车辆历史状态报表-" + dataStr + suf;
+                        link.click();
+                    }
+                };
+                xhh.send(formData);
+            }
+        }
+    }
+
+    /**
+     * 判断文件后缀名
+     * @param suffixesName
+     * @returns {*}
+     */
+    function checkSuffixes(suffixesName) {
+        if (suffixesName.indexOf("zip") > 0) {
+            return ".zip";
+        }
+        if (suffixesName.indexOf("x-excel") > 0) {
+            return ".xls";
+        }
     }
 
 </script>

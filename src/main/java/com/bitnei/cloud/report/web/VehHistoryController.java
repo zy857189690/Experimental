@@ -9,6 +9,7 @@ import com.bitnei.commons.datatables.PagerModel;
 import org.apache.log4j.Logger;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +41,10 @@ public class VehHistoryController {
 
     @Autowired
     private IVehHistoryService vehHistoryService;
+    @Value("${file.base}")
+    private String base;
+    @Value("${file.templateQuery}")
+    private String templateQuery;
 
     /**
      * 车辆历史状态报表
@@ -112,5 +117,15 @@ public class VehHistoryController {
         return appBean;
     }
 
+    /**
+     * 查询导出
+     * @return
+     */
+    @PostMapping(value = "/importExport")
+    @RequiresPermissions(URL_EXPORT)
+    public void importExport(MultipartFile file, String identity) throws Exception {
+        vehHistoryService.importExport(file,identity);
+        return;
 
+    }
 }
