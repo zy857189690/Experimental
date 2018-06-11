@@ -87,7 +87,8 @@
 			<groupId>com.bitnei.cloud</groupId>
 			<artifactId>evsmc-module</artifactId>
 			<!--<version>1.0.1-build20180416-01</version>-->
-			<version>1.0.2-20180607-01</version>
+			<!--<version>1.0.2-20180607-01</version>-->
+			<version>1.0.3-201806010-01</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 		<dependency>
