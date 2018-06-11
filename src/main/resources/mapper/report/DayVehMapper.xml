@@ -5,10 +5,7 @@
     <resultMap id="dayVehInfo" type="com.bitnei.cloud.report.domain.DayVehInfo" autoMapping="true">
     </resultMap>
 
-    <!-- 按照查询时间段的日期倒序排序
-       有结果返回就要用select，sql标签是不返回结果的
-   -->
-    <select id="reportDate_desc"  resultMap="dayVehInfo" parameterType="java.util.HashMap">
+    <select id="pagerModel"  resultMap="dayVehInfo" parameterType="java.util.HashMap">
         SELECT
         DATE_FORMAT(v_e.report_date, '%Y-%m-%d') AS reportDate,
         veh.license_plate AS licensePlate,
@@ -51,18 +48,30 @@
         LEFT JOIN veh_dayreport_mileage_check v_m_c ON veh.vin = v_m_c.vin
         LEFT JOIN veh_dayreport_chargestate v_c ON veh.uuid = v_c.vid
         <include refid="Common.userVehiclePermission"/>
-        <if test="sbeginDate != null and sbeginDate != ''">
-            AND v_e.report_date <![CDATA[>=]]> #{sbeginDate}
+        <if test="startTime != null and startTime != ''">
+            AND v_e.report_date <![CDATA[>=]]> #{startTime}
         </if>
-        <if test="sendDate != null and sendDate != ''">
-            AND v_e.report_date <![CDATA[<=]]> #{sendDate}
+        <if test="endTime != null and endTime != ''">
+            AND v_e.report_date <![CDATA[<=]]> #{endTime}
         </if>
-        <if test="licensePlate != null and licensePlate != ''">
+        <if test="licensePlate != null and identity == null">
             AND veh.license_plate LIKE concat(concat('%',#{licensePlate}),'%')
         </if>
-        <if test="vin != null and vin != ''">
+        <if test="vin != null and identity == null">
             AND veh.vin LIKE concat(concat('%',#{vin}),'%')
         </if>
+        <if test="vinList != null and identity == 'importType'">
+            AND veh.vin IN
+            <foreach collection="vinList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="licensePlate != null and identity == 'importType'">
+            OR veh.license_plate IN
+            <foreach collection="licensePlateList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+         </if>
         <if test="vehTypeId != null and vehTypeId != ''">
             AND veh.veh_type_id = #{vehTypeId}
         </if>
@@ -75,8 +84,7 @@
         <if test="sysDivisionId != null and sysDivisionId != ''">
             AND s_a.id = #{sysDivisionId}
         </if>
-        GROUP BY veh.license_plate
-        ORDER BY v_e.report_date,veh.license_plate,veh.vin DESC
+        ORDER BY v_e.report_date DESC
     </select>
 
     <!--查询车辆种类下拉列表-->

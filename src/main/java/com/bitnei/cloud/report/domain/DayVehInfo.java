@@ -84,7 +84,7 @@ public class DayVehInfo extends TailBean {
     /**
      * 20、仪表总里程
      */
-    private Double lastMeterMileage;
+    private Double lastEndMileage;
     /**
      * 21、GPS总里程
      */
@@ -142,12 +142,12 @@ public class DayVehInfo extends TailBean {
      */
     private String lastCommunTime	;
 
-    public Double getLastMeterMileage() {
-        return lastMeterMileage;
+    public Double getLastEndMileage() {
+        return lastEndMileage;
     }
 
-    public void setLastMeterMileage(Double lastMeterMileage) {
-        this.lastMeterMileage = lastMeterMileage;
+    public void setLastEndMileage(Double lastEndMileage) {
+        this.lastEndMileage = lastEndMileage;
     }
 
     public Double getLastGpsMileage() {
