@@ -1,20 +1,29 @@
 package com.bitnei.cloud.report.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bitnei.cloud.App;
 import com.bitnei.cloud.common.PublicDealUtil;
+import com.bitnei.cloud.common.bean.AppBean;
 import com.bitnei.cloud.common.bean.ExcelData;
 import com.bitnei.cloud.common.util.DataLoader;
 import com.bitnei.cloud.common.util.DateUtil;
 import com.bitnei.cloud.common.util.EasyExcel;
 import com.bitnei.cloud.common.util.ServletUtil;
 import com.bitnei.cloud.orm.annation.Mybatis;
+import com.bitnei.cloud.report.domain.DayVehInfo;
 import com.bitnei.cloud.report.service.IDayVehService;
 import com.bitnei.cloud.service.impl.BaseService;
 import com.bitnei.commons.datatables.DataGridOptions;
 import com.bitnei.commons.datatables.PagerModel;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.RequestContext;
+import com.alibaba.druid.util.StringUtils;
+import com.alibaba.fastjson.JSONObject;
+import com.bitnei.cloud.common.ExcelUtil;
+import com.bitnei.cloud.common.bean.AppBean;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,15 +93,16 @@ public class DayVehService extends BaseService implements IDayVehService {
     public PagerModel pageQuery() {
 
         DataGridOptions options = ServletUtil.getDataLayOptions();
-        PagerModel pm = findPagerModel("reportDate_desc",options);
+        //加用户信息（权限）
+        options.setParams(PublicDealUtil.bulidUserForParams(options.getParams()));
+        PagerModel pm = findPagerModel("pagerModel",options);
         return pm;
     }
-
 
     @Override
     public void export() {
 
-        List list = findBySqlId("reportDate_desc",ServletUtil.getQueryParams());
+        List list = findBySqlId("pagerModel",PublicDealUtil.bulidUserForParams(ServletUtil.getQueryParams()));
         DataLoader.loadNames(list);
         DataLoader.loadDictNames(list);
 
@@ -106,7 +116,117 @@ public class DayVehService extends BaseService implements IDayVehService {
         String outName = String.format("%s-导出-%s.xls", "单车日报", DateUtil.getShortDate());
         EasyExcel.renderResponse(srcFile,outName,ed);
 
+    }
 
 
+    @Override
+    public AppBean importQuery(MultipartFile file, String identity) throws Exception{
+        AppBean appBean = new AppBean();
+        List<Map> lisVin  =  ExcelUtil.getVehicleInformation(file);//获取excel中车辆的信息数
+        if (lisVin.size() == 0) {
+            return new AppBean(-1, "文件内容不能为空！");
+        }
+
+        DataGridOptions options = ServletUtil.getDataLayOptions();
+        //加用户信息（权限）
+        options.setParams(PublicDealUtil.bulidUserForParams(options.getParams()));
+
+        //循环处理VIN、车牌号
+        List<String> vinList = new ArrayList<>();
+        List<String> licensePlateList = new ArrayList<>();
+        for (Map<String, String> map : lisVin) {
+            String vin = map.get("vin");
+            if (!StringUtils.isEmpty(vin)) {
+                vinList.add(vin);
+                continue;
+            }
+            String licensePlate = map.get("lic");
+            if (!StringUtils.isEmpty(licensePlate)) {
+                licensePlateList.add(licensePlate);
+            }
+        }
+
+        boolean sign = false;
+        if (vinList.size() > 0 || licensePlateList.size() > 0 ) {
+            options.getParams().put("vinList",vinList);
+            sign = true;
+        }
+
+        if (licensePlateList.size() > 0 ) {
+            options.getParams().put("licensePlateList", licensePlateList);
+            sign = true;
+        }
+
+        if (sign) {
+            options.getParams().put("identity", identity);
+        }
+        PagerModel pm = findPagerModel("pagerModel",options);
+        /**
+         * list中存放的就是导入文件查询到的许多辆车辆的信息
+         * 这个list可以先条件查询后，再合并导入条件查询。
+         */
+        List<Map> list = pm.getRows();
+        //this.cyclicData(list);
+        appBean.setMessage(JSONObject.toJSONString(pm));
+        return appBean;
+    }
+
+    @Override
+    public void importExport(MultipartFile file, String identity) throws Exception{
+
+        Map<String,Object> options = PublicDealUtil.bulidUserForParams(ServletUtil.getQueryParams());
+        List<Map> lisVin  =  ExcelUtil.getVehicleInformation(file);
+
+        //循环处理VIN、车牌号
+        List<String> vinList = new ArrayList<>();
+        List<String> licensePlateList = new ArrayList<>();
+
+        for (Map<String, String> map : lisVin) {
+            String vin = map.get("vin");
+            if (!StringUtils.isEmpty(vin)) {
+                vinList.add(vin);
+                continue;
+            }
+            String licensePlate = map.get("lic");
+            if (!StringUtils.isEmpty(licensePlate)) {
+                licensePlateList.add(licensePlate);
+            }
+        }
+
+        boolean sign = false;
+        if (vinList.size() > 0 || licensePlateList.size() > 0 ) {
+            options.put("vinList",vinList);
+            sign = true;
+        }
+
+        if (licensePlateList.size() > 0 ) {
+            options.put("licensePlateList", licensePlateList);
+            sign = true;
+        }
+
+        if (sign) {
+            options.put("identity", identity);
+        }
+        /**
+         * list返回的仍然是按条件查询的数据
+         */
+        List list = findBySqlId("pagerModel",options);
+        //PagerModel pm = findPagerModel("pagerModel",options);
+        //ArrayList list = new ArrayList();
+        //List<Map> listMap = pm.getRows();
+        //list.addAll(listMap);
+        //this.cyclicData(list);
+        DataLoader.loadNames(list);
+        DataLoader.loadDictNames(list);
+
+        String srcBase = RequestContext.class.getResource("/templates/").getFile();
+        String srcFile = srcBase +"module/report/workCondition/dayVeh/export.xls";
+
+        ExcelData ed = new ExcelData();
+        ed.setTitle("单车日报表");
+        ed.setExportTime(DateUtil.getNow());
+        ed.setData(list);
+        String outName = String.format("%s-导出-%s.xls", "单车日报表", DateUtil.getNow());
+        EasyExcel.renderResponse(srcFile,outName,ed);
     }
 }

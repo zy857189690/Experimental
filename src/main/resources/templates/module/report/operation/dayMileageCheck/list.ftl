@@ -163,7 +163,7 @@
         sortOrder: "desc",
         columns: [[
             {field: 'ck', checkbox: true,align:'center', width: '20'},
-            {field: 'id', title: '序号',align:'center', width: '90', formatter: function (value, row, index) {
+            {field: 'ids', title: '序号',align:'center', width: '90', formatter: function (value, row, index) {
                 return index+1;
             }},
             {field: 'vin', title: 'VIN',align:'center', width: '100' },
@@ -201,7 +201,7 @@
 <script language="javascript">
     $(function(){
 
-        initSelectChoose();
+                initSelectChoose();
     });
     /**
      * 增加
@@ -322,7 +322,7 @@
             return;
         }
         for(var i=0;i<rows.length;i++){
-            listId+="\'"+rows[i].id+"\',";
+            listId+="\'"+rows[i].ids+"\',";
         }
         if(rows.length>0){
             listId="("+listId+ "\'\')";
