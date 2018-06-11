@@ -112,7 +112,7 @@ public class VehHistoryService extends BaseService implements IVehHistoryService
 	@Override
 	public void importExport(MultipartFile file, String identity) throws Exception{
 
-		DataGridOptions options = ServletUtil.getDataLayOptions();
+		Map<String,Object> options = ServletUtil.getQueryParams();
 		List<Map> lisVin  =  ExcelUtil.getVehicleInformation(file);
 
 		//循环处理VIN、车牌号
@@ -133,17 +133,17 @@ public class VehHistoryService extends BaseService implements IVehHistoryService
 
 		boolean sign = false;
 		if (vinList.size() > 0 || licensePlateList.size() > 0 ) {
-			options.getParams().put("vinList",vinList);
+			options.put("vinList",vinList);
 			sign = true;
 		}
 
 		if (licensePlateList.size() > 0 ) {
-			options.getParams().put("licensePlateList", licensePlateList);
+			options.put("licensePlateList", licensePlateList);
 			sign = true;
 		}
 
 		if (sign) {
-			options.getParams().put("identity", identity);
+			options.put("identity", identity);
 		}
 
 		List list = findBySqlId("pagerModel",options);
