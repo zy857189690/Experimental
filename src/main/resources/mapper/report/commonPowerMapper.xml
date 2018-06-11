@@ -26,31 +26,31 @@
                 LEFT JOIN sys_area sa ON sa.id = veh.sys_division_id
                 LEFT JOIN sys_unit mu ON mu.id = veh.manu_unit_id
                 WHERE
-                mu.path LIKE CONCAT ('%', #{userUnitPath} ,'%')
-                AND sa.path LIKE CONCAT ('%', #{areaPath} ,'%')
+                mu.path LIKE '%${userUnitPath}%'
+                AND sa.path LIKE '%${areaPath}%'
             </when>
             <when test=" isLeader != null and isLeader == 1 and areaPath != '/0/' and unitTypeCode != '0001' ">
                 LEFT JOIN sys_area sa ON sa.id = veh.sys_division_id
                 LEFT JOIN sys_unit uu ON uu.id = veh.use_uint_id
                 WHERE
-                uu.path LIKE CONCAT ('%', #{userUnitPath} ,'%')
+                uu.path LIKE '%${userUnitPath}%'
                 AND
-                sa.path LIKE CONCAT ('%', #{areaPath} ,'%')
+                sa.path LIKE '%${areaPath}%'
             </when>
             <when test=" isLeader != null and isLeader == 1 and areaPath == '/0/' and unitTypeCode == '0001' ">
                 LEFT JOIN sys_unit mu ON mu.id = veh.manu_unit_id
                 WHERE
-                mu.path LIKE CONCAT ('%', #{userUnitPath} ,'%')
+                mu.path LIKE '%${userUnitPath}%'
             </when>
             <when test=" isLeader != null and isLeader == 1 and areaPath == '/0/' and unitTypeCode != '0001' ">
                 LEFT JOIN sys_unit uu ON uu.id = veh.use_uint_id
                 WHERE
-                uu.path LIKE CONCAT ('%', #{userUnitPath} ,'%')
+                uu.path LIKE '%${userUnitPath}%'
             </when>
             <when test=" isLeader != null and isLeader == 2 and areaPath != '/0/' ">
                 LEFT JOIN sys_area sa ON sa.id = veh.sys_division_id
                 WHERE
-                sa.path LIKE CONCAT ('%', #{areaPath} ,'%')
+                sa.path LIKE '%${areaPath}%'
             </when>
             <when test=" isLeader != null and isLeader == 2 and areaPath == '/0/' ">
                 WHERE 1 = 1
