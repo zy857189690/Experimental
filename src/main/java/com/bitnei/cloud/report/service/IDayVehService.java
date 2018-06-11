@@ -1,7 +1,13 @@
 package com.bitnei.cloud.report.service;
 
+import com.bitnei.cloud.common.bean.AppBean;
 import com.bitnei.cloud.service.IBaseService;
 import com.bitnei.commons.datatables.PagerModel;
+import com.bitnei.cloud.common.bean.AppBean;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.Map;
 
 public interface IDayVehService extends IBaseService{
     /**
@@ -35,8 +41,23 @@ public interface IDayVehService extends IBaseService{
      */
     PagerModel pageQuery();
 
+
     /**
      * 导出
      */
     void export();
+
+    /**
+     * 导入查询导出
+     */
+    void importExport(MultipartFile file, String identity) throws Exception;
+    /**
+     * 导入查询
+     * @param file
+     * @param identity
+     * @return
+     * @throws Exception
+     */
+    AppBean importQuery(MultipartFile file, String identity) throws Exception;
+
 }

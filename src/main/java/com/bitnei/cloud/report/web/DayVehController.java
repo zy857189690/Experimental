@@ -9,6 +9,7 @@ import com.bitnei.commons.datatables.PagerModel;
 import org.apache.log4j.Logger;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +34,10 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/report/workCondition/dayVeh")
 public class DayVehController {
+    @Value("${file.base}")
+    private String base;
+    @Value("${file.templateQuery}")
+    private String templateQuery;
     //模板文件目录
     public final static String BASE = "/module/report/workCondition/dayVeh/";
 
@@ -116,10 +124,8 @@ public class DayVehController {
     @ResponseBody
     @RequiresPermissions(URL_LIST)
     public PagerModel datagrid(){
-
-        PagerModel pm = dayVehService.pageQuery();
-        return pm;
-
+                PagerModel pm = dayVehService.pageQuery();
+                return pm;
     }
 
     /**
@@ -131,6 +137,7 @@ public class DayVehController {
      */
     @RequestMapping("/fileMin")
     @ResponseBody
+    @RequiresPermissions(URL_LIST)
     public AppBean fileMin(HttpServletRequest request) throws Exception {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
@@ -152,11 +159,23 @@ public class DayVehController {
         if (lisVin.size() == 0) {
             return new AppBean(-1, "文件内容不能为空！");
         }
-
         AppBean app = new AppBean();
         app.getData().put("path", "");//Map<String, Object>.put("path", "")
         app.getData().put("fileName", "");
         app.setMessage("");
+        /**
+         * 封装成key，对应许多值的一个list
+         */
+        List<String> licensePlateValue = new ArrayList<String>();//用来存车牌的value值。
+        List<String> vinValue = new ArrayList<String>();//用来存vin的value值
+        Map<String,Object> map = new HashMap<String,Object>();
+        for(int i=0;i<lisVin.size();i++){
+            licensePlateValue.add(lisVin.get(i).get("lic").toString());
+            vinValue.add(lisVin.get(i).get("vin").toString());
+        }
+        map.put("licensePlate",licensePlateValue);
+        map.put("vin",vinValue);
+        app.setData(map);
         return app;
     }
 
@@ -172,4 +191,59 @@ public class DayVehController {
         return ;
 
     }
+    /**
+     * 查询导出
+     * @return
+     */
+    @PostMapping(value = "/importExport")
+    @RequiresPermissions(URL_EXPORT)
+    public void importExport(MultipartFile file, String identity) throws Exception {
+        dayVehService.importExport(file,identity);
+        return;
+
+    }
+
+    /**
+     * 导入查询实现
+     * @param file
+     * @return
+     * @throws Exception
+     */
+    @PostMapping(value = "/improtSearch")
+    @ResponseBody
+    @RequiresPermissions(URL_LIST)
+    public AppBean improtSearch(MultipartFile file,String identity) throws Exception{
+
+        if (file == null) {
+            return new AppBean(-1, "文件获取失败！");
+        }
+
+        Long fileSize = file.getSize();
+        if (fileSize > 10240 * 1024) {
+            return new AppBean(-1, "文件大小超出最大10M限制！");
+        }
+
+        String fileName = file.getOriginalFilename();//获取上传文件的原名
+        String suffixName = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();//去掉文件名，获取文件的后缀
+        if (!".xls".equals(suffixName) && !".xlsx".equals(suffixName)) {
+            return new AppBean(-1, "上传文件格式不正确，确认文件后缀名为xls、xlsx！");
+        }
+
+        AppBean appBean = dayVehService.importQuery(file, identity);
+        return appBean;
+    }
+
+    /**
+     * 下载模板
+     * @return
+     */
+    @GetMapping(value = "/downLooadModel")
+    public void downLooadModel(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            ExcelUtil.downloadModel(request, response, base, templateQuery);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

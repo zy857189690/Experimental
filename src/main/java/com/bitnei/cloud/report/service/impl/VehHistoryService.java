@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.bitnei.cloud.common.CommonDataTypeRetrun;
 import com.bitnei.cloud.common.ConnectionGdApi;
 import com.bitnei.cloud.common.ExcelUtil;
+import com.bitnei.cloud.common.PublicDealUtil;
 import com.bitnei.cloud.common.bean.AppBean;
 import com.bitnei.cloud.common.bean.ExcelData;
 import com.bitnei.cloud.common.util.DataLoader;
@@ -37,6 +38,8 @@ public class VehHistoryService extends BaseService implements IVehHistoryService
 	public PagerModel pageQuery() {
 
 		DataGridOptions options = ServletUtil.getDataLayOptions();
+		//添加用户信息
+		options.setParams(PublicDealUtil.bulidUserForParams(options.getParams()));
 		PagerModel pm = findPagerModel("pagerModel",options);
 		List<Map> list = pm.getRows();
 		this.cyclicData(list);
@@ -46,7 +49,7 @@ public class VehHistoryService extends BaseService implements IVehHistoryService
 	@Override
 	public void export() {
 
-		List list = findBySqlId("pagerModel",ServletUtil.getQueryParams());
+		List list = findBySqlId("pagerModel", PublicDealUtil.bulidUserForParams(ServletUtil.getQueryParams()));
 		this.cyclicData(list);
 		DataLoader.loadNames(list);
 		DataLoader.loadDictNames(list);
@@ -71,6 +74,8 @@ public class VehHistoryService extends BaseService implements IVehHistoryService
 		}
 
 		DataGridOptions options = ServletUtil.getDataLayOptions();
+		//添加用户信息
+		options.setParams(PublicDealUtil.bulidUserForParams(options.getParams()));
 
 		//循环处理VIN、车牌号
 		List<String> vinList = new ArrayList<>();
@@ -112,7 +117,7 @@ public class VehHistoryService extends BaseService implements IVehHistoryService
 	@Override
 	public void importExport(MultipartFile file, String identity) throws Exception{
 
-		DataGridOptions options = ServletUtil.getDataLayOptions();
+		Map<String,Object> options = PublicDealUtil.bulidUserForParams(ServletUtil.getQueryParams());
 		List<Map> lisVin  =  ExcelUtil.getVehicleInformation(file);
 
 		//循环处理VIN、车牌号
@@ -133,20 +138,20 @@ public class VehHistoryService extends BaseService implements IVehHistoryService
 
 		boolean sign = false;
 		if (vinList.size() > 0 || licensePlateList.size() > 0 ) {
-			options.getParams().put("vinList",vinList);
+			options.put("vinList",vinList);
 			sign = true;
 		}
 
 		if (licensePlateList.size() > 0 ) {
-			options.getParams().put("licensePlateList", licensePlateList);
+			options.put("licensePlateList", licensePlateList);
 			sign = true;
 		}
 
 		if (sign) {
-			options.getParams().put("identity", identity);
+			options.put("identity", identity);
 		}
 
-		List list = findBySqlId("pagerModel",ServletUtil.getQueryParams());
+		List list = findBySqlId("pagerModel",options);
 		this.cyclicData(list);
 		DataLoader.loadNames(list);
 		DataLoader.loadDictNames(list);
