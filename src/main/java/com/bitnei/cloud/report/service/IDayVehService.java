@@ -60,4 +60,5 @@ public interface IDayVehService extends IBaseService{
      */
     AppBean importQuery(MultipartFile file, String identity) throws Exception;
 
+    String getDate(int d);
 }

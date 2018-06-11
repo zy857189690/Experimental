@@ -130,7 +130,7 @@
 
                     <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
                         <a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
-                        <a href="#" onclick="resetDatagrid('form_search','table')" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
+                        <a href="#" onclick="resetButton()" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
 
                         <a href="#" onclick="importSeach()" data-options="iconCls:'icon-reset'">导入查询</a>
                         <a href="#" onclick="downFile()" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
@@ -150,6 +150,28 @@
 
 </body>
 <script>
+    $(function(){
+        //初始化条件数据
+        initSelectChoose();
+    });
+
+    //序列化搜索条件
+    var queryParams = $('#form_search').serializeObject();
+
+    //重置使用参数对象(暂时存储初次加载的数据，用于重置事件)
+    var resetQueryParams = queryParams;
+
+    //重置
+    function resetButton(){
+        identity = "";
+        var startTimeTemp = "${startTime}";
+        var endTimeTemp = "${endTime}";
+        $("#startTime").datebox("setValue",startTimeTemp);
+        $("#endTime").datebox("setValue",endTimeTemp);
+        //初始化条件
+        initSelectChoose();
+        $('#table').datagrid("load", resetQueryParams);
+    }
     <#--$('#table').datagrid({-->
         <#--url: '${base}/report/demo1/datagrid',-->
         <#--sortName: "createTime",-->
@@ -174,6 +196,7 @@
         url:'${base}/report/workCondition/dayVeh/datagrid',
         sortName: "lastCommunTime",
         sortOrder: "desc",
+        queryParams: queryParams,
         columns:[[
             //{field: 'ck', checkbox: true, width: '20'},
             {field:'number',title:'序号',align:'center',
@@ -261,10 +284,7 @@
 
 </script>
 <script language="javascript" charset=”utf-8″>
-    $(function(){
-        //初始化条件数据
-        initSelectChoose();
-    });
+
     var identity = ""
     function checkTime(){
         //时间校验
@@ -283,8 +303,8 @@
         var startTimeFormat = startTime.Format("yyyy-MM-dd");
         var endTimeFormate = endTime.Format("yyyy-MM-dd");
         var days = (new Date(endTimeFormate).getTime() - new Date(startTimeFormat).getTime()) / 86400000;
-        if (days > 6){
-            $.messager.alert('提示','选择开始时间与结束时间间隔最大为七天！');
+        if (days > 30){
+            $.messager.alert('提示','选择开始时间与结束时间间隔最大为30天！');
             return false;
         }
         return true;
@@ -358,6 +378,7 @@
             url: '${base}/report/workCondition/dayVeh/queryVehTypeList'
         });
     }
+
 
     /***
      * 文件解析

@@ -23,10 +23,8 @@ import com.bitnei.cloud.common.ExcelUtil;
 import com.bitnei.cloud.common.bean.AppBean;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 @Mybatis(namespace = "com.bitnei.cloud.report.mapper.DayVehMapper")
@@ -228,5 +226,20 @@ public class DayVehService extends BaseService implements IDayVehService {
         ed.setData(list);
         String outName = String.format("%s-导出-%s.xls", "单车日报表", DateUtil.getNow());
         EasyExcel.renderResponse(srcFile,outName,ed);
+    }
+
+    public String getDate(int d){
+        int dateNum = 0;
+        String outDate;
+        dateNum += d;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_MONTH,-(dateNum));//比当前时间提前dateNum天
+        date = calendar.getTime();
+        outDate = sdf.format(date);
+        System.out.print(outDate);
+        return outDate;
     }
 }

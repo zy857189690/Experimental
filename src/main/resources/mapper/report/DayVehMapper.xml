@@ -48,12 +48,13 @@
         LEFT JOIN veh_dayreport_mileage_check v_m_c ON veh.vin = v_m_c.vin
         LEFT JOIN veh_dayreport_chargestate v_c ON veh.uuid = v_c.vid
         <include refid="Common.userVehiclePermission"/>
-        <if test="startTime != null and startTime != ''">
+        <if test="startTime != null and endTime != null">
             AND v_e.report_date <![CDATA[>=]]> #{startTime}
-        </if>
-        <if test="endTime != null and endTime != ''">
             AND v_e.report_date <![CDATA[<=]]> #{endTime}
         </if>
+        <!--<if test="startTime = null and endTime = null or startTime = '' and endTime = ''">-->
+            <!--AND v_e.report_date = '2018-03-13'-->
+        <!--</if>-->
         <if test="licensePlate != null and identity == null">
             AND veh.license_plate LIKE concat(concat('%',#{licensePlate}),'%')
         </if>
@@ -84,7 +85,7 @@
         <if test="sysDivisionId != null and sysDivisionId != ''">
             AND s_a.id = #{sysDivisionId}
         </if>
-        ORDER BY v_e.report_date DESC
+        ORDER BY v_m_c.last_commit_time,v_e.report_date,veh.license_plate,veh.vin,v_e.daily_active_total_time DESC
     </select>
 
     <!--查询车辆种类下拉列表-->

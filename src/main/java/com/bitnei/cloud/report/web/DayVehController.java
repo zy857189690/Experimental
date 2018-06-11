@@ -4,6 +4,7 @@ import com.bitnei.cloud.common.ExcelUtil;
 import com.bitnei.cloud.common.annotation.Module;
 import com.bitnei.cloud.common.annotation.SLog;
 import com.bitnei.cloud.common.bean.AppBean;
+import com.bitnei.cloud.common.util.DateUtil;
 import com.bitnei.cloud.report.service.IDayVehService;
 import com.bitnei.commons.datatables.PagerModel;
 import org.apache.log4j.Logger;
@@ -11,6 +12,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +23,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 工况分析-单车日报表
@@ -62,15 +61,20 @@ public class DayVehController {
     @Autowired
     private IDayVehService dayVehService;
     /**
-     * 工况分析-跳转列表页面
+     * 工况分析-单车日报表
      * @return
      */
     @RequestMapping("/list")
     @RequiresPermissions(URL_LIST)
     @SLog(action = "工况分析-列表页面")
-    public String list() {
+    public String list(ModelMap model) {
+        String endTime = DateUtil.getShortDate();//当前日期yyyy-mm-dd
+        String startTime = dayVehService.getDate(1);//默认往前一天
+        model.put("startTime",startTime);
+        model.put("endTime", endTime);
         return BASE + "list";
     }
+
 
     /**
      * 查询车辆种类下拉列表
