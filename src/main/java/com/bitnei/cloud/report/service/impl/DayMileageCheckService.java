@@ -1,6 +1,7 @@
 package com.bitnei.cloud.report.service.impl;
 
 import com.bitnei.cloud.common.MemCacheManager;
+import com.bitnei.cloud.common.PublicDealUtil;
 import com.bitnei.cloud.common.StringUtil;
 import com.bitnei.cloud.common.bean.ExcelData;
 import com.bitnei.cloud.common.util.DataLoader;
@@ -32,8 +33,15 @@ public class DayMileageCheckService  extends BaseService implements IDayMileageC
     private final String mapper = "com.bitnei.cloud.report.mapper.DayMileageCheckMapper.";
     @Override
     public PagerModel pageQuery() {
+
         DataGridOptions options = ServletUtil.getDataLayOptions();
         options.getParams().put("vehtype", options.getParams().get("vehtype")==null?"":options.getParams().get("vehtype"));
+        //options.setParams();
+        Map<String, Object> userprss = PublicDealUtil.bulidUserForParams(options.getParams());
+        options.getParams().put("userId", userprss==null?"":userprss.get("userId")==null?"":userprss.get("userId"));
+        options.getParams().put("isLeader", userprss==null?"":userprss.get("isLeader")==null?"":userprss.get("isLeader"));
+        options.getParams().put("areaPath", userprss==null?"":userprss.get("areaPath")==null?"":userprss.get("areaPath"));
+        options.getParams().put("userUnitPath", userprss==null?"":userprss.get("userUnitPath")==null?"":userprss.get("userUnitPath"));
         // 判断是条件查询还是导入查询
         PagerModel pm = null;
         if("0".equals(options.getParams().get("adminFlag"))){
@@ -73,7 +81,12 @@ public class DayMileageCheckService  extends BaseService implements IDayMileageC
     public void export() {
         List list =null;
         Map<String, Object> mapParams = ServletUtil.getQueryParams();
-        mapParams.put("vehtype", mapParams.get("vehtype[]")==null?"":mapParams.get("vehtype[]"));
+        mapParams.put("vehtype", mapParams.get("vehtype")==null?"":mapParams.get("vehtype"));
+        Map<String, Object> userprss = PublicDealUtil.bulidUserForParams(mapParams);
+        mapParams.put("userId", userprss==null?"":userprss.get("userId")==null?"":userprss.get("userId"));
+        mapParams.put("isLeader", userprss==null?"":userprss.get("isLeader")==null?"":userprss.get("isLeader"));
+        mapParams.put("areaPath", userprss==null?"":userprss.get("areaPath")==null?"":userprss.get("areaPath"));
+        mapParams.put("userUnitPath", userprss==null?"":userprss.get("userUnitPath")==null?"":userprss.get("userUnitPath"));
         if(!StringUtil.notEmpty(mapParams.get("stutsEx")==null?"":mapParams.get("stutsEx").toString())){
             //按照条件查询
             if("0".equals(mapParams.get("adminFlag"))){

@@ -12,7 +12,8 @@ import java.sql.Timestamp;
  */
 public class DayMileageCheck  extends TailBean {
     
-    private Integer id;
+    private String id;
+    private String ids;
     private String vid;
     private String vin;
     private Date reportDate; //统计日期
@@ -41,6 +42,22 @@ public class DayMileageCheck  extends TailBean {
     private String  unit; //运营单位
     private String  unitTypeCode;
     private String  unitTypeName; //单位类型
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getIds() {
+        return ids;
+    }
+
+    public void setIds(String ids) {
+        this.ids = ids;
+    }
 
     public String getMaker() {
         return maker;
@@ -106,13 +123,6 @@ public class DayMileageCheck  extends TailBean {
         this.unitTypeName = unitTypeName;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getVid() {
         return vid;
