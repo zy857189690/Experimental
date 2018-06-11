@@ -146,7 +146,7 @@ public class VehHistoryService extends BaseService implements IVehHistoryService
 			options.getParams().put("identity", identity);
 		}
 
-		List list = findBySqlId("pagerModel",ServletUtil.getQueryParams());
+		List list = findBySqlId("pagerModel",options);
 		this.cyclicData(list);
 		DataLoader.loadNames(list);
 		DataLoader.loadDictNames(list);
