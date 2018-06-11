@@ -102,6 +102,7 @@ public class PublicDealUtil {
         if (null != param) {
             WebUser user = ServletUtil.getUser();
             Map<String, Object> map = user.getExtData();
+            param.put("userId", user.getId());
             param.put("isLeader", map.get("roleType"));
             param.put("areaPath", map.get("areaPath"));
             param.put("userUnitPath", map.get("unitPath"));
