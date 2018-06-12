@@ -73,107 +73,120 @@
 </div>
 
 <div region="center" style="overflow: hidden;width: 100%;">
+    <div data-options="region:'north',title:'查询',split:true,collapsable:true" style="width: 100%;height: 120px">
+        <div style="width: 100%;border: 1;margin:5 5 5 10 ">
+            <form id="form_search" name="" class="sui-form cg-form">
+                <div style="width: 90%; height: 20px; margin: 10px;">
+                    <label>条件查询</label>
+                    <input type="radio" id="tiaojian" name="adminFlag" checked="checked" data-option="selected:true" value="0"></input>
+                    <label>导入查询</label>
+                    <input type="radio" id="daoru" name="adminFlag" value="1"></input>
+                </div>
+                <table class="table_search" style="height: 90px;">
+                    <tr>
+                        <td class="td_label">
+                            <label>开始时间</label>
+                        </td>
+                        <td class="td_input">
+                            <input type="text"class="easyui-datetimebox" id="startTime" style="width:height: 26px;width:120px;" value="${(startTime)!}"  name="query.startTime"  autocomplete="off" data-options="editable:false">
+                        </td>
+                        <td class="td_label">
+                            <label>结束时间</label>
+                        </td>
+                        <td class="td_input">
+                            <input type="text"class="easyui-datetimebox" id="endTime" style="width:height: 26px;width:120px;" value="${(endTime)!}" name="query.endTime"  autocomplete="off" data-options="editable:false">
+                        </td>
+                        <td class="td_label">
+                            <label>仪表里程大于</label>
+                        </td>
+                        <td class="td_input">
+                            <input type="text"class="input-fat input" style="width:height: 26px;width:100px;"   name="query.gaugesMileage"  autocomplete="off" >
+                        </td>
+                        <td class="td_label">
+                            <label>车牌号</label>
+                        </td>
+                        <td class="td_input">
+                            <input type="text"class="input-fat input" style="width:height: 26px;width:100px;"   name="query.licensePlate"  autocomplete="off" >
+                        </td>
+                        <td class="td_label">
+                            <label>VIN</label>
+                        </td>
+                        <td class="td_input">
+                            <input type="text"class="input-fat input" style="width:height: 26px;width:100px;"   name="query.vin"  autocomplete="off" >
+                        </td>
+                        <td class="td_label">
+                            <label>车辆种类</label>
+                        </td>
+                        <td class="td_input">
+                            <input type="text" id="vehTypeId" class="input-fat input" style="width:height: 26px;width:120px;"   name="query.vehTypeName"  autocomplete="off" >
+                        </td>
+                        <td class="td_label">
+                            <label>车辆型号名称</label>
+                        </td>
+                        <td class="td_input">
+                            <input id="vehModelName" class="input-fat input" style="width:height: 26px;width:120px;"   name="query.vehModelName"  autocomplete="off" >
+                        </td>
+                        <td class="td_label">
+                            <label>运营单位</label>
+                        </td>
+                        <td class="td_input">
+                            <input id="useUnitId" class="input-fat input" style="width:height: 26px;width:120px;"   name="query.useUnitName"  autocomplete="off" >
+                        </td>
+                        <td class="td_label">
+                            <label>上牌区域</label>
+                        </td>
+                        <td class="td_input">
+                            <input type="text" id="areaId" class="input-fat input" style="width:height: 26px;width:120px;"   name="query.areaName"  autocomplete="off" >
+                        </td>
+                    <#--<td class="td_label">-->
+                    <#--<label>GPS里程大于</label>-->
+                    <#--</td>-->
+                    <#--<td class="td_input">-->
+                    <#--<input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.gpsTotalMileage"  autocomplete="off" >-->
+                    <#--</td>-->
+                        <td class="td_label">
+                            <label>车辆阶段</label>
+                        </td>
+                        <td class="td_input">
+                            <input type="text"class="input-fat input" id="vehStage" style="width:height: 26px;width:120px;"   name="query.vehStage"  autocomplete="off" >
+                        </td>
+
+                        <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
+                            <a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+                            <a href="#" onclick="resetButton()" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
+                            <a href="#" id="daoruchaxun" onclick="importSeach()" data-options="iconCls:'icon-reset'">导入查询</a>
+                            <a href="#" onclick="downFile()" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+    </div>
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
         <@shiro.hasPermission name="/report/workCondition/vehHistory/export">
             <a href="#" onclick="exportData()" class="easyui-linkbutton"
                data-options="iconCls:'icon-export'" menu="0">导出</a>
         </@shiro.hasPermission>
-            <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0">报表说明</a>
+        <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0">报表说明</a>
     </div>
     <div id="table" name="datagrid" style="width: 100%;height: 100%"></div>
 </div>
 
-<div data-options="region:'north',title:'查询',split:true,collapsable:true" style="width: 100%;height: 90px">
-    <div style="width: 100%;border: 1;margin:5 5 5 10 ">
-        <form id="form_search" name="" class="sui-form cg-form">
-            <table class="table_search">
-                <tr>
-                    <td class="td_label">
-                        <label>开始时间</label>
-                    </td>
-                    <td class="td_input">
-                        <input type="text"class="easyui-datetimebox" id="startTime" style="width: height: 26px;width:150px;" value="${(startTime)!}"  name="query.startTime"  autocomplete="off" data-options="editable:false">
-                    </td>
-                    <td class="td_label">
-                        <label>结束时间</label>
-                    </td>
-                    <td class="td_input">
-                        <input type="text"class="easyui-datetimebox" id="endTime" style="width: height: 26px;width:150px;" value="${(endTime)!}" name="query.endTime"  autocomplete="off" data-options="editable:false">
-                    </td>
-                    <td class="td_label">
-                        <label>仪表里程大于</label>
-                    </td>
-                    <td class="td_input">
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.gaugesMileage"  autocomplete="off" >
-                    </td>
-                    <td class="td_label">
-                        <label>车牌号</label>
-                    </td>
-                    <td class="td_input">
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.licensePlate"  autocomplete="off" >
-                    </td>
-                    <td class="td_label">
-                        <label>VIN</label>
-                    </td>
-                    <td class="td_input">
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.vin"  autocomplete="off" >
-                    </td>
-                    <td class="td_label">
-                        <label>车辆种类</label>
-                    </td>
-                    <td class="td_input">
-                        <input type="text" id="vehTypeId" class="input-fat input" style="width: height: 26px;width:150px;"   name="query.vehTypeName"  autocomplete="off" >
-                    </td>
-                    <td class="td_label">
-                        <label>车辆型号名称</label>
-                    </td>
-                    <td class="td_input">
-                        <input id="vehModelName" class="input-fat input" style="width: height: 26px;width:150px;"   name="query.vehModelName"  autocomplete="off" >
-                    </td>
-                    <td class="td_label">
-                        <label>运营单位</label>
-                    </td>
-                    <td class="td_input">
-                        <input id="useUnitId" class="input-fat input" style="width: height: 26px;width:150px;"   name="query.useUnitName"  autocomplete="off" >
-                    </td>
-                    <td class="td_label">
-                        <label>上牌区域</label>
-                    </td>
-                    <td class="td_input">
-                        <input type="text" id="areaId" class="input-fat input" style="width: height: 26px;width:150px;"   name="query.areaName"  autocomplete="off" >
-                    </td>
-                    <#--<td class="td_label">-->
-                        <#--<label>GPS里程大于</label>-->
-                    <#--</td>-->
-                    <#--<td class="td_input">-->
-                        <#--<input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.gpsTotalMileage"  autocomplete="off" >-->
-                    <#--</td>-->
-                    <td class="td_label">
-                        <label>车辆阶段</label>
-                    </td>
-                    <td class="td_input">
-                        <input type="text"class="input-fat input" id="vehStage" style="width: height: 26px;width:150px;"   name="query.vehStage"  autocomplete="off" >
-                    </td>
-
-                    <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
-                        <a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
-                        <a href="#" onclick="resetButton()" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
-                        <a href="#" onclick="importSeach()" data-options="iconCls:'icon-reset'">导入查询</a>
-                        <a href="#" onclick="downFile()" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </div>
-
-</div>
 
 </body>
 <script>
     $(function(){
         //初始化条件数据
         initSelectChoose();
+        //是否隐藏
+        aHidden();
     });
+
+    //隐藏导入查询
+    function aHidden(){
+        document.getElementById("daoruchaxun").style.display = "none";
+    }
 
     //序列化搜索条件
     var queryParams = $('#form_search').serializeObject();
@@ -244,7 +257,7 @@
 
 
     //标记导出功能是普通导出(值为"")，还是导入查询后的导出功能(值为"importType")
-    var identity = "";导出功能
+    var identity = "";
 
     /*校验开始时间/结束时间是否合法*/
     function checkTime(){
@@ -463,6 +476,14 @@
             return ".xls";
         }
     }
+
+    $("#tiaojian").change(function() {
+        $("#daoruchaxun").hide();
+    });
+
+    $("#daoru").change(function() {
+        $("#daoruchaxun").show();
+    });
 
 </script>
 </html>
