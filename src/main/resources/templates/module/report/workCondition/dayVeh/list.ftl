@@ -55,22 +55,22 @@
     <div style="width: 100%;border: 1;margin:5 5 5 10 ">
         <form id="form_search" name="" class="sui-form cg-form">
             <table class="table_search">
-                <!--
+
                 <tr>
                     <td class="td_lable">
                         <label>条件查询</label>
                     </td>
                     <td class="td_input">
-                        <input type="radio" name="adminFlag" data-option="selected:true" value="0" style="width: height:26px;width: 100px;"></input>
+                        <input type="radio" id="tiaojian" name="adminFlag" checked="checked" data-option="selected:true" value="0" style="width: height:26px;width: 100px;"></input>
                     </td>
                     <td class="td_lable">
                         <label>导入查询</label>
                     </td>
                     <td>
-                        <input type="radio" name="adminFlag" value="1"  style="width: height: 26px;width:100px;"></input>
+                        <input type="radio" id="daoru" name="adminFlag" value="1"  style="width: height: 26px;width:100px;"></input>
                     </td>
                 </tr>
-                -->
+
                 <tr>
                     <td class="td_label">
                         <label>查询时间</label>
@@ -132,7 +132,7 @@
                         <a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
                         <a href="#" onclick="resetButton()" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
 
-                        <a href="#" onclick="importSeach()" data-options="iconCls:'icon-reset'">导入查询</a>
+                        <a href="#" id="daoruchaxun" onclick="importSeach()" data-options="iconCls:'icon-reset'">导入查询</a>
                         <a href="#" onclick="downFile()" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
                         <!--
                         <a href="#" onclick="resetDatagrid('form_search','table')" data-options="iconCls:'icon-reset'">导入查询</a>
@@ -562,5 +562,15 @@
         }
     }
 
+    $("#tiaojian").change(function() {
+        $("#daoruchaxun").hide();
+    });
+    $("#daoru").change(function() {
+        $("#daoruchaxun").show();
+    });
+    function aHidden(){
+        document.getElementById("daoruchaxun").style.display = "none";
+    }
+    window.onload=aHidden;
 </script>
 </html>
