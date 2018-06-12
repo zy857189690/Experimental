@@ -145,7 +145,7 @@ public class DayVehService extends BaseService implements IDayVehService {
         }
 
         boolean sign = false;
-        if (vinList.size() > 0 || licensePlateList.size() > 0 ) {
+        if (vinList.size() > 0 ) {
             options.getParams().put("vinList",vinList);
             sign = true;
         }
@@ -192,7 +192,7 @@ public class DayVehService extends BaseService implements IDayVehService {
         }
 
         boolean sign = false;
-        if (vinList.size() > 0 || licensePlateList.size() > 0 ) {
+        if (vinList.size() > 0 ) {
             options.put("vinList",vinList);
             sign = true;
         }
