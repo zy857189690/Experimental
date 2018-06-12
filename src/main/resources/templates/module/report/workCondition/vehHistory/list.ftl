@@ -17,7 +17,7 @@
     <div id="cc" class="easyui-layout">
         <label>导入查询文件</label>
         <input type="file" id="file" style="width:100px;" name="query.myfile" />
-        <a href="#" onclick="importSearchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+        <a href="#" onclick="importSearchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">导入查询</a>
     </div>
 </div>
 
@@ -152,7 +152,7 @@
                         </td>
 
                         <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
-                            <a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+                            <a href="#" onclick="searchButton()"  class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
                             <a href="#" onclick="resetButton()" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
                             <a href="#" id="daoruchaxun" onclick="importSeach()" data-options="iconCls:'icon-reset'">导入查询</a>
                             <a href="#" onclick="downFile()" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
