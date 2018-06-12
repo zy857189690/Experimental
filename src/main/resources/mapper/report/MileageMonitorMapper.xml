@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bitnei.cloud.report.mapper.MileageMonitorMapper">
+
+
+    <select id="queryPopup" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select
+        veh.vin as VIN ,
+        veh.license_plate as chePai,
+        b.veh_model_name as cheLiangMing,
+        f.name  as shangPai,
+        c.name as yunYing,
+        sd.name as jieDuan,
+        veh.entry_date as luRu,
+        veh.first_reg as shouCi,
+        a.last_commit_time as zuiHou,
+        a.last_end_mileage as zongLiCheng,
+        a.total_online_mileage as zongZaiXian,
+        a.total_gps_mileage as zongGuiJi,
+        a.total_valid_mileage as zongYouXiao,
+        a.total_check_mileage as zongHeSuan
+        from sys_vehicle veh
+        inner Join veh_dayreport_summary a on veh.id=a.vid and a.report_date='${endTime}'
+        left join   sys_veh_model b    on  b.id=veh.veh_model_id
+        left join   sys_area f         on  f.id=veh.sys_division_id
+        left join   sys_unit  c        on  c.id=veh.use_uint_id
+        LEFT JOIN sys_dict sd ON veh.registerstatus=sd.val AND sd.type='500'
+        <include refid="Common.userVehiclePermission"/>
+        <if test="data1 != null ">
+           and  <![CDATA[  a.last_end_mileage>= #{data1} ]]>
+        </if>
+        <if test="data2 != null ">
+            and  <![CDATA[  a.last_end_mileage< #{data2}  ]]>
+        </if>
+        <if test="cheLiangMing != null ">
+            and b.veh_model_name = #{cheLiangMing}
+        </if>
+        <if test="yunYing != null ">
+            and  c.name = #{yunYing}
+        </if>
+        <if test="jieDuan != null ">
+            and veh.registerstatus= #{jieDuan} -- 车辆阶段
+        </if>
+        <if test="zongLiCheng != null ">
+            <![CDATA[   and  a.last_end_mileage>#{zongLiCheng}  ]]>
+        </if>
+        <if test="zongYouXiao != null ">
+            <![CDATA[  and a.total_valid_mileage>#{zongYouXiao}    ]]>
+        </if>
+        <if test="zongGuiJi != null ">
+            <![CDATA[  and a.total_gps_mileage>#{zongGuiJi}  ]]>
+        </if>
+        <if test="zongZaiXian != null ">
+            <![CDATA[  and a.total_online_mileage>#{zongZaiXian}    ]]>
+        </if>
+        <if test="zongHeSuan != null ">
+            <![CDATA[  and a.total_check_mileage>#{zongHeSuan}    ]]>
+        </if>
+        <if test="begin != null and end!=null ">
+        limit ${begin},${end}
+        </if>
+    </select>
+
+
+    <select id="countPopup" resultType="long" parameterType="java.util.HashMap">
+        select
+        count(1)
+        from sys_vehicle veh
+        inner Join veh_dayreport_summary a on veh.id=a.vid and a.report_date='${endTime}'
+        left join   sys_veh_model b    on  b.id=veh.veh_model_id
+        left join   sys_area f         on  f.id=veh.sys_division_id
+        left join   sys_unit  c        on  c.id=veh.use_uint_id
+        LEFT JOIN sys_dict sd ON veh.registerstatus=sd.val AND sd.type='500'
+        <include refid="Common.userVehiclePermission"/>
+        <if test="data1 != null ">
+            and  <![CDATA[  a.last_end_mileage>= #{data1} ]]>
+        </if>
+        <if test="data2 != null ">
+            and  <![CDATA[  a.last_end_mileage<#{data2}  ]]>
+        </if>
+        <if test="cheLiangMing != null ">
+            and b.veh_model_name = #{cheLiangMing}
+        </if>
+        <if test="yunYing != null ">
+            and  c.name = #{yunYing}
+        </if>
+        <if test="jieDuan != null ">
+            and veh.registerstatus= #{jieDuan} -- 车辆阶段
+        </if>
+        <if test="zongLiCheng != null ">
+            <![CDATA[   and  a.last_end_mileage>#{zongLiCheng}  ]]>
+        </if>
+        <if test="zongYouXiao != null ">
+            <![CDATA[  and a.total_valid_mileage>#{zongYouXiao}    ]]>
+        </if>
+        <if test="zongGuiJi != null ">
+            <![CDATA[  and a.total_gps_mileage>#{zongGuiJi}  ]]>
+        </if>
+        <if test="zongZaiXian != null ">
+            <![CDATA[  and a.total_online_mileage>#{zongZaiXian}    ]]>
+        </if>
+        <if test="zongHeSuan != null ">
+            <![CDATA[  and a.total_check_mileage>#{zongHeSuan}    ]]>
+        </if>
+        <if test="begin != null and end!=null ">
+            limit ${begin},${end}
+        </if>
+    </select>
+
+
+    <select id="queryMileageMonthly" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+
+        select
+        '${shiJian}' as shiJian,
+        c.name as yunYing,
+        b.veh_model_name as cheLiangMing,
+        count(1) as jianKongChe,
+        sum(f) as cheLiangYunYing,
+        sum(a) as a ,
+        sum(b) as b ,
+        sum(c) as c ,
+        sum(d) as d ,
+        sum(e) as e
+        from
+        veh_dayreport_summary a
+        inner join sys_vehicle veh on a.vid=veh.id
+        left join sys_veh_model b on b.id=veh.veh_model_id
+        left join sys_unit c on c.id=veh.use_uint_id
+        left join (
+        select
+        a.vid ,
+        <![CDATA[
+        (case when  a.last_end_mileage>=30000 then 1 else 0  end ) as a,
+        (case when  a.last_end_mileage>=20000 and  a.last_end_mileage<30000  then 1 else 0  end ) as b,
+        (case when  a.last_end_mileage>=10000 and  a.last_end_mileage<20000 then 1 else 0  end ) as c,
+        (case when  a.last_end_mileage>=500 and  a.last_end_mileage<10000 then 1 else 0  end ) as d,
+        (case when  a.last_end_mileage<500 then 1 else 0  end ) as e,
+        (case when  (a.last_end_mileage-b.last_end_mileage)>500 then 1 else 0 end ) as f
+        ]]>
+        from veh_dayreport_summary a
+        left join veh_dayreport_summary b on a.vid=b.vid  and b.report_date='${date2}'
+        where a.report_date= #{date1}
+
+        ) d on  d.vid=a.vid
+        <include refid="Common.userVehiclePermission"/>
+        and a.report_date=#{date1}
+        <if test="cheLiangMing != null ">
+            and b.veh_model_name like #{cheLiangMing}
+        </if>
+        <if test="yunYing != null ">
+            and  c.name like #{yunYing}
+        </if>
+        group by c.id,b.id
+        order by c.name desc ,b.veh_model_name desc  ,a desc ,b desc ,c desc ,d desc , e desc
+        <if test="begin != null and end!=null ">
+            limit ${begin},${end}
+        </if>
+
+
+    </select>
+
+
+
+
+    <select id="countMileageMonthly" resultType="long" parameterType="java.util.HashMap">
+      select count(1) from (
+        select
+        count(1) as jianKongChe
+        from
+        veh_dayreport_summary a
+        inner join sys_vehicle veh on a.vid=veh.id
+        left join sys_veh_model b on b.id=veh.veh_model_id
+        left join sys_unit c on c.id=veh.use_uint_id
+        left join (
+        select
+        a.vid
+        from veh_dayreport_summary a
+        left join veh_dayreport_summary b on a.vid=b.vid  and b.report_date='${date2}'
+        where a.report_date= #{date1}
+
+        ) d on  d.vid=a.vid
+        <include refid="Common.userVehiclePermission"/>
+        and a.report_date=#{date1}
+        <if test="cheLiangMing != null ">
+            and b.veh_model_name like #{cheLiangMing}
+        </if>
+        <if test="yunYing != null ">
+            and  c.name like #{yunYing}
+        </if>
+        group by c.id,b.id
+
+        ) t
+
+    </select>
+
+</mapper>
