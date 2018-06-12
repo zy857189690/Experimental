@@ -17,7 +17,7 @@
     <div id="cc" class="easyui-layout">
         <label>导入查询文件</label>
         <input type="file" id="file" style="width:100px;" name="query.myfile" />
-        <a href="#" onclick="importSearchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+        <a href="#" onclick="importSearchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">导入查询</a>
     </div>
 </div>
 
@@ -88,55 +88,55 @@
                             <label>开始时间</label>
                         </td>
                         <td class="td_input">
-                            <input type="text"class="easyui-datetimebox" id="startTime" style="width:height: 26px;width:120px;" value="${(startTime)!}"  name="query.startTime"  autocomplete="off" data-options="editable:false">
+                            <input type="text"class="easyui-datetimebox" id="startTime" style="width:height: 26px;width:150px;" value="${(startTime)!}"  name="query.startTime"  autocomplete="off" data-options="editable:false">
                         </td>
                         <td class="td_label">
                             <label>结束时间</label>
                         </td>
                         <td class="td_input">
-                            <input type="text"class="easyui-datetimebox" id="endTime" style="width:height: 26px;width:120px;" value="${(endTime)!}" name="query.endTime"  autocomplete="off" data-options="editable:false">
+                            <input type="text"class="easyui-datetimebox" id="endTime" style="width:height: 26px;width:150px;" value="${(endTime)!}" name="query.endTime"  autocomplete="off" data-options="editable:false">
                         </td>
                         <td class="td_label">
                             <label>仪表里程大于</label>
                         </td>
                         <td class="td_input">
-                            <input type="text"class="input-fat input" style="width:height: 26px;width:100px;"   name="query.gaugesMileage"  autocomplete="off" >
+                            <input type="text"class="input-fat input" style="width:height: 26px;width:125px;"   name="query.gaugesMileage"  autocomplete="off" >
                         </td>
                         <td class="td_label">
                             <label>车牌号</label>
                         </td>
                         <td class="td_input">
-                            <input type="text"class="input-fat input" style="width:height: 26px;width:100px;"   name="query.licensePlate"  autocomplete="off" >
+                            <input type="text"class="input-fat input" style="width:height: 26px;width:125px;"   name="query.licensePlate"  autocomplete="off" >
                         </td>
                         <td class="td_label">
                             <label>VIN</label>
                         </td>
                         <td class="td_input">
-                            <input type="text"class="input-fat input" style="width:height: 26px;width:100px;"   name="query.vin"  autocomplete="off" >
+                            <input type="text"class="input-fat input" style="width:height: 26px;width:125px;"   name="query.vin"  autocomplete="off" >
                         </td>
                         <td class="td_label">
                             <label>车辆种类</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" id="vehTypeId" class="input-fat input" style="width:height: 26px;width:120px;"   name="query.vehTypeName"  autocomplete="off" >
+                            <input type="text" id="vehTypeId" class="input-fat input" style="width:height: 26px;width:150px;"   name="query.vehTypeName"  autocomplete="off" >
                         </td>
                         <td class="td_label">
                             <label>车辆型号名称</label>
                         </td>
                         <td class="td_input">
-                            <input id="vehModelName" class="input-fat input" style="width:height: 26px;width:120px;"   name="query.vehModelName"  autocomplete="off" >
+                            <input id="vehModelName" class="input-fat input" style="width:height: 26px;width:150px;"   name="query.vehModelName"  autocomplete="off" >
                         </td>
                         <td class="td_label">
                             <label>运营单位</label>
                         </td>
                         <td class="td_input">
-                            <input id="useUnitId" class="input-fat input" style="width:height: 26px;width:120px;"   name="query.useUnitName"  autocomplete="off" >
+                            <input id="useUnitId" class="input-fat input" style="width:height: 26px;width:150px;"   name="query.useUnitName"  autocomplete="off" >
                         </td>
                         <td class="td_label">
                             <label>上牌区域</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" id="areaId" class="input-fat input" style="width:height: 26px;width:120px;"   name="query.areaName"  autocomplete="off" >
+                            <input type="text" id="areaId" class="input-fat input" style="width:height: 26px;width:150px;"   name="query.areaName"  autocomplete="off" >
                         </td>
                     <#--<td class="td_label">-->
                     <#--<label>GPS里程大于</label>-->
@@ -148,11 +148,11 @@
                             <label>车辆阶段</label>
                         </td>
                         <td class="td_input">
-                            <input type="text"class="input-fat input" id="vehStage" style="width:height: 26px;width:120px;"   name="query.vehStage"  autocomplete="off" >
+                            <input type="text"class="input-fat input" id="vehStage" style="width:height: 26px;width:150px;"   name="query.vehStage"  autocomplete="off" >
                         </td>
 
                         <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
-                            <a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+                            <a href="#" onclick="searchButton()"  class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
                             <a href="#" onclick="resetButton()" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
                             <a href="#" id="daoruchaxun" onclick="importSeach()" data-options="iconCls:'icon-reset'">导入查询</a>
                             <a href="#" onclick="downFile()" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
@@ -168,7 +168,7 @@
             <a href="#" onclick="exportData()" class="easyui-linkbutton"
                data-options="iconCls:'icon-export'" menu="0">导出</a>
         </@shiro.hasPermission>
-        <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0">报表说明</a>
+        <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">报表说明</a>
     </div>
     <div id="table" name="datagrid" style="width: 100%;height: 100%"></div>
 </div>
@@ -351,7 +351,7 @@
         if (!checkTime()) {
             return;
         }
-        var formData = new FormData($( "#form_search" )[0]);
+        var formData = new FormData();
         var file = document.getElementById("file").files[0];
         if (fileCheck(file)) {
             formData.append("file",file);
@@ -369,10 +369,14 @@
                 processData : false,
                 success : function(data) {
                     if (data.code == 0) {
-                        var loadData = data.message.length == 0 ? {} :$.parseJSON(data.message);
-                        $('#table').datagrid('loadData', loadData);
+
+                        var searchParames = $('#form_search').serializeObject();
+                        debugger;
+                        searchParames['query.identity'] = "identity";
+                        $("#table").datagrid("load", searchParames);
+
                         $('#win').window('close');
-                        $.messager.alert('提示','查询成功！');
+//                        $.messager.alert('提示','查询成功！');
                     } else {
                         $.messager.alert('提示',data.message);
                     }
@@ -408,8 +412,8 @@
 
     /*模板下载*/
     function downFile() {
-        <#--var downUrl = "${base}/report/workCondition/vehHistory/downLooadModel?moduleName=model&fileName=templateQuery.xlsx";-->
-        <#--window.open(downUrl);-->
+        var downUrl = "${base}/report/common/downLoadModel?moduleName=model&fileName=templateQuery.xls";
+        window.open(downUrl);
     }
 
     /*报表说明弹框*/
@@ -432,14 +436,12 @@
         if (identity == "importType") {
             var xhh = new XMLHttpRequest();
             var formData = new FormData($("#form_search")[0]);
-            var formData = new FormData($("#form_search")[0]);
             var file = document.getElementById("file").files[0];
 
             if (fileCheck(file)) {
                 formData.append("file", file);
                 //importType 导入查询标识，用于区分SQL拼接
                 formData.append("identity", "importType");
-                xhh.response
                 xhh.open("post", "${base}/report/workCondition/vehHistory/importExport");
                 xhh.responseType = 'blob';
                 xhh.onreadystatechange = function () {
