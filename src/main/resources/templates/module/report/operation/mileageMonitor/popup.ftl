@@ -79,34 +79,34 @@
                         <select class="input-fat input" name="query.xingShi" id="isOnline" query_type="eqs" style="height: 26px;width:168px;">
                         </select>
                         -->
-                        <input type="text"class="input-fat input"  style="width: height: 26px;width:150px;"   name="query.zongLiCheng"  autocomplete="off" >
+                        <input type="text"class="input-fat input"  style="width: height: 26px;width:150px;" onkeyup="value=value.replace(/[^\d]/g,'')"   name="query.zongLiCheng"  autocomplete="off" >
 
                     </td>
                     <td class="td_label"  >
                         <label>总有效里程大于（km）:</label>
                     </td>
                     <td class="td_input">
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.zongYouXiao"  autocomplete="off" >
+                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;" onkeyup="value=value.replace(/[^\d]/g,'')"   name="query.zongYouXiao"  autocomplete="off" >
                     </td>
                     <td class="td_label">
                         <label>总轨迹里程大于（km）:</label>
                     </td>
                     <td class="td_input">
                     <#--<input type="text" class="input-fat input" name="query.vin" id="vin" query_type="lis" style="width: height: 26px;width:150px;" required>-->
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   onkeyup="value=value.replace(/[^\d]/g,'')"   name="query.zongGuiJi"  autocomplete="off" >
+                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"    onkeyup="value=value.replace(/[^\d]/g,'')"   name="query.zongGuiJi"  autocomplete="off" >
                     </td>
 
                     <td class="td_label">
                         <label>总在线里程大于（km）:</label>
                     </td>
                     <td class="td_input">
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.zongZaiXian"  autocomplete="off" >
+                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"  onkeyup="value=value.replace(/[^\d]/g,'')"  name="query.zongZaiXian"  autocomplete="off" >
                     </td>
                     <td class="td_label">
                         <label>总核算里程大于（km）:</label>
                     </td>
                     <td class="td_input">
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.zongHeSuan"  autocomplete="off" >
+                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"  onkeyup="value=value.replace(/[^\d]/g,'')"  name="query.zongHeSuan"  autocomplete="off" >
                     </td>
 
 

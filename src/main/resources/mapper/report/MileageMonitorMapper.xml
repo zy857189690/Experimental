@@ -36,8 +36,14 @@
         <if test="cheLiangMing != null ">
             and b.veh_model_name = #{cheLiangMing}
         </if>
+        <if test="cheLiangMing == null ">
+            and (b.veh_model_name is null)
+        </if>
         <if test="yunYing != null ">
             and  c.name = #{yunYing}
+        </if>
+        <if test="yunYing == null ">
+            and ( c.name is null)
         </if>
         <if test="jieDuan != null ">
             and veh.registerstatus= #{jieDuan} -- 车辆阶段
