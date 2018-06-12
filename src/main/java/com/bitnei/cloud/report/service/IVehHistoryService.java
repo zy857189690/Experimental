@@ -4,6 +4,8 @@ import com.bitnei.cloud.common.bean.AppBean;
 import com.bitnei.commons.datatables.PagerModel;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 车辆历史状态统计servive接口
  * @author: fanglidong
@@ -29,7 +31,7 @@ public interface IVehHistoryService {
 	 * @return
 	 * @throws Exception
 	 */
-	AppBean importQuery(MultipartFile file, String identity) throws Exception;
+	AppBean importQuery(HttpServletRequest request, MultipartFile file, String identity) throws Exception;
 
 	/**
 	 * 导入查询导出

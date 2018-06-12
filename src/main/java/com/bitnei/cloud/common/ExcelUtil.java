@@ -845,7 +845,7 @@ public class ExcelUtil {
                     map.put("vin", objects[0] == null ? null : objects[0].toString());
                 } else {
                     map.put("lic", objects[1] == null ? null : objects[1].toString());
-                    map.put("vin", objects[0].toString());
+                    map.put("vin", objects[0] == null ? null : objects[0].toString());
                 }
             }
             if (map.size() != 0) {
