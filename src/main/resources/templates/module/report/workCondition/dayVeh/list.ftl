@@ -279,7 +279,7 @@
 </script>
 <script language="javascript" charset=”utf-8″>
 
-    // var identity = ""
+    var identity = ""
     function checkTime(){
         //时间校验
         var endTime = $('#endTime').datetimebox("getValue");
@@ -406,6 +406,7 @@
         var downUrl = "${base}/report/common/downLoadModel?moduleName=model&fileName=templateQuery.xls";
         window.open(downUrl);
     }
+
 
     //导入查询弹窗口
     function importSeach(){
