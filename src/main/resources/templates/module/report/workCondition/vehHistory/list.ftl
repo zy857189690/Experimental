@@ -84,11 +84,19 @@
                 </div>
                 <table class="table_search" style="height: 90px;">
                     <tr>
+                        <td class="td_label"  id="filetitle">
+                            <label>导入查询文件</label>
+
+                        </td>
+                        <td class="td_input" id="fileinput">
+                            <input type="file" id="file" style="width:100px;" name="query.myfile" />
+                        </td>
+
                         <td class="td_label">
                             <label>开始时间</label>
                         </td>
                         <td class="td_input">
-                            <input type="text"class="easyui-datetimebox" id="startTime" style="width:height: 26px;width:150px;" value="${(startTime)!}"  name="query.startTime"  autocomplete="off" data-options="editable:false">
+                            <input type="text" class="easyui-datetimebox" id="startTime" style="width:height: 26px;width:150px;" value="${(startTime)!}"  name="query.startTime"  autocomplete="off" data-options="editable:false">
                         </td>
                         <td class="td_label">
                             <label>结束时间</label>
@@ -154,8 +162,8 @@
                         <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
                             <a href="#" onclick="searchButton()"  class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
                             <a href="#" onclick="resetButton()" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
-                            <a href="#" id="daoruchaxun" onclick="importSeach()" data-options="iconCls:'icon-reset'">导入查询</a>
-                            <a href="#" onclick="downFile()" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
+                            <#--<a href="#" id="daoruchaxun" onclick="importSeach()" data-options="iconCls:'icon-reset'">导入查询</a>-->
+                            <a href="#" onclick="downFile()" id = "downLadfile" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
                         </td>
                     </tr>
                 </table>
@@ -179,13 +187,16 @@
     $(function(){
         //初始化条件数据
         initSelectChoose();
+        document.getElementById("filetitle").style.display = "none";
+        document.getElementById("fileinput").style.display = "none";
+        document.getElementById("downLadfile").style.display = "none";
         //是否隐藏
         aHidden();
     });
 
     //隐藏导入查询
     function aHidden(){
-        document.getElementById("daoruchaxun").style.display = "none";
+       // document.getElementById("daoruchaxun").style.display = "none";
     }
 
     //序列化搜索条件
@@ -286,11 +297,22 @@
 
     /*查询事件*/
     function searchButton(){
-        identity = "";
-        if (checkTime()) {
-            //请求查询
-            searchDatagrid('form_search','table');
+
+        var val=$('input:radio[id="daoru"]:checked').val();
+
+        //var valaaa=$('input:radio[id="daoru"]:checked').val();
+        if(val == 1){
+            importSearchButton();
+        }else {
+            identity = "";
+            if (checkTime()) {
+                //请求查询
+                searchDatagrid('form_search','table');
+            }
         }
+
+
+
     }
 
     /*初始化下拉选择框*/
@@ -480,11 +502,17 @@
     }
 
     $("#tiaojian").change(function() {
-        $("#daoruchaxun").hide();
+        //$("#daoruchaxun").hide();
+        $("#filetitle").hide();
+        $("#fileinput").hide();
+        $("#downLadfile").hide();
     });
 
     $("#daoru").change(function() {
-        $("#daoruchaxun").show();
+        //$("#daoruchaxun").show();
+        $("#filetitle").show();
+        $("#fileinput").show();
+        $("#downLadfile").show();
     });
 
 </script>
