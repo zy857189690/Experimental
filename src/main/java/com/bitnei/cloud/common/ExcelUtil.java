@@ -625,8 +625,8 @@ public class ExcelUtil {
             BufferedInputStream in = null;
             BufferedOutputStream out = null;
             try {
-                String srcBase = RequestContext.class.getResource("/templates/templateFile").getFile();
-                File f = new File( srcBase+templateQuery);
+                //String srcBase = RequestContext.class.getResource(File.separator +"templates"+File.separator).getFile();
+                File f = new File(base+templateQuery);
                 dfile = f;
                 response.setContentType("application/x-excel");
                 response.setCharacterEncoding("UTF8");
