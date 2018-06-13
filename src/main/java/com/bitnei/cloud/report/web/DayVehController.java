@@ -1,6 +1,7 @@
 package com.bitnei.cloud.report.web;
 
 import com.bitnei.cloud.common.ExcelUtil;
+import com.bitnei.cloud.common.MemCacheManager;
 import com.bitnei.cloud.common.annotation.Module;
 import com.bitnei.cloud.common.annotation.SLog;
 import com.bitnei.cloud.common.bean.AppBean;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.*;
 
@@ -163,23 +165,18 @@ public class DayVehController {
         if (lisVin.size() == 0) {
             return new AppBean(-1, "文件内容不能为空！");
         }
+        //Excel文件内容放入缓存
+        //WebUser user = ServletUtil.getUser();
+        //获取sessionId
+        HttpSession session = request.getSession();
+        //清空缓存车辆信息
+        MemCacheManager.getInstance().remove(session.getId() + "InstantVeh");
+        //添加缓存的车辆信息
+        MemCacheManager.getInstance().set(session.getId() + "InstantVeh", lisVin);
         AppBean app = new AppBean();
         app.getData().put("path", "");//Map<String, Object>.put("path", "")
         app.getData().put("fileName", "");
         app.setMessage("");
-        /**
-         * 封装成key，对应许多值的一个list
-         */
-        List<String> licensePlateValue = new ArrayList<String>();//用来存车牌的value值。
-        List<String> vinValue = new ArrayList<String>();//用来存vin的value值
-        Map<String,Object> map = new HashMap<String,Object>();
-        for(int i=0;i<lisVin.size();i++){
-            licensePlateValue.add(lisVin.get(i).get("lic").toString());
-            vinValue.add(lisVin.get(i).get("vin").toString());
-        }
-        map.put("licensePlate",licensePlateValue);
-        map.put("vin",vinValue);
-        app.setData(map);
         return app;
     }
 
@@ -206,36 +203,36 @@ public class DayVehController {
         return;
 
     }
-
-    /**
-     * 导入查询实现
-     * @param file
-     * @return
-     * @throws Exception
-     */
-    @PostMapping(value = "/improtSearch")
-    @ResponseBody
-    @RequiresPermissions(URL_LIST)
-    public AppBean improtSearch(MultipartFile file,String identity) throws Exception{
-
-        if (file == null) {
-            return new AppBean(-1, "文件获取失败！");
-        }
-
-        Long fileSize = file.getSize();
-        if (fileSize > 10240 * 1024) {
-            return new AppBean(-1, "文件大小超出最大10M限制！");
-        }
-
-        String fileName = file.getOriginalFilename();//获取上传文件的原名
-        String suffixName = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();//去掉文件名，获取文件的后缀
-        if (!".xls".equals(suffixName) && !".xlsx".equals(suffixName)) {
-            return new AppBean(-1, "上传文件格式不正确，确认文件后缀名为xls、xlsx！");
-        }
-
-        AppBean appBean = dayVehService.importQuery(file, identity);
-        return appBean;
-    }
+//
+//    /**
+//     * 导入查询实现
+//     * @param file
+//     * @return
+//     * @throws Exception
+//     */
+//    @PostMapping(value = "/improtSearch")
+//    @ResponseBody
+//    @RequiresPermissions(URL_LIST)
+//    public AppBean improtSearch(MultipartFile file,String identity) throws Exception{
+//
+//        if (file == null) {
+//            return new AppBean(-1, "文件获取失败！");
+//        }
+//
+//        Long fileSize = file.getSize();
+//        if (fileSize > 10240 * 1024) {
+//            return new AppBean(-1, "文件大小超出最大10M限制！");
+//        }
+//
+//        String fileName = file.getOriginalFilename();//获取上传文件的原名
+//        String suffixName = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();//去掉文件名，获取文件的后缀
+//        if (!".xls".equals(suffixName) && !".xlsx".equals(suffixName)) {
+//            return new AppBean(-1, "上传文件格式不正确，确认文件后缀名为xls、xlsx！");
+//        }
+//
+//        AppBean appBean = dayVehService.importQuery(file, identity);
+//        return appBean;
+//    }
 
     /**
      * 下载模板

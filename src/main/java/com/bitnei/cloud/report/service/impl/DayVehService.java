@@ -2,6 +2,7 @@ package com.bitnei.cloud.report.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bitnei.cloud.App;
+import com.bitnei.cloud.common.MemCacheManager;
 import com.bitnei.cloud.common.PublicDealUtil;
 import com.bitnei.cloud.common.bean.AppBean;
 import com.bitnei.cloud.common.bean.ExcelData;
@@ -16,6 +17,8 @@ import com.bitnei.cloud.service.impl.BaseService;
 import com.bitnei.commons.datatables.DataGridOptions;
 import com.bitnei.commons.datatables.PagerModel;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.support.RequestContext;
 import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSONObject;
@@ -23,6 +26,7 @@ import com.bitnei.cloud.common.ExcelUtil;
 import com.bitnei.cloud.common.bean.AppBean;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -93,7 +97,46 @@ public class DayVehService extends BaseService implements IDayVehService {
         DataGridOptions options = ServletUtil.getDataLayOptions();
         //加用户信息（权限）
         options.setParams(PublicDealUtil.bulidUserForParams(options.getParams()));
-        PagerModel pm = findPagerModel("pagerModel",options);
+        // 判断是条件查询还是导入查询
+        PagerModel pm = null;
+        if("0".equals(options.getParams().get("adminFlag"))){
+            pm = findPagerModel("pagerModel",options);
+        }else {
+            /**
+             * 从缓存中获取excel车辆数据放入options中。
+             */
+            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+            List<Map> lisVin = (List<Map>) MemCacheManager.getInstance().get(request.getSession().getId() + "InstantVeh");
+            //循环处理VIN、车牌号
+            List<String> vinList = new ArrayList<>();
+            List<String> licensePlateList = new ArrayList<>();
+            for (Map<String, String> map : lisVin) {
+                String vin = map.get("vin");
+                if (!StringUtils.isEmpty(vin)) {
+                    vinList.add(vin);
+                    continue;
+                }
+                String licensePlate = map.get("lic");
+                if (!StringUtils.isEmpty(licensePlate)) {
+                    licensePlateList.add(licensePlate);
+                }
+            }
+            boolean sign = false;
+            if (vinList.size() > 0 ) {
+                options.getParams().put("vinList",vinList);
+                sign = true;
+            }
+
+            if (licensePlateList.size() > 0 ) {
+                options.getParams().put("licensePlateList", licensePlateList);
+                sign = true;
+            }
+
+            if (sign) {
+                options.getParams().put("identity", "importType");
+            }
+            pm = findPagerModel("pagerModel",options);
+        }
         return pm;
     }
 
@@ -117,57 +160,57 @@ public class DayVehService extends BaseService implements IDayVehService {
     }
 
 
-    @Override
-    public AppBean importQuery(MultipartFile file, String identity) throws Exception{
-        AppBean appBean = new AppBean();
-        List<Map> lisVin  =  ExcelUtil.getVehicleInformation(file);//获取excel中车辆的信息数
-        if (lisVin.size() == 0) {
-            return new AppBean(-1, "文件内容不能为空！");
-        }
-
-        DataGridOptions options = ServletUtil.getDataLayOptions();
-        //加用户信息（权限）
-        options.setParams(PublicDealUtil.bulidUserForParams(options.getParams()));
-
-        //循环处理VIN、车牌号
-        List<String> vinList = new ArrayList<>();
-        List<String> licensePlateList = new ArrayList<>();
-        for (Map<String, String> map : lisVin) {
-            String vin = map.get("vin");
-            if (!StringUtils.isEmpty(vin)) {
-                vinList.add(vin);
-                continue;
-            }
-            String licensePlate = map.get("lic");
-            if (!StringUtils.isEmpty(licensePlate)) {
-                licensePlateList.add(licensePlate);
-            }
-        }
-
-        boolean sign = false;
-        if (vinList.size() > 0 ) {
-            options.getParams().put("vinList",vinList);
-            sign = true;
-        }
-
-        if (licensePlateList.size() > 0 ) {
-            options.getParams().put("licensePlateList", licensePlateList);
-            sign = true;
-        }
-
-        if (sign) {
-            options.getParams().put("identity", identity);
-        }
-        PagerModel pm = findPagerModel("pagerModel",options);
-        /**
-         * list中存放的就是导入文件查询到的许多辆车辆的信息
-         * 这个list可以先条件查询后，再合并导入条件查询。
-         */
-        List<Map> list = pm.getRows();
-        //this.cyclicData(list);
-        appBean.setMessage(JSONObject.toJSONString(pm));
-        return appBean;
-    }
+//    @Override
+//    public AppBean importQuery(MultipartFile file, String identity) throws Exception{
+//        AppBean appBean = new AppBean();
+//        List<Map> lisVin  =  ExcelUtil.getVehicleInformation(file);//获取excel中车辆的信息数
+//        if (lisVin.size() == 0) {
+//            return new AppBean(-1, "文件内容不能为空！");
+//        }
+//
+//        DataGridOptions options = ServletUtil.getDataLayOptions();
+//        //加用户信息（权限）
+//        options.setParams(PublicDealUtil.bulidUserForParams(options.getParams()));
+//
+//        //循环处理VIN、车牌号
+//        List<String> vinList = new ArrayList<>();
+//        List<String> licensePlateList = new ArrayList<>();
+//        for (Map<String, String> map : lisVin) {
+//            String vin = map.get("vin");
+//            if (!StringUtils.isEmpty(vin)) {
+//                vinList.add(vin);
+//                continue;
+//            }
+//            String licensePlate = map.get("lic");
+//            if (!StringUtils.isEmpty(licensePlate)) {
+//                licensePlateList.add(licensePlate);
+//            }
+//        }
+//
+//        boolean sign = false;
+//        if (vinList.size() > 0 ) {
+//            options.getParams().put("vinList",vinList);
+//            sign = true;
+//        }
+//
+//        if (licensePlateList.size() > 0 ) {
+//            options.getParams().put("licensePlateList", licensePlateList);
+//            sign = true;
+//        }
+//
+//        if (sign) {
+//            options.getParams().put("identity", identity);
+//        }
+//        PagerModel pm = findPagerModel("pagerModel",options);
+//        /**
+//         * list中存放的就是导入文件查询到的许多辆车辆的信息
+//         * 这个list可以先条件查询后，再合并导入条件查询。
+//         */
+//        List<Map> list = pm.getRows();
+//        //this.cyclicData(list);
+//        appBean.setMessage(JSONObject.toJSONString(pm));
+//        return appBean;
+//    }
 
     @Override
     public void importExport(MultipartFile file, String identity) throws Exception{

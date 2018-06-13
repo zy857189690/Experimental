@@ -14,13 +14,13 @@
     </script>
 </head>
 <body class="easyui-layout" fit="true" id="fullid">
-<div id="win" class="easyui-window" title="导入查询" style="width:400px;height:200px;top:105px;" data-options="modal:true,closed:true">
-    <div id="cc" class="easyui-layout">
-        <label>导入查询文件</label>
-        <input type="file" id="file" style="width:100px;" name="query.myfile" />
-        <a href="#" onclick="importSearchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
-    </div>
-</div>
+<#--<div id="win" class="easyui-window" title="导入查询" style="width:400px;height:200px;top:105px;" data-options="modal:true,closed:true">-->
+    <#--<div id="cc" class="easyui-layout">-->
+        <#--<label>导入查询文件</label>-->
+        <#--<input type="file" id="file" style="width:100px;" name="query.myfile" />-->
+        <#--<a href="#" onclick="importSearchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>-->
+    <#--</div>-->
+<#--</div>-->
 
 
 
@@ -30,9 +30,9 @@
             <form id="form_search" name="" class="sui-form cg-form">
                 <div style="width: 90%; height: 20px; margin: 10px;">
                     <label>条件查询</label>
-                    <input type="radio" id="conditionQuery" name="query.adminFlag" checked="checked" data-option="selected:true" value="0" ></input>
+                    <input type="radio" name="query.adminFlag" onclick="operationtd(true)"  checked="checked"  value="0" ></input>
                     <label>导入查询</label>
-                    <input type="radio" id="importQuery" name="query.adminFlag" value="1" " ></input>
+                    <input type="radio" name="query.adminFlag" value="1" onclick="operationtd(false)" ></input>
                 </div>
                 <table class="table_search" style="height: 90px;">
                     <tr>
@@ -92,17 +92,17 @@
                             <input id="sysDivisionId" name="query.sysDivisionId" style="width: 120px;" />
                         </td>
 
-                        <#--<td class="td_label" id="fileButton">-->
-                            <#--<label>文件上传</label>-->
-                        <#--</td>-->
-                        <#--<td class="td_input" id="fileShow">-->
-                            <#--<input type="file" id="file" style="width: height: 26px;width:120px;" name="myfile" />-->
-                            <#--<input type="button" onclick="UpladFile()" value="文件解析" />-->
-                        <#--</td>-->
+                        <td class="td_label" id="fileButton">
+                            <label>文件上传</label>
+                        </td>
+                        <td class="td_input" id="fileShow">
+                            <input type="file" id="file" style="width: height: 26px;width:120px;" name="myfile" />
+                            <input type="button" onclick="UpladFile()" value="文件解析" />
+                        </td>
 
-                        <#--<td class="td_input" id="fileDown"  >-->
-                            <#--<input type="button" onclick="downFile()" value="导入查询模板下载" />-->
-                        <#--</td>-->
+                        <td class="td_input" id="fileDown"  >
+                            <input type="button" onclick="downFile()" value="导入查询模板下载" />
+                        </td>
 
                         <#--<td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">-->
                             <#--<a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>-->
@@ -112,8 +112,8 @@
                         <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
                             <a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
                             <a href="#" onclick="resetButton()" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
-                            <a href="#" id="impQuery" onclick="importSeach()" data-options="iconCls:'icon-reset'">导入查询</a>
-                            <a href="#" onclick="downFile()" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
+                            <#--<a href="#" id="impQuery" onclick="importSeach()" data-options="iconCls:'icon-reset'">导入查询</a>-->
+                            <#--<a href="#" onclick="downFile()" data-options="iconCls:'icon-reset'">导入查询模板下载</a>-->
                         </td>
                     </tr>
                 </table>
@@ -136,6 +136,9 @@
     $(function(){
         //初始化条件数据
         initSelectChoose();
+        $('#fileButton').css("visibility", "hidden");
+        $('#fileShow').css("visibility", "hidden");
+        $('#fileDown').css("visibility", "hidden");
     });
 
     //序列化搜索条件
@@ -301,42 +304,6 @@
             searchDatagrid('form_search','table');
         }
     }
-
-    /**
-     * 增加
-     */
-    function add_item() {
-        var title = "增加演示1";
-        var url = "${base}/report/demo1/add";
-        openAddDataWin('report_demo1',title,url,"600",'600','table');
-    }
-    /**
-     * 查看
-     */
-    function view_item() {
-        var title = "增加演示1";
-        var url = "${base}/report/demo1/view";
-        openViewDataWin('report_demo1',title,url,"600",'600','table');
-    }
-    /**
-     * 编辑
-     * @param id
-     */
-    function edit_item(id) {
-        var title = "编辑演示1";
-        var url = "${base}/report/demo1/update?id=" + (id);
-        openUpdateDataWin('report_demo1',title,url,"600",'600','table');
-    }
-    /**
-     * 编辑
-     * @param id
-     */
-    function del_item() {
-        var title = "演示1";
-        var url = "${base}/report/demo1/del";
-        delRecord(title,url,'table');
-    }
-
 
     /**
      * 初始化下拉选择框
@@ -545,15 +512,17 @@
         }
     }
 
-    $("#conditionQuery").change(function() {
-        $("#impQuery").hide();
-    });
-    $("#importQuery").change(function() {
-        $("#impQuery").show();
-    });
-    function aHidden(){
-        document.getElementById("impQuery").style.display = "none";
+    function   operationtd(nub) {
+        if(nub){
+            $('#fileButton').css("visibility", "hidden");
+            $('#fileShow').css("visibility", "hidden");
+            $('#fileDown').css("visibility", "hidden");
+        }else {
+            $('#fileButton').css("visibility", "visible");
+            $('#fileShow').css("visibility", "visible");
+            $('#fileDown').css("visibility", "visible");
+        }
+
     }
-    window.onload=aHidden;
 </script>
 </html>
