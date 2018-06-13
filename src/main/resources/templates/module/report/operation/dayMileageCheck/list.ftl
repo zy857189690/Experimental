@@ -401,11 +401,8 @@
             }
 
         }else {
-            identity = "";
-            if (checkTime()) {
                 //请求查询
                 searchDatagrid('form_search','table');
-            }
         }
 
 
