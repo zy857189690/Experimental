@@ -41,7 +41,7 @@
                         </td>
                         <td class="td_input" id="fileShow">
                             <input type="file" id="file" style="height: 30px; width: 168px;" name="myfile" />
-                            <input type="button" onclick="UpladFile()" value="文件解析" />
+                            <#--<input type="button" onclick="UpladFile()" value="文件解析" />-->
                         </td>
 
                         <td class="td_label">
@@ -147,9 +147,6 @@
         document.getElementById("fileButton").style.display = "none";
         document.getElementById("fileShow").style.display = "none";
         document.getElementById("downLadfile").style.display = "none";
-        // $('#fileDown').css("visibility", "hidden");
-        //是否隐藏
-        aHidden();
     });
 
     //序列化搜索条件
@@ -282,7 +279,7 @@
 </script>
 <script language="javascript" charset=”utf-8″>
 
-    var identity = ""
+    // var identity = ""
     function checkTime(){
         //时间校验
         var endTime = $('#endTime').datetimebox("getValue");
@@ -309,10 +306,22 @@
 
     /*查询事件*/
     function searchButton(){
-        identity = "";
-        if (checkTime()) {
-            //请求查询
+        var val=$('input:radio[id="import"]:checked').val();
+
+        //var valaaa=$('input:radio[id="daoru"]:checked').val();
+        if(val == 1){
+
+            var file = document.getElementById("file").files[0];
+            if (fileCheck(file)) {
+                UpladFile();
+            }
             searchDatagrid('form_search','table');
+        }else {
+            identity = "";
+            if (checkTime()) {
+                //请求查询
+                searchDatagrid('form_search','table');
+            }
         }
     }
 
@@ -394,7 +403,7 @@
 
     /*模板下载*/
     function downFile() {
-        var downUrl = "${base}/report/workCondition/dayVeh/downLoadModel?moduleName=model&fileName=templateQuery.xls";
+        var downUrl = "${base}/report/common/downLoadModel?moduleName=model&fileName=templateQuery.xls";
         window.open(downUrl);
     }
 
@@ -522,20 +531,31 @@
             return ".xls";
         }
     }
+    function   operationtd(nub) {
+        if (nub) {
+            $("#fileButton").hide();
+            $("#fileShow").hide();
+            $("#downLadfile").hide();
+        } else {
+            $("#fileButton").show();
+            $("#fileShow").show();
+            $("#downLadfile").show();
+        }
 
-    $("#condition").change(function() {
-        //$("#daoruchaxun").hide();
-        $("#fileButton").hide();
-        $("#fileShow").hide();
-        $("#downLadfile").hide();
-    });
-
-    $("#import").change(function() {
-        //$("#daoruchaxun").show();
-        $("#fileButton").show();
-        $("#fileShow").show();
-        $("#downLadfile").show();
-    });
+    }
+    // $("#condition").change(function() {
+    //     //$("#daoruchaxun").hide();
+    //     $("#fileButton").hide();
+    //     $("#fileShow").hide();
+    //     $("#downLadfile").hide();
+    // });
+    //
+    // $("#import").change(function() {
+    //     //$("#daoruchaxun").show();
+    //     $("#fileButton").show();
+    //     $("#fileShow").show();
+    //     $("#downLadfile").show();
+    // });
 
 </script>
 </html>
