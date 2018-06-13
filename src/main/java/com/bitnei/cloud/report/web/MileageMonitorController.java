@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.bitnei.cloud.common.ControlUtil;
 import com.bitnei.cloud.common.annotation.Module;
 import com.bitnei.cloud.common.annotation.SLog;
+import com.bitnei.cloud.report.service.IMileageMonitorService;
 import com.bitnei.cloud.report.service.impl.MileageMonitorService;
 import org.apache.log4j.Logger;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -47,7 +48,7 @@ public class MileageMonitorController {
     //导入
     public final static String URL_IMPORT = BASE_REQ_PATH + "/import";
     @Autowired
-    private MileageMonitorService mileageMonitorService;
+    private IMileageMonitorService mileageMonitorService;
 
 
     /**

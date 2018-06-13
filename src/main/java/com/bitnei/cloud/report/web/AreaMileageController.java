@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.bitnei.cloud.common.ControlUtil;
 import com.bitnei.cloud.common.annotation.Module;
 import com.bitnei.cloud.common.annotation.SLog;
+import com.bitnei.cloud.report.service.IAreaMileageService;
 import com.bitnei.cloud.report.service.impl.AreaMileageService;
 import org.apache.log4j.Logger;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -51,9 +52,7 @@ public class AreaMileageController {
     public final static String URL_IMPORT = BASE_REQ_PATH + "/import";
 
     @Autowired
-    private AreaMileageService areaMileageService;
-    @Autowired
-    protected HttpServletRequest request;
+    private IAreaMileageService areaMileageService;
 
     /**
      * 运营分析-跳转列表页面
