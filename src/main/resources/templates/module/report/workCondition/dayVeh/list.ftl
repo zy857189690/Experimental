@@ -394,7 +394,7 @@
 
     /*模板下载*/
     function downFile() {
-        var downUrl = "${base}/report/workCondition/dayVeh/downLooadModel?moduleName=model&fileName=templateQuery.xlsx";
+        var downUrl = "${base}/report/workCondition/dayVeh/downLoadModel?moduleName=model&fileName=templateQuery.xls";
         window.open(downUrl);
     }
 
