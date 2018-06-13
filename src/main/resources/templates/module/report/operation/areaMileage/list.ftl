@@ -24,6 +24,102 @@
 
 
 <div region="center" style="overflow: hidden;width: 100%;">
+
+    <div data-options="region:'north',title:'查询',split:true,collapsable:true" style="width: 100%;height: 85px;margin: 10px;">
+        <div style="width: 100%;border: 1;margin:5 5 5 10 ">
+            <form id="form_search" name="form_search" class="sui-form form-inline cg-form">
+                <table class="table_search">
+                    <tr>
+                        <td class="td_label">
+                            <label>行驶区域:</label>
+                        </td>
+                        <td class="td_input">
+                            <!--
+                            <select class="input-fat input" name="query.xingShi" id="isOnline" query_type="eqs" style="height: 26px;width:168px;">
+                            </select>
+                            -->
+                            <input type="text"class="input-fat input" id="xingShi" style="width: height: 26px;width:158px;"   name="query.xingShi"  autocomplete="off" >
+
+                        </td>
+
+                        <td class="td_label">
+                            <label>截止时间:</label>
+                        </td>
+                        <td class="td_input">
+                            <input type="text"class="easyui-datebox" id="endTime" style="width: height: 26px;width:157px;"  name="query.endTime"  autocomplete="off" data-options="editable:false">
+
+                        </td>
+                        <td class="td_label">
+                            <label>区域总里程大于（km）:</label>
+                        </td>
+                        <td class="td_input">
+                        <#--<input type="text" class="input-fat input" name="query.vin" id="vin" query_type="lis" style="width: height: 26px;width:150px;" required>-->
+                            <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   onkeyup="value=value.replace(/[^\d]/g,'')" id="quYuZong"  name="query.quYuZong"  autocomplete="off" >
+                        </td>
+                        <td class="td_label">
+                            <label>车辆阶段</label>
+                        </td>
+                        <td class="td_input">
+                            <!--
+                            <select class="input-fat input" name="query.xingShi" id="isOnline" query_type="eqs" style="height: 26px;width:168px;">
+                                <option value="">全部</option>
+                                <option value="0">待检测</option>
+                                <option value="1">待入库</option>
+                                <option value="2">入库</option>
+                                <option value="3">出厂带销售</option>
+                                <option value="4">已销售</option>
+                                <option value="5">运营中</option>
+                                <option value="6">已报废</option>
+
+
+                            </select>-->
+                            <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   id="jieDuan" name="query.jieDuan"  autocomplete="off" >
+                        </td>
+                        <td class="td_label">
+                            <label>车牌号:</label>
+                        </td>
+                        <td class="td_input">
+                            <input type="text"class="input-fat input" style="width: height: 26px;width:140px;"   name="query.chePai"  autocomplete="off" >
+                        </td>
+                        <td class="td_label">
+                            <label>VIN:</label>
+                        </td>
+                        <td class="td_input">
+                            <input type="text"class="input-fat input" style="width: height: 26px;width:140px;"   name="query.VIN"  autocomplete="off" >
+                        </td>
+                        <td class="td_label">
+                            <label>车辆名称:</label>
+                        </td>
+                        <td class="td_input">
+                            <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.cheLiangMing"  autocomplete="off" >
+                        </td>
+                        <td class="td_label">
+                            <label>运营单位:</label>
+                        </td>
+                        <td class="td_input">
+                            <input type="text"class="input-fat input" style="width: height: 26px;width:150px;" id="yunYing"    name="query.yunYing"  autocomplete="off" >
+                            <!--
+                             <select class="input-fat input" name="query.yunYing" id="yunYing" query_type="eqs" style="height: 26px;width:168px;">
+                             </select>-->
+
+
+                        </td>
+                        <td class="td_label"  >
+                            <label>上牌城市:</label>
+                        </td>
+                        <td class="td_input">
+                            <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.shangPai"  autocomplete="off" >
+                        </td>
+
+                        <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
+                            <a href="#" onclick="search_item()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+                            <a href="#" onclick="reset_common(search_item)" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
 
         <@shiro.hasPermission name="/report/demo1/export">
@@ -32,104 +128,9 @@
         </@shiro.hasPermission>
 
     </div>
-    <div id="table" name="datagrid" style="width: 100%;height: 100%"></div>
+    <div id="table" name="datagrid" style="width: 100%;"></div>
 </div>
 
-<div data-options="region:'north',title:'查询',split:true,collapsable:true" style="width: 100%;height: 90px">
-    <div style="width: 100%;border: 1;margin:5 5 5 10 ">
-        <form id="form_search" name="form_search" class="sui-form form-inline cg-form">
-            <table class="table_search">
-                <tr>
-                    <td class="td_label">
-                        <label>行驶区域:</label>
-                    </td>
-                    <td class="td_input">
-                        <!--
-                        <select class="input-fat input" name="query.xingShi" id="isOnline" query_type="eqs" style="height: 26px;width:168px;">
-                        </select>
-                        -->
-                            <input type="text"class="input-fat input" id="xingShi" style="width: height: 26px;width:150px;"   name="query.xingShi"  autocomplete="off" >
-
-                    </td>
-
-                    <td class="td_label">
-                        <label>截止时间:</label>
-                    </td>
-                    <td class="td_input">
-                        <input type="text"class="easyui-datebox" id="endTime" style="width: height: 26px;width:150px;"  name="query.endTime"  autocomplete="off" data-options="editable:false">
-
-                    </td>
-                    <td class="td_label">
-                        <label>区域总里程大于（km）:</label>
-                    </td>
-                    <td class="td_input">
-                    <#--<input type="text" class="input-fat input" name="query.vin" id="vin" query_type="lis" style="width: height: 26px;width:150px;" required>-->
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   onkeyup="value=value.replace(/[^\d]/g,'')" id="quYuZong"  name="query.quYuZong"  autocomplete="off" >
-                    </td>
-                    <td class="td_label">
-                        <label>车辆阶段</label>
-                    </td>
-                    <td class="td_input">
-                        <!--
-                        <select class="input-fat input" name="query.xingShi" id="isOnline" query_type="eqs" style="height: 26px;width:168px;">
-                            <option value="">全部</option>
-                            <option value="0">待检测</option>
-                            <option value="1">待入库</option>
-                            <option value="2">入库</option>
-                            <option value="3">出厂带销售</option>
-                            <option value="4">已销售</option>
-                            <option value="5">运营中</option>
-                            <option value="6">已报废</option>
-
-
-                        </select>-->
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   id="jieDuan" name="query.jieDuan"  autocomplete="off" >
-                    </td>
-                     <td class="td_label">
-                        <label>车牌号:</label>
-                    </td>
-                    <td class="td_input">
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.chePai"  autocomplete="off" >
-                    </td>
-                    <td class="td_label">
-                        <label>VIN:</label>
-                    </td>
-                    <td class="td_input">
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.VIN"  autocomplete="off" >
-                    </td>
-                    <td class="td_label">
-                        <label>车辆名称:</label>
-                    </td>
-                    <td class="td_input">
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.cheLiangMing"  autocomplete="off" >
-                    </td>
-                    <td class="td_label">
-                        <label>运营单位:</label>
-                    </td>
-                    <td class="td_input">
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;" id="yunYing"    name="query.yunYing"  autocomplete="off" >
-                        <!--
-                         <select class="input-fat input" name="query.yunYing" id="yunYing" query_type="eqs" style="height: 26px;width:168px;">
-                         </select>-->
-
-
-                    </td>
-                    <td class="td_label"  >
-                        <label>上牌城市:</label>
-                    </td>
-                    <td class="td_input">
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.shangPai"  autocomplete="off" >
-                    </td>
-
-                    <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
-                        <a href="#" onclick="search_item()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
-                        <a href="#" onclick="reset_common(search_item)" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </div>
-</div>
 
 </body>
 <script>
