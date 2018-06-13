@@ -67,8 +67,14 @@
                 #{item}
             </foreach>
         </if>
-        <if test="licensePlate != null and identity == 'importType'">
-            OR veh.license_plate IN
+        <if test="licensePlateList != null and vinList != null and identity == 'importType'">
+            OR
+        </if>
+        <if test="licensePlateList != null and vinList == null and identity == 'importType'">
+            AND
+        </if>
+        <if test="licensePlateList != null and identity == 'importType'">
+            veh.license_plate IN
             <foreach collection="licensePlateList" index="index" item="item" open="(" separator="," close=")">
                 #{item}
             </foreach>

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * 异常分析-日汇总报表
+ * 异常车辆统计
  * Created by DFY on 2018/5/28.
  */
 @Module(name = "异常分析-异常车辆统计")
@@ -21,28 +21,21 @@ public class AnomalyVehController {
     private final Logger logger = Logger.getLogger(getClass());
     //模块基础请求前缀
     public final static String BASE_REQ_PATH = "/report/anomaly/anomalyVeh";
-    //新增
+    //列表
     public final static String URL_LIST = BASE_REQ_PATH + "/list";
-    //新增
-    public final static String URL_ADD = BASE_REQ_PATH + "/add";
-    //编辑
-    public final static String URL_UPDATE = BASE_REQ_PATH + "/update";
-    //查看
-    public final static String URL_VIEW = BASE_REQ_PATH + "/view";
-    //删除
-    public final static String URL_DEL = BASE_REQ_PATH + "/del";
+
     //导出
     public final static String URL_EXPORT = BASE_REQ_PATH + "/export";
     //导入
     public final static String URL_IMPORT = BASE_REQ_PATH + "/import";
 
     /**
-     * 异常分析-跳转列表页面
+     * 异常车辆统计-跳转列表页面
      * @return
      */
     @RequestMapping("/list")
     @RequiresPermissions(URL_LIST)
-    @SLog(action = "异常分析-列表页面")
+    @SLog(action = "异常车辆统计-跳转列表页面")
     public String list() {
         return BASE + "list";
     }

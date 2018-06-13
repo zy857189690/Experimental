@@ -1,11 +1,7 @@
 package com.bitnei.cloud.report.service.impl;
 
 import com.alibaba.druid.util.StringUtils;
-import com.alibaba.fastjson.JSONObject;
-import com.bitnei.cloud.common.CommonDataTypeRetrun;
-import com.bitnei.cloud.common.ConnectionGdApi;
-import com.bitnei.cloud.common.ExcelUtil;
-import com.bitnei.cloud.common.PublicDealUtil;
+import com.bitnei.cloud.common.*;
 import com.bitnei.cloud.common.bean.AppBean;
 import com.bitnei.cloud.common.bean.ExcelData;
 import com.bitnei.cloud.common.util.DataLoader;
@@ -18,10 +14,15 @@ import com.bitnei.cloud.service.impl.BaseService;
 import com.bitnei.commons.datatables.DataGridOptions;
 import com.bitnei.commons.datatables.PagerModel;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.RequestContext;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +41,12 @@ public class VehHistoryService extends BaseService implements IVehHistoryService
 		DataGridOptions options = ServletUtil.getDataLayOptions();
 		//添加用户信息
 		options.setParams(PublicDealUtil.bulidUserForParams(options.getParams()));
+		Object identityObject = options.getParams().get("identity");
+		if (identityObject != null && "identity".equals(String.valueOf(identityObject))) {
+			HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+			Map tempMap = (Map)MemCacheManager.getInstance().get(request.getSession().getId() + "vehHistoryState");
+			options.getParams().putAll(tempMap);
+		}
 		PagerModel pm = findPagerModel("pagerModel",options);
 		List<Map> list = pm.getRows();
 		this.cyclicData(list);
@@ -66,16 +73,12 @@ public class VehHistoryService extends BaseService implements IVehHistoryService
 	}
 
 	@Override
-	public AppBean importQuery(MultipartFile file, String identity) throws Exception{
+	public AppBean importQuery(HttpServletRequest request, MultipartFile file, String identity) throws Exception{
 		AppBean appBean = new AppBean();
 		List<Map> lisVin  =  ExcelUtil.getVehicleInformation(file);
 		if (lisVin.size() == 0) {
 			return new AppBean(-1, "文件内容不能为空！");
 		}
-
-		DataGridOptions options = ServletUtil.getDataLayOptions();
-		//添加用户信息
-		options.setParams(PublicDealUtil.bulidUserForParams(options.getParams()));
 
 		//循环处理VIN、车牌号
 		List<String> vinList = new ArrayList<>();
@@ -91,26 +94,28 @@ public class VehHistoryService extends BaseService implements IVehHistoryService
 				licensePlateList.add(licensePlate);
 			}
 		}
-
+		Map<String, Object> tempMap = new HashMap<>();
 		boolean sign = false;
-		if (vinList.size() > 0 || licensePlateList.size() > 0 ) {
-			options.getParams().put("vinList",vinList);
+		if (vinList.size() > 0) {
+			tempMap.put("vinList",vinList);
 			sign = true;
 		}
 
 		if (licensePlateList.size() > 0 ) {
-			options.getParams().put("licensePlateList", licensePlateList);
+			tempMap.put("licensePlateList", licensePlateList);
 			sign = true;
 		}
 
 		if (sign) {
-			options.getParams().put("identity", identity);
+			tempMap.put("identity", identity);
 		}
 
-		PagerModel pm = findPagerModel("pagerModel",options);
-		List<Map> list = pm.getRows();
-		this.cyclicData(list);
-		appBean.setMessage(JSONObject.toJSONString(pm));
+		HttpSession session = request.getSession();
+		//清空缓存车辆信息
+		MemCacheManager.getInstance().remove(session.getId() + "vehHistoryState");
+		//添加缓存的车辆信息
+		MemCacheManager.getInstance().set(session.getId() + "vehHistoryState", tempMap);
+
 		return appBean;
 	}
 
@@ -137,7 +142,7 @@ public class VehHistoryService extends BaseService implements IVehHistoryService
 		}
 
 		boolean sign = false;
-		if (vinList.size() > 0 || licensePlateList.size() > 0 ) {
+		if (vinList.size() > 0) {
 			options.put("vinList",vinList);
 			sign = true;
 		}

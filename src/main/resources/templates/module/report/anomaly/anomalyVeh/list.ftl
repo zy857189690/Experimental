@@ -18,22 +18,6 @@
 
 <div region="center" style="overflow: hidden;width: 100%;">
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
-        <@shiro.hasPermission name="/report/demo1/view">
-            <a href="#" onclick="view_item()" class="easyui-linkbutton"
-               data-options="iconCls:'icon-view'" menu="0">查看</a>
-        </@shiro.hasPermission>
-        <@shiro.hasPermission name="/report/demo1/add">
-        <a href="#" onclick="add_item()" class="easyui-linkbutton"
-           data-options="iconCls:'icon-add'" menu="0">增加</a>
-        </@shiro.hasPermission>
-        <@shiro.hasPermission name="/report/demo1/update">
-        <a href="#" onclick="edit_item()" class="easyui-linkbutton"
-           data-options="iconCls:'icon-edit'" >编辑</a>
-        </@shiro.hasPermission>
-        <@shiro.hasPermission name="/report/demo1/del">
-        <a href="#" onclick="del_item()" class="easyui-linkbutton"
-           data-options="iconCls:'icon-remove'" >删除</a>
-        </@shiro.hasPermission>
         <@shiro.hasPermission name="/report/demo1/export">
             <a href="#" onclick="exportDatagrid('${base}/report/demo1/export','form_search','table')" class="easyui-linkbutton"
                data-options="iconCls:'icon-export'" menu="0">导出</a>
@@ -48,18 +32,60 @@
         <form id="form_search" name="" class="sui-form cg-form">
             <table class="table_search">
                 <tr>
-                        <td class="td_label">
-                            <label>字典值</label>
-                        </td>
-                        <td class="td_input">
-                            <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.dictField"  autocomplete="off" >
-                        </td>
-                        <td class="td_label">
-                            <label>名称值</label>
-                        </td>
-                        <td class="td_input">
-                            <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.nameField"  autocomplete="off" >
-                        </td>
+                    <td class="td_label">
+                        <label>查询日期</label>
+                    </td>
+                    <td class="td_input">
+                        <input type="text" class="input-fat input" style="width: height: 26px;width:150px;" name="query.dictField" autocomplete="off">
+                    </td>
+                    <td class="td_label">
+                        <label>至</label>
+                    </td>
+                    <td class="td_input">
+                        <input type="text" class="input-fat input" style="width: height: 26px;width:150px;" name="query.nameField" autocomplete="off">
+                    </td>
+                    <td class="td_label">
+                        <label>运营单位</label>
+                    </td>
+                    <td class="td_input">
+                        <input type="text" class="input-fat input" style="width: height: 26px;width:150px;" name="query.nameField" autocomplete="off">
+                    </td>
+                    <td class="td_label">
+                        <label>车牌号</label>
+                    </td>
+                    <td class="td_input">
+                        <input type="text" class="input-fat input" style="width: height: 26px;width:150px;" name="query.nameField" autocomplete="off">
+                    </td>
+                    <td class="td_label">
+                        <label>VIN</label>
+                    </td>
+                    <td class="td_input">
+                        <input type="text" class="input-fat input" style="width: height: 26px;width:150px;" name="query.nameField" autocomplete="off">
+                    </td>
+                    <td class="td_label">
+                        <label>车辆种类</label>
+                    </td>
+                    <td class="td_input">
+                        <input type="text" class="input-fat input" style="width: height: 26px;width:150px;" name="query.nameField" autocomplete="off">
+                    </td>
+                    <td class="td_label">
+                        <label>车辆型号名称</label>
+                    </td>
+                    <td class="td_input">
+                        <input type="text" class="input-fat input" style="width: height: 26px;width:150px;" name="query.nameField" autocomplete="off">
+                    </td>
+                    <td class="td_label">
+                        <label>车辆状态</label>
+                    </td>
+                    <td class="td_input">
+                        <input type="text" class="input-fat input" style="width: height: 26px;width:150px;" name="query.nameField" autocomplete="off">
+                    </td>
+                    <td class="td_label">
+                        <label>上牌城市</label>
+                    </td>
+                    <td class="td_input">
+                        <input type="text" class="input-fat input" style="width: height: 26px;width:150px;" name="query.nameField" autocomplete="off">
+                    </td>
 
                     <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
                         <a href="#" onclick="searchDatagrid('form_search','table')" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
@@ -76,72 +102,45 @@
 
 </body>
 <script>
-    <#--$('#table').datagrid({-->
-        <#--url: '${base}/report/demo1/datagrid',-->
-        <#--sortName: "createTime",-->
-        <#--sortOrder: "desc",-->
-        <#--columns: [[-->
-            <#--{field: 'ck', checkbox: true, width: '20'},-->
-            <#--{field: 'name', title: '名称'},-->
-            <#--{field: 'dictField', title: '字典值'},-->
-            <#--{field: 'nameField', title: '名称值'},-->
-            <#--{field: 'createTime', title: '创建时间'},-->
-            <#--{field: 'createBy', title: '创建人'},-->
-            <#--{field: 'updateTime', title: '更新时间'},-->
-            <#--{field: 'updateBy', title: '更新人'},-->
-        <#--]],-->
-        <#--toolbar: "#toolbar",-->
-        <#--pagination: true,-->
-        <#--nowrap: true-->
+    $('#table').datagrid({
+        url: '${base}/report/demo1/datagrid',
+        sortName: "createTime",
+        sortOrder: "desc",
+        columns: [[
+            {field: 'ck', checkbox: true, width: '20'},
+            {field: 'name', title: '车牌号',align:'center',sortable: false},
+            {field: 'dictField', title: 'VIN',align:'center',sortable: false},
+            {field: 'nameField', title: '车辆种类',align:'center',sortable: false},
+            {field: 'createTime', title: '车辆型号名称',align:'center',sortable: false},
+            {field: 'createBy', title: '车辆公告型号',align:'center',sortable: false},
+            {field: 'updateTime', title: '终端零件号',align:'center',sortable: false},
+            {field: 'updateBy', title: '条形码编码',align:'center',sortable: false},
+            {field: 'updateBy', title: '终端厂商自定义编号',align:'center',sortable: false},
+            {field: 'updateBy', title: '车辆厂商',align:'center',sortable: false},
+            {field: 'updateBy', title: '运营单位',align:'center',sortable: false},
+            {field: 'updateBy', title: '上牌城市',align:'center',sortable: false},
+            {field: 'updateBy', title: '激活时间',align:'center',sortable: false},
+            {field: 'updateBy', title: '销售日期',align:'center',sortable: false},
+            {field: 'updateBy', title: 'ICCID',align:'center',sortable: false},
+            {field: 'updateBy', title: '最近异常时间',align:'center',sortable: false},
+            {field: 'updateBy', title: '车速异常（条）',align:'center',sortable: false},
+            {field: 'updateBy', title: '里程异常（条）',align:'center',sortable: false},
+            {field: 'updateBy', title: '经纬度异常（条）',align:'center',sortable: false},
+            {field: 'updateBy', title: '时间异常（条）',align:'center',sortable: false},
+            {field: 'updateBy', title: '总电压异常（条）',align:'center',sortable: false},
+            {field: 'updateBy', title: '总电流异常（条）',align:'center',sortable: false},
+            {field: 'updateBy', title: 'SOC异常（条）',align:'center',sortable: false},
+        ]],
+        toolbar: "#toolbar",
+        pagination: true,
+        nowrap: true
 
-    <#--});-->
+    });
 
-//    toolbar2Menu("table");
+    toolbar2Menu("table");
 
 </script>
 <script language="javascript">
-    /**
-     * 增加
-     */
-    function add_item() {
-        var title = "增加演示1";
-        var url = "${base}/report/demo1/add";
-        openAddDataWin('report_demo1',title,url,"600",'600','table');
-    }
-
-    /**
-     * 查看
-     */
-    function view_item() {
-        var title = "增加演示1";
-        var url = "${base}/report/demo1/view";
-        openViewDataWin('report_demo1',title,url,"600",'600','table');
-    }
-
-    /**
-     * 编辑
-     * @param id
-     */
-    function edit_item(id) {
-
-        var title = "编辑演示1";
-        var url = "${base}/report/demo1/update?id=" + (id);
-        openUpdateDataWin('report_demo1',title,url,"600",'600','table');
-
-    }
-
-
-    /**
-     * 编辑
-     * @param id
-     */
-    function del_item() {
-
-        var title = "演示1";
-        var url = "${base}/report/demo1/del";
-        delRecord(title,url,'table');
-
-    }
 
 
 

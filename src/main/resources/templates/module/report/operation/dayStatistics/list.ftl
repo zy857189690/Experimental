@@ -96,19 +96,19 @@
                                     <label>车牌号</label>
                                 </td>
                                 <td class="td_input">
-                                    <input type="text" name="query.idlePlate" id="idlePlate" class="input-fat input" style="width: height: 26px; width:150px;" />
+                                    <input type="text" name="query.idlePlate" id="idlePlate" class="input-fat input" style="width:150px;" />
                                 </td>
                                 <td class="td_label">
                                     <label>VIN码</label>
                                 </td>
                                 <td class="td_input">
-                                    <input type="text" name="query.idleVIN" id="idleVIN" class="input-fat input" style="width: height: 26px; width:150px;" />
+                                    <input type="text" name="query.idleVIN" id="idleVIN" class="input-fat input" style="width:150px;" />
                                 </td>
                                 <td class="td_label">
                                     <label>里程大于</label>
                                 </td>
                                 <td class="td_input">
-                                    <input type="text" name="query.idleMileage" id="idleMileage" class="input-fat input" style="width: height: 26px; width:150px;" />
+                                    <input type="text" name="query.idleMileage" id="idleMileage" class="input-fat input" style="width:150px;" />
                                 </td>
                                 <td class="td_label">
                                     <label>车辆阶段</label>
@@ -807,7 +807,7 @@
         <tr>
             <td style="text-align: right; width: 100px; height: 50px;">闲置里程阈值</td>
             <td>
-                <input type="text" name="query.idleMileageValue" id="idleMileageValue" value="100" class="input-fat input" style="width: height: 26px; width:365px;" />
+                <input type="text" name="query.idleMileageValue" id="idleMileageValue" value="100" class="input-fat input" style="height: 26px; width:365px;" />
             </td>
         </tr>
         <tr>

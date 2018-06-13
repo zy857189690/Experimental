@@ -14,13 +14,13 @@
     </script>
 </head>
 <body class="easyui-layout" fit="true" id="fullid">
-<div id="win" class="easyui-window" title="导入查询" style="width:400px;height:200px;top:105px;" data-options="modal:true,closed:true">
-    <div id="cc" class="easyui-layout">
-        <label>导入查询文件</label>
-        <input type="file" id="file" style="width:100px;" name="query.myfile" />
-        <a href="#" onclick="importSearchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
-    </div>
-</div>
+<#--<div id="win" class="easyui-window" title="导入查询" style="width:400px;height:200px;top:105px;" data-options="modal:true,closed:true">-->
+    <#--<div id="cc" class="easyui-layout">-->
+        <#--<label>导入查询文件</label>-->
+        <#--<input type="file" id="file" style="width:100px;" name="query.myfile" />-->
+        <#--<a href="#" onclick="importSearchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>-->
+    <#--</div>-->
+<#--</div>-->
 
 
 
@@ -30,31 +30,39 @@
             <form id="form_search" name="" class="sui-form cg-form">
                 <div style="width: 90%; height: 20px; margin: 10px;">
                     <label>条件查询</label>
-                    <input type="radio" id="conditionQuery" name="query.adminFlag" checked="checked" data-option="selected:true" value="0" ></input>
+                    <input type="radio" id = "condition" name="query.adminFlag" onclick="operationtd(true)"  checked="checked"  value="0" ></input>
                     <label>导入查询</label>
-                    <input type="radio" id="importQuery" name="query.adminFlag" value="1" " ></input>
+                    <input type="radio" id = "import" name="query.adminFlag" value="1" onclick="operationtd(false)" ></input>
                 </div>
                 <table class="table_search" style="height: 90px;">
                     <tr>
+                        <td class="td_label" id="fileButton">
+                            <label>文件上传</label>
+                        </td>
+                        <td class="td_input" id="fileShow">
+                            <input type="file" id="file" style="height: 30px; width: 168px;" name="myfile" />
+                            <#--<input type="button" onclick="UpladFile()" value="文件解析" />-->
+                        </td>
+
                         <td class="td_label">
                             <label>查询时间</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" name="query.startTime" id="startTime" style="height: 26px; width: 120px" value="${(startTime)!}" class="easyui-datebox" autocomplete="off" data-options="editable:false"/>
+                            <input type="text" name="query.startTime" id="startTime" style="height: 30px; width: 168px" value="${(startTime)!}" class="easyui-datebox" autocomplete="off" data-options="editable:false"/>
                         </td>
 
                         <td class="td_label">
                             <label>至</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" name="query.endTime" id="endTime" style="height: 26px;width: 120px" value="${(endTime)!}" class="easyui-datebox" autocomplete="off" data-options="editable:false"/>
+                            <input type="text" name="query.endTime" id="endTime" style="height: 30px;width: 168px" value="${(endTime)!}" class="easyui-datebox" autocomplete="off" data-options="editable:false"/>
                         </td>
 
                         <td class="td_label">
                             <label>车牌号</label>
                         </td>
                         <td class="td_input">
-                            <input id="licensePlate" type="text"class="input-fat input" style="width: height: 26px;width:100px;"   name="query.licensePlate"  autocomplete="off" >
+                            <input id="licensePlate" type="text"class="input-fat input" style="width:150px;"   name="query.licensePlate"  autocomplete="off" >
                         </td>
 
                         <td class="td_label">
@@ -62,34 +70,34 @@
                         </td>
 
                         <td class="td_input">
-                            <input id="vin" type="text"class="input-fat input" style="width: height: 26px;width:100px;"   name="query.vin"  autocomplete="off" >
+                            <input id="vin" type="text"class="input-fat input" style="width:150px;"   name="query.vin"  autocomplete="off" >
                         </td>
                         <td class="td_label">
                             <label>车辆种类</label>
                         </td>
                         <td class="td_input">
-                            <input id="vehTypeId" name="query.vehTypeId" style="width: 120px;" />
+                            <input id="vehTypeId" name="query.vehTypeId" style="width: 168px;" />
                         </td>
 
                         <td class="td_label">
                             <label>车型型号</label>
                         </td>
                         <td class="td_input">
-                            <input id="vehModelName" name="query.vehModelName" style="width: 120px;" />
+                            <input id="vehModelName" name="query.vehModelName" style="width: 168px;" />
                         </td>
 
                         <td class="td_label">
                             <label>运营单位</label>
                         </td>
                         <td class="td_input">
-                            <input id="useUintId" name="query.useUintId" style="width: 120px;" />
+                            <input id="useUintId" name="query.useUintId" style="width: 168px;" />
                         </td>
 
                         <td class="td_label">
                             <label>上牌区域</label>
                         </td>
                         <td class="td_input">
-                            <input id="sysDivisionId" name="query.sysDivisionId" style="width: 120px;" />
+                            <input id="sysDivisionId" name="query.sysDivisionId" style="width: 168px;" />
                         </td>
 
                         <#--<td class="td_label" id="fileButton">-->
@@ -112,8 +120,8 @@
                         <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
                             <a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
                             <a href="#" onclick="resetButton()" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
-                            <a href="#" id="impQuery" onclick="importSeach()" data-options="iconCls:'icon-reset'">导入查询</a>
-                            <a href="#" onclick="downFile()" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
+                            <#--<a href="#" id="impQuery" onclick="importSeach()" data-options="iconCls:'icon-reset'">导入查询</a>-->
+                            <a href="#" onclick="downFile()" id = "downLadfile" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
                         </td>
                     </tr>
                 </table>
@@ -136,6 +144,9 @@
     $(function(){
         //初始化条件数据
         initSelectChoose();
+        document.getElementById("fileButton").style.display = "none";
+        document.getElementById("fileShow").style.display = "none";
+        document.getElementById("downLadfile").style.display = "none";
     });
 
     //序列化搜索条件
@@ -295,48 +306,24 @@
 
     /*查询事件*/
     function searchButton(){
-        identity = "";
-        if (checkTime()) {
-            //请求查询
+        var val=$('input:radio[id="import"]:checked').val();
+
+        //var valaaa=$('input:radio[id="daoru"]:checked').val();
+        if(val == 1){
+
+            var file = document.getElementById("file").files[0];
+            if (fileCheck(file)) {
+                UpladFile();
+            }
             searchDatagrid('form_search','table');
+        }else {
+            identity = "";
+            if (checkTime()) {
+                //请求查询
+                searchDatagrid('form_search','table');
+            }
         }
     }
-
-    /**
-     * 增加
-     */
-    function add_item() {
-        var title = "增加演示1";
-        var url = "${base}/report/demo1/add";
-        openAddDataWin('report_demo1',title,url,"600",'600','table');
-    }
-    /**
-     * 查看
-     */
-    function view_item() {
-        var title = "增加演示1";
-        var url = "${base}/report/demo1/view";
-        openViewDataWin('report_demo1',title,url,"600",'600','table');
-    }
-    /**
-     * 编辑
-     * @param id
-     */
-    function edit_item(id) {
-        var title = "编辑演示1";
-        var url = "${base}/report/demo1/update?id=" + (id);
-        openUpdateDataWin('report_demo1',title,url,"600",'600','table');
-    }
-    /**
-     * 编辑
-     * @param id
-     */
-    function del_item() {
-        var title = "演示1";
-        var url = "${base}/report/demo1/del";
-        delRecord(title,url,'table');
-    }
-
 
     /**
      * 初始化下拉选择框
@@ -416,9 +403,10 @@
 
     /*模板下载*/
     function downFile() {
-        var downUrl = "${base}/report/workCondition/dayVeh/downLooadModel?moduleName=model&fileName=templateQuery.xlsx";
+        var downUrl = "${base}/report/common/downLoadModel?moduleName=model&fileName=templateQuery.xls";
         window.open(downUrl);
     }
+
 
     //导入查询弹窗口
     function importSeach(){
@@ -544,16 +532,31 @@
             return ".xls";
         }
     }
+    function   operationtd(nub) {
+        if (nub) {
+            $("#fileButton").hide();
+            $("#fileShow").hide();
+            $("#downLadfile").hide();
+        } else {
+            $("#fileButton").show();
+            $("#fileShow").show();
+            $("#downLadfile").show();
+        }
 
-    $("#conditionQuery").change(function() {
-        $("#impQuery").hide();
-    });
-    $("#importQuery").change(function() {
-        $("#impQuery").show();
-    });
-    function aHidden(){
-        document.getElementById("impQuery").style.display = "none";
     }
-    window.onload=aHidden;
+    // $("#condition").change(function() {
+    //     //$("#daoruchaxun").hide();
+    //     $("#fileButton").hide();
+    //     $("#fileShow").hide();
+    //     $("#downLadfile").hide();
+    // });
+    //
+    // $("#import").change(function() {
+    //     //$("#daoruchaxun").show();
+    //     $("#fileButton").show();
+    //     $("#fileShow").show();
+    //     $("#downLadfile").show();
+    // });
+
 </script>
 </html>

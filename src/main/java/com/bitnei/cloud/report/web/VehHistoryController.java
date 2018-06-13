@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**
@@ -96,7 +97,7 @@ public class VehHistoryController {
     @PostMapping(value = "/improtSearch")
     @ResponseBody
     @RequiresPermissions(URL_LIST)
-    public AppBean improtSearch(MultipartFile file,String identity) throws Exception{
+    public AppBean improtSearch(HttpServletRequest request, MultipartFile file, String identity) throws Exception{
 
         if (file == null) {
             return new AppBean(-1, "文件获取失败！");
@@ -113,7 +114,7 @@ public class VehHistoryController {
             return new AppBean(-1, "上传文件格式不正确，确认文件后缀名为xls、xlsx！");
         }
 
-        AppBean appBean = vehHistoryService.importQuery(file, identity);
+        AppBean appBean = vehHistoryService.importQuery(request,file, identity);
         return appBean;
     }
 

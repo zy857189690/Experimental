@@ -625,8 +625,8 @@ public class ExcelUtil {
             BufferedInputStream in = null;
             BufferedOutputStream out = null;
             try {
-                //String srcBase = RequestContext.class.getResource("/templates/").getFile();
-                File f = new File( base+templateQuery);
+//                String srcBase = RequestContext.class.getResource(File.separator +"templates"+File.separator+"templateFile" + File.separator ).getFile();
+                File f = new File(base+templateQuery);
                 dfile = f;
                 response.setContentType("application/x-excel");
                 response.setCharacterEncoding("UTF8");
@@ -845,7 +845,7 @@ public class ExcelUtil {
                     map.put("vin", objects[0] == null ? null : objects[0].toString());
                 } else {
                     map.put("lic", objects[1] == null ? null : objects[1].toString());
-                    map.put("vin", objects[0].toString());
+                    map.put("vin", objects[0] == null ? null : objects[0].toString());
                 }
             }
             if (map.size() != 0) {

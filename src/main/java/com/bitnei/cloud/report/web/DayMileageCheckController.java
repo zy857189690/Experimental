@@ -72,7 +72,11 @@ public class DayMileageCheckController {
     @RequestMapping("/list")
     @RequiresPermissions(URL_LIST)
     @SLog(action = "运营分析-列表页面")
-    public String list() {
+    public String list(HttpServletRequest request) {
+        //获取sessionId
+        HttpSession session = request.getSession();
+        //清空缓存车辆信息
+        MemCacheManager.getInstance().remove(session.getId() + "InstantVeh");
         return BASE + "list";
     }
     /**
@@ -104,6 +108,9 @@ public class DayMileageCheckController {
 
         if (lisVin.size() == 0) {
             return new AppBean(-1, "文件内容不能为空！");
+        }
+        if (lisVin.size() >1000) {
+            return new AppBean(-1, "导入车辆不能大于1000！");
         }
 //Excel文件内容放入缓存
         //WebUser user = ServletUtil.getUser();
