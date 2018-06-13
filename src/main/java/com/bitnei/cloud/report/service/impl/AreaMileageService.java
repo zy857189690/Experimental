@@ -11,6 +11,7 @@ import com.bitnei.cloud.common.util.EasyExcel;
 import com.bitnei.cloud.common.util.ServletUtil;
 import com.bitnei.cloud.orm.annation.Mybatis;
 import com.bitnei.cloud.report.mapper.AreaMileageMapper;
+import com.bitnei.cloud.report.service.IAreaMileageService;
 import com.bitnei.commons.bean.WebUser;
 import com.bitnei.commons.datatables.DataGridOptions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ import java.util.*;
 
 @Service
 @Mybatis(namespace = "com.bitnei.cloud.report.mapper.VehHistoryMapper" )
-public class AreaMileageService {
+public class AreaMileageService implements IAreaMileageService {
 
     @Autowired
     private AreaMileageMapper areaMileageMapper;
@@ -129,19 +130,9 @@ public class AreaMileageService {
      */
     public JSONObject queryAreaMonthly( Map<String, Object> params){
 
-       // WebUser user = ServletUtil.getUser();
-        Map<String, Object> map = params;//emptyToNull(params);
-
-
+        Map<String, Object> map = params;
         JSONObject ob=new JSONObject();
 
-        /*
-        Object xingShi = map.get("xingShi");
-        if(xingShi!=null){
-            String xs = String.valueOf(xingShi);
-            String[] split = xs.split(",");
-            map.put("xingShi",split);
-        }*/
         if(map.get("shangPai")!=null){
             map.put("shangPai","%"+map.get("shangPai")+"%");
         }
@@ -162,22 +153,6 @@ public class AreaMileageService {
         }
         if(map.get("endTime")==null){
 
-            /**
-            Calendar cal = Calendar.getInstance();
-            int year = cal.get(Calendar.YEAR);
-            int month = cal.get(Calendar.MONTH )+1;
-            String date2=year+"-"+month+"-01";
-            map.put("date2",date2);
-            if(month==1){
-                year--;
-                month++;
-            }
-            String date1=year+"-"+(month-1)+"-01";
-
-            map.put("date1",date1);
-            map.put("date3",MileageMonitorService.getdate(year,month));
-            map.put("shiJian",year+"年"+(month-1)+"月");
-            */
           String shiJian=  new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()-86400000 ));
           map.put("shiJian",shiJian);
           map.put("date2",shiJian);
@@ -204,9 +179,6 @@ public class AreaMileageService {
 
         if(zong!=0){
             DataGridOptions options = ServletUtil.getDataLayOptions();
-
-           // Long page = map.get("page")==null?1:Long.parseLong(String.valueOf(map.get("page")));
-          //  Integer hang = map.get("hang")==null?10:Integer.parseInt(String.valueOf(map.get("hang")));
             Integer hang=options.getLength();
             Long page= (long)options.getPageNumber();
             Long zongYe= zong%hang==0?zong/hang:zong/hang+1;
@@ -247,11 +219,12 @@ public class AreaMileageService {
     }
 
 
-
-
+    /**
+     * 下载区域月报
+     * @param params
+     */
     public void downloadAreaMonthly(Map<String, Object> params){
-        Map<String, Object> map = params;//emptyToNull(params);
-
+        Map<String, Object> map = params;
 
         JSONObject ob=new JSONObject();
 
@@ -282,47 +255,18 @@ public class AreaMileageService {
             map.put("shiJian",map.get("endTime"));
             map.put("date2",map.get("endTime"));
         }
-
-
         map=PublicDealUtil.bulidUserForParams(map);
-
         List lists = areaMileageMapper.downloadAreaMonthly(map);
-
         DataLoader.loadNames(lists);
         DataLoader.loadDictNames(lists);
-
         String srcBase = RequestContext.class.getResource("/templates/").getFile();
         String srcFile = srcBase +"module/report/operation/areaMileage/export.xls";
-
         ExcelData ed = new ExcelData();
         ed.setTitle("区域里程统计");
         ed.setExportTime(DateUtil.getNow());
         ed.setData(lists);
         String outName = String.format("%s-导出-%s.xls", "区域里程统计", DateUtil.getNow());
         EasyExcel.renderResponse(srcFile,outName,ed);
-
-        /*
-        List<String> list=new ArrayList<String>();
-        list.add("报表生成时间");
-        list.add("车牌号");
-        list.add("VIN");
-        list.add("上牌城市");
-        list.add("行驶区域");
-        list.add("运营单位");
-        list.add("车型名称");
-        list.add("行驶区域总里程（Km）");
-        list.add("行驶区域GPS总里程（km）");
-        list.add("最终核算里程（km）");
-        list.add("车辆阶段");
-        list.add("行驶区域里程占比（%）");
-        lists.add(0,list);
-        try {
-
-            return MmdXlsx.setxlsx(lists);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-
 
     }
 

@@ -9,6 +9,7 @@ import com.bitnei.cloud.common.util.DateUtil;
 import com.bitnei.cloud.common.util.EasyExcel;
 import com.bitnei.cloud.common.util.ServletUtil;
 import com.bitnei.cloud.report.mapper.MileageMonitorMapper;
+import com.bitnei.cloud.report.service.IMileageMonitorService;
 import com.bitnei.commons.datatables.DataGridOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,19 +20,22 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
-public class MileageMonitorService {
+public class MileageMonitorService   implements IMileageMonitorService {
 
     @Autowired
     private MileageMonitorMapper mileageMonitorMapper;
     @Autowired
     private AreaMileageService  areaMileageService;
 
+    /**
+     * 查询里程分布
+     * @param map
+     * @return
+     */
     public JSONObject queryMileageMonthly(Map<String, Object> map) {
 
         JSONArray arr=new JSONArray();
         JSONObject ob=new JSONObject();
-
-
         if(map.get("cheLiangMing")!=null){
             map.put("cheLiangMing","%"+map.get("cheLiangMing")+"%");
         }
@@ -78,25 +82,16 @@ public class MileageMonitorService {
         map= PublicDealUtil.bulidUserForParams(map);
         Object zongye = map.get("zongye");
         long zong=0;
-
         if(zongye!= null){
             try {
                 zong = Integer.parseInt(String.valueOf(zongye));
-            }catch(Exception e){
-
-            }
+            }catch(Exception e){}
         }
-
         if(zong==0){
             zong = mileageMonitorMapper.countMileageMonthly(map);
-
-
         }
         if(zong!=0){
             DataGridOptions options = ServletUtil.getDataLayOptions();
-
-            // Long page = map.get("page")==null?1:Long.parseLong(String.valueOf(map.get("page")));
-            //  Integer hang = map.get("hang")==null?10:Integer.parseInt(String.valueOf(map.get("hang")));
             Integer hang=options.getLength();
             Long page= (long)options.getPageNumber();
             Long zongYe= zong%hang==0?zong/hang:zong/hang+1;
@@ -110,16 +105,17 @@ public class MileageMonitorService {
             return ob;
         }
 
-
         ob.put("total",0);
         ob.put("rows",arr);
 
         return ob;
     }
 
-
+    /**
+     * 下载里程分布
+     * @param map
+     */
     public void downloadMileageMonthly(Map<String, Object> map){
-
 
         if(map.get("cheLiangMing")!=null){
             map.put("cheLiangMing","%"+map.get("cheLiangMing")+"%");
@@ -171,7 +167,6 @@ public class MileageMonitorService {
             }
         DataLoader.loadNames(lists);
         DataLoader.loadDictNames(lists);
-
         String srcBase = RequestContext.class.getResource("/templates/").getFile();
         String srcFile = srcBase +"module/report/operation/mileageMonitor/export.xls";
 
@@ -184,18 +179,16 @@ public class MileageMonitorService {
 
     }
 
-
+    /**
+     * 查询里程分布钻取
+     * @param map
+     * @return
+     */
     public JSONObject queryPopup(Map<String, Object> map){
 
         JSONArray arr=new JSONArray();
         JSONObject ob=new JSONObject();
-        /*
-        if(map.get("cheLiangMing")!=null){
-            map.put("cheLiangMing","%"+map.get("cheLiangMing")+"%");
-        }
-        if(map.get("yunYing")!=null){
-            map.put("yunYing","%"+map.get("yunYing")+"%");
-        }*/
+
         if(map.get("endTime")==null){
             String shiJian=  new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()-86400000 ));
             map.put("endTime",shiJian);
@@ -209,20 +202,14 @@ public class MileageMonitorService {
             try {
                 zong = Integer.parseInt(String.valueOf(zongye));
             }catch(Exception e){
-
             }
         }
 
         if(zong==0){
             zong = mileageMonitorMapper.countPopup(map);
-
-
         }
         if(zong!=0){
             DataGridOptions options = ServletUtil.getDataLayOptions();
-
-            // Long page = map.get("page")==null?1:Long.parseLong(String.valueOf(map.get("page")));
-            //  Integer hang = map.get("hang")==null?10:Integer.parseInt(String.valueOf(map.get("hang")));
             Integer hang=options.getLength();
             Long page= (long)options.getPageNumber();
             Long zongYe= zong%hang==0?zong/hang:zong/hang+1;
@@ -235,8 +222,6 @@ public class MileageMonitorService {
             ob.put("total",zong);
             return ob;
         }
-
-
         ob.put("total",0);
         ob.put("rows",arr);
 
@@ -246,16 +231,15 @@ public class MileageMonitorService {
 
     }
 
-
+    /**
+     * 下载里程分布钻取
+     * @param map
+     */
     public void downloadPopup(Map<String, Object> map){
 
 
         JSONArray arr=new JSONArray();
         JSONObject ob=new JSONObject();
-        /*
-        if(map.get("cheLiangMing")!=null){
-            map.put("cheLiangMing","%"+map.get("cheLiangMing")+"%");
-        } */
         if(map.get("yunYing")!=null){
             String yunYing = String.valueOf(map.get("yunYing"));
             int i = yunYing.indexOf("?");
@@ -263,7 +247,6 @@ public class MileageMonitorService {
             map.put("yunYing",yunYing.substring(0,i));
             }
         }
-
         if(map.get("endTime")==null){
             String shiJian=  new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()-86400000 ));
             map.put("endTime",shiJian);
@@ -289,7 +272,6 @@ public class MileageMonitorService {
         }else{
             s=data1+"-"+data2+"公里车辆详情"+date;
         }
-
 
         ExcelData ed = new ExcelData();
         ed.setTitle(s);
@@ -358,8 +340,6 @@ public class MileageMonitorService {
 
             default:
                 new RuntimeException("月份错误");
-
-
         }
 
         return year+"-"+month+"-"+day;
