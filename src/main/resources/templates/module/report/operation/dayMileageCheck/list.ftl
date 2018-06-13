@@ -30,7 +30,6 @@
                         </td>
                         <td class="td_input" id="fileShow">
                             <input type="file" id="file" style="height: 30px; width: 168px;" name="myfile" />
-                            <input type="button" onclick="UpladFile()" value="文件解析" />
                         </td>
 
                         <td class="td_label">
