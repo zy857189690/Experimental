@@ -19,12 +19,20 @@
             <form id="form_search" name="" class="sui-form cg-form">
                 <div style="width: 90%; height: 20px; margin: 10px;">
                     <label>条件查询</label>
-                    <input type="radio" name="query.adminFlag" onclick="operationtd(true)"  checked="checked"  value="0" ></input>
+                    <input type="radio" name="query.adminFlag" id="tiaojian" onclick="operationtd(true)"  checked="checked"  value="0" ></input>
                     <label>导入查询</label>
-                    <input type="radio" name="query.adminFlag" value="1" onclick="operationtd(false)" ></input>
+                    <input type="radio" name="query.adminFlag" id = "daoru" value="1" onclick="operationtd(false)" ></input>
                 </div>
                 <table class="table_search" style="height: 90px;">
                     <tr>
+                        <td class="td_label" id="fileButton">
+                            <label>文件上传</label>
+                        </td>
+                        <td class="td_input" id="fileShow">
+                            <input type="file" id="file" style="height: 30px; width: 168px;" name="myfile" />
+                            <input type="button" onclick="UpladFile()" value="文件解析" />
+                        </td>
+
                         <td class="td_label">
                             <label>统计日期</label>
                         </td>
@@ -93,19 +101,13 @@
                         <td class="td_input">
                             <input type="text" class="input-fat input" name="query.dayOnlineMileage" style="width:150px;">
                         </td>
-                        <td class="td_label" id="fileButton">
-                            <label>文件上传</label>
-                        </td>
-                        <td class="td_input" id="fileShow">
-                            <input type="file" id="file" style="height: 26px;width:150px;" name="myfile" />
-                            <input type="button" onclick="UpladFile()" value="文件解析" />
-                        </td>
-                        <td class="td_input" id="fileDown"  >
-                            <input type="button" onclick="downFile()" value="导入查询模板下载" />
-                        </td>
+
                         <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
-                            <a href="#" onclick="searchDatagrid('form_search','table')" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+                            <a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
                             <a href="#" onclick="resetDatagrid('form_search','table')" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
+                            <#--<input type="button" onclick="downFile()" value="导入查询模板下载" />-->
+                            <a href="#" onclick="downFile()" id = "downLadfile" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
+
                         </td>
                     </tr>
                 </table>
@@ -186,9 +188,12 @@
     $(function(){
 
                 initSelectChoose();
-        $('#fileButton').css("visibility", "hidden");
+       /* $('#fileButton').css("visibility", "hidden");
         $('#fileShow').css("visibility", "hidden");
-        $('#fileDown').css("visibility", "hidden");
+        $('#fileDown').css("visibility", "hidden");*/
+        document.getElementById("fileButton").style.display = "none";
+        document.getElementById("fileShow").style.display = "none";
+        document.getElementById("downLadfile").style.display = "none";
     });
     /**
      * 增加
@@ -364,15 +369,73 @@
 
     function   operationtd(nub) {
         if(nub){
+            $("#fileButton").hide();
+            $("#fileShow").hide();
+            $("#downLadfile").hide();/*
             $('#fileButton').css("visibility", "hidden");
             $('#fileShow').css("visibility", "hidden");
-            $('#fileDown').css("visibility", "hidden");
+            $('#fileDown').css("visibility", "hidden");*/
         }else {
-            $('#fileButton').css("visibility", "visible");
+            $("#fileButton").show();
+            $("#fileShow").show();
+            $("#downLadfile").show();
+            /*$('#fileButton').css("visibility", "visible");
             $('#fileShow').css("visibility", "visible");
-            $('#fileDown').css("visibility", "visible");
+            $('#fileDown').css("visibility", "visible");*/
         }
 
+    }
+
+
+
+    /*查询事件*/
+    function searchButton(){
+
+        var val=$('input:radio[id="daoru"]:checked').val();
+
+        //var valaaa=$('input:radio[id="daoru"]:checked').val();
+        if(val == 1){
+
+            var file = document.getElementById("file").files[0];
+            if (fileCheck(file)) {
+                UpladFile();
+            }
+
+            importSearchButton();
+        }else {
+            identity = "";
+            if (checkTime()) {
+                //请求查询
+                searchDatagrid('form_search','table');
+            }
+        }
+
+
+
+    }
+
+
+
+    /**
+     * 检验文件的格式
+     * @param file
+     */
+    function fileCheck(file){
+        if (file == undefined || file == null || file == "") {
+            $.messager.alert('提示','请选择导入查询文件！');
+            return false;
+        }
+        if (file.size > 10240 * 1024) {
+            $.messager.alert('提示','文件大小超出最大为10M限制！');
+            return false;
+        }
+        var fileName = file.name;
+        var suffixName = (fileName.substr(fileName.lastIndexOf("."))).toLowerCase();
+        if (suffixName != ".xls" && suffixName != ".xlsx") {
+            $.messager.alert('提示','上传文件格式不正确，确认文件后缀名为xls、xlsx！');
+            return false;
+        }
+        return true;
     }
 </script>
 </html>
