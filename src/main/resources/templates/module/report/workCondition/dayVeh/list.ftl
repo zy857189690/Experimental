@@ -40,21 +40,21 @@
                             <label>查询时间</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" name="query.startTime" id="startTime" style="height: 26px; width: 120px" value="${(startTime)!}" class="easyui-datebox" autocomplete="off" data-options="editable:false"/>
+                            <input type="text" name="query.startTime" id="startTime" style="height: 26px; width: 165px" value="${(startTime)!}" class="easyui-datebox" autocomplete="off" data-options="editable:false"/>
                         </td>
 
                         <td class="td_label">
                             <label>至</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" name="query.endTime" id="endTime" style="height: 26px;width: 120px" value="${(endTime)!}" class="easyui-datebox" autocomplete="off" data-options="editable:false"/>
+                            <input type="text" name="query.endTime" id="endTime" style="height: 26px;width: 165px" value="${(endTime)!}" class="easyui-datebox" autocomplete="off" data-options="editable:false"/>
                         </td>
 
                         <td class="td_label">
                             <label>车牌号</label>
                         </td>
                         <td class="td_input">
-                            <input id="licensePlate" type="text"class="input-fat input" style="width: height: 26px;width:100px;"   name="query.licensePlate"  autocomplete="off" >
+                            <input id="licensePlate" type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.licensePlate"  autocomplete="off" >
                         </td>
 
                         <td class="td_label">
@@ -62,34 +62,34 @@
                         </td>
 
                         <td class="td_input">
-                            <input id="vin" type="text"class="input-fat input" style="width: height: 26px;width:100px;"   name="query.vin"  autocomplete="off" >
+                            <input id="vin" type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.vin"  autocomplete="off" >
                         </td>
                         <td class="td_label">
                             <label>车辆种类</label>
                         </td>
                         <td class="td_input">
-                            <input id="vehTypeId" name="query.vehTypeId" style="width: 120px;" />
+                            <input id="vehTypeId" name="query.vehTypeId" style="width: 168px;" />
                         </td>
 
                         <td class="td_label">
                             <label>车型型号</label>
                         </td>
                         <td class="td_input">
-                            <input id="vehModelName" name="query.vehModelName" style="width: 120px;" />
+                            <input id="vehModelName" name="query.vehModelName" style="width: 168px;" />
                         </td>
 
                         <td class="td_label">
                             <label>运营单位</label>
                         </td>
                         <td class="td_input">
-                            <input id="useUintId" name="query.useUintId" style="width: 120px;" />
+                            <input id="useUintId" name="query.useUintId" style="width: 168px;" />
                         </td>
 
                         <td class="td_label">
                             <label>上牌区域</label>
                         </td>
                         <td class="td_input">
-                            <input id="sysDivisionId" name="query.sysDivisionId" style="width: 120px;" />
+                            <input id="sysDivisionId" name="query.sysDivisionId" style="width: 168px;" />
                         </td>
 
                         <td class="td_label" id="fileButton">
@@ -100,9 +100,9 @@
                             <input type="button" onclick="UpladFile()" value="文件解析" />
                         </td>
 
-                        <td class="td_input" id="fileDown"  >
-                            <input type="button" onclick="downFile()" value="导入查询模板下载" />
-                        </td>
+                        <#--<td class="td_input" id="fileDown"  >-->
+                            <#--<input type="button" onclick="downFile()" value="导入查询模板下载" />-->
+                        <#--</td>-->
 
                         <#--<td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">-->
                             <#--<a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>-->
@@ -113,7 +113,7 @@
                             <a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
                             <a href="#" onclick="resetButton()" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
                             <#--<a href="#" id="impQuery" onclick="importSeach()" data-options="iconCls:'icon-reset'">导入查询</a>-->
-                            <#--<a href="#" onclick="downFile()" data-options="iconCls:'icon-reset'">导入查询模板下载</a>-->
+                            <a href="#" onclick="downFile()" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
                         </td>
                     </tr>
                 </table>
@@ -138,7 +138,7 @@
         initSelectChoose();
         $('#fileButton').css("visibility", "hidden");
         $('#fileShow').css("visibility", "hidden");
-        $('#fileDown').css("visibility", "hidden");
+        // $('#fileDown').css("visibility", "hidden");
     });
 
     //序列化搜索条件
@@ -516,13 +516,14 @@
         if(nub){
             $('#fileButton').css("visibility", "hidden");
             $('#fileShow').css("visibility", "hidden");
-            $('#fileDown').css("visibility", "hidden");
+            // $('#fileDown').css("visibility", "hidden");
         }else {
             $('#fileButton').css("visibility", "visible");
             $('#fileShow').css("visibility", "visible");
-            $('#fileDown').css("visibility", "visible");
+            // $('#fileDown').css("visibility", "visible");
         }
 
     }
+
 </script>
 </html>
