@@ -85,7 +85,7 @@
                 <table class="table_search" style="height: 90px;">
                     <tr>
                         <td class="td_label"  id="filetitle">
-                            <label>导入查询文件</label>
+                            <label>导入文件</label>
 
                         </td>
                         <td class="td_input" id="fileinput">
