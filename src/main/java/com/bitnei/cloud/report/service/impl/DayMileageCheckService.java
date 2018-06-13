@@ -67,7 +67,7 @@ public class DayMileageCheckService  extends BaseService implements IDayMileageC
             params.put("vin", map.get("vin") == null ? null : map.get("vin").toString());
             DayMileageCheck dayMileageCheck = sessionTemplate.selectOne(  mapper+"findInForVinAndLic", params);
             if (dayMileageCheck != null) {
-                sb.append("'" + dayMileageCheck.getId().toString() + "',");
+                sb.append("'" + dayMileageCheck.getIds().toString() + "',");
             }
         }
         String splitNull = "(" + sb.toString() + "'')";

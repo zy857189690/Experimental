@@ -278,7 +278,7 @@
                 } else {
                     $.messager.show({
                         title:'文件解析结果',
-                        msg:'解析失败.',
+                        msg:data.message,
                         timeout:2000,
                         showType:'slide'
                     });
@@ -400,7 +400,6 @@
                 UpladFile();
             }
 
-            importSearchButton();
         }else {
             identity = "";
             if (checkTime()) {
