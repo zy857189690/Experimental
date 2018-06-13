@@ -32,75 +32,75 @@
                             <label>统计日期</label>
                         </td>
                         <td class="td_input">
-                            <input id="dd" type="text" class="easyui-datebox" name="query.reportDateStart"  style="width: height: 26px;width:120px;" >
+                            <input id="dd" type="text" class="easyui-datebox" name="query.reportDateStart"  style="height: 26px;width:150px;" >
                         </td>
                         <td class="td_label" style="text-align: center;">
                             <label>至</label>
                         </td>
                         <td class="td_input">
-                            <input id="dd" type="text" class="easyui-datebox"  name="query.reportDateEnd" style="width: height: 26px;width:120px;"  >
+                            <input id="dd" type="text" class="easyui-datebox"  name="query.reportDateEnd" style="height: 26px;width:150px;"  >
                         </td>
 
                         <td class="td_label">
                             <label>VIN</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" class="input-fat input" name="query.vin"  style="width: height: 26px;width:100px;"     autocomplete="off" >
+                            <input type="text" class="input-fat input" name="query.vin"  style="height: 26px;width:130px;"      >
                         </td>
 
                         <td class="td_label">
                             <label>车牌号</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" class="input-fat input" name="query.licensePlate"  style="width: height: 26px;width:100px;"     autocomplete="off" >
+                            <input type="text" class="input-fat input" name="query.licensePlate"  style="height: 26px;width:130px;"      >
                         </td>
                         <td class="td_label">
                             <label>车辆种类</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" id="vehTypeId" class="input-fat input" name="query.vehtype"  style="width: height: 26px;width:120px;"     autocomplete="off" >
+                            <input type="text" id="vehTypeId"   name="query.vehtype"  style="height: 26px;width: 168px;"      >
                         </td>
                         <td class="td_label">
                             <label>车型型号</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" id="vehModelName" class="input-fat input" name="query.vehModelNum"  style="width: height: 26px;width:120px;"     autocomplete="off" >
+                            <input type="text" id="vehModelName"   name="query.vehModelNum"  style="height: 26px;width: 168px;"      >
                         </td>
                         <td class="td_label">
                             <label>运营单位</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" id="useUnitId" class="input-fat input" name="query.unit"  style="width: height: 26px;width:120px;"     autocomplete="off" >
+                            <input type="text" id="useUnitId"   name="query.unit"  style="height: 26px;width: 168px;"      >
                         </td>
                         <td class="td_label">
                             <label>上牌区域</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" id="areaId" class="input-fat input" name="query.veharea"  style="width: height: 26px;width:120px;"     autocomplete="off" >
+                            <input type="text" id="areaId"    name="query.veharea"  style="height: 26px;width: 168px;"      >
                         </td>
                         <td class="td_label">
                             <label>当日有效里程大于（km）</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" class="input-fat input" name="query.dayVaildMileage"  style="width: height: 26px;width:120px;"     autocomplete="off" >
+                            <input type="text" class="input-fat input" name="query.dayVaildMileage"  style="height: 26px;width:150px;"      >
                         </td>
                         <td class="td_label">
                             <label>当日轨迹里程大于（km）</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" class="input-fat input" name="query.dayGpsMileage"  style="width: height: 26px;width:120px;"     autocomplete="off" >
+                            <input type="text" class="input-fat input" name="query.dayGpsMileage"  style="height: 26px;width:150px;"      >
                         </td>
                         <td class="td_label">
                             <label>当日在线里程大于（km）</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" class="input-fat input"   name="query.dayOnlineMileage"  style="width: height: 26px;width:120px;"   autocomplete="off" >
+                            <input type="text" class="input-fat input"   name="query.dayOnlineMileage"  style="height: 26px;width:150px;"    >
                         </td>
                         <td class="td_label" id="fileButton">
                             <label>文件上传</label>
                         </td>
                         <td class="td_input" id="fileShow">
-                            <input type="file" id="file" style="width: height: 26px;width:120px;" name="myfile" />
+                            <input type="file" id="file" style="height: 26px;width:150px;" name="myfile" />
                             <input type="button" onclick="UpladFile()" value="文件解析" />
                         </td>
 
