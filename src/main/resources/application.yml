@@ -7,4 +7,4 @@ banner:
   charset: UTF-8
 file:
   base:
-  templateQuery: /templateQuery.xls
+  templateQuery: templateQuery.xls
