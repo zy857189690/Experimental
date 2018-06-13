@@ -13,9 +13,6 @@
     </script>
 </head>
 <body class="easyui-layout" fit="true" id="fullid">
-
-
-
 <div region="center" style="overflow: hidden;width: 100%;">
     <div data-options="region:'north',title:'查询',split:true,collapsable:true" style="width: 100%;height: 130px">
         <div style="width: 100%;border: 1;margin:5 5 5 10 ">
@@ -32,69 +29,69 @@
                             <label>统计日期</label>
                         </td>
                         <td class="td_input">
-                            <input id="dd" type="text" class="easyui-datebox" name="query.reportDateStart"  style="height: 26px;width:150px;" >
+                            <input id="dd" type="text" class="easyui-datebox" name="query.reportDateStart"  style="height: 30px; width: 168px;" >
                         </td>
                         <td class="td_label" style="text-align: center;">
                             <label>至</label>
                         </td>
                         <td class="td_input">
-                            <input id="dd" type="text" class="easyui-datebox"  name="query.reportDateEnd" style="height: 26px;width:150px;"  >
+                            <input id="dd" type="text" class="easyui-datebox"  name="query.reportDateEnd" style="height: 30px; width: 168px;" >
                         </td>
 
                         <td class="td_label">
                             <label>VIN</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" class="input-fat input" name="query.vin"  style="height: 26px;width:130px;"      >
+                            <input type="text" class="input-fat input" name="query.vin"  style="width:150px;" >
                         </td>
 
                         <td class="td_label">
                             <label>车牌号</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" class="input-fat input" name="query.licensePlate"  style="height: 26px;width:130px;"      >
+                            <input type="text" class="input-fat input" name="query.licensePlate"  style="width:150px;" >
                         </td>
                         <td class="td_label">
                             <label>车辆种类</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" id="vehTypeId"   name="query.vehtype"  style="height: 26px;width: 168px;"      >
+                            <input id="vehTypeId"  name="query.vehtype"  style="width: 168px;" >
                         </td>
                         <td class="td_label">
                             <label>车型型号</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" id="vehModelName"   name="query.vehModelNum"  style="height: 26px;width: 168px;"      >
+                            <input id="vehModelName" name="query.vehModelNum" style="width: 168px;">
                         </td>
                         <td class="td_label">
                             <label>运营单位</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" id="useUnitId"   name="query.unit"  style="height: 26px;width: 168px;"      >
+                            <input id="useUnitId" name="query.unit" style="width: 168px;">
                         </td>
                         <td class="td_label">
                             <label>上牌区域</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" id="areaId"    name="query.veharea"  style="height: 26px;width: 168px;"      >
+                            <input id="areaId" name="query.veharea" style="width: 168px;">
                         </td>
                         <td class="td_label">
                             <label>当日有效里程大于（km）</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" class="input-fat input" name="query.dayVaildMileage"  style="height: 26px;width:150px;"      >
+                            <input type="text" class="input-fat input" name="query.dayVaildMileage" style="width:150px;">
                         </td>
                         <td class="td_label">
                             <label>当日轨迹里程大于（km）</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" class="input-fat input" name="query.dayGpsMileage"  style="height: 26px;width:150px;"      >
+                            <input type="text" class="input-fat input" name="query.dayGpsMileage" style="width:150px;">
                         </td>
                         <td class="td_label">
                             <label>当日在线里程大于（km）</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" class="input-fat input"   name="query.dayOnlineMileage"  style="height: 26px;width:150px;"    >
+                            <input type="text" class="input-fat input" name="query.dayOnlineMileage" style="width:150px;">
                         </td>
                         <td class="td_label" id="fileButton">
                             <label>文件上传</label>
@@ -103,18 +100,14 @@
                             <input type="file" id="file" style="height: 26px;width:150px;" name="myfile" />
                             <input type="button" onclick="UpladFile()" value="文件解析" />
                         </td>
-
                         <td class="td_input" id="fileDown"  >
                             <input type="button" onclick="downFile()" value="导入查询模板下载" />
                         </td>
-
                         <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
                             <a href="#" onclick="searchDatagrid('form_search','table')" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
                             <a href="#" onclick="resetDatagrid('form_search','table')" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
                         </td>
                     </tr>
-
-
                 </table>
             </form>
         </div>
