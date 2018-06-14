@@ -73,7 +73,9 @@
 <script>
 
     $(function(){
-
+        $('#yunYing').combotree({
+            url: '${base}/report/common/queryUnitList'
+        });
     });
 
     $('#table').datagrid({

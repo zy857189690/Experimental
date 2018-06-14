@@ -40,8 +40,12 @@ public class MileageMonitorService   implements IMileageMonitorService {
             map.put("cheLiangMing","%"+map.get("cheLiangMing")+"%");
         }
         if(map.get("yunYing")!=null){
+            if("0".equals(String.valueOf(map.get("yunYing"))) ){
+                map.put("yunYing","%%");
+            }else{
             map.put("yunYing","%"+map.get("yunYing")+"%");
-        }
+            }
+            }
         if(map.get("endTime")==null){
             String shiJian=  new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()-86400000 ));
             map.put("shiJian",shiJian);
@@ -121,7 +125,11 @@ public class MileageMonitorService   implements IMileageMonitorService {
             map.put("cheLiangMing","%"+map.get("cheLiangMing")+"%");
         }
         if(map.get("yunYing")!=null){
-            map.put("yunYing","%"+map.get("yunYing")+"%");
+            if("0".equals(String.valueOf(map.get("yunYing"))) ){
+                map.put("yunYing","%%");
+            }else{
+                map.put("yunYing","%"+map.get("yunYing")+"%");
+            }
         }
         boolean b=true;
         if(map.get("endTime")==null){
