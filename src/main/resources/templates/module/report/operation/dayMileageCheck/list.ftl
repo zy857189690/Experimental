@@ -134,7 +134,7 @@
         <@shiro.hasPermission name="/report/demo1/export">
              <input type="button" value="导出" onclick="gridList()"  />
         </@shiro.hasPermission>
-
+           <div id="monitoringTable" name="monitoringTable" style="width: 100%; height: 100%"></div>
     </div>
     <div id="table" name="datagrid" style="width: 100%;height: 100%"></div>
 </div>
@@ -142,6 +142,13 @@
 
 </body>
 <script>
+
+    //序列化搜索条件
+    var queryParams = $('#form_search').serializeObject();
+
+    //重置使用参数对象(暂时存储初次加载的数据，用于重置事件)
+    var resetQueryParams = queryParams;
+
     $('#table').datagrid({
         url: '${base}/report/operation/dayMileageCheck/datagrid',
         sortName: "ID",
@@ -192,9 +199,10 @@
         pagination: true,
         nowrap: true
 
-    });
 
-//    toolbar2Menu("table");
+    });
+//    toolbar2Menu("monitoringTable");
+   toolbar2Menu("table");
 
 </script>
 <script language="javascript">
