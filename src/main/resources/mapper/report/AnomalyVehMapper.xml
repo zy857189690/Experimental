@@ -38,13 +38,13 @@
             SELECT
             vin,
             max(report_date) as reportDate,
-            sum( IF ( type = 1, 1, 0 ) ) AS speedNumber,
-            sum( IF ( type = 2, 1, 0 ) ) AS mileageNumber,
-            sum( IF ( type = 3, 1, 0 ) ) AS lngLatNumber,
-            sum( IF ( type = 4, 1, 0 ) ) AS timeNumber,
-            sum( IF ( type = 5, 1, 0 ) ) AS voltageNumber,
-            sum( IF ( type = 6, 1, 0 ) ) AS electricNumber,
-            sum( IF ( type = 7, 1, 0 ) ) AS socNumber
+            sum( IF ( type = 1, abnormal_num, 0 ) ) AS speedNumber,
+            sum( IF ( type = 2, abnormal_num, 0 ) ) AS mileageNumber,
+            sum( IF ( type = 3, abnormal_num, 0 ) ) AS lngLatNumber,
+            sum( IF ( type = 4, abnormal_num, 0 ) ) AS timeNumber,
+            sum( IF ( type = 5, abnormal_num, 0 ) ) AS voltageNumber,
+            sum( IF ( type = 6, abnormal_num, 0 ) ) AS electricNumber,
+            sum( IF ( type = 7, abnormal_num, 0 ) ) AS socNumber
             FROM
             veh_dayreport_abnormal_situation
             GROUP BY

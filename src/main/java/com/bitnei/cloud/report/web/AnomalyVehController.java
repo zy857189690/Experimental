@@ -106,4 +106,18 @@ public class AnomalyVehController {
         AppBean appBean = anomalyVehService.importQuery(request,file, identity);
         return appBean;
     }
+
+    /**
+     * 查询异常记录详情
+     * @param vin
+     * @param type
+     * @return
+     */
+    @RequestMapping(value = "/recordDatagrid")
+    @ResponseBody
+    @RequiresPermissions(URL_LIST)
+    public PagerModel recordDatagrid(String vin,String type){
+        PagerModel pm = anomalyVehService.recordDatagrid(vin, type);
+        return pm;
+    }
 }
