@@ -13,6 +13,117 @@
     </script>
 </head>
 <body class="easyui-layout" fit="true" id="fullid">
+<div id="report" class="easyui-window" title="列表说明" style=" overflow:scroll; width:853px;height:100%;" data-options="modal:true,closed:true">
+    <div class="easyui-layout">
+        <table class="easyui-datagrid">
+            <thead>
+            <tr>
+                <th data-options="field:'code'" style="width: 167px">名称</th>
+                <th data-options="field:'name'" style="width: 731px">定义</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>统计日期</td><td>
+
+                报表以日报的方式生成，每天凌晨3点生成前一天的统计日报，每辆车每天生成一条数据，统计日期（显示前一天的日期）<br />是日报统计的时间维度——（0~24点）；<br />
+
+                特殊情况：如因政策、业务需求变化等原因导致算法调整，系统将清楚原算法生成的日报，重新根据新算法生成每辆车的日报；
+            </td>
+            </tr>
+            <tr>
+                <td> 当日首次上线时间  </td><td>统计日期内，T-BOX第一次上线时间，格式HH：MM：SS（24小时制）</td>
+            </tr>
+            <tr>
+                <td>当日开始里程</td><td>当日首次上线时间对应的车辆仪表里程；</td>
+            </tr>
+            <tr>
+                <td>当日最后通讯时间</td><td>统计日期内，T-BOX最后一次向平台发送实时数据的时间，格式HH：MM：SS（24小时制）</td>
+            </tr>
+            <tr>
+                <td>当日结束里程</td><td>当日最后通讯时间对应的车辆仪表里程；</td>
+            </tr>
+            <tr>
+                <td>核查数据总条数</td><td>统计日期内车辆上传总数据条数，包括有效、无效、异常</td>
+            </tr>
+            <tr>
+                <td>含无效数据条数</td><td> 里程核查数据无效检测是对GB/T 32960.3-2016 中7.2.3.1 整车数据及7.2.3.5 车辆位置数据进行<br />数据无效检测，具体检测内容为GB/T 32960.3-2016 中的0xff。</td>
+            </tr>
+            <tr>
+                <td> 含异常数据条数 </td><td>请注意：在进行数据项异常判定之前，系统已经进行了数据项有效性判断；<br />
+
+                里程核查数据异常检测是GB/T 32960.3中 7.2.3.1 7.2.3.1整车数据及GB/T 32960.3 -2016 中 7.2.3.5 <br />车辆未知数据进行数据异常检测，具体形式项目为：<br />
+
+                （1）车辆状态 ∈[1 ,2,3 ]<br />
+
+                （2）车速 ∈[0,200)<br />
+
+                （3）里程 ∈[上线开始里程,上线结束里程 ]<br />
+
+                （4）总电压 ∈(0,1000]<br />
+
+                （5）总电流 ∈[总电流均值 -100, 总电流均值 +100]<br />
+
+                （6）SOC ∈（0,100]<br />
+
+                （7）定位状态 ∈[0]<br />
+
+                （8）经度 ∈(73,135)<br />
+
+                （9）纬度 ∈(4,53)<br />
+
+                说明：吉利车辆自动唤醒上传的数据因总电压、总电流为空或异常，<br />自动唤醒上传的数据将被是做异常数据。</td>
+            </tr>
+            <tr>
+                <td>当日上线里程</td><td>当日结束里程-当日开始里程</td>
+            </tr>
+            <tr>
+                <td>总跳变扣除里程恒</td><td>仪表里程跳变检测用于检测车辆在行驶过程中有无仪表里程的突变，对有突变超过阈值<br />（2km，按照每帧数据30秒间隔，合240KM/h）的里程进行标记，<br />并计算得出测评周期内因仪表里程跳变需要扣除里程。</td>
+            </tr>
+            <tr>
+                <td>总连续电流扣除里程</td><td>
+
+                连续电流检测主要用于对上传的动力电池数据是否真实进行检测，检测中若有总电流大于阈值（20A）的情况下，<br />连续3帧及以上总电流连续数值相同，需对这种现象进行标记。<br />
+
+
+                对于测评周期内连续3帧相同的现象频次大于阈值（占比为0.1%）的情况，将对应连续3帧数据内发生的里程跳变进行计算，<br />得到测评周期内连续电流检测扣除里程。</td>
+            </tr>
+            <tr>
+                <td>当日有效里程</td><td>有效里程=当日在线里程-里程跳变需扣除里程-连续电流检测需扣除里程</td>
+            </tr>
+            <tr>
+                <td>当日轨迹里程</td><td>对经过无效检测和异常检测过滤后的非熄火状态车辆数据池，进行GPS里程计算，<br />得到车辆在测评周期内的GPS 里程。</td>
+            </tr>
+            <tr>
+                <td>有效里程和轨迹里程相对误差</td><td>偏差率=（有效里程-轨迹里程）/轨迹里程*100%</td>
+            </tr>
+            <tr>
+                <td>上线里程和有效里程相对误差</td><td>偏差率=（有效里程-轨迹里程）/轨迹里程*100%</td>
+            </tr>
+            <tr>
+                <td>上线里程和有效里程相对误差</td><td>
+
+                偏差率=（在线里程-有效里程）/有效里程*100%
+            </td>
+            </tr>
+            <tr>
+                <td>单日核算里程</td><td>
+
+                若车辆有实时数据，优先选择实时数据进行核算；若无实时数据，选取补发数据。<br />
+
+                对车辆每日在线里程、有效里程、轨迹里程（GPS里程）进行比较，得到单日核算里程：<br />
+
+                步骤1：计算在线里程和有效里程的偏差率，如果小于等于5%，选取在线里程和轨迹里程进一步比较，否则选取有效里程；<br />
+
+                步骤2：使用步骤1获取的里程和轨迹里程计算偏差率，如果小于等于5%，核算里程使用步骤1李德里程，<br />否则核算里程选取步骤1里程和轨迹里程两者最小值；
+            </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
 <div region="center" style="overflow: hidden;width: 100%;">
     <div data-options="region:'north',title:'查询',split:true,collapsable:true" style="width: 100%;height: 130px">
         <div style="width: 100%;border: 1;margin:5 5 5 10 ">
@@ -36,27 +147,27 @@
                             <label>统计日期</label>
                         </td>
                         <td class="td_input">
-                            <input id="dd" type="text" class="easyui-datebox" name="query.reportDateStart"  style="height: 30px; width: 168px;" >
+                            <input  type="text" class="easyui-datebox" name="query.reportDateStart"  value="${(reportDateStart)!}"  id = "reportDateStart"  style="height: 30px; width: 168px;" >
                         </td>
                         <td class="td_label" style="text-align: center;">
                             <label>至</label>
                         </td>
                         <td class="td_input">
-                            <input id="dd" type="text" class="easyui-datebox"  name="query.reportDateEnd" style="height: 30px; width: 168px;" >
+                            <input type="text" class="easyui-datebox"  name="query.reportDateEnd"  value="${(reportDateEnd)!}"  id = "reportDateEnd"  style="height: 30px; width: 168px;" >
                         </td>
 
                         <td class="td_label">
                             <label>VIN</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" class="input-fat input" name="query.vin"  style="width:150px;" >
+                            <input type="text" class="input-fat input" name="query.vin"  id = "vin" style="width:150px;" >
                         </td>
 
                         <td class="td_label">
                             <label>车牌号</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" class="input-fat input" name="query.licensePlate"  style="width:150px;" >
+                            <input type="text" class="input-fat input" id="licensePlate" name="query.licensePlate"  style="width:150px;" >
                         </td>
                         <td class="td_label">
                             <label>车辆种类</label>
@@ -86,24 +197,24 @@
                             <label>当日有效里程大于（km）</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" class="input-fat input" name="query.dayVaildMileage" style="width:150px;">
+                            <input type="text" class="input-fat input" id="dayVaildMileage" name="query.dayVaildMileage" style="width:150px;">
                         </td>
                         <td class="td_label">
                             <label>当日轨迹里程大于（km）</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" class="input-fat input" name="query.dayGpsMileage" style="width:150px;">
+                            <input type="text" class="input-fat input" id="dayGpsMileage" name="query.dayGpsMileage" style="width:150px;">
                         </td>
                         <td class="td_label">
                             <label>当日在线里程大于（km）</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" class="input-fat input" name="query.dayOnlineMileage" style="width:150px;">
+                            <input type="text" class="input-fat input" id="dayOnlineMileage" name="query.dayOnlineMileage" style="width:150px;">
                         </td>
 
                         <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
                             <a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
-                            <a href="#" onclick="resetDatagrid('form_search','table')" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
+                            <a href="#" onclick="resetButton()" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
                             <#--<input type="button" onclick="downFile()" value="导入查询模板下载" />-->
                             <a href="#" onclick="downFile()" id = "downLadfile" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
 
@@ -134,7 +245,7 @@
         <@shiro.hasPermission name="/report/demo1/export">
              <input type="button" value="导出" onclick="gridList()"  />
         </@shiro.hasPermission>
-           <div id="monitoringTable" name="monitoringTable" style="width: 100%; height: 100%"></div>
+           <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">列表说明</a>
     </div>
     <div id="table" name="datagrid" style="width: 100%;height: 100%"></div>
 </div>
@@ -148,6 +259,23 @@
 
     //重置使用参数对象(暂时存储初次加载的数据，用于重置事件)
     var resetQueryParams = queryParams;
+
+    //重置
+    function resetButton(){
+        var startTimeTemp = "${reportDateStart}";
+        var endTimeTemp = "${reportDateEnd}";
+        $('#reportDateStart').datebox('setValue',startTimeTemp);
+        $('#reportDateEnd').datebox('setValue',endTimeTemp);
+        $('#vin').val("");
+        $('#licensePlate').val("");
+        $('#dayOnlineMileage').val("");
+        $('#dayGpsMileage').val("");
+        $('#dayVaildMileage').val("");
+        //初始化条件
+        initSelectChoose();
+        $('#table').datagrid("load", resetQueryParams);
+    }
+
 
     $('#table').datagrid({
         url: '${base}/report/operation/dayMileageCheck/datagrid',
@@ -180,8 +308,12 @@
             }},
             {field: 'lastEndMileage', title: '当日结束里程(KM)',align:'center', width: '160'},
             {field: 'checkDataTotalNum', title: '核查数据总条数(条)',align:'center', width: '160'},
-            {field: 'invalidNum', title: '含无效数据条数(条)',align:'center', width: '160'},
-            {field: 'abnormalNum', title: '含异常数据条数(条)',align:'center', width: '160'},
+            /*{field: 'invalidNum', title: '含无效数据条数(条)',align:'center', width: '160'},
+            {field: 'abnormalNum', title: '含异常数据条数(条)',align:'center', width: '160'},*/
+            {field: 'abnormalNum', title: '无效异常总条数（条）',align:'center', width: '160', formatter: function (value, row, index) {
+
+                return row.invalidNum+row.abnormalNum;
+            }},
             {field: 'dayOnlineMileage', title: '当日上线里程(KM)',align:'center', width: '140'},
             {field: 'deductJumpMileage', title: '总跳变扣除里程(KM)',align:'center', width: '160'},
             {field: 'deductCurrentMileage', title: '总连续电流扣除里程(KM)',align:'center', width: '160'},
@@ -215,6 +347,7 @@
         document.getElementById("fileButton").style.display = "none";
         document.getElementById("fileShow").style.display = "none";
         document.getElementById("downLadfile").style.display = "none";
+        //日期默认昨天数据
     });
     /**
      * 增加
@@ -411,12 +544,12 @@
 
     /*查询事件*/
     function searchButton(){
+         if(checkTime()){
 
         var val=$('input:radio[id="daoru"]:checked').val();
 
         //var valaaa=$('input:radio[id="daoru"]:checked').val();
         if(val == 1){
-
             var file = document.getElementById("file").files[0];
             if (fileCheck(file)) {
                 UpladFile();
@@ -426,7 +559,7 @@
                 //请求查询
                 searchDatagrid('form_search','table');
         }
-
+    }
 
 
     }
@@ -470,6 +603,46 @@
         m = date.getMinutes() + ':';
         s = date.getSeconds();
         return Y+M+D+h+m+s;
+    }
+
+    /*报表说明弹框*/
+    function reportSpecification(){
+        $('#report').window("open");
+    }
+
+
+    //获取日期
+    function  getYesterdayDate() {
+        var day1 = new Date();
+        day1.setTime(day1.getTime()-24*60*60*1000);
+        return day1.getFullYear()+"-" + (day1.getMonth()+1) + "-" + day1.getDate();
+
+
+    }
+
+    /*校验开始时间/结束时间是否合法*/
+    function checkTime(){
+        //时间校验
+        var endTime = $("input[name='query.reportDateEnd']").val();
+        var startTime = $("input[name='query.reportDateStart']").val();
+        endTime = new Date(endTime);
+        startTime = new Date(startTime);
+        if (endTime < startTime) {
+            $.messager.alert('提示','开始时间必须小于结束时间！');
+            return false;
+        }
+        if (endTime < startTime) {
+            $.messager.alert('提示','结束时间必须大于开始时间！');
+            return false;
+        }
+        var startTimeFormat = startTime.Format("yyyy-MM-dd");
+        var endTimeFormate = endTime.Format("yyyy-MM-dd");
+        var days = (new Date(endTimeFormate).getTime() - new Date(startTimeFormat).getTime()) / 86400000;
+        if (days > 30){
+            $.messager.alert('提示','选择开始时间与结束时间间隔最大为31天！');
+            return false;
+        }
+        return true;
     }
 </script>
 </html>

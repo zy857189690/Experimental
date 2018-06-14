@@ -14,28 +14,6 @@ import java.util.*;
 public class PublicDealUtil {
 
     /**
-     * TODO 未完成待陈鹏完善用户session信息
-     * 处理参数map，加入用户信息参数
-     *
-     * @param param
-     * @param user
-     * @return
-     */
-    public static Map<String, Object> dealParamUser(Map<String, Object> param, WebUser user) {
-        if (null == param) {
-            param = new HashMap<String, Object>();
-        }
-        if (null != user) {
-            param.put("userId", user.getId());
-            param.put("isLeader", user);
-            param.put("userUnitPath", user);
-            param.put("areaPath", user);
-            param.put("unitTypeCode", user);
-        }
-        return param;
-    }
-
-    /**
      * 遍历数据，构建树形结构数据
      *
      * @param list

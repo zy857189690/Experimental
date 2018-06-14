@@ -1,5 +1,6 @@
 package com.bitnei.cloud.report.web;
 
+import com.bitnei.cloud.common.DateUtil;
 import com.bitnei.cloud.common.ExcelUtil;
 import com.bitnei.cloud.common.MemCacheManager;
 import com.bitnei.cloud.common.annotation.Module;
@@ -13,6 +14,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -72,11 +75,13 @@ public class DayMileageCheckController {
     @RequestMapping("/list")
     @RequiresPermissions(URL_LIST)
     @SLog(action = "运营分析-列表页面")
-    public String list(HttpServletRequest request) {
+    public String list(HttpServletRequest request,ModelMap model) {
         //获取sessionId
         HttpSession session = request.getSession();
         //清空缓存车辆信息
         MemCacheManager.getInstance().remove(session.getId() + "InstantVeh");
+        model.put("reportDateStart",DateUtil.getShortNextDay(DateUtil.getNextDay(new Date())));
+        model.put("reportDateEnd",DateUtil.getShortNextDay(DateUtil.getNextDay(new Date())));
         return BASE + "list";
     }
     /**
