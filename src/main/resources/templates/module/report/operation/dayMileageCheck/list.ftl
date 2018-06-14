@@ -151,12 +151,26 @@
             {field: 'ids', title: '序号',align:'center', width: '90', formatter: function (value, row, index) {
                 return index+1;
             }},
-            {field: 'vin', title: 'VIN',align:'center', width: '100' },
+            {field: 'vin', title: 'VIN',align:'center', width: '140' },
             {field: 'licensePlate', title: '车牌号',align:'center', width: '100'},
             {field: 'reportDate', title: '统计日期',align:'center', width: '100'},
-            {field: 'firstOnlineTime', title: '当日首次上线时间',align:'center', width: '160'},
+            {field: 'firstOnlineTime', title: '当日首次上线时间',align:'center', width: '160', formatter: function (value, row, index) {
+                var  tinesp = "";
+                if(value!=null && value!=""){
+                    tinesp = timestampToTime(value);
+                }
+
+                return tinesp;
+            }},
             {field: 'firstStartMileage', title: '当日开始里程(KM)',align:'center', width: '160'},
-            {field: 'lastCommitTime', title: '当日最后通讯时间',align:'center', width: '160'},
+            {field: 'lastCommitTime', title: '当日最后通讯时间',align:'center', width: '160', formatter: function (value, row, index) {
+            var  tinesp = "";
+            if(value!=null && value!=""){
+                tinesp = timestampToTime(value);
+            }
+
+                return tinesp;
+            }},
             {field: 'lastEndMileage', title: '当日结束里程(KM)',align:'center', width: '160'},
             {field: 'checkDataTotalNum', title: '核查数据总条数(条)',align:'center', width: '160'},
             {field: 'invalidNum', title: '含无效数据条数(条)',align:'center', width: '160'},
@@ -431,6 +445,23 @@
             return false;
         }
         return true;
+    }
+
+    function timestampToTime(timestamp) {
+        var date;
+        if(timestamp.toString().length >11){
+            date = new Date(timestamp);
+        }else {
+            date = new Date(timestamp * 1000);
+        }
+        //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        Y = date.getFullYear() + '-';
+        M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        D = date.getDate() + ' ';
+        h = date.getHours() + ':';
+        m = date.getMinutes() + ':';
+        s = date.getSeconds();
+        return Y+M+D+h+m+s;
     }
 </script>
 </html>
