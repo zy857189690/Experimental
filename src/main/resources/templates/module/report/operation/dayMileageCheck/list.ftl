@@ -147,13 +147,13 @@
                             <label>统计日期</label>
                         </td>
                         <td class="td_input">
-                            <input id="dd" type="text" class="easyui-datebox" name="query.reportDateStart"  style="height: 30px; width: 168px;" >
+                            <input id="dd" type="text" class="easyui-datebox" name="query.reportDateStart"  value="${(reportDateStart)!}"  id = "reportDateStart"  style="height: 30px; width: 168px;" >
                         </td>
                         <td class="td_label" style="text-align: center;">
                             <label>至</label>
                         </td>
                         <td class="td_input">
-                            <input id="dd" type="text" class="easyui-datebox"  name="query.reportDateEnd" style="height: 30px; width: 168px;" >
+                            <input id="dd" type="text" class="easyui-datebox"  name="query.reportDateEnd"  value="${(reportDateEnd)!}"  id = "reportDateEnd"  style="height: 30px; width: 168px;" >
                         </td>
 
                         <td class="td_label">
@@ -260,6 +260,19 @@
     //重置使用参数对象(暂时存储初次加载的数据，用于重置事件)
     var resetQueryParams = queryParams;
 
+    //重置
+    function resetButton(){
+        var startTimeTemp = "${reportDateStart}";
+        var endTimeTemp = "${reportDateEnd}";
+        alert(startTimeTemp);
+        $("input[name='query.reportDateStart']").val(startTimeTemp);
+        $("input[name='query.reportDateEnd']").val(endTimeTemp);
+        //初始化条件
+        initSelectChoose();
+        $('#table').datagrid("load", resetQueryParams);
+    }
+
+
     $('#table').datagrid({
         url: '${base}/report/operation/dayMileageCheck/datagrid',
         sortName: "ID",
@@ -330,6 +343,7 @@
         document.getElementById("fileButton").style.display = "none";
         document.getElementById("fileShow").style.display = "none";
         document.getElementById("downLadfile").style.display = "none";
+        //日期默认昨天数据
     });
     /**
      * 增加
@@ -526,12 +540,12 @@
 
     /*查询事件*/
     function searchButton(){
+         if(checkTime()){
 
         var val=$('input:radio[id="daoru"]:checked').val();
 
         //var valaaa=$('input:radio[id="daoru"]:checked').val();
         if(val == 1){
-
             var file = document.getElementById("file").files[0];
             if (fileCheck(file)) {
                 UpladFile();
@@ -541,7 +555,7 @@
                 //请求查询
                 searchDatagrid('form_search','table');
         }
-
+    }
 
 
     }
@@ -590,6 +604,41 @@
     /*报表说明弹框*/
     function reportSpecification(){
         $('#report').window("open");
+    }
+
+
+    //获取日期
+    function  getYesterdayDate() {
+        var day1 = new Date();
+        day1.setTime(day1.getTime()-24*60*60*1000);
+        return day1.getFullYear()+"-" + (day1.getMonth()+1) + "-" + day1.getDate();
+
+
+    }
+
+    /*校验开始时间/结束时间是否合法*/
+    function checkTime(){
+        //时间校验
+        var endTime = $("input[name='query.reportDateEnd']").val();
+        var startTime = $("input[name='query.reportDateStart']").val();
+        endTime = new Date(endTime);
+        startTime = new Date(startTime);
+        if (endTime < startTime) {
+            $.messager.alert('提示','开始时间必须小于结束时间！');
+            return false;
+        }
+        if (endTime < startTime) {
+            $.messager.alert('提示','结束时间必须大于开始时间！');
+            return false;
+        }
+        var startTimeFormat = startTime.Format("yyyy-MM-dd");
+        var endTimeFormate = endTime.Format("yyyy-MM-dd");
+        var days = (new Date(endTimeFormate).getTime() - new Date(startTimeFormat).getTime()) / 86400000;
+        if (days > 30){
+            $.messager.alert('提示','选择开始时间与结束时间间隔最大为31天！');
+            return false;
+        }
+        return true;
     }
 </script>
 </html>

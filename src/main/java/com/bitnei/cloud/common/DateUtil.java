@@ -73,6 +73,21 @@ public class DateUtil
         return sdf.format(new Date());
     }
 
+    /**
+     *获取当前系统前一天日期
+     * @return
+     */
+    public static Date getNextDay(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        date = calendar.getTime();
+        return date;
+    }
+    public static String getShortNextDay(Date date){
+        SimpleDateFormat sdf=new SimpleDateFormat(DAY_FORMAT);
+        return sdf.format(date);
+    }
     public static String getShoDate(){
         SimpleDateFormat sdf=new SimpleDateFormat(DATA_FORMAT);
         return sdf.format(new Date());
