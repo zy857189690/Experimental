@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitnei.cloud.report.mapper.AnomalyVehMapper">
+
+    <select id="pagerModel" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT
+            veh.vin,
+            veh.license_plate as licensePlate,
+            sd.name AS vehTypeName,
+            svm.veh_model_name AS vehModelName,
+            svm.model_notice_id AS modelNoticeId,
+            stmu.term_part_firmware_number AS termPartFirmwareNumber,
+            stmu.term_bar_code AS termBarCode,
+            stmu.serial_number AS serialNumber,
+            smu.name AS manuUnitName,
+            sun.name AS useUnitName,
+            area.name AS areaName,
+            veh.first_reg AS firstReg,
+            veh.sale_time AS saleTime,
+            stmu.iccid,
+            vdas.reportDate,
+            vdas.speedNumber,
+            vdas.mileageNumber,
+            vdas.lngLatNumber,
+            vdas.timeNumber,
+            vdas.voltageNumber,
+            vdas.electricNumber,
+            vdas.socNumber
+        FROM
+            sys_vehicle veh
+            LEFT JOIN sys_veh_model svm ON veh.veh_model_id = svm.id
+            LEFT JOIN sys_dict sd ON svm.veh_model_type_id = sd.id AND sd.type = 2
+            LEFT JOIN sys_term_model_unit stmu ON veh.term_id = stmu.id
+            LEFT JOIN sys_unit smu ON veh.manu_unit_id = smu.id
+            LEFT JOIN sys_unit sun ON veh.use_uint_id = sun.id
+            LEFT JOIN sys_area area ON area.id = veh.sys_division_id
+            LEFT JOIN (
+            SELECT
+            vin,
+            max(report_date) as reportDate,
+            sum( IF ( type = 1, 1, 0 ) ) AS speedNumber,
+            sum( IF ( type = 2, 1, 0 ) ) AS mileageNumber,
+            sum( IF ( type = 3, 1, 0 ) ) AS lngLatNumber,
+            sum( IF ( type = 4, 1, 0 ) ) AS timeNumber,
+            sum( IF ( type = 5, 1, 0 ) ) AS voltageNumber,
+            sum( IF ( type = 6, 1, 0 ) ) AS electricNumber,
+            sum( IF ( type = 7, 1, 0 ) ) AS socNumber
+            FROM
+            veh_dayreport_abnormal_situation
+            GROUP BY
+            vin
+            ) vdas ON veh.vin = vdas.vin
+
+        <include refid="Common.userVehiclePermission"/>
+        <if test="startTime != null and endTime != null">
+            AND UNIX_TIMESTAMP(vdas.reportDate) >= UNIX_TIMESTAMP(#{startTime})
+            AND UNIX_TIMESTAMP(#{endTime}) >= UNIX_TIMESTAMP(vdas.reportDate)
+        </if>
+        <if test="useUnitName != null and useUnitName != '0'.toString()">
+            AND veh.use_uint_id = #{useUnitName}
+        </if>
+        <if test="licensePlate != null and identity == null ">
+            AND veh.license_plate like CONCAT('%',#{licensePlate},'%')
+        </if>
+        <if test="vin != null and identity == null ">
+            AND veh.vin like CONCAT('%',#{vin},'%')
+        </if>
+        <if test="vehTypeName != null and vehTypeName != '0'.toString() ">
+            AND svm.veh_model_type_id = #{vehTypeName}
+        </if>
+        <if test="vehModelName != null and vehModelName != '-1'">
+            AND veh.veh_model_id = #{vehModelName}
+        </if>
+        <if test="vehStage != null and vehStage != '-1'.toString()">
+            AND veh.registerstatus = #{vehStage}
+        </if>
+        <if test="areaName != null and areaName != '0'.toString()">
+            AND veh.sys_division_id = #{areaName}
+        </if>
+        <if test="vinList != null and identity == 'importType'">
+            AND veh.vin IN
+            <foreach collection="vinList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="licensePlateList != null and vinList != null and identity == 'importType'">
+            OR
+        </if>
+        <if test="licensePlateList != null and vinList == null and identity == 'importType'">
+            AND
+        </if>
+        <if test="licensePlateList != null and identity == 'importType'">
+            veh.license_plate IN
+            <foreach collection="licensePlateList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        GROUP BY veh.vin
+        ORDER BY vdas.reportDate DESC
+    </select>
+
+</mapper>
