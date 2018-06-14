@@ -30,31 +30,39 @@
             <form id="form_search" name="" class="sui-form cg-form">
                 <div style="width: 90%; height: 20px; margin: 10px;">
                     <label>条件查询</label>
-                    <input type="radio" name="query.adminFlag" onclick="operationtd(true)"  checked="checked"  value="0" ></input>
+                    <input type="radio" id = "condition" name="query.adminFlag" onclick="operationtd(true)"  checked="checked"  value="0" ></input>
                     <label>导入查询</label>
-                    <input type="radio" name="query.adminFlag" value="1" onclick="operationtd(false)" ></input>
+                    <input type="radio" id = "import" name="query.adminFlag" value="1" onclick="operationtd(false)" ></input>
                 </div>
                 <table class="table_search" style="height: 90px;">
                     <tr>
+                        <td class="td_label" id="fileButton">
+                            <label>文件上传</label>
+                        </td>
+                        <td class="td_input" id="fileShow">
+                            <input type="file" id="file" style="height: 30px; width: 168px;" name="myfile" />
+                            <#--<input type="button" onclick="UpladFile()" value="文件解析" />-->
+                        </td>
+
                         <td class="td_label">
                             <label>查询时间</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" name="query.startTime" id="startTime" style="height: 26px; width: 165px" value="${(startTime)!}" class="easyui-datebox" autocomplete="off" data-options="editable:false"/>
+                            <input type="text" name="query.startTime" id="startTime" style="height: 30px; width: 168px" value="${(startTime)!}" class="easyui-datebox" autocomplete="off" data-options="editable:false"/>
                         </td>
 
                         <td class="td_label">
                             <label>至</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" name="query.endTime" id="endTime" style="height: 26px;width: 165px" value="${(endTime)!}" class="easyui-datebox" autocomplete="off" data-options="editable:false"/>
+                            <input type="text" name="query.endTime" id="endTime" style="height: 30px;width: 168px" value="${(endTime)!}" class="easyui-datebox" autocomplete="off" data-options="editable:false"/>
                         </td>
 
                         <td class="td_label">
                             <label>车牌号</label>
                         </td>
                         <td class="td_input">
-                            <input id="licensePlate" type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.licensePlate"  autocomplete="off" >
+                            <input id="licensePlate" type="text"class="input-fat input" style="width:150px;"   name="query.licensePlate"  autocomplete="off" >
                         </td>
 
                         <td class="td_label">
@@ -62,7 +70,7 @@
                         </td>
 
                         <td class="td_input">
-                            <input id="vin" type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.vin"  autocomplete="off" >
+                            <input id="vin" type="text"class="input-fat input" style="width:150px;"   name="query.vin"  autocomplete="off" >
                         </td>
                         <td class="td_label">
                             <label>车辆种类</label>
@@ -92,13 +100,13 @@
                             <input id="sysDivisionId" name="query.sysDivisionId" style="width: 168px;" />
                         </td>
 
-                        <td class="td_label" id="fileButton">
-                            <label>文件上传</label>
-                        </td>
-                        <td class="td_input" id="fileShow">
-                            <input type="file" id="file" style="width: height: 26px;width:120px;" name="myfile" />
-                            <input type="button" onclick="UpladFile()" value="文件解析" />
-                        </td>
+                        <#--<td class="td_label" id="fileButton">-->
+                            <#--<label>文件上传</label>-->
+                        <#--</td>-->
+                        <#--<td class="td_input" id="fileShow">-->
+                            <#--<input type="file" id="file" style="width: height: 26px;width:120px;" name="myfile" />-->
+                            <#--<input type="button" onclick="UpladFile()" value="文件解析" />-->
+                        <#--</td>-->
 
                         <#--<td class="td_input" id="fileDown"  >-->
                             <#--<input type="button" onclick="downFile()" value="导入查询模板下载" />-->
@@ -113,7 +121,7 @@
                             <a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
                             <a href="#" onclick="resetButton()" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
                             <#--<a href="#" id="impQuery" onclick="importSeach()" data-options="iconCls:'icon-reset'">导入查询</a>-->
-                            <a href="#" onclick="downFile()" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
+                            <a href="#" onclick="downFile()" id = "downLadfile" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
                         </td>
                     </tr>
                 </table>
@@ -136,9 +144,9 @@
     $(function(){
         //初始化条件数据
         initSelectChoose();
-        $('#fileButton').css("visibility", "hidden");
-        $('#fileShow').css("visibility", "hidden");
-        // $('#fileDown').css("visibility", "hidden");
+        document.getElementById("fileButton").style.display = "none";
+        document.getElementById("fileShow").style.display = "none";
+        document.getElementById("downLadfile").style.display = "none";
     });
 
     //序列化搜索条件
@@ -298,8 +306,18 @@
 
     /*查询事件*/
     function searchButton(){
-        identity = "";
-        if (checkTime()) {
+        var val=$('input:radio[id="import"]:checked').val();
+
+        //var valaaa=$('input:radio[id="daoru"]:checked').val();
+        if(val == 1){
+console.log("weeeeeeee")
+            var file = document.getElementById("file").files[0];
+            if (fileCheck(file)) {
+                UpladFile();
+            }
+            searchDatagrid('form_search','table');
+        }else {
+            console.log("wedsaaaaaaaaaaaae")
             //请求查询
             searchDatagrid('form_search','table');
         }
@@ -360,7 +378,7 @@
             if (xhr.readyState == 4){
                 // alert(xhr.responseText);
                 var data =  eval("("+xhr.responseText+")");
-                alert(data.code)
+
                 if (data.code == 0) {
                     $.messager.show({
                         title:'文件解析结果',
@@ -383,9 +401,10 @@
 
     /*模板下载*/
     function downFile() {
-        var downUrl = "${base}/report/workCondition/dayVeh/downLooadModel?moduleName=model&fileName=templateQuery.xlsx";
+        var downUrl = "${base}/report/common/downLoadModel?moduleName=model&fileName=templateQuery.xls";
         window.open(downUrl);
     }
+
 
     //导入查询弹窗口
     function importSeach(){
@@ -511,19 +530,31 @@
             return ".xls";
         }
     }
-
     function   operationtd(nub) {
-        if(nub){
-            $('#fileButton').css("visibility", "hidden");
-            $('#fileShow').css("visibility", "hidden");
-            // $('#fileDown').css("visibility", "hidden");
-        }else {
-            $('#fileButton').css("visibility", "visible");
-            $('#fileShow').css("visibility", "visible");
-            // $('#fileDown').css("visibility", "visible");
+        if (nub) {
+            $("#fileButton").hide();
+            $("#fileShow").hide();
+            $("#downLadfile").hide();
+        } else {
+            $("#fileButton").show();
+            $("#fileShow").show();
+            $("#downLadfile").show();
         }
 
     }
+    // $("#condition").change(function() {
+    //     //$("#daoruchaxun").hide();
+    //     $("#fileButton").hide();
+    //     $("#fileShow").hide();
+    //     $("#downLadfile").hide();
+    // });
+    //
+    // $("#import").change(function() {
+    //     //$("#daoruchaxun").show();
+    //     $("#fileButton").show();
+    //     $("#fileShow").show();
+    //     $("#downLadfile").show();
+    // });
 
 </script>
 </html>
