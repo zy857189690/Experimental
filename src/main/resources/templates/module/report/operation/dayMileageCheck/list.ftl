@@ -147,27 +147,27 @@
                             <label>统计日期</label>
                         </td>
                         <td class="td_input">
-                            <input id="dd" type="text" class="easyui-datebox" name="query.reportDateStart"  value="${(reportDateStart)!}"  id = "reportDateStart"  style="height: 30px; width: 168px;" >
+                            <input  type="text" class="easyui-datebox" name="query.reportDateStart"  value="${(reportDateStart)!}"  id = "reportDateStart"  style="height: 30px; width: 168px;" >
                         </td>
                         <td class="td_label" style="text-align: center;">
                             <label>至</label>
                         </td>
                         <td class="td_input">
-                            <input id="dd" type="text" class="easyui-datebox"  name="query.reportDateEnd"  value="${(reportDateEnd)!}"  id = "reportDateEnd"  style="height: 30px; width: 168px;" >
+                            <input type="text" class="easyui-datebox"  name="query.reportDateEnd"  value="${(reportDateEnd)!}"  id = "reportDateEnd"  style="height: 30px; width: 168px;" >
                         </td>
 
                         <td class="td_label">
                             <label>VIN</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" class="input-fat input" name="query.vin"  style="width:150px;" >
+                            <input type="text" class="input-fat input" name="query.vin"  id = "vin" style="width:150px;" >
                         </td>
 
                         <td class="td_label">
                             <label>车牌号</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" class="input-fat input" name="query.licensePlate"  style="width:150px;" >
+                            <input type="text" class="input-fat input" id="licensePlate" name="query.licensePlate"  style="width:150px;" >
                         </td>
                         <td class="td_label">
                             <label>车辆种类</label>
@@ -197,24 +197,24 @@
                             <label>当日有效里程大于（km）</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" class="input-fat input" name="query.dayVaildMileage" style="width:150px;">
+                            <input type="text" class="input-fat input" id="dayVaildMileage" name="query.dayVaildMileage" style="width:150px;">
                         </td>
                         <td class="td_label">
                             <label>当日轨迹里程大于（km）</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" class="input-fat input" name="query.dayGpsMileage" style="width:150px;">
+                            <input type="text" class="input-fat input" id="dayGpsMileage" name="query.dayGpsMileage" style="width:150px;">
                         </td>
                         <td class="td_label">
                             <label>当日在线里程大于（km）</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" class="input-fat input" name="query.dayOnlineMileage" style="width:150px;">
+                            <input type="text" class="input-fat input" id="dayOnlineMileage" name="query.dayOnlineMileage" style="width:150px;">
                         </td>
 
                         <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
                             <a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
-                            <a href="#" onclick="resetDatagrid('form_search','table')" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
+                            <a href="#" onclick="resetButton()" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
                             <#--<input type="button" onclick="downFile()" value="导入查询模板下载" />-->
                             <a href="#" onclick="downFile()" id = "downLadfile" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
 
@@ -264,9 +264,13 @@
     function resetButton(){
         var startTimeTemp = "${reportDateStart}";
         var endTimeTemp = "${reportDateEnd}";
-        alert(startTimeTemp);
-        $("input[name='query.reportDateStart']").val(startTimeTemp);
-        $("input[name='query.reportDateEnd']").val(endTimeTemp);
+        $('#reportDateStart').datebox('setValue',startTimeTemp);
+        $('#reportDateEnd').datebox('setValue',endTimeTemp);
+        $('#vin').val("");
+        $('#licensePlate').val("");
+        $('#dayOnlineMileage').val("");
+        $('#dayGpsMileage').val("");
+        $('#dayVaildMileage').val("");
         //初始化条件
         initSelectChoose();
         $('#table').datagrid("load", resetQueryParams);
