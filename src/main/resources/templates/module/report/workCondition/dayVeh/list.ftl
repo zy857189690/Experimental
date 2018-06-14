@@ -310,18 +310,16 @@
 
         //var valaaa=$('input:radio[id="daoru"]:checked').val();
         if(val == 1){
-
+console.log("weeeeeeee")
             var file = document.getElementById("file").files[0];
             if (fileCheck(file)) {
                 UpladFile();
             }
             searchDatagrid('form_search','table');
         }else {
-            identity = "";
-            if (checkTime()) {
-                //请求查询
-                searchDatagrid('form_search','table');
-            }
+            console.log("wedsaaaaaaaaaaaae")
+            //请求查询
+            searchDatagrid('form_search','table');
         }
     }
 
@@ -380,7 +378,7 @@
             if (xhr.readyState == 4){
                 // alert(xhr.responseText);
                 var data =  eval("("+xhr.responseText+")");
-                alert(data.code)
+
                 if (data.code == 0) {
                     $.messager.show({
                         title:'文件解析结果',
