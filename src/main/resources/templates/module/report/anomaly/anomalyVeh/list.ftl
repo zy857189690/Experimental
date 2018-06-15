@@ -14,8 +14,134 @@
 </head>
 <body class="easyui-layout" fit="true" id="fullid">
 
-<div region="center" style="overflow: hidden;width: 100%;">
+<div id="report" class="easyui-window" title="报表说明" style="width:853px;height:100%;" data-options="modal:true,closed:true">
+    <div class="easyui-layout">
+        <table class="easyui-datagrid">
+            <thead>
+            <tr>
+                <th data-options="field:'code'" style="width: 80px">名称</th>
+                <th data-options="field:'name'" style="width: 100%">定义</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>速度异常</td><td>1、车速有效性异常：
+                1）车速为空，或，上传无效值或异常值，及0xFE或0xFF；
+                注：仅实时数据判断，自动唤醒不判断；
+                <br />
+                2、车速数值异常：
+                1）车速超出有效值范围，速度＞200km/h或＜0km/h；</td>
+            </tr>
+            <tr>
+                <td>仪表里程异常</td><td>1、仪表里程有效性异常
+                1）仪表里程为空，或，上传无效值或异常值，及0xFE或0xFF；
+                注：包含自动唤醒场景下上传的数据；
+                <br />
+                2、仪表里程数值异常
+                <br />
+                1）超出有效值范围：里程值大于等于100万的数值；
+                2）里程跳变：连续两帧数据，后一帧里程—前一帧里程大于2km；
+                <br />
+                注：包含自动唤醒场景下上传的数据；</td>
+            </tr>
+            <tr>
+                <td>经/纬度异常</td><td>1、经纬度有效性异常：
+                经度或纬度为空，或，上传无效值或异常值，及0xFE或0xFF；
+                <br />
+                2、经纬度数值异常
+                1）超出范围：经度∈（73,135），纬度∈（4.53）;
+                注：包含自动唤醒情况下上传的经纬度数值；</td>
+            </tr>
+            <tr>
+                <td>时间异常</td><td>1、时间有效性异常：
+                终端上传时间为空，或，上传无效值或异常值，及0xFE或0xFF；
+                <br />
+                2、时间数值异常：
+                未校正时间：与系统接收时间误差在±10min计为时间异常；
+                包含自动唤醒场景下上传的时间；</td>
+            </tr>
+            <tr>
+                <td>总电压异常</td><td>1、总电压有效性异常：
+                总电压为空，或，上传无效值或异常值，及0xFE或0xFF；
+                <br />
+                2、总电压数值异常
+                总电压∈（0,1000]</td>
+            </tr>
+            <tr>
+                <td>总电流异常</td><td>1、总电流有效性异常：
+                总电流为空，或，上传无效值或异常值，及0xFE或0xFF；
+                <br />
+                2、总电流数值异常：
+                1）当电流≥5A时，连续3帧相同；
+                2）总电流＞20A；</td>
+            </tr>
+            <tr>
+                <td>SOC异常</td><td>1、SOC有效性异常：
+                总电压为空，或，上传无效值或异常值，及0xFE或0xFF；
+                注：排除自动唤醒情况下上传的数据；
+                <br />
+                2、SOC数值异常：
+                1）SOC>100%，或SOC<0；</td>
+            </tr>
+            <tr>
+                <td>地理位置</td><td>生成快照时的地理位置，GPS数值转译后的实际地理名称</td>
+            </tr>
+            <tr>
+                <td>最后通讯时间</td><td>车辆在生成快照前，最后与平台通讯的时间，含自动唤醒</td>
+            </tr>
+            <tr>
+                <td>有效CAN数据最后上传时间</td><td>CAN数据有效性仅作车速、里程、总电压、总电流、GPS经纬度、SOC值、时间有效性的判断； <br /> 上述字段均不为空，有效范围内</td>
+            </tr>
+            <tr>
+                <td>最后一次充电时间</td><td>是最后一次上传充电状态的时间（包含停车充电或充电完成状态的时间）</td>
+            </tr>
+            <tr>
+                <td>充放电状态</td><td>32960协议里的状态：停车充电、行驶充电、未充电、充电完成、异常、无效</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
+<div id="recordExplanPopup" class="easyui-window" title="报表说明" style="width:853px;height:100%;" data-options="modal:true,closed:true">
+    <div class="easyui-layout">
+        <table class="easyui-datagrid">
+            <thead>
+            <tr>
+                <th data-options="field:'code'" style="width: 100px">名称</th>
+                <th data-options="field:'name'" style="width: 100%">定义</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>异常数据上传时间</td><td>异常开始产生的时间
+                <br/>
+                1、计算每一帧异常数据，若连续3条异常方标记为开始，那么取触发成功的第一条数据；
+                <br/>
+                2、系统采集数据的时间</td>
+            </tr>
+            <tr>
+                <td>异常发生地理位置</td><td>异常开始发生的地理位置；
+                <br/>
+                显示异常开始时上报的地理位置；如果GPS异常，取异常开始前一帧的正常位置</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="exceptionRecord" class="easyui-window" title="车速异常记录详情" style="width:853px;height:100%;" data-options="modal:true,closed:true">
+    <div><label>VIN:</label><label id="vin"></label><label>车牌号:</label><label id="licensePlate"></label><label>车辆公告型号:</label><label id="modelNoticeId"></label></div>
+    <div> <a href="#" id="reportExplan" onclick="reportExplan()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">报表说明</a> </div>
+    <div style="width: auto;height: 500px;">
+        <div id="recordToolbar" style="padding:5px" class="cg-moreBox">
+            <a href="#" class="easyui-linkbutton"  data-options="iconCls:'icon-export'" menu="0">导出</a>
+        </div>
+        <div id="recordTable" name="datagrid" style="width: 100%;height: 100%"></div>
+    </div>
+</div>
+
+<div region="center" style="overflow: hidden;width: 100%;">
 
 <div data-options="region:'north',title:'查询',split:true,collapsable:true" style="width: 100%;height: 120px">
     <div style="width: 100%;border: 1;margin:5 5 5 10 ">
@@ -102,11 +228,11 @@
     </div>
 </div>
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
-    <@shiro.hasPermission name="/report/demo1/export">
+    <@shiro.hasPermission name="/report/anomaly/anomalyVeh/export">
         <a href="#" onclick="exportButton()" class="easyui-linkbutton"
            data-options="iconCls:'icon-export'" menu="0">导出</a>
     </@shiro.hasPermission>
-
+    <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">报表说明</a>
     </div>
     <div id="table" name="datagrid" style="width: 100%;height: 100%"></div>
 </div>
@@ -136,13 +262,48 @@
             {field: 'saleTime', title: '销售日期',align:'center',sortable: false},
             {field: 'iccid', title: 'ICCID',align:'center',sortable: false},
             {field: 'reportDate', title: '最近异常时间',align:'center',sortable: false},
-            {field: 'speedNumber', title: '车速异常（条）',align:'center',sortable: false},
-            {field: 'mileageNumber', title: '里程异常（条）',align:'center',sortable: false},
-            {field: 'lngLatNumber', title: '经纬度异常（条）',align:'center',sortable: false},
-            {field: 'timeNumber', title: '时间异常（条）',align:'center',sortable: false},
-            {field: 'voltageNumber', title: '总电压异常（条）',align:'center',sortable: false},
-            {field: 'electricNumber', title: '总电流异常（条）',align:'center',sortable: false},
-            {field: 'socNumber', title: 'SOC异常（条）',align:'center',sortable: false},
+            {field: 'speedNumber', title: '车速异常（条）',align:'center',sortable: false,formatter:function(value,row,index){
+                if (value == null){
+                    value = 0;
+                }
+                return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',1)">'+value+'</a>'
+            }},
+            {field: 'mileageNumber', title: '里程异常（条）',align:'center',sortable: false,formatter:function(value,row,index){
+                if (value == null){
+                    value = 0;
+                }
+                return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',2)">'+value+'</a>'
+            }},
+            {field: 'lngLatNumber', title: '经纬度异常（条）',align:'center',sortable: false,formatter:function(value,row,index){
+                if (value == null){
+                    value = 0;
+                }
+                return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',3)">'+value+'</a>'
+            }},
+            {field: 'timeNumber', title: '时间异常（条）',align:'center',sortable: false,formatter:function(value,row,index){
+                if (value == null){
+                    value = 0;
+                }
+                return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',4)">'+value+'</a>'
+            }},
+            {field: 'voltageNumber', title: '总电压异常（条）',align:'center',sortable: false,formatter:function(value,row,index){
+                if (value == null){
+                    value = 0;
+                }
+                return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',5)">'+value+'</a>'
+            }},
+            {field: 'electricNumber', title: '总电流异常（条）',align:'center',sortable: false,formatter:function(value,row,index){
+                if (value == null){
+                    value = 0;
+                }
+                return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',6)">'+value+'</a>'
+            }},
+            {field: 'socNumber', title: 'SOC异常（条）',align:'center',sortable: false,formatter:function(value,row,index){
+                if (value == null){
+                    value = 0;
+                }
+                return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',7)">'+value+'</a>'
+            }},
         ]],
         toolbar: "#toolbar",
         pagination: true,
@@ -191,6 +352,11 @@
             }
 
         }
+    }
+
+    //异常记录详情列表说明
+    function reportExplan(){
+        $("#recordExplanPopup").window("open");
     }
 
     //导入查询
@@ -246,6 +412,11 @@
     function downFile() {
         var downUrl = "${base}/report/common/downLoadModel?moduleName=model&fileName=templateQuery.xls";
         window.open(downUrl);
+    }
+
+    /*报表说明弹框*/
+    function reportSpecification(){
+        $('#report').window("open");
     }
 
     /*校验开始时间/结束时间是否合法*/
@@ -358,6 +529,54 @@
         $("#fileinput").show();
         $("#downLadfile").show();
     });
+
+    //弹出框事件
+    function speedClick(vin,licensePlate,modelNoticeId,type){
+        //1：速度，2：里程，3：经纬度，4：时间，5：电压，6：电流，7： soc
+        var titleName = "异常记录详情";
+        if (type == 1) {
+            titleName = "车速异常记录详情";
+        }else if (type == 2) {
+            titleName = "仪表里程异常记录详情";
+        }else if (type == 3){
+            titleName = "经纬度异常记录详情";
+        }else if (type == 4) {
+            titleName = "时间异常记录详情";
+        }else if (type == 5){
+            titleName = "电压异常记录详情";
+        }else if (type == 6) {
+            titleName = "电流异常记录详情";
+        }else if (type ==7) {
+            titleName = "SOC异常记录详情";
+        }
+        $("#licensePlate").text(licensePlate);
+        $("#vin").text(vin);
+        $("#modelNoticeId").text(modelNoticeId);
+        $("#exceptionRecord").attr("title",titleName)
+
+        $("#exceptionRecord").window("open");
+
+        var queryParams = {};
+        queryParams['vin'] = vin;
+        queryParams['type'] = type;
+        recordTable(queryParams);
+    }
+
+   function recordTable(queryParams){
+       $("#recordTable").datagrid({
+           url: '${base}/report/anomaly/anomalyVeh/recordDatagrid',
+           queryParams: queryParams,
+           sortName: "createTime",
+           sortOrder: "desc",
+           columns: [[
+               {field: 'licensePlate', title: '异常数据上传时间',align:'center',sortable: false},
+               {field: 'vin', title: '异常发生开始位置',align:'center',sortable: false},
+           ]],
+           toolbar: "#recordToolbar",
+           pagination: true,
+           nowrap: true,
+       });
+   }
 
 </script>
 </html>

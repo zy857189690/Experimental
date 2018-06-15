@@ -124,4 +124,16 @@ public class AnomalyVehService extends BaseService implements IAnomalyVehService
 
 		return appBean;
 	}
+
+	@Override
+	public PagerModel recordDatagrid(String vin, String type) {
+		DataGridOptions options = new DataGridOptions();
+		Map<String, Object> map = new HashMap<>();
+		map.put("vin", vin);
+		map.put("type", type);
+		options.setParams(map);
+//		PagerModel pm = findPagerModel("pagerModel", options);
+		PagerModel pm = new PagerModel();
+		return pm;
+	}
 }

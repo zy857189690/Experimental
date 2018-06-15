@@ -31,4 +31,12 @@ public interface IAnomalyVehService {
 	 * @throws Exception
 	 */
 	AppBean importQuery(HttpServletRequest request, MultipartFile file, String identity) throws Exception;
+
+	/**
+	 * 查询异常记录详情
+	 * @param vin
+	 * @param type
+	 * @return
+	 */
+	PagerModel recordDatagrid(String vin,String type);
 }
