@@ -39,7 +39,7 @@ public class DayMileageCheckService  extends BaseService implements IDayMileageC
         options.getParams().put("vehtype", options.getParams().get("vehtype")==null?"":options.getParams().get("vehtype"));
         options.getParams().put("reportDateStart", options.getParams().get("reportDateStart")==null? com.bitnei.cloud.common.DateUtil.getShortNextDay(com.bitnei.cloud.common.DateUtil.getNextDay(new Date())):options.getParams().get("reportDateStart"));
         options.getParams().put("reportDateEnd", options.getParams().get("reportDateEnd")==null? com.bitnei.cloud.common.DateUtil.getShortNextDay(com.bitnei.cloud.common.DateUtil.getNextDay(new Date())):options.getParams().get("reportDateEnd"));
-        options.getParams().put("adminFlag", options.getParams().get("adminFlag")==null? "0":options.getParams().get("reportDateEnd"));
+        options.getParams().put("adminFlag", options.getParams().get("adminFlag")==null? "0":options.getParams().get("adminFlag"));
 
         //options.setParams();
         Map<String, Object> userprss = PublicDealUtil.bulidUserForParams(options.getParams());
