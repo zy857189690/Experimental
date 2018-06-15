@@ -84,6 +84,20 @@ public class DateUtil
         date = calendar.getTime();
         return date;
     }
+    /**
+     *
+     * @return
+     */
+    public static String getTheSpecifiedDay(int dataDay) {
+        SimpleDateFormat sdf=new SimpleDateFormat(DAY_FORMAT);
+        Date date=new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_MONTH, dataDay);
+        date = calendar.getTime();
+        System.out.println(sdf.format(date));
+        return sdf.format(date);
+    }
     public static String getShortNextDay(Date date){
         SimpleDateFormat sdf=new SimpleDateFormat(DAY_FORMAT);
         return sdf.format(date);
@@ -96,6 +110,8 @@ public class DateUtil
         SimpleDateFormat sdf=new SimpleDateFormat(DATA_FORMAT_DAY);
         return sdf.format(new Date());
     }
+
+
 
     /**
      * 获取几年之后的今天的日期
