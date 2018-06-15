@@ -44,11 +44,11 @@ public class DayMileageCheckService  extends BaseService implements IDayMileageC
         }
         if(options.getParams().get("reportDateStart")!=null && options.getParams().get("reportDateEnd")==null){
             options.getParams().put("reportDateStart", options.getParams().get("reportDateStart")==null? com.bitnei.cloud.common.DateUtil.getShortNextDay(com.bitnei.cloud.common.DateUtil.getNextDay(new Date())):options.getParams().get("reportDateStart"));
-            options.getParams().put("reportDateEnd", options.getParams().get("reportDateEnd")==null? com.bitnei.cloud.common.DateUtil.getTheSpecifiedDay(31):options.getParams().get("reportDateEnd"));
+            options.getParams().put("reportDateEnd",  options.getParams().get("reportDateEnd")==null? com.bitnei.cloud.common.DateUtil.getTheSpecifiedDay(31,options.getParams().get("reportDateStart").toString()):options.getParams().get("reportDateEnd"));
 
         }
         if(options.getParams().get("reportDateStart")==null && options.getParams().get("reportDateEnd")!=null){
-            options.getParams().put("reportDateStart", options.getParams().get("reportDateStart")==null? com.bitnei.cloud.common.DateUtil.getTheSpecifiedDay(-31):options.getParams().get("reportDateStart"));
+            options.getParams().put("reportDateStart", options.getParams().get("reportDateStart")==null? com.bitnei.cloud.common.DateUtil.getTheSpecifiedDay(-31,options.getParams().get("reportDateEnd").toString()):options.getParams().get("reportDateStart"));
             options.getParams().put("reportDateEnd", options.getParams().get("reportDateEnd")==null? com.bitnei.cloud.common.DateUtil.getShortNextDay(com.bitnei.cloud.common.DateUtil.getNextDay(new Date())):options.getParams().get("reportDateEnd"));
 
         }
@@ -113,11 +113,11 @@ public class DayMileageCheckService  extends BaseService implements IDayMileageC
         }
         if(mapParams.get("reportDateStart")!=null && mapParams.get("reportDateEnd")==null){
             mapParams.put("reportDateStart", mapParams.get("reportDateStart")==null? com.bitnei.cloud.common.DateUtil.getShortNextDay(com.bitnei.cloud.common.DateUtil.getNextDay(new Date())):mapParams.get("reportDateStart"));
-            mapParams.put("reportDateEnd", mapParams.get("reportDateEnd")==null? com.bitnei.cloud.common.DateUtil.getTheSpecifiedDay(31):mapParams.get("reportDateEnd"));
+            mapParams.put("reportDateEnd", mapParams.get("reportDateEnd")==null? com.bitnei.cloud.common.DateUtil.getTheSpecifiedDay(31,mapParams.get("reportDateStart").toString()):mapParams.get("reportDateEnd"));
 
         }
         if(mapParams.get("reportDateStart")==null && mapParams.get("reportDateEnd")!=null){
-            mapParams.put("reportDateStart", mapParams.get("reportDateStart")==null? com.bitnei.cloud.common.DateUtil.getTheSpecifiedDay(-31):mapParams.get("reportDateStart"));
+            mapParams.put("reportDateStart", mapParams.get("reportDateStart")==null? com.bitnei.cloud.common.DateUtil.getTheSpecifiedDay(-31,mapParams.get("reportDateEnd").toString()):mapParams.get("reportDateStart"));
             mapParams.put("reportDateEnd", mapParams.get("reportDateEnd")==null? com.bitnei.cloud.common.DateUtil.getShortNextDay(com.bitnei.cloud.common.DateUtil.getNextDay(new Date())):mapParams.get("reportDateEnd"));
 
         }

@@ -88,9 +88,15 @@ public class DateUtil
      *
      * @return
      */
-    public static String getTheSpecifiedDay(int dataDay) {
+    public static String getTheSpecifiedDay(int dataDay,String dateStr){
+        SimpleDateFormat sdfad =   new SimpleDateFormat(DAY_FORMAT);
         SimpleDateFormat sdf=new SimpleDateFormat(DAY_FORMAT);
-        Date date=new Date();
+        Date date= null;
+        try {
+            date = sdfad.parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.add(Calendar.DAY_OF_MONTH, dataDay);
