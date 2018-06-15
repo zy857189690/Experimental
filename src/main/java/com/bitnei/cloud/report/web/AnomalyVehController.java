@@ -1,14 +1,19 @@
 package com.bitnei.cloud.report.web;
 
+import com.bitnei.cloud.common.ConnectionGdApi;
+import com.bitnei.cloud.common.DateUtil;
 import com.bitnei.cloud.common.annotation.Module;
 import com.bitnei.cloud.common.annotation.SLog;
 import com.bitnei.cloud.common.bean.AppBean;
+import com.bitnei.cloud.data.bean.AbnormalDetail;
+import com.bitnei.cloud.data.service.IDataCenterService;
 import com.bitnei.cloud.report.service.IAnomalyVehService;
 import com.bitnei.commons.datatables.PagerModel;
 import org.apache.log4j.Logger;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 /**
  * 异常车辆统计
@@ -41,6 +47,8 @@ public class AnomalyVehController {
 
     @Autowired
     private IAnomalyVehService anomalyVehService;
+    @Autowired
+    private IDataCenterService dataCenterService;
 
     /**
      * 异常车辆统计-跳转列表页面
@@ -49,7 +57,12 @@ public class AnomalyVehController {
     @RequestMapping("/list")
     @RequiresPermissions(URL_LIST)
     @SLog(action = "异常车辆统计-跳转列表页面")
-    public String list() {
+    public String list(ModelMap model) {
+        String endTime = DateUtil.getShortDate(DateUtil.getNextDay(new Date()));
+        String startTime = DateUtil.getTheSpecifiedDay(-1,endTime);
+
+        model.put("startTime", startTime+" 00:00:00");
+        model.put("endTime", endTime+" 23:59:59");
         return BASE + "list";
     }
 
@@ -113,11 +126,22 @@ public class AnomalyVehController {
      * @param type
      * @return
      */
-    @RequestMapping(value = "/recordDatagrid")
+    @PostMapping(value = "/recordDatagrid")
     @ResponseBody
-    @RequiresPermissions(URL_LIST)
-    public PagerModel recordDatagrid(String vin,String type){
-        PagerModel pm = anomalyVehService.recordDatagrid(vin, type);
+    public PagerModel recordDatagrid(String vid,String vin,String type, String startTime, String endTime) throws Exception{
+        PagerModel pm = new PagerModel();
+        List<AbnormalDetail> lists = dataCenterService.findAbnormalDetail(vid, type, "1", "20180312000000", "20180314000000", true);
+        List<Map<String, String>> newList = new ArrayList<>();
+        for (AbnormalDetail abnormalDetail : lists){
+            Map<String, String> map = new HashMap<>();
+            String lng = abnormalDetail.getLon();
+            String lat = abnormalDetail.getLat();
+            String address = ConnectionGdApi.getAddress(lng,lat);
+            map.put("location", address);
+            map.put("reportDate", DateUtil.getTimefromNum(abnormalDetail.getUploadTime()));
+            newList.add(map);
+        }
+        pm.setRows(newList);
         return pm;
     }
 }

@@ -447,4 +447,20 @@ public class DateUtil
         date = sdf.format(calendar.getTime());
         return date;
     }
+
+    public static String getTimefromNum(String time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Long time2 = Long.valueOf(Long.parseLong(time));
+        String d = format.format(time2);
+        Date date = null;
+
+        try {
+            date = format.parse(d);
+            String e = format.format(date);
+            return e;
+        } catch (ParseException var6) {
+            var6.printStackTrace();
+            return "";
+        }
+    }
 }

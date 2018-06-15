@@ -4,58 +4,72 @@
 
     <select id="pagerModel" resultType="java.util.HashMap" parameterType="java.util.HashMap">
         SELECT
-            veh.vin,
-            veh.license_plate as licensePlate,
-            sd.name AS vehTypeName,
-            svm.veh_model_name AS vehModelName,
-            svm.model_notice_id AS modelNoticeId,
-            stmu.term_part_firmware_number AS termPartFirmwareNumber,
-            stmu.term_bar_code AS termBarCode,
-            stmu.serial_number AS serialNumber,
-            smu.name AS manuUnitName,
-            sun.name AS useUnitName,
-            area.name AS areaName,
-            veh.first_reg AS firstReg,
-            veh.sale_time AS saleTime,
-            stmu.iccid,
-            vdas.reportDate,
-            vdas.speedNumber,
-            vdas.mileageNumber,
-            vdas.lngLatNumber,
-            vdas.timeNumber,
-            vdas.voltageNumber,
-            vdas.electricNumber,
-            vdas.socNumber
+        veh.vin,
+        veh.license_plate as licensePlate,
+        sd.name AS vehTypeName,
+        svm.veh_model_name AS vehModelName,
+        svm.model_notice_id AS modelNoticeId,
+        stmu.term_part_firmware_number AS termPartFirmwareNumber,
+        stmu.term_bar_code AS termBarCode,
+        stmu.serial_number AS serialNumber,
+        smu.name AS manuUnitName,
+        sun.name AS useUnitName,
+        area.name AS areaName,
+        veh.first_reg AS firstReg,
+        veh.sale_time AS saleTime,
+        stmu.iccid,
+        if( vdas.typeFlag != 4, vdas.reportDate ,vter.serverTime) as reportDate,
+        vdas.speedNumber,
+        vdas.mileageNumber,
+        vdas.lngLatNumber,
+        vter.timeNumber,
+        vdas.voltageNumber,
+        vdas.electricNumber,
+        vdas.socNumber,
+        vdas.typeFlag,
+        vdas.category
         FROM
-            sys_vehicle veh
-            LEFT JOIN sys_veh_model svm ON veh.veh_model_id = svm.id
-            LEFT JOIN sys_dict sd ON svm.veh_model_type_id = sd.id AND sd.type = 2
-            LEFT JOIN sys_term_model_unit stmu ON veh.term_id = stmu.id
-            LEFT JOIN sys_unit smu ON veh.manu_unit_id = smu.id
-            LEFT JOIN sys_unit sun ON veh.use_uint_id = sun.id
-            LEFT JOIN sys_area area ON area.id = veh.sys_division_id
-            LEFT JOIN (
-            SELECT
-            vin,
-            max(report_date) as reportDate,
-            sum( IF ( type = 1, abnormal_num, 0 ) ) AS speedNumber,
-            sum( IF ( type = 2, abnormal_num, 0 ) ) AS mileageNumber,
-            sum( IF ( type = 3, abnormal_num, 0 ) ) AS lngLatNumber,
-            sum( IF ( type = 4, abnormal_num, 0 ) ) AS timeNumber,
-            sum( IF ( type = 5, abnormal_num, 0 ) ) AS voltageNumber,
-            sum( IF ( type = 6, abnormal_num, 0 ) ) AS electricNumber,
-            sum( IF ( type = 7, abnormal_num, 0 ) ) AS socNumber
-            FROM
-            veh_dayreport_abnormal_situation
-            GROUP BY
-            vin
-            ) vdas ON veh.vin = vdas.vin
-
-        <include refid="Common.userVehiclePermission"/>
+        (
+        SELECT
+        vda.vin,
+        vda.type as typeFlag,
+        max(vda.report_date) as reportDate,
+        vda.category,
+        sum( IF ( vda.type = 1, vda.abnormal_num, 0 ) ) AS speedNumber,
+        sum( IF ( vda.type = 2, vda.abnormal_num, 0 ) ) AS mileageNumber,
+        sum( IF ( vda.type = 3, vda.abnormal_num, 0 ) ) AS lngLatNumber,
+        sum( IF ( vda.type = 5, vda.abnormal_num, 0 ) ) AS voltageNumber,
+        sum( IF ( vda.type = 6, vda.abnormal_num, 0 ) ) AS electricNumber,
+        sum( IF ( vda.type = 7, vda.abnormal_num, 0 ) ) AS socNumber
+        FROM
+        (
+        SELECT vd.* FROM veh_dayreport_abnormal_situation vd
+        WHERE 1 = 1
         <if test="startTime != null and endTime != null">
-            AND UNIX_TIMESTAMP(vdas.reportDate) >= UNIX_TIMESTAMP(#{startTime})
-            AND UNIX_TIMESTAMP(#{endTime}) >= UNIX_TIMESTAMP(vdas.reportDate)
+            AND UNIX_TIMESTAMP(vd.report_date) >= UNIX_TIMESTAMP(#{startTime})
+            AND UNIX_TIMESTAMP(#{endTime}) >= UNIX_TIMESTAMP(vd.report_date)
         </if>
+        ) vda
+        GROUP BY
+        vda.vin
+        ) vdas
+        LEFT JOIN sys_vehicle veh ON veh.vin = vdas.vin
+        LEFT JOIN sys_veh_model svm ON veh.veh_model_id = svm.id
+        LEFT JOIN sys_dict sd ON svm.veh_model_type_id = sd.id AND sd.type = 2
+        LEFT JOIN sys_term_model_unit stmu ON veh.term_id = stmu.id
+        LEFT JOIN sys_unit smu ON veh.manu_unit_id = smu.id
+        LEFT JOIN sys_unit sun ON veh.use_uint_id = sun.id
+        LEFT JOIN sys_area area ON area.id = veh.sys_division_id
+        LEFT JOIN
+        (
+        select count(id) as timeNumber,server_time as serverTime,vin from veh_time_exception_record
+        WHERE 1 = 1
+        <if test="startTime != null and endTime != null">
+            AND UNIX_TIMESTAMP(server_time) >= UNIX_TIMESTAMP(#{startTime})
+            AND UNIX_TIMESTAMP(#{endTime}) >= UNIX_TIMESTAMP(server_time)
+        </if>
+        ) vter ON veh.vin = vter.vin
+        <include refid="Common.userVehiclePermission"/>
         <if test="useUnitName != null and useUnitName != '0'.toString()">
             AND veh.use_uint_id = #{useUnitName}
         </if>
@@ -95,7 +109,7 @@
                 #{item}
             </foreach>
         </if>
-        GROUP BY veh.vin
+        /*GROUP BY veh.vin*/
         ORDER BY vdas.reportDate DESC
     </select>
 
