@@ -4,7 +4,7 @@
 
     <select id="pagerModel" resultType="java.util.HashMap" parameterType="java.util.HashMap">
         SELECT
-        veh.vin,
+        vdas.vin,
         veh.license_plate as licensePlate,
         sd.name AS vehTypeName,
         svm.veh_model_name AS vehModelName,
@@ -26,15 +26,13 @@
         vdas.voltageNumber,
         vdas.electricNumber,
         vdas.socNumber,
-        vdas.typeFlag,
-        vdas.category
+        vdas.typeFlag
         FROM
         (
         SELECT
         vda.vin,
         vda.type as typeFlag,
         max(vda.report_date) as reportDate,
-        vda.category,
         sum( IF ( vda.type = 1, vda.abnormal_num, 0 ) ) AS speedNumber,
         sum( IF ( vda.type = 2, vda.abnormal_num, 0 ) ) AS mileageNumber,
         sum( IF ( vda.type = 3, vda.abnormal_num, 0 ) ) AS lngLatNumber,
@@ -113,4 +111,11 @@
         ORDER BY vdas.reportDate DESC
     </select>
 
+    <select id="pageQueryTimeException" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT vter.server_time as reportDate, vter.lng_lat as lngLat FROM veh_time_exception_record vter WHERE vid = #{vid}
+        <if test="startTime != null and endTime != null">
+            AND UNIX_TIMESTAMP(vter.server_time) >= UNIX_TIMESTAMP(#{startTime})
+            AND UNIX_TIMESTAMP(#{endTime}) >= UNIX_TIMESTAMP(vter.server_time)
+        </if>
+    </select>
 </mapper>

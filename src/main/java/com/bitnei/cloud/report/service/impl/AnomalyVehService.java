@@ -1,20 +1,21 @@
 package com.bitnei.cloud.report.service.impl;
 
 import com.alibaba.druid.util.StringUtils;
-import com.bitnei.cloud.common.ExcelUtil;
-import com.bitnei.cloud.common.MemCacheManager;
-import com.bitnei.cloud.common.PublicDealUtil;
+import com.bitnei.cloud.common.*;
 import com.bitnei.cloud.common.bean.AppBean;
 import com.bitnei.cloud.common.bean.ExcelData;
 import com.bitnei.cloud.common.util.DataLoader;
 import com.bitnei.cloud.common.util.DateUtil;
 import com.bitnei.cloud.common.util.EasyExcel;
 import com.bitnei.cloud.common.util.ServletUtil;
+import com.bitnei.cloud.data.bean.AbnormalDetail;
+import com.bitnei.cloud.data.service.IDataCenterService;
 import com.bitnei.cloud.orm.annation.Mybatis;
 import com.bitnei.cloud.report.service.IAnomalyVehService;
 import com.bitnei.cloud.service.impl.BaseService;
 import com.bitnei.commons.datatables.DataGridOptions;
 import com.bitnei.commons.datatables.PagerModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -36,6 +37,9 @@ import java.util.Map;
 @Service
 @Mybatis(namespace = "com.bitnei.cloud.report.mapper.AnomalyVehMapper" )
 public class AnomalyVehService extends BaseService implements IAnomalyVehService {
+
+	@Autowired
+	private IDataCenterService dataCenterService;
 
 	@Override
 	public PagerModel pageQuery() {
@@ -123,6 +127,45 @@ public class AnomalyVehService extends BaseService implements IAnomalyVehService
 		MemCacheManager.getInstance().set(session.getId() + "vehAnomalyState", tempMap);
 
 		return appBean;
+	}
+
+	@Override
+	public List pageQueryTimeException(String vid,String vin,String type, String startTime, String endTime) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("vid", vid);
+		map.put("startTime", startTime);
+		map.put("endTime", endTime);
+		List list = findBySqlId("pageQueryTimeException", map);
+		return list;
+	}
+
+	@Override
+	public void exceptionExport(String vid,String vin,String licensePlate,String type, String startTime, String endTime) throws Exception {
+		List list = new ArrayList<>();
+		if ("4".equals(type)) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("vid", vid);
+			map.put("startTime", startTime);
+			map.put("endTime", endTime);
+			list = findBySqlId("pageQueryTimeException", map);
+			list = CommonDataTypeRetrun.cyclicData(list, type);
+		} else {
+			List<AbnormalDetail> lists = dataCenterService.findAbnormalDetail(vid, type, "1", startTime, endTime, true);
+			list = CommonDataTypeRetrun.cyclicData(lists, type);
+		}
+		DataLoader.loadNames(list);
+		DataLoader.loadDictNames(list);
+
+		String srcBase = RequestContext.class.getResource("/templates/").getFile();
+		String srcFile = srcBase +"module/report/anomaly/anomalyVeh/exceptionExport.xls";
+
+		ExcelData ed = new ExcelData();
+		String titleName = CommonDataTypeRetrun.returnTitle(type);
+		ed.setTitle(titleName+"-"+licensePlate);
+		ed.setExportTime(DateUtil.getNow());
+		ed.setData(list);
+		String outName = String.format("%s-导出-%s.xls", titleName, DateUtil.getNow());
+		EasyExcel.renderResponse(srcFile,outName,ed);
 	}
 
 }

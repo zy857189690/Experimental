@@ -1,6 +1,6 @@
 package com.bitnei.cloud.report.web;
 
-import com.bitnei.cloud.common.ConnectionGdApi;
+import com.bitnei.cloud.common.CommonDataTypeRetrun;
 import com.bitnei.cloud.common.DateUtil;
 import com.bitnei.cloud.common.annotation.Module;
 import com.bitnei.cloud.common.annotation.SLog;
@@ -21,7 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 异常车辆统计
@@ -130,18 +131,30 @@ public class AnomalyVehController {
     @ResponseBody
     public PagerModel recordDatagrid(String vid,String vin,String type, String startTime, String endTime) throws Exception{
         PagerModel pm = new PagerModel();
-        List<AbnormalDetail> lists = dataCenterService.findAbnormalDetail(vid, type, "1", "20180312000000", "20180314000000", true);
-        List<Map<String, String>> newList = new ArrayList<>();
-        for (AbnormalDetail abnormalDetail : lists){
-            Map<String, String> map = new HashMap<>();
-            String lng = abnormalDetail.getLon();
-            String lat = abnormalDetail.getLat();
-            String address = ConnectionGdApi.getAddress(lng,lat);
-            map.put("location", address);
-            map.put("reportDate", DateUtil.getTimefromNum(abnormalDetail.getUploadTime()));
-            newList.add(map);
+        if ("4".equals(type)) {
+            List list = anomalyVehService.pageQueryTimeException(vid, vin, type, startTime, endTime);
+            list = CommonDataTypeRetrun.cyclicData(list, type);
+            pm.setRows(list);
+        } else {
+            List<AbnormalDetail> lists = dataCenterService.findAbnormalDetail(vid, type, "1", "20180312000000", "20180314000000", true);
+            List list = CommonDataTypeRetrun.cyclicData(lists, type);
+            pm.setRows(list);
         }
-        pm.setRows(newList);
         return pm;
     }
+
+	/**
+	 * 异常
+     * @param vid
+     * @param vin
+     * @param type
+     * @param startTime
+     * @param endTime
+     */
+    @GetMapping(value = "/exceptionExport")
+    public void exceptionExport(String vid,String vin,String licensePlate,String type, String startTime, String endTime) throws Exception{
+        anomalyVehService.exceptionExport(vid,vin,licensePlate,type,startTime,endTime);
+        return;
+    }
+
 }
