@@ -21,13 +21,13 @@
     </div>
 </div>
 
-<div id="report" class="easyui-window" title="报表说明" style="width:853px;height:100%;" data-options="modal:true,closed:true">
+<div id="report" class="easyui-window" title="报表说明" style="width:853px;height:100%;display: none"  data-options="modal:true,closed:true">
     <div class="easyui-layout">
         <table class="easyui-datagrid">
             <thead>
             <tr>
-                <th data-options="field:'code'">名称</th>
-                <th data-options="field:'name'">定义</th>
+                <th data-options="field:'code'" style="width: 167px">名称</th>
+                <th data-options="field:'name'" style="width: 731px">定义</th>
             </tr>
             </thead>
             <tbody>
@@ -82,81 +82,81 @@
                     <label>导入查询</label>
                     <input type="radio" id="daoru" name="adminFlag" value="1"></input>
                 </div>
-                <table class="table_search" style="height: 90px;">
+                <table class="table_search" style="width: 100%; height: 90px;">
                     <tr>
                         <td class="td_label"  id="filetitle">
                             <label>导入文件</label>
 
                         </td>
                         <td class="td_input" id="fileinput">
-                            <input type="file" id="file" style="width:100px;" name="query.myfile" />
+                            <input type="file" id="file" style="width:height: 30px;width:140px;" name="query.myfile" />
                         </td>
 
                         <td class="td_label">
                             <label>开始时间</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" class="easyui-datetimebox" id="startTime" style="width:height: 26px;width:150px;" value="${(startTime)!}"  name="query.startTime"  autocomplete="off" data-options="editable:false">
+                            <input type="text" class="easyui-datetimebox" id="startTime" style="width:height: 26px;width:150px;" value="${(startTime)!}"  name="query.startTime"    data-options="editable:false">
                         </td>
                         <td class="td_label">
                             <label>结束时间</label>
                         </td>
                         <td class="td_input">
-                            <input type="text"class="easyui-datetimebox" id="endTime" style="width:height: 26px;width:150px;" value="${(endTime)!}" name="query.endTime"  autocomplete="off" data-options="editable:false">
+                            <input type="text"class="easyui-datetimebox" id="endTime" style="width:height: 26px;width:150px;" value="${(endTime)!}" name="query.endTime"   data-options="editable:false">
                         </td>
                         <td class="td_label">
                             <label>仪表里程大于</label>
                         </td>
                         <td class="td_input">
-                            <input type="text"class="input-fat input" style="width:height: 26px;width:125px;"   name="query.gaugesMileage"  autocomplete="off" >
+                            <input type="text"class="input-fat input" style="width:height: 26px;width:125px;"   name="query.gaugesMileage"   >
                         </td>
                         <td class="td_label">
                             <label>车牌号</label>
                         </td>
                         <td class="td_input">
-                            <input type="text"class="input-fat input" style="width:height: 26px;width:125px;"   name="query.licensePlate"  autocomplete="off" >
+                            <input type="text"class="input-fat input" style="width:height: 26px;width:125px;"   name="query.licensePlate"   >
                         </td>
                         <td class="td_label">
                             <label>VIN</label>
                         </td>
                         <td class="td_input">
-                            <input type="text"class="input-fat input" style="width:height: 26px;width:125px;"   name="query.vin"  autocomplete="off" >
+                            <input type="text"class="input-fat input" style="width:height: 26px;width:125px;"   name="query.vin"   >
                         </td>
                         <td class="td_label">
                             <label>车辆种类</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" id="vehTypeId" class="input-fat input" style="width:height: 26px;width:150px;"   name="query.vehTypeName"  autocomplete="off" >
+                            <input type="text" id="vehTypeId" class="input-fat input" style="width:height: 26px;width:150px;"   name="query.vehTypeName"   >
                         </td>
                         <td class="td_label">
                             <label>车辆型号名称</label>
                         </td>
                         <td class="td_input">
-                            <input id="vehModelName" class="input-fat input" style="width:height: 26px;width:150px;"   name="query.vehModelName"  autocomplete="off" >
+                            <input id="vehModelName" class="input-fat input" style="width:height: 26px;width:150px;"   name="query.vehModelName"   >
                         </td>
                         <td class="td_label">
                             <label>运营单位</label>
                         </td>
                         <td class="td_input">
-                            <input id="useUnitId" class="input-fat input" style="width:height: 26px;width:150px;"   name="query.useUnitName"  autocomplete="off" >
+                            <input id="useUnitId" class="input-fat input" style="width:height: 26px;width:150px;"   name="query.useUnitName"   >
                         </td>
                         <td class="td_label">
                             <label>上牌区域</label>
                         </td>
                         <td class="td_input">
-                            <input type="text" id="areaId" class="input-fat input" style="width:height: 26px;width:150px;"   name="query.areaName"  autocomplete="off" >
+                            <input type="text" id="areaId" class="input-fat input" style="width:height: 26px;width:150px;"   name="query.areaName"   >
                         </td>
                     <#--<td class="td_label">-->
                     <#--<label>GPS里程大于</label>-->
                     <#--</td>-->
                     <#--<td class="td_input">-->
-                    <#--<input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.gpsTotalMileage"  autocomplete="off" >-->
+                    <#--<input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.gpsTotalMileage"   >-->
                     <#--</td>-->
                         <td class="td_label">
                             <label>车辆阶段</label>
                         </td>
                         <td class="td_input">
-                            <input type="text"class="input-fat input" id="vehStage" style="width:height: 26px;width:150px;"   name="query.vehStage"  autocomplete="off" >
+                            <input type="text"class="input-fat input" id="vehStage" style="width:height: 26px;width:150px;"   name="query.vehStage"   >
                         </td>
 
                         <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
@@ -178,7 +178,7 @@
         </@shiro.hasPermission>
         <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">报表说明</a>
     </div>
-    <div id="table" name="datagrid" style="width: 100%;height: 100%"></div>
+    <div id="table" name="datagrid" style="width: 100%;"></div>
 </div>
 
 
@@ -255,17 +255,29 @@
             {field: 'termPartFirmwareNumber', title: '终端零件号',align:'center',sortable: false},
             {field: 'termBarCode', title: '条形码编码',align:'center',sortable: false},
             {field: 'serialNumber', title: '终端厂商自定义编号',align:'center',sortable: false},
-            {field: 'iccid', title: 'ICCID',align:'center',sortable: false},
+            {field: 'iccid', title: 'ICCID',align:'left',sortable: false,width: '90'},
         ]],
         toolbar: "#toolbar",
         pagination: true,
         rownumbers: true,
         nowrap: true
-
     });
 
     toolbar2Menu("table");
+    $("#table").datagrid({
 
+        onRowContextMenu: function (e, rowIndex, rowData) { //右键时触发事件
+            e.preventDefault(); //阻止浏览器捕获右键事件
+            $(this).datagrid("clearSelections"); //取消所有选中项
+            $(this).datagrid("selectRow", rowIndex); //根据索引选中该行
+            $('#contextMenu_jygl').menu('show', {
+                left: e.pageX,//在鼠标点击处显示菜单
+                top: e.pageY
+            });
+            e.preventDefault();  //阻止浏览器自带的右键菜单弹出
+        },
+
+    })
 </script>
 <script language="javascript" charset=”utf-8″>
 

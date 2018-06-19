@@ -13,7 +13,7 @@
     </script>
 </head>
 <body class="easyui-layout" fit="true" id="fullid">
-<div id="report" class="easyui-window" title="列表说明" style=" overflow:scroll; width:853px;height:100%;" data-options="modal:true,closed:true">
+<div id="report" class="easyui-window" title="列表说明" style=" overflow:scroll; width:853px;height:100%;display: none" data-options="modal:true,closed:true">
     <div class="easyui-layout">
         <table class="easyui-datagrid">
             <thead>
@@ -140,7 +140,7 @@
                             <label>文件上传</label>
                         </td>
                         <td class="td_input" id="fileShow">
-                            <input type="file" id="file" style="height: 30px; width: 168px;" name="myfile" />
+                            <input type="file" id="file" style="height: 30px; width: 164px;" name="myfile" />
                         </td>
 
                         <td class="td_label">
@@ -247,7 +247,7 @@
         </@shiro.hasPermission>
            <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">列表说明</a>
     </div>
-    <div id="table" name="datagrid" style="width: 100%;height: 100%"></div>
+    <div id="table" name="datagrid" style="width: 100%;"></div>
 </div>
 
 
@@ -335,11 +335,23 @@
     });
 //    toolbar2Menu("monitoringTable");
    toolbar2Menu("table");
+    $("#table").datagrid({
 
+        onRowContextMenu: function (e, rowIndex, rowData) { //右键时触发事件
+            e.preventDefault(); //阻止浏览器捕获右键事件
+            $(this).datagrid("clearSelections"); //取消所有选中项
+            $(this).datagrid("selectRow", rowIndex); //根据索引选中该行
+            $('#contextMenu_jygl').menu('show', {
+                left: e.pageX,//在鼠标点击处显示菜单
+                top: e.pageY
+            });
+            e.preventDefault();  //阻止浏览器自带的右键菜单弹出
+        },
+
+    })
 </script>
 <script language="javascript">
     $(function(){
-
                 initSelectChoose();
        /* $('#fileButton').css("visibility", "hidden");
         $('#fileShow').css("visibility", "hidden");
