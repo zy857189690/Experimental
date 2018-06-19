@@ -2,6 +2,7 @@ package com.bitnei.cloud.report.web;
 
 import com.bitnei.cloud.common.CommonDataTypeRetrun;
 import com.bitnei.cloud.common.DateUtil;
+import com.bitnei.cloud.common.StringUtil;
 import com.bitnei.cloud.common.annotation.Module;
 import com.bitnei.cloud.common.annotation.SLog;
 import com.bitnei.cloud.common.bean.AppBean;
@@ -136,9 +137,13 @@ public class AnomalyVehController {
             list = CommonDataTypeRetrun.cyclicData(list, type);
             pm.setRows(list);
         } else {
-            List<AbnormalDetail> lists = dataCenterService.findAbnormalDetail(vid, type, "1", "20180312000000", "20180314000000", true);
-            List list = CommonDataTypeRetrun.cyclicData(lists, type);
-            pm.setRows(list);
+            if (!StringUtil.isEmpty(vid) && !StringUtil.isEmpty(type) && !StringUtil.isEmpty(startTime) && !StringUtil.isEmpty(endTime)) {
+                startTime = DateUtil.formatTime(DateUtil.strToDate_ex(startTime), DateUtil.DATA_FORMAT);
+                endTime = DateUtil.formatTime(DateUtil.strToDate_ex(endTime), DateUtil.DATA_FORMAT);
+                List<AbnormalDetail> lists = dataCenterService.findAbnormalDetail(vid, type, "1", startTime, endTime, true);
+                List list = CommonDataTypeRetrun.cyclicData(lists, type);
+                pm.setRows(list);
+            }
         }
         return pm;
     }

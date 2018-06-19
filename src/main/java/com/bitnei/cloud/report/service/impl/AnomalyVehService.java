@@ -150,8 +150,12 @@ public class AnomalyVehService extends BaseService implements IAnomalyVehService
 			list = findBySqlId("pageQueryTimeException", map);
 			list = CommonDataTypeRetrun.cyclicData(list, type);
 		} else {
-			List<AbnormalDetail> lists = dataCenterService.findAbnormalDetail(vid, type, "1", startTime, endTime, true);
-			list = CommonDataTypeRetrun.cyclicData(lists, type);
+			if (!StringUtil.isEmpty(vid) && !StringUtil.isEmpty(type) && !StringUtil.isEmpty(startTime) && !StringUtil.isEmpty(endTime)) {
+				startTime = com.bitnei.cloud.common.DateUtil.formatTime(com.bitnei.cloud.common.DateUtil.strToDate_ex(startTime), com.bitnei.cloud.common.DateUtil.DATA_FORMAT);
+				endTime = com.bitnei.cloud.common.DateUtil.formatTime(com.bitnei.cloud.common.DateUtil.strToDate_ex(endTime), com.bitnei.cloud.common.DateUtil.DATA_FORMAT);
+				List<AbnormalDetail> lists = dataCenterService.findAbnormalDetail(vid, type, "1", startTime, endTime, true);
+				list = CommonDataTypeRetrun.cyclicData(lists, type);
+			}
 		}
 		DataLoader.loadNames(list);
 		DataLoader.loadDictNames(list);
