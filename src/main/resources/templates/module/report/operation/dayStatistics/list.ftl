@@ -746,7 +746,7 @@
             return false;
         }
         var days = Math.floor((endTime - beginTime) / (24 * 3600 * 1000));
-        if (days > 30) {
+        if (days > 31) {
             $.messager.alert("提示", "查询开始时间与截止时间相差不可大于30天！");
             return false;
         }

@@ -25,6 +25,14 @@ spring:
     validation-query: SELECT 1
     test-on-borrow: false
     jdbc-interceptors: ConnectionState;SlowQueryReport(threshold=3000)
+  cto:
+    host: 192.168.1.185
+    port: 6379
+    port_info: 6379
+  hbase:
+    quorum: 192.168.1.115:2181,192.168.1.116:2181,192.168.1.117:2181
+    caching: 500
+    wait: 10000
 mybatis:
   mapper-locations: classpath*:mapper/*/*Mapper.xml
   type-aliases-package: com.bitnei.cloud.*.mapper
@@ -48,5 +56,3 @@ download-path: /Users/jack/Documents/temp
 gdApi:
   webApiUrl: http://restapi.amap.com/v3/geocode/regeo
   webApiKey: 02a4c4dc8e96bf0f6ff0b97177bc8ec3
-
-

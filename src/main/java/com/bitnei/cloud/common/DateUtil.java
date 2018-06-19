@@ -73,6 +73,41 @@ public class DateUtil
         return sdf.format(new Date());
     }
 
+    /**
+     *获取当前系统前一天日期
+     * @return
+     */
+    public static Date getNextDay(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        date = calendar.getTime();
+        return date;
+    }
+    /**
+     *
+     * @return
+     */
+    public static String getTheSpecifiedDay(int dataDay,String dateStr){
+        SimpleDateFormat sdfad =   new SimpleDateFormat(DAY_FORMAT);
+        SimpleDateFormat sdf=new SimpleDateFormat(DAY_FORMAT);
+        Date date= null;
+        try {
+            date = sdfad.parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_MONTH, dataDay);
+        date = calendar.getTime();
+        System.out.println(sdf.format(date));
+        return sdf.format(date);
+    }
+    public static String getShortNextDay(Date date){
+        SimpleDateFormat sdf=new SimpleDateFormat(DAY_FORMAT);
+        return sdf.format(date);
+    }
     public static String getShoDate(){
         SimpleDateFormat sdf=new SimpleDateFormat(DATA_FORMAT);
         return sdf.format(new Date());
@@ -81,6 +116,8 @@ public class DateUtil
         SimpleDateFormat sdf=new SimpleDateFormat(DATA_FORMAT_DAY);
         return sdf.format(new Date());
     }
+
+
 
     /**
      * 获取几年之后的今天的日期
@@ -409,5 +446,21 @@ public class DateUtil
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         date = sdf.format(calendar.getTime());
         return date;
+    }
+
+    public static String getTimefromNum(String time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Long time2 = Long.valueOf(Long.parseLong(time));
+        String d = format.format(time2);
+        Date date = null;
+
+        try {
+            date = format.parse(d);
+            String e = format.format(date);
+            return e;
+        } catch (ParseException var6) {
+            var6.printStackTrace();
+            return "";
+        }
     }
 }

@@ -20,6 +20,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.support.RequestContext;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +37,24 @@ public class DayMileageCheckService  extends BaseService implements IDayMileageC
 
         DataGridOptions options = ServletUtil.getDataLayOptions();
         options.getParams().put("vehtype", options.getParams().get("vehtype")==null?"":options.getParams().get("vehtype"));
+        if(options.getParams().get("reportDateStart")==null && options.getParams().get("reportDateEnd")==null){
+            options.getParams().put("reportDateStart", options.getParams().get("reportDateStart")==null? com.bitnei.cloud.common.DateUtil.getShortNextDay(com.bitnei.cloud.common.DateUtil.getNextDay(new Date())):options.getParams().get("reportDateStart"));
+            options.getParams().put("reportDateEnd", options.getParams().get("reportDateEnd")==null? com.bitnei.cloud.common.DateUtil.getShortNextDay(com.bitnei.cloud.common.DateUtil.getNextDay(new Date())):options.getParams().get("reportDateEnd"));
+
+        }
+        if(options.getParams().get("reportDateStart")!=null && options.getParams().get("reportDateEnd")==null){
+            options.getParams().put("reportDateStart", options.getParams().get("reportDateStart")==null? com.bitnei.cloud.common.DateUtil.getShortNextDay(com.bitnei.cloud.common.DateUtil.getNextDay(new Date())):options.getParams().get("reportDateStart"));
+            options.getParams().put("reportDateEnd",  options.getParams().get("reportDateEnd")==null? com.bitnei.cloud.common.DateUtil.getTheSpecifiedDay(31,options.getParams().get("reportDateStart").toString()):options.getParams().get("reportDateEnd"));
+
+        }
+        if(options.getParams().get("reportDateStart")==null && options.getParams().get("reportDateEnd")!=null){
+            options.getParams().put("reportDateStart", options.getParams().get("reportDateStart")==null? com.bitnei.cloud.common.DateUtil.getTheSpecifiedDay(-31,options.getParams().get("reportDateEnd").toString()):options.getParams().get("reportDateStart"));
+            options.getParams().put("reportDateEnd", options.getParams().get("reportDateEnd")==null? com.bitnei.cloud.common.DateUtil.getShortNextDay(com.bitnei.cloud.common.DateUtil.getNextDay(new Date())):options.getParams().get("reportDateEnd"));
+
+        }
+
+       options.getParams().put("adminFlag", options.getParams().get("adminFlag")==null? "0":options.getParams().get("adminFlag"));
+
         //options.setParams();
         Map<String, Object> userprss = PublicDealUtil.bulidUserForParams(options.getParams());
         options.getParams().put("userId", userprss==null?"":userprss.get("userId")==null?"":userprss.get("userId"));
@@ -87,6 +106,22 @@ public class DayMileageCheckService  extends BaseService implements IDayMileageC
         mapParams.put("isLeader", userprss==null?"":userprss.get("isLeader")==null?"":userprss.get("isLeader"));
         mapParams.put("areaPath", userprss==null?"":userprss.get("areaPath")==null?"":userprss.get("areaPath"));
         mapParams.put("userUnitPath", userprss==null?"":userprss.get("userUnitPath")==null?"":userprss.get("userUnitPath"));
+        if(mapParams.get("reportDateStart")==null && mapParams.get("reportDateEnd")==null){
+            mapParams.put("reportDateStart", mapParams.get("reportDateStart")==null? com.bitnei.cloud.common.DateUtil.getShortNextDay(com.bitnei.cloud.common.DateUtil.getNextDay(new Date())):mapParams.get("reportDateStart"));
+            mapParams.put("reportDateEnd", mapParams.get("reportDateEnd")==null? com.bitnei.cloud.common.DateUtil.getShortNextDay(com.bitnei.cloud.common.DateUtil.getNextDay(new Date())):mapParams.get("reportDateEnd"));
+
+        }
+        if(mapParams.get("reportDateStart")!=null && mapParams.get("reportDateEnd")==null){
+            mapParams.put("reportDateStart", mapParams.get("reportDateStart")==null? com.bitnei.cloud.common.DateUtil.getShortNextDay(com.bitnei.cloud.common.DateUtil.getNextDay(new Date())):mapParams.get("reportDateStart"));
+            mapParams.put("reportDateEnd", mapParams.get("reportDateEnd")==null? com.bitnei.cloud.common.DateUtil.getTheSpecifiedDay(31,mapParams.get("reportDateStart").toString()):mapParams.get("reportDateEnd"));
+
+        }
+        if(mapParams.get("reportDateStart")==null && mapParams.get("reportDateEnd")!=null){
+            mapParams.put("reportDateStart", mapParams.get("reportDateStart")==null? com.bitnei.cloud.common.DateUtil.getTheSpecifiedDay(-31,mapParams.get("reportDateEnd").toString()):mapParams.get("reportDateStart"));
+            mapParams.put("reportDateEnd", mapParams.get("reportDateEnd")==null? com.bitnei.cloud.common.DateUtil.getShortNextDay(com.bitnei.cloud.common.DateUtil.getNextDay(new Date())):mapParams.get("reportDateEnd"));
+
+        }
+
         if(!StringUtil.notEmpty(mapParams.get("stutsEx")==null?"":mapParams.get("stutsEx").toString())){
             //按照条件查询
             if("0".equals(mapParams.get("adminFlag"))){

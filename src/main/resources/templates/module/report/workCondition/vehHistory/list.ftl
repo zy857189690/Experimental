@@ -212,6 +212,9 @@
     var endTimeTemp = "${endTime}";
         $("#startTime").datetimebox("setValue",startTimeTemp);
         $("#endTime").datetimebox("setValue",endTimeTemp);
+        $("input[name='query.vin']").val("");
+        $("input[name='query.licensePlate']").val("");
+        $("input[name='query.gaugesMileage']").val("");
         //初始化条件
         initSelectChoose();
         $('#table').datagrid("load", resetQueryParams);
