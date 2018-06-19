@@ -338,8 +338,9 @@
         if (!checkTime()) {
             return;
         }
+        var val=$('input:radio[name="query.adminFlag"]:checked').val();
         var file = document.getElementById("file").files[0];
-        if(!fileCheck(file)){
+        if(val != 0 && !fileCheck(file)){
             return;
         }
         var urlTemp = "${base}/report/anomaly/anomalyVeh/export";
