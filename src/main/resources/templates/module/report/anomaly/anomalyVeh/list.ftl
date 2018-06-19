@@ -418,6 +418,8 @@
         $("#endTime").datetimebox("setValue",endTimeTemp);
         //初始化条件
         initSelectChoose();
+        $("input[name='query.vin']").val("");
+        $("input[name='query.licensePlate']").val("");
         $('#table').datagrid("load", resetQueryParams);
     }
 
