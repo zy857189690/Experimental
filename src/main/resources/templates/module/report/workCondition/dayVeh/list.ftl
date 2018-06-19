@@ -42,7 +42,7 @@
     </style>
 </head>
 <body class="easyui-layout" fit="true" id="fullid">
-<div region="center" style="overflow: hidden;width: 100%;">
+<div region="center" style="overflow: hidden; width: 100%;height: 300px;">
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
         <@shiro.hasPermission name="/report/demo1/export">
             <a href="#" onclick="exportData()" class="easyui-linkbutton"
@@ -350,15 +350,29 @@
         ]],
         toolbar:"#toolbar",
         pagination:true,
-        nowrap:true
+        nowrap:true,
+        rownumbers: true
     });
 
     toolbar2Menu("table");
+    $("#table").datagrid({
 
+        onRowContextMenu: function (e, rowIndex, rowData) { //右键时触发事件
+            e.preventDefault(); //阻止浏览器捕获右键事件
+            $(this).datagrid("clearSelections"); //取消所有选中项
+            $(this).datagrid("selectRow", rowIndex); //根据索引选中该行
+            $('#contextMenu_jygl').menu('show', {
+                left: e.pageX,//在鼠标点击处显示菜单
+                top: e.pageY
+            });
+            e.preventDefault();  //阻止浏览器自带的右键菜单弹出
+        },
+
+    })
 </script>
 <script language="javascript" charset=”utf-8″>
 
-    var identity = ""
+    var identity = "";
     function checkTime(){
         //时间校验
         var endTime = $('#endTime').datetimebox("getValue");
