@@ -16,7 +16,7 @@
         vhs.state AS vehState,
         sun.name AS useUnitName,
         area.name AS areaName,
-        veh.first_reg AS firstReg,
+        DATE_FORMAT(veh.first_reg,'%Y-%m-%d %h:%i:%s') AS firstReg,
         veh.sale_time AS saleTime,
         DATE_FORMAT(vhs.last_communication_time,'%Y-%m-%d %h:%i:%s') AS lastCommunicationTime,
         DATE_FORMAT(vhs.last_can_valid_time,'%Y-%m-%d %h:%i:%s') AS lastCanValidTime,
