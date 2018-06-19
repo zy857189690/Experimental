@@ -22,7 +22,65 @@
     <#--</div>-->
 <#--</div>-->
 
-
+<div id="report" class="easyui-window" title="报表说明" style="width:853px;height:100%;" data-options="modal:true,closed:true">
+    <div class="easyui-layout">
+        <table class="easyui-datagrid">
+            <thead>
+            <tr>
+                <th data-options="field:'code', width: 160, resizable: true">名称</th>
+                <th data-options="field:'name', width: 700, resizable: true">定义</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>日活跃总时间(h)</td><td>有实时数据上传的车辆为活跃车辆，单车单日实时数据上传总时长；排除自动唤醒的时间。自动唤醒判断：如上传了整车数据中的电池总电流和总电压，则视为非自动唤醒。</td>
+            </tr>
+            <tr>
+                <td>日总行驶时间(h)</td><td>车辆活跃且速度大于等于0；排除自动唤醒时间；时间累加；</td>
+            </tr>
+            <tr>
+                <td>日行驶次数</td><td>以点火/熄火为一次完整行驶，部分车辆因熄火时，登出指令丢失，系统判定若车辆超过连续10包无任何数居不上传（约250秒），判定为熄火；次数累加</td>
+            </tr>
+            <tr>
+                <td>日总行驶里程(Km)</td><td>当日行驶里程总和</td>
+            </tr>
+            <tr>
+                <td>单次运行最大里程(Km)</td><td>每次行驶，里程最大值</td>
+            </tr>
+            <tr>
+                <td>当日累计耗电量</td><td>终端直接上传累计耗电量，当日累计耗电量=今日最后耗电量-昨日最后耗电量；</td>
+            </tr>
+            <tr>
+                <td>实际百公里耗电量</td><td>当天耗电量/当天行驶里程*100</td>
+            </tr>
+            <tr>
+                <td>百公里额定耗电量</td><td>整车参数与配置，固定参数</td>
+            </tr>
+            <tr>
+                <td>单次充电后最大耗电量(Kw.h)</td><td>当日n次充电过程中，因车辆运行产生电量消耗，两次充电之间，最大的耗电量的差值，如果当天只充1次电，那么该值就是当日累计耗电；1、上传的电量是剩余电量；2、如果当天没有充电，以2个0点之间的差值计算；3、当天充电了未行驶，计算结果为负数，归为0</td>
+            </tr>
+            <tr>
+                <td>充电总次数</td><td>由充电状态（只含停车充电，排除能量回收发生的充电状态）转变为未充电计为1次充电；充电次数累加</td>
+            </tr>
+            <tr>
+                <td>充电总时长</td><td>当日每次充电的充电状态持续时长累计；充电时长累加</td>
+            </tr>
+            <tr>
+                <td>单次最长充电时间（h）</td><td>每次充电中，充电状态持续时间最长的一次；</td>
+            </tr>
+            <tr>
+                <td>单次充电最大行驶里程</td><td>两次充电之间每次行驶中行驶里程数值最大</td>
+            </tr>
+            <tr>
+                <td>日最高速度(Km/h)</td><td>上传速度最大值</td>
+            </tr>
+            <tr>
+                <td>日均行驶速度(Km/h)</td><td>日平均速度，（当日总里程）/车辆行驶时间</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <div region="center" style="overflow: hidden;width: 100%;">
     <div data-options="region:'north',title:'查询',split:true,collapsable:true" style="width: 100%;height: 130px">
@@ -134,8 +192,10 @@
         <#--</@shiro.hasPermission>-->
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
         <@shiro.hasPermission name="/report/demo1/export">
-             <input type="button" value="导出" onclick="exportData()"  />
+            <a href="#" onclick="exportData()" class="easyui-linkbutton"
+                data-options="iconCls:'icon-export'" menu="0">导出</a>
         </@shiro.hasPermission>
+        <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">报表说明</a>
     </div>
     <div id="table" name="datagrid" style="width: 100%;height: 100%"></div>
 </div>
@@ -164,6 +224,9 @@
         $("#endTime").datebox("setValue",endTimeTemp);
         //初始化条件
         initSelectChoose();
+        //bug修改：清空车牌号和vin
+        $("#licensePlate").val("");
+        $("#vin").val("");
         $('#table').datagrid("load", resetQueryParams);
     }
     <#--$('#table').datagrid({-->
@@ -403,6 +466,11 @@ console.log("weeeeeeee")
     function downFile() {
         var downUrl = "${base}/report/common/downLoadModel?moduleName=model&fileName=templateQuery.xls";
         window.open(downUrl);
+    }
+
+    /*报表说明弹框*/
+    function reportSpecification(){
+        $('#report').window("open");
     }
 
 
