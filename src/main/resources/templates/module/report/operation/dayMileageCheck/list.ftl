@@ -3,14 +3,42 @@
 <html>
 <head>
 <#include "../../../../inc/meta.ftl">
-<#include  "../../../../inc/js.ftl">
+<#include "../../../../inc/js.ftl">
+    <script>
+        $(function (){
+            var bodyClass = $("body").attr("class");
+            if(bodyClass!=undefined && bodyClass.indexOf("easyui-layout")>=0){
+                var panel = $("body").layout("panel","north");
+                if(panel[0]){
+                    var centerPanel = $("body").layout("panel","center");
+                    var options = panel.panel("options");
+                    var optionsCenter = centerPanel.panel("options");
+                    var title = options.title;
+                    if(title!=undefined && title=="查询"){
+                        var oldHeight = options.height;
+                        var oldCenterHeight = optionsCenter.height;
+                        var afterCenterHeight = oldCenterHeight-(120-oldHeight);
+                        var tdNum = panel.find('.table_search td').length;
+                        panel.panel("resize",{
+                            height: (tdNum>9?2:1)*50 + 75
+                        });
+                        centerPanel.panel("resize",{
+                            height:afterCenterHeight
+                        });
+
+                        $("body").layout("resize",{
+                            height: $("body").length
+                        });
+                    }
+                }
+            }
+        });
+    </script>
     <style type="text/css">
         .td_input a:not(.bg_button) {
             right: 20px !important;
         }
     </style>
-    <script language="javascript">
-    </script>
 </head>
 <body class="easyui-layout" fit="true" id="fullid">
 <div id="report" class="easyui-window" title="列表说明" style=" overflow:scroll; width:853px;height:100%;display: none" data-options="modal:true,closed:true">
@@ -124,107 +152,7 @@
     </div>
 </div>
 
-<div region="center" style="overflow: hidden;width: 100%;">
-    <div data-options="region:'north',title:'查询',split:true,collapsable:true" style="width: 100%;height: 130px">
-        <div style="width: 100%;border: 1;margin:5 5 5 10 ">
-            <form id="form_search" name="" class="sui-form cg-form">
-                <div style="width: 90%; height: 20px; margin: 10px;">
-                    <label>条件查询</label>
-                    <input type="radio" name="query.adminFlag" id="tiaojian" onclick="operationtd(true)"  checked="checked"  value="0" ></input>
-                    <label>导入查询</label>
-                    <input type="radio" name="query.adminFlag" id = "daoru" value="1" onclick="operationtd(false)" ></input>
-                </div>
-                <table class="table_search" style="height: 90px;">
-                    <tr>
-                        <td class="td_label" id="fileButton">
-                            <label>文件上传</label>
-                        </td>
-                        <td class="td_input" id="fileShow">
-                            <input type="file" id="file" style="height: 30px; width: 164px;" name="myfile" />
-                        </td>
-
-                        <td class="td_label">
-                            <label>统计日期</label>
-                        </td>
-                        <td class="td_input">
-                            <input  type="text" class="easyui-datebox" name="query.reportDateStart"  value="${(reportDateStart)!}"  id = "reportDateStart"  style="height: 30px; width: 168px;" >
-                        </td>
-                        <td class="td_label" style="text-align: center;">
-                            <label>至</label>
-                        </td>
-                        <td class="td_input">
-                            <input type="text" class="easyui-datebox"  name="query.reportDateEnd"  value="${(reportDateEnd)!}"  id = "reportDateEnd"  style="height: 30px; width: 168px;" >
-                        </td>
-
-                        <td class="td_label">
-                            <label>VIN</label>
-                        </td>
-                        <td class="td_input">
-                            <input type="text" class="input-fat input" name="query.vin"  id = "vin" style="width:150px;" >
-                        </td>
-
-                        <td class="td_label">
-                            <label>车牌号</label>
-                        </td>
-                        <td class="td_input">
-                            <input type="text" class="input-fat input" id="licensePlate" name="query.licensePlate"  style="width:150px;" >
-                        </td>
-                        <td class="td_label">
-                            <label>车辆种类</label>
-                        </td>
-                        <td class="td_input">
-                            <input id="vehTypeId"  name="query.vehtype"  style="width: 168px;" >
-                        </td>
-                        <td class="td_label">
-                            <label>车型型号</label>
-                        </td>
-                        <td class="td_input">
-                            <input id="vehModelName" name="query.vehModelNum" style="width: 168px;">
-                        </td>
-                        <td class="td_label">
-                            <label>运营单位</label>
-                        </td>
-                        <td class="td_input">
-                            <input id="useUnitId" name="query.unit" style="width: 168px;">
-                        </td>
-                        <td class="td_label">
-                            <label>上牌区域</label>
-                        </td>
-                        <td class="td_input">
-                            <input id="areaId" name="query.veharea" style="width: 168px;">
-                        </td>
-                        <td class="td_label">
-                            <label>当日有效里程大于（km）</label>
-                        </td>
-                        <td class="td_input">
-                            <input type="text" class="input-fat input" id="dayVaildMileage" name="query.dayVaildMileage" style="width:150px;">
-                        </td>
-                        <td class="td_label">
-                            <label>当日轨迹里程大于（km）</label>
-                        </td>
-                        <td class="td_input">
-                            <input type="text" class="input-fat input" id="dayGpsMileage" name="query.dayGpsMileage" style="width:150px;">
-                        </td>
-                        <td class="td_label">
-                            <label>当日在线里程大于（km）</label>
-                        </td>
-                        <td class="td_input">
-                            <input type="text" class="input-fat input" id="dayOnlineMileage" name="query.dayOnlineMileage" style="width:150px;">
-                        </td>
-
-                        <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
-                            <a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
-                            <a href="#" onclick="resetButton()" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
-                            <#--<input type="button" onclick="downFile()" value="导入查询模板下载" />-->
-                            <a href="#" onclick="downFile()" id = "downLadfile" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
-
-                        </td>
-                    </tr>
-                </table>
-            </form>
-        </div>
-
-    </div>
+<div region="center" style="overflow: hidden; width: 100%;">
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
        <#-- <@shiro.hasPermission name="/report/demo1/view">
             <a href="#" onclick="view_item()" class="easyui-linkbutton"
@@ -247,9 +175,107 @@
         </@shiro.hasPermission>
            <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">列表说明</a>
     </div>
-    <div id="table" name="datagrid" style="width: 100%;"></div>
+    <div id="table" name="datagrid" style="width: 100%; height: 100%;"></div>
 </div>
+<div data-options="region:'north',title:'查询',split:true,collapsable:true" style="width: 100%;height: 180px">
+    <div style="width: 100%;border: 1;margin:5 5 5 10 ">
+        <form id="form_search" name="" class="sui-form cg-form">
+            <div style="width: 90%; height: 20px; margin: 10px;">
+                <label>条件查询</label>
+                <input type="radio" name="query.adminFlag" id="tiaojian" onclick="operationtd(true)"  checked="checked"  value="0" ></input>
+                <label>导入查询</label>
+                <input type="radio" name="query.adminFlag" id = "daoru" value="1" onclick="operationtd(false)" ></input>
+            </div>
+            <table class="table_search" style="height: 90px;">
+                <tr>
+                    <td class="td_label" id="fileButton">
+                        <label>文件上传</label>
+                    </td>
+                    <td class="td_input" id="fileShow">
+                        <input type="file" id="file" style="height: 30px; width: 164px;" name="myfile" />
+                    </td>
 
+                    <td class="td_label">
+                        <label>统计日期</label>
+                    </td>
+                    <td class="td_input">
+                        <input  type="text" class="easyui-datebox" name="query.reportDateStart"  value="${(reportDateStart)!}"  id = "reportDateStart"  style="height: 30px; width: 168px;" >
+                    </td>
+                    <td class="td_label" style="text-align: center;">
+                        <label>至</label>
+                    </td>
+                    <td class="td_input">
+                        <input type="text" class="easyui-datebox"  name="query.reportDateEnd"  value="${(reportDateEnd)!}"  id = "reportDateEnd"  style="height: 30px; width: 168px;" >
+                    </td>
+
+                    <td class="td_label">
+                        <label>VIN</label>
+                    </td>
+                    <td class="td_input">
+                        <input type="text" class="input-fat input" name="query.vin"  id = "vin" style="width:150px;" >
+                    </td>
+
+                    <td class="td_label">
+                        <label>车牌号</label>
+                    </td>
+                    <td class="td_input">
+                        <input type="text" class="input-fat input" id="licensePlate" name="query.licensePlate"  style="width:150px;" >
+                    </td>
+                    <td class="td_label">
+                        <label>车辆种类</label>
+                    </td>
+                    <td class="td_input">
+                        <input id="vehTypeId"  name="query.vehtype"  style="width: 168px;" >
+                    </td>
+                    <td class="td_label">
+                        <label>车型型号</label>
+                    </td>
+                    <td class="td_input">
+                        <input id="vehModelName" name="query.vehModelNum" style="width: 168px;">
+                    </td>
+                    <td class="td_label">
+                        <label>运营单位</label>
+                    </td>
+                    <td class="td_input">
+                        <input id="useUnitId" name="query.unit" style="width: 168px;">
+                    </td>
+                    <td class="td_label">
+                        <label>上牌区域</label>
+                    </td>
+                    <td class="td_input">
+                        <input id="areaId" name="query.veharea" style="width: 168px;">
+                    </td>
+                    <td class="td_label">
+                        <label>当日有效里程大于（km）</label>
+                    </td>
+                    <td class="td_input">
+                        <input type="text" class="input-fat input" id="dayVaildMileage" name="query.dayVaildMileage" style="width:150px;">
+                    </td>
+                    <td class="td_label">
+                        <label>当日轨迹里程大于（km）</label>
+                    </td>
+                    <td class="td_input">
+                        <input type="text" class="input-fat input" id="dayGpsMileage" name="query.dayGpsMileage" style="width:150px;">
+                    </td>
+                    <td class="td_label">
+                        <label>当日在线里程大于（km）</label>
+                    </td>
+                    <td class="td_input">
+                        <input type="text" class="input-fat input" id="dayOnlineMileage" name="query.dayOnlineMileage" style="width:150px;">
+                    </td>
+
+                    <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
+                        <a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+                        <a href="#" onclick="resetButton()" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
+                    <#--<input type="button" onclick="downFile()" value="导入查询模板下载" />-->
+                        <a href="#" onclick="downFile()" id = "downLadfile" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
+
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
 
 </body>
 <script>
@@ -275,7 +301,6 @@
         initSelectChoose();
         $('#table').datagrid("load", resetQueryParams);
     }
-
 
     $('#table').datagrid({
         url: '${base}/report/operation/dayMileageCheck/datagrid',

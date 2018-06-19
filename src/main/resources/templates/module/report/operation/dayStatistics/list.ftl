@@ -8,12 +8,22 @@
         .td_input a:not(.bg_button) {
             right: 20px !important;
         }
+        .cg-form {
+            padding: 10px 6px;
+            border-bottom: 1px solid #caccce;
+        }
+        .tabs-panels .panel-body>div:first-child {
+            border-bottom: 1px solid #caccce;
+        }
+        .tabs-panels {
+            border-bottom: none;
+        }
     </style>
 </head>
 <body class="easyui-layout" fit="true">
 <div region="center" style="overflow: hidden; width: 100%;">
     <div id="tt" class="easyui-tabs" style="width: 100%; height: 100%;">
-        <div id="monitoringDiv" title="车辆监控情况统计" style="padding: 20px; display: none;" >
+        <div id="monitoringDiv" title="车辆监控情况统计" style="display: none;" >
             <div data-options="region:'north',title:'查询',split:true,collapsable:true" style="width: 100%;height: 50px">
                 <div style="width: 100%;border: 1;margin:5 5 5 10 ">
                     <form id="form_search1" name="" class="sui-form cg-form">
@@ -30,7 +40,7 @@
                     </form>
                 </div>
             </div>
-            <div region="center" style="overflow: hidden; width: 100%; height: 500px;">
+            <div region="center" style="overflow: hidden; width: 100%; height: calc(100vh - 80px);">
                 <div id="monitoringToolbar" class="cg-moreBox" style="padding:5px">
                     <a href="#" onclick="exportDatagrid('${base}/report/operation/dayStatistics/export','form_search1', 'monitoringTable')" class="easyui-linkbutton">
                         &nbsp;&nbsp;&nbsp;导出&nbsp;&nbsp;&nbsp;
@@ -40,7 +50,7 @@
                 <div id="monitoringTable" name="monitoringTable" style="width: 100%; height: 100%"></div>
             </div>
         </div>
-        <div id="activeDiv" title="车辆活跃情况统计" style="overflow: auto; padding: 20px; display: none;">
+        <div id="activeDiv" title="车辆活跃情况统计" style="overflow: auto; display: none;">
             <div data-options="region:'north',title:'查询',split:true,collapsable:true" style="width: 100%;height: 50px">
                 <div style="width: 100%;border: 1;margin:5 5 5 10 ">
                     <form id="form_search2" name="" class="sui-form cg-form">
@@ -57,7 +67,7 @@
                     </form>
                 </div>
             </div>
-            <div region="center" style="overflow: hidden; width: 100%; height: 500px;">
+            <div region="center" style="overflow: hidden; width: 100%;height: calc(100vh - 80px);">
                 <div id="activeToolbar" class="cg-moreBox" style="padding:5px">
                     <a href="#" onclick="exportDatagrid('${base}/report/operation/dayStatistics/export','form_search2', 'activeTable')" class="easyui-linkbutton">
                         &nbsp;&nbsp;&nbsp;导出&nbsp;&nbsp;&nbsp;
@@ -67,7 +77,7 @@
                 <div id="activeTable" name="activeTable" style="width: 100%;height: 100%"></div>
             </div>
         </div>
-        <div id="idleDiv" title="车辆闲置情况统计" style="padding: 20px; display: none;">
+        <div id="idleDiv" title="车辆闲置情况统计" style="display: none;">
             <div data-options="region:'north',title:'查询',split:true,collapsable:true" style="width: 100%;height: 175px">
                 <div style="width: 100%; height: 30px;">
                     <span style="margin-left: 5px;"><b>车辆闲置情况统计</b></span>
@@ -151,7 +161,7 @@
                     </form>
                 </div>
             </div>
-            <div region="center" style="overflow: hidden; width: 100%; height: 500px;">
+            <div region="center" style="overflow: hidden; width: 100%;height: calc(100vh - 204px);">
                 <div id="idleToolbar" class="cg-moreBox" style="padding:5px">
                     <a href="#" onclick="exportDatagrid('${base}/report/operation/dayStatistics/export','form_search3', 'idleTable')" class="easyui-linkbutton">
                         &nbsp;&nbsp;&nbsp;导出&nbsp;&nbsp;&nbsp;
@@ -161,7 +171,7 @@
                 <div id="idleTable" name="idleTable" style="width: 100%;height: 100%"></div>
             </div>
         </div>
-        <div id="travelDiv" title="车辆行驶情况统计" style="padding: 20px; display: none;">
+        <div id="travelDiv" title="车辆行驶情况统计" style="display: none;">
             <div data-options="region:'north',title:'查询',split:true,collapsable:true" style="width: 100%;height: 50px">
                 <div style="width: 100%;border: 1;margin:5 5 5 10 ">
                     <form id="form_search4" name="" class="sui-form cg-form">
@@ -178,7 +188,7 @@
                     </form>
                 </div>
             </div>
-            <div region="center" style="overflow: hidden; width: 100%; height: 500px;">
+            <div region="center" style="overflow: hidden; width: 100%;height: calc(100vh - 80px);">
                 <div id="travelToolbar" class="cg-moreBox" style="padding:5px">
                     <a href="#" onclick="exportDatagrid('${base}/report/operation/dayStatistics/export','form_search4', 'travelTable')" class="easyui-linkbutton">
                         &nbsp;&nbsp;&nbsp;导出&nbsp;&nbsp;&nbsp;
@@ -188,7 +198,7 @@
                 <div id="travelTable" name="travelTable" style="width: 100%;height: 100%"></div>
             </div>
         </div>
-        <div id="electricityDiv" title="充耗电情况统计" style="padding: 20px; display: none;">
+        <div id="electricityDiv" title="充耗电情况统计" style="display: none;">
             <div data-options="region:'north',title:'查询',split:true,collapsable:true" style="width: 100%;height: 50px">
                 <div style="width: 100%;border: 1;margin:5 5 5 10 ">
                     <form id="form_search5" name="" class="sui-form cg-form">
@@ -205,7 +215,7 @@
                     </form>
                 </div>
             </div>
-            <div region="center" style="overflow: hidden; width: 100%; height: 500px;">
+            <div region="center" style="overflow: hidden; width: 100%;height: calc(100vh - 80px);">
                 <div id="electricityToolbar" class="cg-moreBox" style="padding:5px">
                     <a href="#" onclick="exportDatagrid('${base}/report/operation/dayStatistics/export','form_search5', 'electricityTable')" class="easyui-linkbutton">
                         &nbsp;&nbsp;&nbsp;导出&nbsp;&nbsp;&nbsp;
@@ -294,6 +304,7 @@
      * 初始化车辆监控情况统计表格
      **/
     function loadMonitoringTable() {
+
         if (!checkBeginAndEndDate("form_search1")) {
             return;
         }

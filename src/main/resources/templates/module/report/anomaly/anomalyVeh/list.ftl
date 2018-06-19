@@ -2,8 +2,38 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<#include "../../../../inc/meta.ftl">
-<#include "../../../../inc/js.ftl">
+    <#include "../../../../inc/meta.ftl">
+    <#include "../../../../inc/js.ftl">
+    <script>
+            $(function (){
+                var bodyClass = $("body").attr("class");
+                if(bodyClass!=undefined && bodyClass.indexOf("easyui-layout")>=0){
+                    var panel = $("body").layout("panel","north");
+                    if(panel[0]){
+                        var centerPanel = $("body").layout("panel","center");
+                        var options = panel.panel("options");
+                        var optionsCenter = centerPanel.panel("options");
+                        var title = options.title;
+                        if(title!=undefined && title=="查询"){
+                            var oldHeight = options.height;
+                            var oldCenterHeight = optionsCenter.height;
+                            var afterCenterHeight = oldCenterHeight-(120-oldHeight);
+                            var tdNum = panel.find('.table_search td').length;
+                            panel.panel("resize",{
+                                height: (tdNum>9?2:1)*50 + 75
+                            });
+                            centerPanel.panel("resize",{
+                                height:afterCenterHeight
+                            });
+
+                            $("body").layout("resize",{
+                                height: $("body").length
+                            });
+                        }
+                    }
+                }
+            });
+        </script>
     <style type="text/css">
         .td_input a:not(.bg_button) {
             right: 20px !important;
@@ -13,8 +43,7 @@
     </script>
 </head>
 <body class="easyui-layout" fit="true" id="fullid">
-
-<div id="report" class="easyui-window" title="报表说明" style="width:853px;height:100%;" data-options="modal:true,closed:true">
+<div id="report" class="easyui-window" title="报表说明" style="width:853px; height:550px; display: none;" data-options="modal:true,closed:true">
     <div class="easyui-layout">
         <table class="easyui-datagrid">
             <thead>
@@ -103,7 +132,7 @@
     </div>
 </div>
 
-<div id="recordExplanPopup" class="easyui-window" title="报表说明" style="width:853px;height:100%;" data-options="modal:true,closed:true">
+<div id="recordExplanPopup" class="easyui-window" title="报表说明" style="width:853px;height:550px; display: none;" data-options="modal:true,closed:true">
     <div class="easyui-layout">
         <table class="easyui-datagrid">
             <thead>
@@ -143,6 +172,15 @@
 </div>
 
 <div region="center" style="overflow: hidden;width: 100%;">
+    <div id="toolbar" style="padding:5px" class="cg-moreBox">
+    <@shiro.hasPermission name="/report/anomaly/anomalyVeh/export">
+        <a href="#" onclick="exportButton()" class="easyui-linkbutton"
+           data-options="iconCls:'icon-export'" menu="0">导出</a>
+    </@shiro.hasPermission>
+    <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">报表说明</a>
+    </div>
+    <div id="table" name="datagrid" style="width: 100%; height: 100%"></div>
+</div>
 
 <div data-options="region:'north',title:'查询',split:true,collapsable:true" style="width: 100%;height: 120px">
     <div style="width: 100%;border: 1;margin:5 5 5 10 ">
@@ -228,16 +266,6 @@
         </form>
     </div>
 </div>
-    <div id="toolbar" style="padding:5px" class="cg-moreBox">
-    <@shiro.hasPermission name="/report/anomaly/anomalyVeh/export">
-        <a href="#" onclick="exportButton()" class="easyui-linkbutton"
-           data-options="iconCls:'icon-export'" menu="0">导出</a>
-    </@shiro.hasPermission>
-    <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">报表说明</a>
-    </div>
-    <div id="table" name="datagrid" style="width: 100%;height: 100%"></div>
-</div>
-
 </body>
 <script>
     //序列化搜索条件

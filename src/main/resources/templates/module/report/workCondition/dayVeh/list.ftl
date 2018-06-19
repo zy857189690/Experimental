@@ -3,26 +3,160 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<#include "../../../../inc/meta.ftl">
-<#include  "../../../../inc/js.ftl">
+    <#include "../../../../inc/meta.ftl">
+    <#include  "../../../../inc/js.ftl">
+    <script>
+        $(function (){
+            var bodyClass = $("body").attr("class");
+            if(bodyClass!=undefined && bodyClass.indexOf("easyui-layout")>=0){
+                var panel = $("body").layout("panel","north");
+                if(panel[0]){
+                    var centerPanel = $("body").layout("panel","center");
+                    var options = panel.panel("options");
+                    var optionsCenter = centerPanel.panel("options");
+                    var title = options.title;
+                    if(title!=undefined && title=="查询"){
+                        var oldHeight = options.height;
+                        var oldCenterHeight = optionsCenter.height;
+                        var afterCenterHeight = oldCenterHeight-(120-oldHeight);
+                        var tdNum = panel.find('.table_search td').length;
+                        panel.panel("resize",{
+                            height: (tdNum>9?2:1)*50 + 75
+                        });
+                        centerPanel.panel("resize",{
+                            height:afterCenterHeight
+                        });
+
+                        $("body").layout("resize",{
+                            height: $("body").length
+                        });
+                    }
+                }
+            }
+        });
+    </script>
     <style type="text/css">
         .td_input a:not(.bg_button) {
             right: 20px !important;
         }
     </style>
-    <script language="javascript">
-    </script>
 </head>
 <body class="easyui-layout" fit="true" id="fullid">
-<#--<div id="win" class="easyui-window" title="导入查询" style="width:400px;height:200px;top:105px;" data-options="modal:true,closed:true">-->
-    <#--<div id="cc" class="easyui-layout">-->
-        <#--<label>导入查询文件</label>-->
-        <#--<input type="file" id="file" style="width:100px;" name="query.myfile" />-->
-        <#--<a href="#" onclick="importSearchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>-->
-    <#--</div>-->
-<#--</div>-->
+<div region="center" style="overflow: hidden;width: 100%;">
+    <div id="toolbar" style="padding:5px" class="cg-moreBox">
+        <@shiro.hasPermission name="/report/demo1/export">
+            <a href="#" onclick="exportData()" class="easyui-linkbutton"
+                data-options="iconCls:'icon-export'" menu="0">导出</a>
+        </@shiro.hasPermission>
+        <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">报表说明</a>
+    </div>
+    <div id="table" name="datagrid" style="width: 100%;height: 100%"></div>
+</div>
+<div data-options="region:'north',title:'查询',split:true,collapsable:true" style="width: 100%;height: 130px">
+    <div style="width: 100%;border: 1;margin:5 5 5 10 ">
+        <form id="form_search" name="" class="sui-form cg-form">
+            <div style="width: 90%; height: 20px; margin: 10px;">
+                <label>条件查询</label>
+                <input type="radio" id = "condition" name="query.adminFlag" onclick="operationtd(true)"  checked="checked"  value="0" ></input>
+                <label>导入查询</label>
+                <input type="radio" id = "import" name="query.adminFlag" value="1" onclick="operationtd(false)" ></input>
+            </div>
+            <table class="table_search" style="height: 90px;">
+                <tr>
+                    <td class="td_label" id="fileButton">
+                        <label>文件上传</label>
+                    </td>
+                    <td class="td_input" id="fileShow">
+                        <input type="file" id="file" style="height: 30px; width: 168px;" name="myfile" />
+                    <#--<input type="button" onclick="UpladFile()" value="文件解析" />-->
+                    </td>
 
-<div id="report" class="easyui-window" title="报表说明" style="width:853px;height:100%;" data-options="modal:true,closed:true">
+                    <td class="td_label">
+                        <label>查询时间</label>
+                    </td>
+                    <td class="td_input">
+                        <input type="text" name="query.startTime" id="startTime" style="height: 30px; width: 168px" value="${(startTime)!}" class="easyui-datebox" autocomplete="off" data-options="editable:false"/>
+                    </td>
+
+                    <td class="td_label">
+                        <label>至</label>
+                    </td>
+                    <td class="td_input">
+                        <input type="text" name="query.endTime" id="endTime" style="height: 30px;width: 168px" value="${(endTime)!}" class="easyui-datebox" autocomplete="off" data-options="editable:false"/>
+                    </td>
+
+                    <td class="td_label">
+                        <label>车牌号</label>
+                    </td>
+                    <td class="td_input">
+                        <input id="licensePlate" type="text"class="input-fat input" style="width:150px;"   name="query.licensePlate"  autocomplete="off" >
+                    </td>
+
+                    <td class="td_label">
+                        <label>VIN</label>
+                    </td>
+
+                    <td class="td_input">
+                        <input id="vin" type="text"class="input-fat input" style="width:150px;"   name="query.vin"  autocomplete="off" >
+                    </td>
+                    <td class="td_label">
+                        <label>车辆种类</label>
+                    </td>
+                    <td class="td_input">
+                        <input id="vehTypeId" name="query.vehTypeId" style="width: 168px;" />
+                    </td>
+
+                    <td class="td_label">
+                        <label>车型型号</label>
+                    </td>
+                    <td class="td_input">
+                        <input id="vehModelName" name="query.vehModelName" style="width: 168px;" />
+                    </td>
+
+                    <td class="td_label">
+                        <label>运营单位</label>
+                    </td>
+                    <td class="td_input">
+                        <input id="useUintId" name="query.useUintId" style="width: 168px;" />
+                    </td>
+
+                    <td class="td_label">
+                        <label>上牌区域</label>
+                    </td>
+                    <td class="td_input">
+                        <input id="sysDivisionId" name="query.sysDivisionId" style="width: 168px;" />
+                    </td>
+
+                <#--<td class="td_label" id="fileButton">-->
+                <#--<label>文件上传</label>-->
+                <#--</td>-->
+                <#--<td class="td_input" id="fileShow">-->
+                <#--<input type="file" id="file" style="width: height: 26px;width:120px;" name="myfile" />-->
+                <#--<input type="button" onclick="UpladFile()" value="文件解析" />-->
+                <#--</td>-->
+
+                <#--<td class="td_input" id="fileDown"  >-->
+                <#--<input type="button" onclick="downFile()" value="导入查询模板下载" />-->
+                <#--</td>-->
+
+                <#--<td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">-->
+                <#--<a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>-->
+                <#--<a href="#" onclick="resetButton()" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>-->
+                <#--</td>-->
+
+                    <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
+                        <a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+                        <a href="#" onclick="resetButton()" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
+                    <#--<a href="#" id="impQuery" onclick="importSeach()" data-options="iconCls:'icon-reset'">导入查询</a>-->
+                        <a href="#" onclick="downFile()" id = "downLadfile" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+
+<div id="report" class="easyui-window" title="报表说明" style="width:853px;height:500px; display: none;" data-options="modal:true,closed:true">
     <div class="easyui-layout">
         <table class="easyui-datagrid">
             <thead>
@@ -80,124 +214,6 @@
             </tbody>
         </table>
     </div>
-</div>
-
-<div region="center" style="overflow: hidden;width: 100%;">
-    <div data-options="region:'north',title:'查询',split:true,collapsable:true" style="width: 100%;height: 130px">
-        <div style="width: 100%;border: 1;margin:5 5 5 10 ">
-            <form id="form_search" name="" class="sui-form cg-form">
-                <div style="width: 90%; height: 20px; margin: 10px;">
-                    <label>条件查询</label>
-                    <input type="radio" id = "condition" name="query.adminFlag" onclick="operationtd(true)"  checked="checked"  value="0" ></input>
-                    <label>导入查询</label>
-                    <input type="radio" id = "import" name="query.adminFlag" value="1" onclick="operationtd(false)" ></input>
-                </div>
-                <table class="table_search" style="height: 90px;">
-                    <tr>
-                        <td class="td_label" id="fileButton">
-                            <label>文件上传</label>
-                        </td>
-                        <td class="td_input" id="fileShow">
-                            <input type="file" id="file" style="height: 30px; width: 168px;" name="myfile" />
-                            <#--<input type="button" onclick="UpladFile()" value="文件解析" />-->
-                        </td>
-
-                        <td class="td_label">
-                            <label>查询时间</label>
-                        </td>
-                        <td class="td_input">
-                            <input type="text" name="query.startTime" id="startTime" style="height: 30px; width: 168px" value="${(startTime)!}" class="easyui-datebox" autocomplete="off" data-options="editable:false"/>
-                        </td>
-
-                        <td class="td_label">
-                            <label>至</label>
-                        </td>
-                        <td class="td_input">
-                            <input type="text" name="query.endTime" id="endTime" style="height: 30px;width: 168px" value="${(endTime)!}" class="easyui-datebox" autocomplete="off" data-options="editable:false"/>
-                        </td>
-
-                        <td class="td_label">
-                            <label>车牌号</label>
-                        </td>
-                        <td class="td_input">
-                            <input id="licensePlate" type="text"class="input-fat input" style="width:150px;"   name="query.licensePlate"  autocomplete="off" >
-                        </td>
-
-                        <td class="td_label">
-                            <label>VIN</label>
-                        </td>
-
-                        <td class="td_input">
-                            <input id="vin" type="text"class="input-fat input" style="width:150px;"   name="query.vin"  autocomplete="off" >
-                        </td>
-                        <td class="td_label">
-                            <label>车辆种类</label>
-                        </td>
-                        <td class="td_input">
-                            <input id="vehTypeId" name="query.vehTypeId" style="width: 168px;" />
-                        </td>
-
-                        <td class="td_label">
-                            <label>车型型号</label>
-                        </td>
-                        <td class="td_input">
-                            <input id="vehModelName" name="query.vehModelName" style="width: 168px;" />
-                        </td>
-
-                        <td class="td_label">
-                            <label>运营单位</label>
-                        </td>
-                        <td class="td_input">
-                            <input id="useUintId" name="query.useUintId" style="width: 168px;" />
-                        </td>
-
-                        <td class="td_label">
-                            <label>上牌区域</label>
-                        </td>
-                        <td class="td_input">
-                            <input id="sysDivisionId" name="query.sysDivisionId" style="width: 168px;" />
-                        </td>
-
-                        <#--<td class="td_label" id="fileButton">-->
-                            <#--<label>文件上传</label>-->
-                        <#--</td>-->
-                        <#--<td class="td_input" id="fileShow">-->
-                            <#--<input type="file" id="file" style="width: height: 26px;width:120px;" name="myfile" />-->
-                            <#--<input type="button" onclick="UpladFile()" value="文件解析" />-->
-                        <#--</td>-->
-
-                        <#--<td class="td_input" id="fileDown"  >-->
-                            <#--<input type="button" onclick="downFile()" value="导入查询模板下载" />-->
-                        <#--</td>-->
-
-                        <#--<td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">-->
-                            <#--<a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>-->
-                            <#--<a href="#" onclick="resetButton()" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>-->
-                        <#--</td>-->
-
-                        <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
-                            <a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
-                            <a href="#" onclick="resetButton()" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
-                            <#--<a href="#" id="impQuery" onclick="importSeach()" data-options="iconCls:'icon-reset'">导入查询</a>-->
-                            <a href="#" onclick="downFile()" id = "downLadfile" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-        </div>
-    </div>
-        <#--<@shiro.hasPermission name="/report/demo1/export">-->
-            <#--<a href="#" onclick="exportData()" class="easyui-linkbutton"-->
-               <#--data-options="iconCls:'icon-export'" menu="0">导出</a>-->
-        <#--</@shiro.hasPermission>-->
-    <div id="toolbar" style="padding:5px" class="cg-moreBox">
-        <@shiro.hasPermission name="/report/demo1/export">
-            <a href="#" onclick="exportData()" class="easyui-linkbutton"
-                data-options="iconCls:'icon-export'" menu="0">导出</a>
-        </@shiro.hasPermission>
-        <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">报表说明</a>
-    </div>
-    <div id="table" name="datagrid" style="width: 100%;height: 100%"></div>
 </div>
 </body>
 <script>
@@ -370,10 +386,8 @@
     /*查询事件*/
     function searchButton(){
         var val=$('input:radio[id="import"]:checked').val();
-
         //var valaaa=$('input:radio[id="daoru"]:checked').val();
         if(val == 1){
-console.log("weeeeeeee")
             var file = document.getElementById("file").files[0];
             if (fileCheck(file)) {
                 UpladFile();
