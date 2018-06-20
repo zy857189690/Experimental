@@ -397,26 +397,39 @@
         }
         return true;
     }
-
     /*查询事件*/
     function searchButton(){
-        if (!checkTime()) {
-            return;
-        }
         var val=$('input:radio[id="import"]:checked').val();
-        //var valaaa=$('input:radio[id="daoru"]:checked').val();
         if(val == 1){
-            var file = document.getElementById("file").files[0];
-            if (fileCheck(file)) {
-                UpladFile();
-            }
-            searchDatagrid('form_search','table');
+            importSearchButton();
         }else {
-            // console.log("wedsaaaaaaaaaaaae")
-            //请求查询
-            searchDatagrid('form_search','table');
+            identity = "";
+            if (checkTime()) {
+                //请求查询
+                searchDatagrid('form_search','table');
+            }
         }
     }
+    // /*查询事件*/
+    // function searchButton(){
+    //     if (!checkTime()) {
+    //         return;
+    //     }
+    //     var val=$('input:radio[id="import"]:checked').val();
+    //     //var valaaa=$('input:radio[id="daoru"]:checked').val();
+    //     if(val == 1){
+    //         var file = document.getElementById("file").files[0];
+    //         //if（true）
+    //         if (fileCheck(file)) {
+    //             UpladFile();
+    //         }
+    //         searchDatagrid('form_search','table');
+    //     }else {
+    //         // console.log("wedsaaaaaaaaaaaae")
+    //         //请求查询
+    //         searchDatagrid('form_search','table');
+    //     }
+    // }
 
     /**
      * 初始化下拉选择框
