@@ -173,7 +173,7 @@
         <@shiro.hasPermission name="/report/demo1/export">
              <input type="button" value="导出" onclick="gridList()"  />
         </@shiro.hasPermission>
-           <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">列表说明</a>
+           <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:5px;margin-right: 100px">列表说明</a>
     </div>
     <div id="table" name="datagrid" style="width: 100%; height: 100%;"></div>
 </div>
