@@ -48,8 +48,8 @@
         <table class="easyui-datagrid">
             <thead>
             <tr>
-                <th data-options="field:'code'" style="width: 80px">名称</th>
-                <th data-options="field:'name'" style="width: 100%">定义</th>
+                <th data-options="field:'code', width: 200">名称</th>
+                <th data-options="field:'name', width: 650">定义</th>
             </tr>
             </thead>
             <tbody>
