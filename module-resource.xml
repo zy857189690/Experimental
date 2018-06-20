@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resource version="1.0" name="bqcz-report">
+<resource version="1.0" name="jiliReport">
     <menu name="吉利报表" parent-name="/" icon="" order="14" id="jiliReport_WAV2A2BlbccYPF58jvzwpHh">
-        <menu name="列表页面" url="/report/demo1/list" icon="" order="1" id="jiliReport_CtqcuEDzZhZR5Cj518Z7aPT">
-            <button name="查看" url="/report/demo1/view" id="jiliReport_W4dKMYk1qbZYZr5xfPp8Xtk" />
-            <button name="新增" url="/report/demo1/add" id="jiliReport_OHP7HcbcZKqHmmjcycEBGe7" />
-            <button name="编辑" url="/report/demo1/update" id="jiliReport_zkQlrIv7sbc98vp3bja0WR1" />
-            <button name="删除" url="/report/demo1/del" id="jiliReport_BM1BlZ7EBsCsG4bMUVTKzJR" />
-            <button name="导出" url="/report/demo1/export" id="jiliReport_wE6wtpT9YMxfBVgdpLomxUU" />
-        </menu>
         <menu name="运营分析" parent-name="/" icon="" order="2" id="jiliReport_eEIknYYqpZqvYzfpid1uf7Z">
             <menu name="车辆运行统计" url="/report/operation/dayStatistics/list" icon="" order="1" id="jiliReport_2rdBVFLUAHe9dXPp9Op8jMU">
                 <button name="查看" url="/report/operation/dayStatistics/view" id="jiliReport_HA3YOAVLwmXGGCi3slWWzF7" />
