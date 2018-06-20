@@ -78,21 +78,21 @@
                         <input type="text" name="query.startTime" id="startTime" style="height: 30px; width: 168px" value="${(startTime)!}" class="easyui-datebox" autocomplete="off" data-options="editable:false"/>
                     </td>
 
-                    <td class="td_label">
+                    <td class="td_label" style="text-align: center;">
                         <label>至</label>
                     </td>
                     <td class="td_input">
                         <input type="text" name="query.endTime" id="endTime" style="height: 30px;width: 168px" value="${(endTime)!}" class="easyui-datebox" autocomplete="off" data-options="editable:false"/>
                     </td>
 
-                    <td class="td_label">
+                    <td class="td_label" style="text-align: center;">
                         <label>车牌号</label>
                     </td>
                     <td class="td_input">
                         <input id="licensePlate" type="text"class="input-fat input" style="width:150px;"   name="query.licensePlate"  autocomplete="off" >
                     </td>
 
-                    <td class="td_label">
+                    <td class="td_label" style="text-align: right">
                         <label>VIN</label>
                     </td>
 
@@ -243,6 +243,7 @@
         //bug修改：清空车牌号和vin
         $("#licensePlate").val("");
         $("#vin").val("");
+        $("#file").val("");
         $('#table').datagrid("load", resetQueryParams);
     }
     <#--$('#table').datagrid({-->
@@ -399,6 +400,9 @@
 
     /*查询事件*/
     function searchButton(){
+        if (!checkTime()) {
+            return;
+        }
         var val=$('input:radio[id="import"]:checked').val();
         //var valaaa=$('input:radio[id="daoru"]:checked').val();
         if(val == 1){
@@ -408,7 +412,7 @@
             }
             searchDatagrid('form_search','table');
         }else {
-            console.log("wedsaaaaaaaaaaaae")
+            // console.log("wedsaaaaaaaaaaaae")
             //请求查询
             searchDatagrid('form_search','table');
         }
