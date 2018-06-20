@@ -156,7 +156,7 @@
 		<dependency>
 			<groupId>com.bitnei.cloud</groupId>
 			<artifactId>data-center</artifactId>
-			<version>1.0.2-20180615-01</version>
+			<version>1.0.3-20180620-01</version>
 		</dependency>
 
 		<!-- 热部署start -->
