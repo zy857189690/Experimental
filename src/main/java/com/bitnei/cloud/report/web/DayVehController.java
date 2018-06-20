@@ -203,36 +203,36 @@ public class DayVehController {
         return;
 
     }
-//
-//    /**
-//     * 导入查询实现
-//     * @param file
-//     * @return
-//     * @throws Exception
-//     */
-//    @PostMapping(value = "/improtSearch")
-//    @ResponseBody
-//    @RequiresPermissions(URL_LIST)
-//    public AppBean improtSearch(MultipartFile file,String identity) throws Exception{
-//
-//        if (file == null) {
-//            return new AppBean(-1, "文件获取失败！");
-//        }
-//
-//        Long fileSize = file.getSize();
-//        if (fileSize > 10240 * 1024) {
-//            return new AppBean(-1, "文件大小超出最大10M限制！");
-//        }
-//
-//        String fileName = file.getOriginalFilename();//获取上传文件的原名
-//        String suffixName = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();//去掉文件名，获取文件的后缀
-//        if (!".xls".equals(suffixName) && !".xlsx".equals(suffixName)) {
-//            return new AppBean(-1, "上传文件格式不正确，确认文件后缀名为xls、xlsx！");
-//        }
-//
-//        AppBean appBean = dayVehService.importQuery(file, identity);
-//        return appBean;
-//    }
+
+    /**
+     * 导入查询实现
+     * @param file
+     * @return
+     * @throws Exception
+     */
+    @PostMapping(value = "/improtSearch")
+    @ResponseBody
+    @RequiresPermissions(URL_LIST)
+    public AppBean improtSearch(MultipartFile file,String identity) throws Exception{
+
+        if (file == null) {
+            return new AppBean(-1, "文件获取失败！");
+        }
+
+        Long fileSize = file.getSize();
+        if (fileSize > 10240 * 1024) {
+            return new AppBean(-1, "文件大小超出最大10M限制！");
+        }
+
+        String fileName = file.getOriginalFilename();//获取上传文件的原名
+        String suffixName = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();//去掉文件名，获取文件的后缀
+        if (!".xls".equals(suffixName) && !".xlsx".equals(suffixName)) {
+            return new AppBean(-1, "上传文件格式不正确，确认文件后缀名为xls、xlsx！");
+        }
+
+        AppBean appBean = dayVehService.importQuery(file, identity);
+        return appBean;
+    }
 
     /**
      * 下载模板

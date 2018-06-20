@@ -51,14 +51,14 @@ public interface IDayVehService extends IBaseService{
      * 导入查询导出
      */
     void importExport(MultipartFile file, String identity) throws Exception;
-//    /**
-//     * 导入查询
-//     * @param file
-//     * @param identity
-//     * @return
-//     * @throws Exception
-//     */
-//    AppBean importQuery(MultipartFile file, String identity) throws Exception;
+    /**
+     * 导入查询
+     * @param file
+     * @param identity
+     * @return
+     * @throws Exception
+     */
+    AppBean importQuery(MultipartFile file, String identity) throws Exception;
 
     String getDate(int d);
 }
