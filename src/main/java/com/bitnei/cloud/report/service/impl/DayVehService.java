@@ -92,20 +92,6 @@ public class DayVehService extends BaseService implements IDayVehService {
         return null;
     }
 
-    /**
-     * 重写findPagerModel方法，防止空指针异常
-     * @param selectId
-     * @param options
-     * @return
-     */
-    public PagerModel findPagerModel(String selectId, DataGridOptions options) {
-        PageRowBounds rowBounds = new PageRowBounds(options.getStart(), options.getLength());
-        List list = this.sessionTemplate.selectList(this.getSqlId(selectId), options.getParams(), rowBounds);
-        PagerModel pm = new PagerModel();
-        pm.setRows(list);
-        pm.setTotal(rowBounds.getTotal().longValue());
-        return pm;
-    }
     @Override
 //    public PagerModel pageQuery() {
 //
