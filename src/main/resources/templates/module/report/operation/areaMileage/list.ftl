@@ -8,6 +8,10 @@
         .td_input a:not(.bg_button) {
             right: 20px !important;
         }
+        .table_search tr .td_label {
+            text-align: right;
+        }
+
     </style>
     <script language="javascript">
         $(function(){
@@ -15,6 +19,36 @@
         });
     </script>
 </head>
+
+
+<div id="report" class="easyui-window" title="报表说明" style="width: 853px; height: 500px;display: none"  data-options="modal:true,closed:true">
+    <div class="easyui-layout">
+        <table class="easyui-datagrid">
+            <thead>
+            <tr>
+                <th data-options="field:'code'" style="width: 167px">名称</th>
+                <th data-options="field:'name'" style="width: 731px">定义</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>行驶区域总里程（Km）</td><td>该车辆在统计在该区域累计行驶总里程（仪表里程）</td>
+            </tr>
+            <tr>
+                <td>行驶区域GPS总里程（km）</td><td>该车辆在统计在该区域累计行驶GPS总里程（仪表里程）</td>
+            </tr>
+            <tr>
+                <td>行驶区域里程占比（%）</td><td>区域行驶总里程/总里程</td>
+            </tr>
+            <tr>
+                <td>车辆阶段</td><td>待检测、待入库、入库、出厂待销售、已销售、运营中、已报废</td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
 <body class="easyui-layout" fit="true" id="fullid">
 <div region="center" style="overflow: hidden;width: 100%;">
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
@@ -22,8 +56,10 @@
             <a href="#" onclick="exportDatagrid('${base}/report/operation/areaMileage/downloadAreaMonthly','form_search','table')" class="easyui-linkbutton"
                data-options="iconCls:'icon-export'" menu="0">导出</a>
         </@shiro.hasPermission>
+            <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">报表说明</a>
     </div>
-    <div id="table" name="datagrid" style="width: 100%; height: 100%"></div>
+
+   <div id="table" name="datagrid" style="width: 100%; height: 100%"></div>
 </div>
 <div data-options="region:'north',title:'查询',split:true,collapsable:true" style="width: 100%;height: 50px;margin: 10px;">
     <div style="width: 100%;border: 1;margin:5 5 5 10 ">
@@ -34,13 +70,13 @@
                         <label>行驶区域:</label>
                     </td>
                     <td class="td_input">
-                        <input type="text"class="input-fat input" id="xingShi" style="width: height: 26px;width:158px;"   name="query.xingShi"  autocomplete="off" >
+                        <input type="text"class="input-fat input" id="xingShi" style="width:168px;"   name="query.xingShi"  autocomplete="off" >
                     </td>
                     <td class="td_label">
                         <label>截止时间:</label>
                     </td>
                     <td class="td_input">
-                        <input type="text"class="easyui-datebox" id="endTime" style="width: height: 26px;width:157px;"  name="query.endTime"  autocomplete="off" data-options="editable:false">
+                        <input type="text"class="easyui-datebox" id="endTime" style="width:168px;"  name="query.endTime"  autocomplete="off" data-options="editable:false">
                     </td>
                     <td class="td_label">
                         <label>区域总里程大于（km）:</label>
@@ -53,37 +89,37 @@
                         <label>车辆阶段</label>
                     </td>
                     <td class="td_input">
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   id="jieDuan" name="query.jieDuan"  autocomplete="off" >
+                        <input type="text"class="input-fat input" style="width:168px;"   id="jieDuan" name="query.jieDuan"  autocomplete="off" >
                     </td>
-                    <td class="td_label">
+                    <td class="td_label" >
                         <label>车牌号:</label>
                     </td>
                     <td class="td_input">
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:140px;"   name="query.chePai"  autocomplete="off" >
+                        <input type="text"class="input-fat input" style="width:150px;"   name="query.chePai"  autocomplete="off" >
                     </td>
-                    <td class="td_label">
+                    <td class="td_label" >
                         <label>VIN:</label>
                     </td>
                     <td class="td_input">
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:140px;"   name="query.VIN"  autocomplete="off" >
+                        <input type="text"class="input-fat input" style="width:150px;"   name="query.VIN"  autocomplete="off" >
                     </td>
-                    <td class="td_label">
+                    <td class="td_label"  >
                         <label>车辆名称:</label>
                     </td>
                     <td class="td_input">
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.cheLiangMing"  autocomplete="off" >
+                        <input type="text"class="input-fat input" style="width:150px;"   name="query.cheLiangMing"  autocomplete="off" >
                     </td>
                     <td class="td_label">
                         <label>运营单位:</label>
                     </td>
                     <td class="td_input">
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;" id="yunYing"    name="query.yunYing"  autocomplete="off" >
+                        <input type="text"class="input-fat input" style="width:168px;" id="yunYing"    name="query.yunYing"  autocomplete="off" >
                     </td>
                     <td class="td_label"  >
                         <label>上牌城市:</label>
                     </td>
                     <td class="td_input">
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.shangPai"  autocomplete="off" >
+                        <input type="text"class="input-fat input" style="width:150px;"   name="query.shangPai"  autocomplete="off" >
                     </td>
                     <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
                         <a href="#" onclick="search_item()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
@@ -136,6 +172,11 @@
 
 </script>
 <script language="javascript">
+
+    /*报表说明弹框*/
+    function reportSpecification(){
+        $('#report').window("open");
+    }
 
     /**
      * 增加

@@ -10,6 +10,48 @@
         }
     </style>
 </head>
+
+<div id="report" class="easyui-window" title="报表说明" style="width: 853px; height: 500px;display: none"  data-options="modal:true,closed:true">
+    <div class="easyui-layout">
+        <table class="easyui-datagrid">
+            <thead>
+            <tr>
+                <th data-options="field:'code'" style="width: 167px">名称</th>
+                <th data-options="field:'name'" style="width: 731px">定义</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>截止时间</td><td>报表查询截止某一天的历史数据，而非只显示前一天的数据</td>
+            </tr>
+            <tr>
+                <td>监控车车辆总数（辆）</td><td>即登录过平台为可监控车辆数</td>
+            </tr>
+            <tr>
+                <td>本月车辆运营数（辆）</td><td>本月行驶里程数大于500公里</td>
+            </tr>
+            <tr>
+                <td>≥3万公里（辆）</td><td>车辆总里程大于3万公里</td>
+            </tr>
+            <tr>
+                <td>2~3万公里（辆）</td><td>车辆总里程2万-3万公里</td>
+            </tr>
+            <tr>
+                <td>1~2万公里（辆）</td><td>车辆总里程1万-2万公里</td>
+            </tr>
+            <tr>
+                <td>0.05~1万公里（辆）</td><td>车辆总里程500-1万公里</td>
+            </tr>
+            <tr>
+                <td>＜0,05万公里（辆）</td><td>车辆总里程小于500公里</td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
 <body class="easyui-layout" fit="true" id="fullid">
 <div region="center" style="overflow: hidden;width: 100%;">
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
@@ -17,6 +59,7 @@
         <a href="#" onclick="exportDatagrid('${base}/report/operation/mileageMonitor/downloadMileageMonthly','form_search','table')" class="easyui-linkbutton"
            data-options="iconCls:'icon-export'" menu="0">导出</a>
     </@shiro.hasPermission>
+        <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">报表说明</a>
     </div>
     <div id="table" name="datagrid" style="width: 100%; height: 100%;"></div>
 </div>
@@ -112,6 +155,12 @@
     toolbar2Menu("table");
 </script>
 <script language="javascript">
+
+    /*报表说明弹框*/
+    function reportSpecification(){
+        $('#report').window("open");
+    }
+
     /**
      * 增加
      */
