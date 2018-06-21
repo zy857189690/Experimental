@@ -42,8 +42,8 @@
             </div>
             <div region="center" style="overflow: hidden; width: 100%; height: calc(100vh - 80px);">
                 <div id="monitoringToolbar" class="cg-moreBox" style="padding:5px">
-                    <a href="#" onclick="exportDatagrid('${base}/report/operation/dayStatistics/export','form_search1', 'monitoringTable')" class="easyui-linkbutton">
-                        &nbsp;&nbsp;&nbsp;导出&nbsp;&nbsp;&nbsp;
+                    <a href="#" onclick="exportDatagrid('${base}/report/operation/dayStatistics/export','form_search1', 'monitoringTable')" class="easyui-linkbutton" data-options="iconCls:'icon-export'">
+                        导出
                     </a>
                     <a href="#" onclick="openExplainDialog('monitoring')" style="float: right; margin-right: 120px; margin-top: 5px;">列表说明</a>
                 </div>
@@ -69,8 +69,8 @@
             </div>
             <div region="center" style="overflow: hidden; width: 100%;height: calc(100vh - 80px);">
                 <div id="activeToolbar" class="cg-moreBox" style="padding:5px">
-                    <a href="#" onclick="exportDatagrid('${base}/report/operation/dayStatistics/export','form_search2', 'activeTable')" class="easyui-linkbutton">
-                        &nbsp;&nbsp;&nbsp;导出&nbsp;&nbsp;&nbsp;
+                    <a href="#" onclick="exportDatagrid('${base}/report/operation/dayStatistics/export','form_search2', 'activeTable')" class="easyui-linkbutton" data-options="iconCls:'icon-export'">
+                        导出
                     </a>
                     <a href="#" onclick="openExplainDialog('active')" style="float: right; margin-right: 120px; margin-top: 5px;">列表说明</a>
                 </div>
@@ -80,8 +80,8 @@
         <div id="idleDiv" title="车辆闲置情况统计" style="display: none;">
             <div data-options="region:'north',title:'查询',split:true,collapsable:true" style="width: 100%;height: 175px">
                 <div style="width: 100%; height: 30px;">
-                    <span style="margin-left: 5px;"><b>车辆闲置情况统计</b></span>
-                    <a href="javascript:void(0)" onclick="$('#idleConditionDialg').dialog('open');" style="margin-left: 200px;">设置闲置车辆统计条件</a>
+                    <span style="margin-left: 10px;"><b>车辆闲置情况统计</b></span>
+                    <a href="javascript:void(0)" onclick="$('#idleConditionDialg').dialog('open');" style="margin-left: 200px; margin-top: 10px;">设置闲置车辆统计条件</a>
                 </div>
                 <div style="width: 100%; height: 30px;">
                     <div id="idleTileMessage" style="margin-left: 5px;">
@@ -163,8 +163,8 @@
             </div>
             <div region="center" style="overflow: hidden; width: 100%;height: calc(100vh - 204px);">
                 <div id="idleToolbar" class="cg-moreBox" style="padding:5px">
-                    <a href="#" onclick="exportDatagrid('${base}/report/operation/dayStatistics/export','form_search3', 'idleTable')" class="easyui-linkbutton">
-                        &nbsp;&nbsp;&nbsp;导出&nbsp;&nbsp;&nbsp;
+                    <a href="#" onclick="exportDatagrid('${base}/report/operation/dayStatistics/export','form_search3', 'idleTable')" class="easyui-linkbutton" data-options="iconCls:'icon-export'">
+                        导出
                     </a>
                     <a href="#" onclick="openExplainDialog('idle')" style="float: right; margin-right: 120px; margin-top: 5px;">列表说明</a>
                 </div>
@@ -190,8 +190,8 @@
             </div>
             <div region="center" style="overflow: hidden; width: 100%;height: calc(100vh - 80px);">
                 <div id="travelToolbar" class="cg-moreBox" style="padding:5px">
-                    <a href="#" onclick="exportDatagrid('${base}/report/operation/dayStatistics/export','form_search4', 'travelTable')" class="easyui-linkbutton">
-                        &nbsp;&nbsp;&nbsp;导出&nbsp;&nbsp;&nbsp;
+                    <a href="#" onclick="exportDatagrid('${base}/report/operation/dayStatistics/export','form_search4', 'travelTable')" class="easyui-linkbutton" data-options="iconCls:'icon-export'">
+                        导出
                     </a>
                     <a href="#" onclick="openExplainDialog('travel')" style="float: right; margin-right: 120px; margin-top: 5px;">列表说明</a>
                 </div>
@@ -217,8 +217,8 @@
             </div>
             <div region="center" style="overflow: hidden; width: 100%;height: calc(100vh - 80px);">
                 <div id="electricityToolbar" class="cg-moreBox" style="padding:5px">
-                    <a href="#" onclick="exportDatagrid('${base}/report/operation/dayStatistics/export','form_search5', 'electricityTable')" class="easyui-linkbutton">
-                        &nbsp;&nbsp;&nbsp;导出&nbsp;&nbsp;&nbsp;
+                    <a href="#" onclick="exportDatagrid('${base}/report/operation/dayStatistics/export','form_search5', 'electricityTable')" class="easyui-linkbutton" data-options="iconCls:'icon-export'">
+                        导出
                     </a>
                     <a href="#" onclick="openExplainDialog('electricity')" style="float: right; margin-right: 120px; margin-top: 5px;">列表说明</a>
                 </div>
@@ -251,8 +251,8 @@
         </div>
         <div class="easyui-panel" title="" style="height:380px;">
             <div id="vehListDialgToolbar" class="cg-moreBox" style="padding:5px">
-                <a href="#" onclick="exportDatagrid('${base}/report/operation/dayStatistics/export','vehListDialogForm', 'diaSearchTable')" class="easyui-linkbutton" style="margin-left: 10px;">
-                    &nbsp;&nbsp;&nbsp;导出&nbsp;&nbsp;&nbsp;
+                <a href="#" onclick="exportDatagrid('${base}/report/operation/dayStatistics/export','vehListDialogForm', 'diaSearchTable')" class="easyui-linkbutton" data-options="iconCls:'icon-export'" style="margin-left: 10px;">
+                    导出
                 </a>
             </div>
             <div id="diaSearchTable" name="diaSearchTable" style="width: 100%;height: 100%"></div>
@@ -861,7 +861,7 @@
 <#--车辆活跃情况统计说明弹出框-->
 <div id="activeExplainDialg" class="easyui-dialog" title="车辆活跃情况统计列表说明" style="width: 750px; height: 315px;"
      data-options="iconCls:'',closed: true, resizable:false, modal:true">
-    <table class="easyui-datagrid" data-options="nowrap: false">
+    <table class="easyui-datagrid">
         <thead>
             <tr>
                 <th data-options="field:'name', width: 200, resizable: true">名称</th>
@@ -871,7 +871,7 @@
         <tbody>
             <tr>
                 <td>当天活跃车辆总数</td>
-                <td>车辆上线又是实时数据上传的车辆，非自动唤醒的上线车辆数，排除自动唤醒车辆，自动唤醒判断：如上传了整车数据中的电池总电流和总电压，则视为非自动唤醒。</td>
+                <td>车辆上线又是实时数据上传的车辆，非自动唤醒的上线车辆数，排除自动唤醒车辆，自动唤醒判断：<br/>如上传了整车数据中的电池总电流和总电压，则视为非自动唤醒。</td>
             </tr>
             <tr>
                 <td>活跃率</td>
@@ -915,13 +915,13 @@
     </table>
 </div>
 <#--车辆行驶情况统计说明弹出框-->
-<div id="travelExplainDialg" class="easyui-dialog" title="车辆行驶情况统计列表说明" style="width: 750px; height: 415px;"
+<div id="travelExplainDialg" class="easyui-dialog" title="车辆行驶情况统计列表说明" style="width: 770px; height: 315px;"
      data-options="iconCls:'',closed: true, resizable:false, modal:true">
     <table class="easyui-datagrid">
         <thead>
             <tr>
                 <th data-options="field:'name', width: 200, resizable: true">名称</th>
-                <th data-options="field:'definition', width: 550, resizable: true">定义</th>
+                <th data-options="field:'definition', width: 570, resizable: true">定义</th>
             </tr>
         </thead>
         <tbody>
@@ -940,9 +940,9 @@
             <tr>
                 <td>单次充电最大里程</td>
                 <td>
-                    比较每两次充电之间的行驶里程，得出单次充电最大行驶里程；
-                    两次充电之间算一次，0点到当天第一次充电开始记为一次，最后一次充电结束到当天23:59:59计为一次；
-                    若当天（00:00：00~23:59：59）未充电，计算当天累计行驶里程，记为一次；
+                    比较每两次充电之间的行驶里程，得出单次充电最大行驶里程；<br />
+                    两次充电之间算一次，0点到当天第一次充电开始记为一次，最后一次充电结束到当天23:59:59计为一次；<br />
+                    若当天（00:00：00~23:59：59）未充电，计算当天累计行驶里程，记为一次；<br />
                     若当天只充一次电，0点到充电开始，记为一次；充电结束到当天24点记为一次
                 </td>
             </tr>
@@ -954,7 +954,7 @@
     </table>
 </div>
 <#--充耗电情况统计说明弹出框-->
-<div id="electricityExplainDialg" class="easyui-dialog" title="充耗电情况统计列表说明" style="width: 750px; height: 515px;"
+<div id="electricityExplainDialg" class="easyui-dialog" title="充耗电情况统计列表说明" style="width: 750px; height: 415px;"
      data-options="iconCls:'',closed: true, resizable:false, modal:true">
     <table class="easyui-datagrid">
         <thead>
@@ -967,9 +967,9 @@
         <tr>
             <td>累计耗电量</td>
             <td>
-                总电量-剩余电量
-                整车上传电量数据为剩余电量;
-                “累计耗电量”根据TBOX上传的动力电池放电累积能量得（目前无法解析就先空着
+                总电量-剩余电量;<br/>
+                整车上传电量数据为剩余电量;<br/>
+                “累计耗电量”根据TBOX上传的动力电池放电累积能量得;
             </td>
         </tr>
         <tr>
@@ -978,7 +978,7 @@
         </tr>
         <tr>
             <td>累计充电量</td>
-            <td>该数据为TBOX上传得（根据TBOX上传的动力电池充电累积能量得），此数据后期增加到扩展协议当中；</td>
+            <td>该数据为TBOX上传得（根据TBOX上传的动力电池充电累积能量得）</td>
         </tr>
         <tr>
             <td>充电车辆总数</td>
@@ -986,7 +986,9 @@
         </tr>
         <tr>
             <td>充电总次数</td>
-            <td>“充电总次数”、“充电总时长”、“单车平均充电次数”“单车平均充电时长”“最长充电时间”均区分快充、慢充，即都分开统计。（可根据TBOX上传的快充连接状态，快充继电器控制命令，慢充电子锁状态、慢充继电器控制命令进行区分）</td>
+            <td>“充电总次数”、“充电总时长”、“单车平均充电次数”、“单车平均充电时长”、<br/>
+                “最长充电时间”均区分快充、慢充，即都分开统计。<br/>
+                （可根据TBOX上传的快充连接状态，快充继电器控制命令，慢充电子锁状态、慢充继电器控制命令<br/>进行区分）</td>
         </tr>
         <tr>
             <td>充电总时长</td>
