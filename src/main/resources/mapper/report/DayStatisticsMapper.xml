@@ -102,7 +102,7 @@
             <if test="idleVIN != null">
                 AND veh.vin LIKE '%${idleVIN}%'
             </if>
-            <if test="idleVehStage != null and idleVehStage != -1">
+            <if test="idleVehStage != null and idleVehStage != '-1'">
                 AND veh.registerstatus=#{idleVehStage}
             </if>
             <if test="idleUseUnitId != null">
@@ -114,7 +114,7 @@
             <if test="idleVehTypeId != null">
                 AND veh.veh_type_id=#{idleVehTypeId}
             </if>
-            <if test="idleModelNoticeId != null and idleModelNoticeId != -1">
+            <if test="idleModelNoticeId != null and idleModelNoticeId != '-1'">
                 AND model.model_notice_id=#{idleModelNoticeId}
             </if>
             ORDER BY vds.report_date DESC ) idle
@@ -208,7 +208,7 @@
                     AND date_format(vds.report_date, '%Y-%m-%d') = #{reportDate} AND vds.append = '1'
                 </when>
             </choose   >
-            <if test="diaVehStage != null and diaVehStage != -1">
+            <if test="diaVehStage != null and diaVehStage != '-1'">
                 AND veh.registerstatus=#{diaVehStage}
             </if>
             <if test="diaModelNaticeId != null">
@@ -241,7 +241,7 @@
         <include refid="Common.userVehiclePermission"/>
             AND date_format(vds.report_date, '%Y-%m-%d') = #{reportDate}
             AND vds.last_commit_time &lt; CONCAT(date_format(vds.report_date, '%Y-%m-%d'), ' 00:00:00')
-            <if test="diaVehStage != null and diaVehStage != -1">
+            <if test="diaVehStage != null and diaVehStage != '-1'">
                 AND veh.registerstatus=#{diaVehStage}
             </if>
             <if test="diaModelNaticeId != null">
@@ -275,7 +275,7 @@
         <include refid="Common.userVehiclePermission"/>
             AND date_format(vds.report_date, '%Y-%m-%d') = #{reportDate}
             AND vde.daily_active_total_time &gt; 0
-            <if test="diaVehStage != null and diaVehStage != -1">
+            <if test="diaVehStage != null and diaVehStage != '-1'">
                 AND veh.registerstatus=#{diaVehStage}
             </if>
             <if test="diaModelNaticeId != null">
@@ -312,7 +312,7 @@
         <include refid="Common.userVehiclePermission"/>
             AND date_format(vds.report_date, '%Y-%m-%d') = #{reportDate}
             AND (vdas.abnormal_num/vdmc.check_data_total_num) &gt; 0.05
-            <if test="diaVehStage != null and diaVehStage != -1">
+            <if test="diaVehStage != null and diaVehStage != '-1'">
                 AND veh.registerstatus=#{diaVehStage}
             </if>
             <if test="diaModelNaticeId != null">
@@ -345,7 +345,7 @@
         <include refid="Common.userVehiclePermission"/>
             AND date_format(vdc.report_time, '%Y-%m-%d') = #{reportDate}
             AND vdc.charge_time_sum &gt; 0
-            <if test="diaVehStage != null and diaVehStage != -1">
+            <if test="diaVehStage != null and diaVehStage != '-1'">
                 AND veh.registerstatus=#{diaVehStage}
             </if>
             <if test="diaModelNaticeId != null">

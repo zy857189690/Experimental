@@ -101,7 +101,7 @@ public class CommonService extends BaseService implements ICommonService {
     public String queryVehModelList() {
         List<Map<String, Object>> list = new ArrayList<>();
         Map<String, Object> map = new HashMap<>();
-        map.put("id", -1);
+        map.put("id", "-1");
         map.put("text", "全部");
         map.put("modelNoticeId", "全部");
         list.add(map);
@@ -137,7 +137,7 @@ public class CommonService extends BaseService implements ICommonService {
     public String queryVehStageList() {
         List<Map<String, Object>> list = new ArrayList<>();
         Map<String, Object> map = new HashMap<>();
-        map.put("id", -1);
+        map.put("id", "-1");
         map.put("text", "全部");
         list.add(map);
         list.addAll(findBySqlId("queryVehStageList", null));

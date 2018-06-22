@@ -412,6 +412,8 @@
         }
     }
 
+
+
     /**
      * 初始化车辆闲置情况统计表格
      **/
@@ -419,10 +421,13 @@
         $("#idleBeginDate").val(idleBeginDate);
         $("#idleEndDate").val(idleEndDate);
         $("#idleMileageValue").val(idleMileageValue);
+        var modelVal = $("#idleModelNoticeId").combobox('getText');
+        var modelId = $("#idleModelNoticeId").combobox('getValue');
+        if (modelVal != "" && modelId == "") {
+            $.messager.alert("提示", "请选择正确的车辆公告型号！");
+            return;
+        }
         var data = $("#form_search3").serializeObject();
-//        data['query.beginDate'] = idleBeginDate;
-//        data['query.endDate'] = idleEndDate;
-//        data['query.idleMileageValue'] = idleMileageValue;
         if (null != idleTable && undefined != idleTable) {
             $('#idleTable').datagrid("load", data);
         } else {
@@ -773,7 +778,8 @@
         $('#diaVehStage, #idleVehStage').combobox({
             url: '${base}/report/common/queryVehStageList',
             valueField: 'id',
-            textField: 'text'
+            textField: 'text',
+            editable: false
         });
         //上牌区域
         $('#idleAreaId').combotree({

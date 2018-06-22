@@ -6,5 +6,5 @@ spring:
 banner:
   charset: UTF-8
 file:
-  base: /Users/jack/Desktop
-  templateQuery: /templateQuery.xlsx
+  base: /opt/web_app/admin/module/jlMonthReport
+  templateQuery: /template/templateQuery.xls
