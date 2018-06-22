@@ -110,7 +110,7 @@
                         <label>车型型号</label>
                     </td>
                     <td class="td_input">
-                        <input id="vehModelName" name="query.vehModelName" style="width: 168px;" />
+                        <input id="vehModelName" name="query.vehModelName" editable="false" style="width: 168px;" />
                     </td>
 
                     <td class="td_label">
