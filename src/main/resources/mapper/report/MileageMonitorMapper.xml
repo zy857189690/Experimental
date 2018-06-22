@@ -30,20 +30,23 @@
         <if test="data1 != null ">
            and  <![CDATA[  a.last_end_mileage>= #{data1} ]]>
         </if>
-        <if test="data2 != null ">
-            and  <![CDATA[  a.last_end_mileage< #{data2}  ]]>
+        <if test="data2 != null and data3 != null">
+            and  <![CDATA[ ( a.last_end_mileage is null  or a.last_end_mileage < #{data2}  ) ]]>
+        </if>
+        <if test="data2 != null and data3 == null">
+            and  <![CDATA[ a.last_end_mileage < #{data2}   ]]>
         </if>
         <if test="cheLiangMing != null ">
-            and b.veh_model_name = #{cheLiangMing}
+            and veh.veh_model_id = #{cheLiangMing}
         </if>
         <if test="cheLiangMing == null ">
-            and (b.veh_model_name is null)
+            and (veh.veh_model_id is null)
         </if>
         <if test="yunYing != null ">
-            and  c.name = #{yunYing}
+            and  veh.use_uint_id = #{yunYing}
         </if>
         <if test="yunYing == null ">
-            and ( c.name is null)
+            and ( veh.use_uint_id is null)
         </if>
         <if test="jieDuan != null ">
             and veh.registerstatus= #{jieDuan} -- 车辆阶段
@@ -82,14 +85,23 @@
         <if test="data1 != null ">
             and  <![CDATA[  a.last_end_mileage>= #{data1} ]]>
         </if>
-        <if test="data2 != null ">
-            and  <![CDATA[  a.last_end_mileage<#{data2}  ]]>
+        <if test="data2 != null and data3 != null">
+                and  <![CDATA[ ( a.last_end_mileage is null  or a.last_end_mileage < #{data2}  ) ]]>
+        </if>
+        <if test="data2 != null and data3 == null">
+            and  <![CDATA[ a.last_end_mileage < #{data2}   ]]>
         </if>
         <if test="cheLiangMing != null ">
-            and b.veh_model_name = #{cheLiangMing}
+            and veh.veh_model_id = #{cheLiangMing}
+        </if>
+        <if test="cheLiangMing == null ">
+            and (veh.veh_model_id is null)
         </if>
         <if test="yunYing != null ">
-            and  c.name = #{yunYing}
+            and  veh.use_uint_id = #{yunYing}
+        </if>
+        <if test="yunYing == null ">
+            and ( veh.use_uint_id is null)
         </if>
         <if test="jieDuan != null ">
             and veh.registerstatus= #{jieDuan} -- 车辆阶段
@@ -121,6 +133,8 @@
         '${shiJian}' as shiJian,
         c.name as yunYing,
         b.veh_model_name as cheLiangMing,
+        veh.veh_model_id as cheLiangId,
+        veh.use_uint_id  as yunYingId,
         count(1) as jianKongChe,
         sum(f) as cheLiangYunYing,
         sum(a) as a ,
@@ -141,7 +155,7 @@
         (case when  a.last_end_mileage>=20000 and  a.last_end_mileage<30000  then 1 else 0  end ) as b,
         (case when  a.last_end_mileage>=10000 and  a.last_end_mileage<20000 then 1 else 0  end ) as c,
         (case when  a.last_end_mileage>=500 and  a.last_end_mileage<10000 then 1 else 0  end ) as d,
-        (case when  a.last_end_mileage<500 then 1 else 0  end ) as e,
+        (case when  a.last_end_mileage is null  or a.last_end_mileage<500    then 1 else 0  end ) as e,
         (case when  (a.last_end_mileage-b.last_end_mileage)>500 then 1 else 0 end ) as f
         ]]>
         from veh_dayreport_summary a

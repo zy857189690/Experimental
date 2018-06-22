@@ -69,19 +69,19 @@
             <table class="table_search">
                 <tr>
                     <td class="td_label">
-                        <label>运营单位:</label>
+                        <label>运营单位：</label>
                     </td>
                     <td class="td_input">
                         <input type="text"class="input-fat input" style="width: height: 26px;width:150px;" id="yunYing"    name="query.yunYing"  autocomplete="off" >
                     </td>
                     <td class="td_label">
-                        <label>车辆名称:</label>
+                        <label>车辆名称：</label>
                     </td>
                     <td class="td_input">
                         <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.cheLiangMing"  autocomplete="off" >
                     </td>
                     <td class="td_label">
-                        <label>截止时间</label>
+                        <label>截止时间：</label>
                     </td>
                     <td class="td_input">
                         <input type="text"class="easyui-datebox" id="endTime" style="width: height: 26px;width:150px;"  name="query.endTime"  autocomplete="off" data-options="editable:false">
@@ -100,6 +100,8 @@
 <script>
 
     $(function(){
+        ;
+        $("#endTime").datebox('setValue',getCurentDateStr());
         $('#yunYing').combotree({
             url: '${base}/report/common/queryUnitList'
         });
@@ -156,6 +158,14 @@
 </script>
 <script language="javascript">
 
+    function getCurentDateStr()
+    {
+        var day1 = new Date();
+        day1.setTime(day1.getTime()-24*60*60*1000);
+        var s1 = day1.getFullYear()+"-" + (day1.getMonth()+1) + "-" + day1.getDate();
+        return s1;
+    }
+
     /*报表说明弹框*/
     function reportSpecification(){
         $('#report').window("open");
@@ -202,7 +212,7 @@
 
     function  compile( val, row, index,data1,data2,title){
       //  return  "<span style='color:#00F;text-decoration:underline;cursor:pointer;' onclick='popup("+row.yunYing+","+row.cheLiangMing+","+row.endTime+","+data1+","+data2+")' >"+val+"</span>";
-      return   "<a href='#' onclick='popup(\""+row.yunYing+"\",\""+row.cheLiangMing+"\",\""+row.shiJian+"\","+data1+","+data2+",\""+title+"\")'>"+val+"</a>"
+      return   "<a href='#' onclick='popup(\""+row.yunYingId+"\",\""+row.cheLiangId+"\",\""+row.shiJian+"\","+data1+","+data2+",\""+title+"\")'>"+val+"</a>"
     }
 
     function popup(yunYing,cheLiangMing,endTime,data1,data2,title){

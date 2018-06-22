@@ -63,6 +63,7 @@
         <a href="#" onclick="exportDatagrid('${base}/report/operation/mileageMonitor/downloadPopup?query.data1='+'${data1}'+'&query.data2='+'${data2}'+'&query.endTime='+'${endTime}'+'&query.cheLiangMing='+'${cheLiangMing}'+'&query.yunYing='+'${yunYing}','form_search','table')" class="easyui-linkbutton"
            data-options="iconCls:'icon-export'" menu="0">导出</a>
     </@shiro.hasPermission>
+
         <a href="#" onclick="openDailog()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">报表说明</a>
     </div>
     <div id="table" name="datagrid" style="width: 100%; height: 100%;"></div>
@@ -74,45 +75,45 @@
             <table class="table_search">
                 <tr>
                     <td class="td_label">
-                        <label>车辆阶段</label>
+                        <label>车辆阶段：</label>
                     </td>
                     <td class="td_input">
 
-                        <input type="text"   class="input-fat input" style="width: height: 26px;width:150px;"   id="jieDuan" name="query.jieDuan"  autocomplete="off" >
+                        <input type="text"   class="input-fat input" style="width:168px;"   id="jieDuan" name="query.jieDuan"  autocomplete="off" >
                     </td>
 
                     <td class="td_label">
-                        <label>总里程（仪表）大于（km）:</label>
+                        <label>总里程（仪表）大于（km）：</label>
                     </td>
                     <td class="td_input">
 
-                        <input type="text"class="input-fat input"  style="width: height: 26px;width:150px;" onkeyup="value=value.replace(/[^\d]/g,'')"   name="query.zongLiCheng"  autocomplete="off" >
+                        <input type="text"class="input-fat input"  style="width:150px;" onkeyup="value=value.replace(/[^\d]/g,'')"   name="query.zongLiCheng"  autocomplete="off" >
 
                     </td>
                     <td class="td_label"  >
-                        <label>总有效里程大于（km）:</label>
+                        <label>总有效里程大于（km）：</label>
                     </td>
                     <td class="td_input">
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;" onkeyup="value=value.replace(/[^\d]/g,'')"   name="query.zongYouXiao"  autocomplete="off" >
+                        <input type="text"class="input-fat input" style="width:150px;" onkeyup="value=value.replace(/[^\d]/g,'')"   name="query.zongYouXiao"  autocomplete="off" >
                     </td>
                     <td class="td_label">
-                        <label>总轨迹里程大于（km）:</label>
+                        <label>总轨迹里程大于（km）：</label>
                     </td>
                     <td class="td_input">
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"    onkeyup="value=value.replace(/[^\d]/g,'')"   name="query.zongGuiJi"  autocomplete="off" >
+                        <input type="text"class="input-fat input" style="width:150px;"    onkeyup="value=value.replace(/[^\d]/g,'')"   name="query.zongGuiJi"  autocomplete="off" >
                     </td>
 
                     <td class="td_label">
-                        <label>总在线里程大于（km）:</label>
+                        <label>总在线里程大于（km）：</label>
                     </td>
                     <td class="td_input">
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"  onkeyup="value=value.replace(/[^\d]/g,'')"  name="query.zongZaiXian"  autocomplete="off" >
+                        <input type="text"class="input-fat input" style="width:150px;"  onkeyup="value=value.replace(/[^\d]/g,'')"  name="query.zongZaiXian"  autocomplete="off" >
                     </td>
                     <td class="td_label">
-                        <label>总核算里程大于（km）:</label>
+                        <label>总核算里程大于（km）：</label>
                     </td>
                     <td class="td_input">
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"  onkeyup="value=value.replace(/[^\d]/g,'')"  name="query.zongHeSuan"  autocomplete="off" >
+                        <input type="text"class="input-fat input" style="width:150px;"  onkeyup="value=value.replace(/[^\d]/g,'')"  name="query.zongHeSuan"  autocomplete="off" >
                     </td>
 
 

@@ -157,8 +157,9 @@ public class AreaMileageService implements IAreaMileageService {
           map.put("shiJian",shiJian);
           map.put("date2",shiJian);
         }else{
-            map.put("shiJian",map.get("endTime"));
-            map.put("date2",map.get("endTime"));
+            String endTime = MileageMonitorService.ifDate(String.valueOf(map.get("endTime")));
+            map.put("shiJian",endTime);
+            map.put("date2",endTime);
         }
         map=PublicDealUtil.bulidUserForParams(map);
 
@@ -252,8 +253,9 @@ public class AreaMileageService implements IAreaMileageService {
             map.put("shiJian",shiJian);
             map.put("date2",shiJian);
         }else{
-            map.put("shiJian",map.get("endTime"));
-            map.put("date2",map.get("endTime"));
+            String endTime = MileageMonitorService.ifDate(String.valueOf(map.get("endTime")));
+            map.put("shiJian",endTime);
+            map.put("date2",endTime);
         }
         map=PublicDealUtil.bulidUserForParams(map);
         List lists = areaMileageMapper.downloadAreaMonthly(map);
