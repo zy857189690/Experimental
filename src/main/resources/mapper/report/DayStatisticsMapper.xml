@@ -18,11 +18,10 @@
             veh_dayreport_summary vds
         LEFT JOIN sys_vehicle veh ON vds.vid = veh.uuid
         <include refid="Common.userVehiclePermission"/>
-        -- WHERE 1 = 1
-            <if test="beginDate != null and endDate != null">
-                AND vds.report_date &gt;= #{beginDate} AND vds.report_date &lt;= #{endDate}
-            </if>
-        GROUP BY vds.report_date
+        <if test="beginDate != null and endDate != null">
+            AND vds.report_date &gt;= #{beginDate} AND vds.report_date &lt;= #{endDate}
+        </if>
+        GROUP BY vds.report_date DESC
     </select>
 
     <!--车辆活跃情况统计-->
@@ -41,10 +40,9 @@
             ON (date_format(vds.report_date, '%Y-%m-%d') = date_format(vdas.report_date, '%Y-%m-%d') AND vds.vid = vdas.vid)
         LEFT JOIN veh_dayreport_mileage_check vdmc ON (date_format(vds.report_date, '%Y-%m-%d') = date_format(vdmc.report_date, '%Y-%m-%d') AND vds.vid = vdmc.vid)
         <include refid="Common.userVehiclePermission"/>
-        -- WHERE 1 = 1
             AND vds.report_date &gt;= #{beginDate}
             AND vds.report_date &lt;= #{endDate}
-        GROUP BY vds.report_date
+        GROUP BY vds.report_date DESC
     </select>
 
     <!--车辆闲置情况统计-->
@@ -96,7 +94,6 @@
         LEFT JOIN sys_unit unit ON veh.use_uint_id=unit.id
         LEFT JOIN sys_dict sd ON veh.registerstatus=sd.val AND sd.type='500'
         <include refid="Common.userVehiclePermission"/>
-        -- WHERE 1=1
             AND vds.report_date &gt;= #{beginDate}
             AND vds.report_date &lt;= #{endDate}
             <if test="idlePlate != null">
@@ -120,7 +117,7 @@
             <if test="idleModelNoticeId != null and idleModelNoticeId != -1">
                 AND model.model_notice_id=#{idleModelNoticeId}
             </if>
-            ORDER BY vds.report_date) idle
+            ORDER BY vds.report_date DESC ) idle
         GROUP BY idle.vid HAVING sum(idle.run_km) &lt; #{idleMileageValue}
         <if test="idleMileage != null">
             AND sum(idle.run_km) &gt; #{idleMileage}
@@ -137,7 +134,6 @@
                 veh_dayreport_runstate rt
             LEFT JOIN sys_vehicle veh ON rt.vid = veh.uuid
             <include refid="Common.userVehiclePermission"/>
-            -- WHERE
             AND rt.report_time &gt;= #{beginDate}
             AND rt.report_time &lt;= #{endDate}
             GROUP BY rt.vid
@@ -158,11 +154,10 @@
         LEFT JOIN veh_dayreport_expansion sde ON (date_format(vds.report_date, '%Y-%m-%d') = date_format(sde.report_date, '%Y-%m-%d') AND vds.vid=sde.vid)
         LEFT JOIN veh_dayreport_runstate vdr ON (date_format(vds.report_date, '%Y-%m-%d') = date_format(vdr.report_time, '%Y-%m-%d') AND vds.vid=vdr.vid)
         <include refid="Common.userVehiclePermission"/>
-        -- WHERE 1 = 1
             AND vds.report_date &gt;= #{beginDate}
             AND vds.report_date &lt;= #{endDate}
         GROUP BY
-            vds.report_date
+            vds.report_date DESC
     </select>
 
     <!--充耗电情况统计-->
@@ -177,11 +172,10 @@
             veh_dayreport_chargestate vdc
         LEFT JOIN sys_vehicle veh ON vdc.vid=veh.uuid
         <include refid="Common.userVehiclePermission"/>
-        -- WHERE 1 = 1
             AND vdc.report_time &gt;= #{beginDate}
             AND vdc.report_time &lt;= #{endDate}
         GROUP BY
-            vdc.report_time
+            vdc.report_time DESC
     </select>
 
     <!--查询_弹出框_车辆监控情况统计_车辆录入总数（辆）/新增录入车辆数（辆）-->
@@ -206,7 +200,6 @@
         LEFT JOIN sys_area area ON veh.sys_division_id = area.id
         LEFT JOIN sys_dict sd ON veh.registerstatus=sd.val AND sd.type='500'
         <include refid="Common.userVehiclePermission"/>
-        -- WHERE 1 = 1
             <choose>
                 <when test="searchType == 'dayCount'">
                     AND date_format(vds.report_date, '%Y-%m-%d') = #{reportDate}
@@ -246,7 +239,6 @@
         LEFT JOIN sys_area area ON veh.sys_division_id = area.id
         LEFT JOIN sys_dict sd ON veh.registerstatus=sd.val AND sd.type='500'
         <include refid="Common.userVehiclePermission"/>
-        -- WHERE 1 = 1
             AND date_format(vds.report_date, '%Y-%m-%d') = #{reportDate}
             AND vds.last_commit_time &lt; CONCAT(date_format(vds.report_date, '%Y-%m-%d'), ' 00:00:00')
             <if test="diaVehStage != null and diaVehStage != -1">
@@ -281,7 +273,6 @@
         LEFT JOIN sys_area area ON veh.sys_division_id = area.id
         LEFT JOIN sys_dict sd ON veh.registerstatus=sd.val AND sd.type='500'
         <include refid="Common.userVehiclePermission"/>
-        -- WHERE 1 = 1
             AND date_format(vds.report_date, '%Y-%m-%d') = #{reportDate}
             AND vde.daily_active_total_time &gt; 0
             <if test="diaVehStage != null and diaVehStage != -1">
@@ -319,7 +310,6 @@
             ON (date_format(vds.report_date, '%Y-%m-%d') = date_format(vdas.report_date, '%Y-%m-%d') AND vds.vid = vdas.vid)
         LEFT JOIN veh_dayreport_mileage_check vdmc ON (date_format(vds.report_date, '%Y-%m-%d') = date_format(vdmc.report_date, '%Y-%m-%d') AND vds.vid = vdmc.vid)
         <include refid="Common.userVehiclePermission"/>
-        -- WHERE 1 = 1
             AND date_format(vds.report_date, '%Y-%m-%d') = #{reportDate}
             AND (vdas.abnormal_num/vdmc.check_data_total_num) &gt; 0.05
             <if test="diaVehStage != null and diaVehStage != -1">
@@ -353,7 +343,6 @@
         LEFT JOIN sys_area area ON veh.sys_division_id = area.id
         LEFT JOIN sys_dict sd ON veh.registerstatus=sd.val AND sd.type='500'
         <include refid="Common.userVehiclePermission"/>
-        -- WHERE 1 = 1
             AND date_format(vdc.report_time, '%Y-%m-%d') = #{reportDate}
             AND vdc.charge_time_sum &gt; 0
             <if test="diaVehStage != null and diaVehStage != -1">
