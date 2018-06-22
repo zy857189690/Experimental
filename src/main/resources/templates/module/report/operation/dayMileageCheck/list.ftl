@@ -309,9 +309,9 @@
         sortOrder: "desc",
         columns: [[
             {field: 'ck', checkbox: true,align:'center', width: '20'},
-            {field: 'ids', title: '序号',align:'center', width: '90', formatter: function (value, row, index) {
-                return index+1;
-            }},
+//            {field: 'ids', title: '序号',align:'center', width: '90', formatter: function (value, row, index) {
+//                return index+1;
+//            }},
             {field: 'vin', title: 'VIN',align:'center', width: '140' },
             {field: 'licensePlate', title: '车牌号',align:'center', width: '100'},
             {field: 'reportDate', title: '统计日期',align:'center', width: '100'},
@@ -355,9 +355,8 @@
         ]],
         toolbar: "#toolbar",
         pagination: true,
-        nowrap: true
-
-
+        nowrap: true,
+        rownumbers: true
     });
 //    toolbar2Menu("monitoringTable");
    toolbar2Menu("table");
