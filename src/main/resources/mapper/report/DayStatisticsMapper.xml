@@ -197,7 +197,8 @@
             model.veh_model_name AS modelName,
             model.model_notice_id AS modelNoticeId,
             area.name AS areaName,
-            area.id AS areaId
+            area.id AS areaId,
+            vds.vid AS vdsVid
         FROM
         veh_dayreport_summary vds
         LEFT JOIN	sys_vehicle veh ON vds.vid=veh.uuid
@@ -236,7 +237,8 @@
             model.veh_model_name AS modelName,
             model.model_notice_id AS modelNoticeId,
             area.name AS areaName,
-            area.id AS areaId
+            area.id AS areaId,
+            vds.vid AS vdsVid
         FROM
             veh_dayreport_summary vds
         LEFT JOIN sys_vehicle veh ON vds.vid=veh.uuid
@@ -269,7 +271,8 @@
             model.veh_model_name AS modelName,
             model.model_notice_id AS modelNoticeId,
             area.name AS areaName,
-            area.id AS areaId
+            area.id AS areaId,
+            vds.vid AS vdsVid
         FROM
             veh_dayreport_summary vds
         LEFT JOIN veh_dayreport_expansion vde ON (date_format(vds.report_date, '%Y-%m-%d') = date_format(vde.report_date, '%Y-%m-%d') AND vds.vid=vde.vid)
@@ -303,7 +306,8 @@
             model.veh_model_name AS modelName,
             model.model_notice_id AS modelNoticeId,
             area.name AS areaName,
-            area.id AS areaId
+            area.id AS areaId,
+            vds.vid AS vdsVid
         FROM
             veh_dayreport_summary vds
         LEFT JOIN veh_dayreport_expansion vde ON (date_format(vds.report_date, '%Y-%m-%d') = date_format(vde.report_date, '%Y-%m-%d') AND vds.vid=vde.vid)
@@ -340,7 +344,8 @@
             model.veh_model_name AS modelName,
             model.model_notice_id AS modelNoticeId,
             area.name AS areaName,
-            area.id AS areaId
+            area.id AS areaId,
+            vds.vid AS vdsVid
         FROM
             veh_dayreport_chargestate vdc
         LEFT JOIN sys_vehicle veh ON vdc.vid = veh.uuid

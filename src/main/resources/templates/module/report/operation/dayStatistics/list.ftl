@@ -84,12 +84,12 @@
                     <a href="javascript:void(0)" onclick="$('#idleConditionDialg').dialog('open');" style="margin-left: 200px; margin-top: 10px;">设置闲置车辆统计条件</a>
                 </div>
                 <div style="width: 100%; height: 30px;">
-                    <div id="idleTileMessage" style="margin-left: 5px;">
+                    <div id="idleTileMessage" style="margin-left: 10px;">
                         闲置车辆统计总：-年-月-日 ~ -年-月-日，长期闲置车辆数-辆，展车辆总数比例为-%
                     </div>
                 </div>
                 <div style="width: 100%; height: 30px;">
-                    <span style="margin-left: 5px;"><b>闲置车辆详情</b></span>
+                    <span style="margin-left: 10px;"><b>闲置车辆详情</b></span>
                 </div>
                 <div style="width: 100%;border: 1;margin:5 5 5 10 ">
                     <form id="form_search3" name="" class="sui-form cg-form">
@@ -102,50 +102,51 @@
                         <input type="hidden" id="idleMileageValue" name="query.idleMileageValue" />
                         <table class="table_search">
                             <tr>
-                                <td class="td_label">
-                                    <label>车牌号</label>
+                                <td class="td_label" style="text-align: right;">
+                                    <label>车牌号：</label>
                                 </td>
                                 <td class="td_input">
                                     <input type="text" name="query.idlePlate" id="idlePlate" class="input-fat input" style="width:150px;" />
                                 </td>
-                                <td class="td_label">
-                                    <label>VIN码</label>
+                                <td class="td_label" style="text-align: right;">
+                                    <label>VIN码：</label>
                                 </td>
                                 <td class="td_input">
                                     <input type="text" name="query.idleVIN" id="idleVIN" class="input-fat input" style="width:150px;" />
                                 </td>
-                                <td class="td_label">
-                                    <label>里程大于</label>
+                                <td class="td_label" style="text-align: right;">
+                                    <label>里程大于：</label>
                                 </td>
                                 <td class="td_input">
-                                    <input type="text" name="query.idleMileage" id="idleMileage" class="input-fat input" style="width:150px;" />
+                                    <input type="text" name="query.idleMileage" id="idleMileage" class="input-fat input" style="width:150px;"
+                                           onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="请输入公里数（km）"/>
                                 </td>
-                                <td class="td_label">
-                                    <label>车辆阶段</label>
+                                <td class="td_label" style="text-align: right;">
+                                    <label>车辆阶段：</label>
                                 </td>
                                 <td class="td_input">
                                     <input id="idleVehStage" name="query.idleVehStage" style="width: 168px;"/>
                                 </td>
-                                <td class="td_label">
-                                    <label>运营单位</label>
+                                <td class="td_label" style="text-align: right;">
+                                    <label>运营单位：</label>
                                 </td>
                                 <td class="td_input">
                                     <input id="idleUseUnitId" name="query.idleUseUnitId" style="width: 168px;"/>
                                 </td>
-                                <td class="td_label">
-                                    <label>上牌区域</label>
+                                <td class="td_label" style="text-align: right;">
+                                    <label>上牌城市：</label>
                                 </td>
                                 <td class="td_input">
                                     <input id="idleAreaId" name="query.idleAreaId" style="width: 168px;"/>
                                 </td>
-                                <td class="td_label">
-                                    <label>车辆种类</label>
+                                <td class="td_label" style="text-align: right;">
+                                    <label>车辆种类：</label>
                                 </td>
                                 <td class="td_input">
                                     <input id="idleVehTypeId" name="query.idleVehTypeId" style="width: 168px;"/>
                                 </td>
-                                <td class="td_label">
-                                    <label>车辆公告型号</label>
+                                <td class="td_label" style="text-align: right;">
+                                    <label>车辆公告型号：</label>
                                 </td>
                                 <td class="td_input">
                                     <input id="idleModelNoticeId" name="query.idleModelNoticeId" style="width: 168px;"/>
@@ -234,9 +235,9 @@
         <div class="easyui-panel" title="" style="height: 70px;">
             <div style="width: 90%; height: 30px; margin-top: 20px; margin-left: 20px">
                 <form id="vehListDialogForm">
-                    <span>车辆阶段</span>
+                    <span>车辆阶段：</span>
                     <input id="diaVehStage" name="query.diaVehStage" style="width: 150px;"/>
-                    <span style="margin-left: 20px;">车辆公告型号</span>
+                    <span style="margin-left: 20px;">车辆公告型号：</span>
                     <input type="text" id="diaModelNaticeId" name="query.diaModelNaticeId" class="easyui-textbox" style="width: 150px;" />
                     <input type="hidden" id="tabId" name="query.tabId" value="dialog" />
                     <input type="hidden" id="excelName" name="query.excelName" value="exportDialog" />
@@ -431,17 +432,17 @@
                 sortName: "",
                 sortOrder: "",
                 columns: [[
-                    {title: 'VIN', field: 'vin', width: 150, sortable: false},
-                    {title: '车牌号', field: 'plate', width: 150, sortable: false},
-                    {title: '上牌区域', field: 'areaName', width: 100, sortable: false},
-                    {title: '车辆种类', field: 'vehTypeName', width: 150, sortable: false},
-                    {title: '运营单位', field: 'useUnitName', width: 150, sortable: false},
-                    {title: '车辆公告型号', field: 'modelNoticeId', width: 150, sortable: false},
-                    {title: '车辆状态', field: 'vehStage', width: 100, sortable: false},
-                    {title: '录入时间', field: 'entryDate', align: 'center', width: 150, sortable: false},
-                    {title: '闲置里程（km）', field: 'xzlc', align: 'center', width: 100, sortable: false},
-                    {title: '最后通讯时间', field: 'lastCommitTime', align: 'center', width: 150, sortable: false},
-                    {title: '最后通讯里程', field: 'lastEndMileage', align: 'center', width: 150, sortable: false}
+                    {title: 'VIN', field: 'vin', width: 150, sortable: false, halign: 'center'},
+                    {title: '车牌号', field: 'plate', width: 150, sortable: false, halign: 'center'},
+                    {title: '上牌区域', field: 'areaName', width: 150, sortable: false, halign: 'center'},
+                    {title: '车辆种类', field: 'vehTypeName', width: 150, sortable: false, halign: 'center'},
+                    {title: '运营单位', field: 'useUnitName', width: 150, sortable: false, halign: 'center'},
+                    {title: '车辆公告型号', field: 'modelNoticeId', width: 150, sortable: false, halign: 'center'},
+                    {title: '车辆状态', field: 'vehStage', width: 140, sortable: false, halign: 'center'},
+                    {title: '录入时间', field: 'entryDate', align: 'center', width: 150, sortable: false, halign: 'center'},
+                    {title: '闲置里程（km）', field: 'xzlc', align: 'center', width: 150, sortable: false, halign: 'center'},
+                    {title: '最后通讯时间', field: 'lastCommitTime', align: 'center', width: 150, sortable: false, halign: 'center'},
+                    {title: '最后通讯里程', field: 'lastEndMileage', align: 'center', width: 150, sortable: false, halign: 'center'}
                 ]],
                 toolbar:"#idleToolbar",
                 pagination: true,
@@ -681,13 +682,13 @@
                 sortName: "",
                 sortOrder: "",
                 columns: [[
-                    {title: 'VIN', field: 'vin', width: '15%', sortable: false},
-                    {title: '车牌号', field: 'plate', width: '10%', sortable: false},
-                    {title: '上牌城市', field: 'areaName', width: '10%', sortable: false},
-                    {title: '车型公告型号', field: 'modelNoticeId', width: '15%', sortable: false},
-                    {title: '车辆阶段', field: 'vehStage', width: '15%', sortable: false},
-                    {title: '录入时间', field: 'entryDate', width: '15%', sortable: false},
-                    {title: '最后通讯时间', field: 'updateTime', width: '15%', sortable: false}
+                    {title: 'VIN', field: 'vin', width: 150, sortable: false, halign: 'center'},
+                    {title: '车牌号', field: 'plate', width: 150, sortable: false, halign: 'center'},
+                    {title: '上牌城市', field: 'areaName', width: 150, sortable: false, halign: 'center'},
+                    {title: '车型公告型号', field: 'modelNoticeId', width: 150, sortable: false, halign: 'center'},
+                    {title: '车辆阶段', field: 'vehStage', width: 150, sortable: false, halign: 'center'},
+                    {title: '录入时间', field: 'entryDate', width: 150, sortable: false, halign: 'center'},
+                    {title: '最后通讯时间', field: 'updateTime', width: 150, sortable: false, halign: 'center'}
                 ]],
                 toolbar:"#vehListDialgToolbar",
                 pagination: true,
@@ -834,8 +835,8 @@
     <table class="easyui-datagrid">
         <thead>
             <tr>
-                <th data-options="field:'name', width: 200, resizable: true">名称</th>
-                <th data-options="field:'definition', width: 550, resizable: true">定义</th>
+                <th data-options="field:'title', width: 200, resizable: true, align: 'left', halign: 'center'">名称</th>
+                <th data-options="field:'definition', width: 550, resizable: true, align: 'left', halign: 'center'">定义</th>
             </tr>
         </thead>
         <tbody>
@@ -852,7 +853,7 @@
                 <td>与平台失去通讯时间大于24h;录入车辆数-可监控车辆数</td>
             </tr>
             <tr>
-                <td>监控比例（%）</td>
+                <td>正常监控比例（%）</td>
                 <td>（车辆录入总数-通讯异常车辆数）/车辆录入总数</td>
             </tr>
         </tbody>
@@ -864,8 +865,8 @@
     <table class="easyui-datagrid">
         <thead>
             <tr>
-                <th data-options="field:'name', width: 200, resizable: true">名称</th>
-                <th data-options="field:'definition', width: 550, resizable: true">定义</th>
+                <th data-options="field:'title', width: 200, resizable: true, align: 'left', halign: 'center'">名称</th>
+                <th data-options="field:'definition', width: 550, resizable: true, align: 'left', halign: 'center'">定义</th>
             </tr>
         </thead>
         <tbody>
@@ -898,8 +899,8 @@
     <table class="easyui-datagrid">
         <thead>
             <tr>
-                <th data-options="field:'name', width: 200, resizable: true">名称</th>
-                <th data-options="field:'definition', width: 550, resizable: true">定义</th>
+                <th data-options="field:'title', width: 200, resizable: true, align: 'left', halign: 'center'">名称</th>
+                <th data-options="field:'definition', width: 550, resizable: true, align: 'left', halign: 'center'">定义</th>
             </tr>
         </thead>
         <tbody>
@@ -915,13 +916,13 @@
     </table>
 </div>
 <#--车辆行驶情况统计说明弹出框-->
-<div id="travelExplainDialg" class="easyui-dialog" title="车辆行驶情况统计列表说明" style="width: 770px; height: 315px;"
+<div id="travelExplainDialg" class="easyui-dialog" title="车辆行驶情况统计列表说明" style="width: 800px; height: 315px;"
      data-options="iconCls:'',closed: true, resizable:false, modal:true">
     <table class="easyui-datagrid">
         <thead>
             <tr>
-                <th data-options="field:'name', width: 200, resizable: true">名称</th>
-                <th data-options="field:'definition', width: 570, resizable: true">定义</th>
+                <th data-options="field:'title', width: 200, resizable: true, align: 'left', halign: 'center'">名称</th>
+                <th data-options="field:'definition', width: 600, resizable: true, align: 'left', halign: 'center'">定义</th>
             </tr>
         </thead>
         <tbody>
@@ -959,8 +960,8 @@
     <table class="easyui-datagrid">
         <thead>
         <tr>
-            <th data-options="field:'name', width: 200, resizable: true">名称</th>
-            <th data-options="field:'definition', width: 550, resizable: true">定义</th>
+            <th data-options="field:'title', width: 200, resizable: true, align: 'left', halign: 'center'">名称</th>
+            <th data-options="field:'definition', width: 550, resizable: true, align: 'left', halign: 'center'">定义</th>
         </tr>
         </thead>
         <tbody>
