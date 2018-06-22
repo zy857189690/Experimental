@@ -91,6 +91,7 @@
         <if test="sysDivisionId != null and sysDivisionId != ''">
             AND s_a.id = #{sysDivisionId}
         </if>
+        GROUP BY v_e.report_date,veh.license_plate
         ORDER BY v_m_c.last_commit_time,v_e.report_date,veh.license_plate,veh.vin,v_e.daily_active_total_time DESC
     </select>
 
