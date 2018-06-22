@@ -61,8 +61,7 @@ public class MileageMonitorService   implements IMileageMonitorService {
         }else{
             SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
             try {
-                Date endTime = format.parse(String.valueOf(map.get("endTime")));
-
+                Date endTime = format.parse(ifDate(String.valueOf(map.get("endTime"))));
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(endTime);
                 int year = cal.get(Calendar.YEAR);
@@ -72,14 +71,15 @@ public class MileageMonitorService   implements IMileageMonitorService {
                     month=12;
                 }
                 map.put("date2",getdate(year,month));
+                map.put("shiJian",ifDate( String.valueOf(map.get("endTime"))) );
+                map.put("date1",ifDate( String.valueOf(map.get("endTime"))) );
             } catch (ParseException e) {
 
                 ob.put("total",0);
                 ob.put("rows",arr);
                  return ob;
             }
-            map.put("shiJian",map.get("endTime"));
-            map.put("date1",map.get("endTime"));
+
 
         }
 
@@ -147,8 +147,7 @@ public class MileageMonitorService   implements IMileageMonitorService {
         }else{
             SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
             try {
-                Date endTime = format.parse(String.valueOf(map.get("endTime")));
-
+                Date endTime = format.parse(ifDate(String.valueOf(map.get("endTime"))));
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(endTime);
                 int year = cal.get(Calendar.YEAR);
@@ -158,12 +157,13 @@ public class MileageMonitorService   implements IMileageMonitorService {
                     month=12;
                 }
                 map.put("date2",getdate(year,month));
+                map.put("shiJian",ifDate( String.valueOf(map.get("endTime"))) );
+                map.put("date1",ifDate( String.valueOf(map.get("endTime"))) );
             } catch (ParseException e) {
-            b=false;
+
 
             }
-            map.put("shiJian",map.get("endTime"));
-            map.put("date1",map.get("endTime"));
+
 
         }
         List lists=null;
@@ -192,48 +192,51 @@ public class MileageMonitorService   implements IMileageMonitorService {
      * @param map
      * @return
      */
-    public JSONObject queryPopup(Map<String, Object> map){
+    public JSONObject queryPopup(Map<String, Object> map) {
 
-        JSONArray arr=new JSONArray();
-        JSONObject ob=new JSONObject();
+        JSONArray arr = new JSONArray();
+        JSONObject ob = new JSONObject();
 
-        if(map.get("endTime")==null){
-            String shiJian=  new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()-86400000 ));
-            map.put("endTime",shiJian);
+        if("500".equals(String.valueOf(map.get("data2")))){
 
+            map.put("data3", "1");
+            map.remove("data1");
         }
-         map= PublicDealUtil.bulidUserForParams(map);
-        Object zongye = map.get("zongye");
-        long zong=0;
+        if (map.get("endTime") == null) {
+             map.put("endTime", ifDate(String.valueOf(map.get("endTime"))));
+           }
+            map = PublicDealUtil.bulidUserForParams(map);
+            Object zongye = map.get("zongye");
+            long zong = 0;
 
-        if(zongye!= null){
-            try {
-                zong = Integer.parseInt(String.valueOf(zongye));
-            }catch(Exception e){
+            if (zongye != null) {
+                try {
+                    zong = Integer.parseInt(String.valueOf(zongye));
+                } catch (Exception e) {
+                }
             }
-        }
 
-        if(zong==0){
-            zong = mileageMonitorMapper.countPopup(map);
-        }
-        if(zong!=0){
-            DataGridOptions options = ServletUtil.getDataLayOptions();
-            Integer hang=options.getLength();
-            Long page= (long)options.getPageNumber();
-            Long zongYe= zong%hang==0?zong/hang:zong/hang+1;
-            page=page<1?1:page>zongYe?zongYe:page;
-            map.put("begin",(page-1)*hang);
-            map.put("end",hang);
-            List<Map<String, Object>> mileageMonthly = mileageMonitorMapper.queryPopup(map);
-            arr = areaMileageService.listMapToJSONArray(mileageMonthly);
-            ob.put("rows",arr);
-            ob.put("total",zong);
+            if (zong == 0) {
+                zong = mileageMonitorMapper.countPopup(map);
+            }
+            if (zong != 0) {
+                DataGridOptions options = ServletUtil.getDataLayOptions();
+                Integer hang = options.getLength();
+                Long page = (long) options.getPageNumber();
+                Long zongYe = zong % hang == 0 ? zong / hang : zong / hang + 1;
+                page = page < 1 ? 1 : page > zongYe ? zongYe : page;
+                map.put("begin", (page - 1) * hang);
+                map.put("end", hang);
+                List<Map<String, Object>> mileageMonthly = mileageMonitorMapper.queryPopup(map);
+                arr = areaMileageService.listMapToJSONArray(mileageMonthly);
+                ob.put("rows", arr);
+                ob.put("total", zong);
+                return ob;
+            }
+            ob.put("total", 0);
+            ob.put("rows", arr);
+
             return ob;
-        }
-        ob.put("total",0);
-        ob.put("rows",arr);
-
-        return ob;
 
 
 
@@ -253,12 +256,18 @@ public class MileageMonitorService   implements IMileageMonitorService {
             int i = yunYing.indexOf("?");
             if(i>0){
             map.put("yunYing",yunYing.substring(0,i));
+            }else{
+                map.remove("yunYing");
             }
         }
-        if(map.get("endTime")==null){
-            String shiJian=  new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()-86400000 ));
-            map.put("endTime",shiJian);
+        if("500".equals(String.valueOf(map.get("data2")))){
 
+            map.put("data3", "1");
+            map.remove("data1");
+        }
+
+        if(map.get("endTime")==null){
+            map.put("endTime", ifDate(String.valueOf(map.get("endTime"))));
         }
         map= PublicDealUtil.bulidUserForParams(map);
         List lists = mileageMonitorMapper.queryPopup(map);
@@ -270,6 +279,7 @@ public class MileageMonitorService   implements IMileageMonitorService {
         String srcFile = srcBase +"module/report/operation/mileageMonitor/popup.xls";
         //x~y公里车辆详情+导出时间
         Object data1 = map.get("data1");
+        data1=data1==null?0:data1;
         Object data2 = map.get("data2");
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         String s=null;
@@ -352,4 +362,28 @@ public class MileageMonitorService   implements IMileageMonitorService {
 
         return year+"-"+month+"-"+day;
     }
+
+    /**
+     * 判断时间是否正确并且是否大于今天
+     */
+    public  static String ifDate(String date){
+
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date endTime = format.parse(date);
+            if (endTime.getTime() > System.currentTimeMillis() - 86400000) {
+
+                return new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis() - 86400000));
+
+            } else {
+                return date;
+            }
+        }catch (Exception e){
+            return new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis() - 86400000));
+        }
+
+
+
+    }
+
 }

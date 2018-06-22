@@ -15,6 +15,7 @@
     </style>
     <script language="javascript">
         $(function(){
+            $("#endTime").datebox('setValue',getCurentDateStr());
             queryArea();
         });
     </script>
@@ -67,56 +68,56 @@
             <table class="table_search">
                 <tr>
                     <td class="td_label">
-                        <label>行驶区域:</label>
+                        <label>行驶区域：</label>
                     </td>
                     <td class="td_input">
                         <input type="text"class="input-fat input" id="xingShi" style="width:168px;"   name="query.xingShi"  autocomplete="off" >
                     </td>
                     <td class="td_label">
-                        <label>截止时间:</label>
+                        <label>截止时间：</label>
                     </td>
                     <td class="td_input">
                         <input type="text"class="easyui-datebox" id="endTime" style="width:168px;"  name="query.endTime"  autocomplete="off" data-options="editable:false">
                     </td>
                     <td class="td_label">
-                        <label>区域总里程大于（km）:</label>
+                        <label>区域总里程大于（km）：</label>
                     </td>
                     <td class="td_input">
                     <#--<input type="text" class="input-fat input" name="query.vin" id="vin" query_type="lis" style="width: height: 26px;width:150px;" required>-->
                         <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   onkeyup="value=value.replace(/[^\d]/g,'')" id="quYuZong"  name="query.quYuZong"  autocomplete="off" >
                     </td>
                     <td class="td_label">
-                        <label>车辆阶段</label>
+                        <label>车辆阶段：</label>
                     </td>
                     <td class="td_input">
                         <input type="text"class="input-fat input" style="width:168px;"   id="jieDuan" name="query.jieDuan"  autocomplete="off" >
                     </td>
                     <td class="td_label" >
-                        <label>车牌号:</label>
+                        <label>车牌号：</label>
                     </td>
                     <td class="td_input">
                         <input type="text"class="input-fat input" style="width:150px;"   name="query.chePai"  autocomplete="off" >
                     </td>
                     <td class="td_label" >
-                        <label>VIN:</label>
+                        <label>VIN：</label>
                     </td>
                     <td class="td_input">
                         <input type="text"class="input-fat input" style="width:150px;"   name="query.VIN"  autocomplete="off" >
                     </td>
                     <td class="td_label"  >
-                        <label>车辆名称:</label>
+                        <label>车辆名称：</label>
                     </td>
                     <td class="td_input">
                         <input type="text"class="input-fat input" style="width:150px;"   name="query.cheLiangMing"  autocomplete="off" >
                     </td>
                     <td class="td_label">
-                        <label>运营单位:</label>
+                        <label>运营单位：</label>
                     </td>
                     <td class="td_input">
                         <input type="text"class="input-fat input" style="width:168px;" id="yunYing"    name="query.yunYing"  autocomplete="off" >
                     </td>
                     <td class="td_label"  >
-                        <label>上牌城市:</label>
+                        <label>上牌城市：</label>
                     </td>
                     <td class="td_input">
                         <input type="text"class="input-fat input" style="width:150px;"   name="query.shangPai"  autocomplete="off" >
@@ -159,8 +160,8 @@
             {field: 'yunYing', title: '运营单位', width: 120, align: 'center'},
             {field: 'cheLiangMing', title: '车型名称', width: 120, align: 'center'},
             {field: 'quYuZong', title: '行驶区域总里程（Km）', width: 150, align: 'center'},
-            {field: 'quYuGPS', title: '行驶区域GPS总里程（km）', width: 150, align: 'center'},
-            {field: 'zhanBi', title: '行驶区域里程占比（%）', width: 150, align: 'center'},
+            {field: 'quYuGPS', title: '行驶区域GPS总里程（km）', width: 190, align: 'center'},
+            {field: 'zhanBi', title: '行驶区域里程占比（%）', width: 190, align: 'center'},
             {field: 'jieDuan', title: '车辆阶段', width: 120, align: 'center'}
         ]],
         toolbar: "#toolbar",
@@ -172,6 +173,14 @@
 
 </script>
 <script language="javascript">
+
+    function getCurentDateStr()
+    {
+        var day1 = new Date();
+         day1.setTime(day1.getTime()-24*60*60*1000);
+         var s1 = day1.getFullYear()+"-" + (day1.getMonth()+1) + "-" + day1.getDate();
+        return s1;
+    }
 
     /*报表说明弹框*/
     function reportSpecification(){
