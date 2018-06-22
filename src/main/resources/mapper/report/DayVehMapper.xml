@@ -16,7 +16,7 @@
         s_t_m.term_part_firmware_numbers AS termPartFirmwareNumbers,
         t_u.term_bar_code AS termBarCode,
         t_u.term_vendor_code AS termVendorCode,
-        s_m.re_name AS manuUnitId,
+        su.name AS manuUnitId,
         s_u.name AS useUintId,
         s_a.name AS sysDivisionId,
         DATE_FORMAT(veh.entry_date,'%Y-%m-%d %h:%i:%s') AS entryDate,
@@ -41,7 +41,8 @@
         LEFT JOIN sys_veh_model s_v_m ON veh.veh_model_id = s_v_m.id
         LEFT JOIN sys_term_model_unit t_u ON veh.vin = t_u.vin
         LEFT JOIN sys_term_model s_t_m ON s_t_m.id = t_u.sys_term_model_id
-        LEFT JOIN sys_manufacturer s_m ON veh.manu_unit_id = s_m.fou_unit_id
+        <!--LEFT JOIN sys_manufacturer s_m ON veh.manu_unit_id = s_m.fou_unit_id-->
+        LEFT JOIN sys_unit su ON veh.manu_unit_id = su.id
         LEFT JOIN sys_unit s_u ON veh.use_uint_id = s_u.id
         LEFT JOIN sys_area s_a ON veh.sys_division_id = s_a.id
         LEFT JOIN veh_dayreport_runstate v_r ON veh.uuid = v_r.vid

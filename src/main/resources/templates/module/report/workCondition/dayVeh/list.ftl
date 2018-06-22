@@ -280,12 +280,12 @@
         queryParams: queryParams,
         columns:[[
             //{field: 'ck', checkbox: true, width: '20'},
-            {field:'number',title:'序号',align:'center',
-                formatter:function(value,row,index){
-                    if(value == null){
-                        return index+1;
-                    }
-                }},
+            // {field:'number',title:'序号',align:'center',
+            //     formatter:function(value,row,index){
+            //         if(value == null){
+            //             return index+1;
+            //         }
+            //     }},
             {field:'reportDate',title:'日期',align:'center'},
             {field:'licensePlate',title:'车牌号',align:'center'},
             {field:'vin',title:'VIN',align:'center'},
