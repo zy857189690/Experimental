@@ -124,64 +124,64 @@
             <table class="table_search" style="height: 90px;">
                 <tr>
                     <td class="td_label" style="text-align: right;"  id="filetitle">
-                        <label>导入文件</label>
+                        <label>导入文件:</label>
                     </td>
                     <td class="td_input" id="fileinput">
                         <input type="file" id="file" style="height: 30px;width:140px;" name="query.myfile" />
                     </td>
                     <td class="td_label" style="text-align: right;">
-                        <label>开始时间</label>
+                        <label>开始时间:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" class="easyui-datetimebox" id="startTime" style="height: 30px;width:150px;" value="${(startTime)!}"  name="query.startTime"    data-options="editable:false">
                     </td>
                     <td class="td_label" style="text-align: right;">
-                        <label>结束时间</label>
+                        <label>结束时间:</label>
                     </td>
                     <td class="td_input">
                         <input type="text"class="easyui-datetimebox" id="endTime" style="height: 30px;width:150px;" value="${(endTime)!}" name="query.endTime"   data-options="editable:false">
                     </td>
                     <td class="td_label" style="text-align: right;">
-                        <label>仪表里程大于</label>
+                        <label>仪表里程大于:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" class="input-fat input" style="width:125px;"   name="query.gaugesMileage"   >
                     </td>
                     <td class="td_label" style="text-align: right;">
-                        <label>车牌号</label>
+                        <label>车牌号:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" class="input-fat input" style="width:125px;"   name="query.licensePlate"   >
                     </td>
                     <td class="td_label" style="text-align: right;">
-                        <label>VIN</label>
+                        <label>VIN:</label>
                     </td>
                     <td class="td_input" style="text-align: right;">
                         <input type="text"class="input-fat input" style="width:125px;"   name="query.vin"   >
                     </td>
                     <td class="td_label" style="text-align: right;">
-                        <label>车辆种类</label>
+                        <label>车辆种类:</label>
                     </td>
                     <td class="td_input">
-                        <input type="text" id="vehTypeId" class="input-fat input" style="width:150px;"   name="query.vehTypeName"   >
+                        <input type="text" id="vehTypeId" class="input-fat input" style="width:150px;" editable="false"   name="query.vehTypeName"   >
                     </td>
                     <td class="td_label" style="text-align: right;">
-                        <label>车辆型号名称</label>
+                        <label>车辆型号名称:</label>
                     </td>
                     <td class="td_input">
-                        <input id="vehModelName" class="input-fat input" style="width:150px;"   name="query.vehModelName"   >
+                        <input id="vehModelName" class="input-fat input" style="width:150px;" editable="false"   name="query.vehModelName"   >
                     </td>
                     <td class="td_label" style="text-align: right;">
-                        <label>运营单位</label>
+                        <label>运营单位:</label>
                     </td>
                     <td class="td_input">
-                        <input id="useUnitId" class="input-fat input" style="width:150px;"   name="query.useUnitName"   >
+                        <input id="useUnitId" class="input-fat input" style="width:150px;" editable="false"   name="query.useUnitName"   >
                     </td>
                     <td class="td_label" style="text-align: right;">
-                        <label>上牌区域</label>
+                        <label>上牌区域:</label>
                     </td>
                     <td class="td_input">
-                        <input type="text" id="areaId" class="input-fat input" style="width:150px;"   name="query.areaName"   >
+                        <input type="text" id="areaId" class="input-fat input" editable="false" style="width:150px;"   name="query.areaName"   >
                     </td>
                 <#--<td class="td_label">-->
                 <#--<label>GPS里程大于</label>-->
@@ -190,10 +190,10 @@
                 <#--<input type="text"class="input-fat input" style="width: width:150px;"   name="query.gpsTotalMileage"   >-->
                 <#--</td>-->
                     <td class="td_label" style="text-align: right;">
-                        <label>车辆阶段</label>
+                        <label>车辆阶段:</label>
                     </td>
                     <td class="td_input">
-                        <input type="text"class="input-fat input" id="vehStage" style="width:150px;"   name="query.vehStage"   >
+                        <input type="text"class="input-fat input" id="vehStage" editable="false" style="width:150px;"   name="query.vehStage"   >
                     </td>
 
                     <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
@@ -280,7 +280,7 @@
             {field: 'termPartFirmwareNumber', title: '终端零件号',align:'center',sortable: false},
             {field: 'termBarCode', title: '条形码编码',align:'center',sortable: false},
             {field: 'serialNumber', title: '终端厂商自定义编号',align:'center',sortable: false},
-            {field: 'iccid', title: 'ICCID',align:'left',sortable: false,width: '90'},
+            {field: 'iccid', title: 'ICCID',align:'left',sortable: false,width: '120'},
         ]],
         toolbar: "#toolbar",
         pagination: true,

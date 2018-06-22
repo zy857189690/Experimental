@@ -27,7 +27,7 @@
     <!--车辆活跃情况统计-->
     <select id="queryActiveTable" parameterType="java.util.HashMap" resultType="java.util.HashMap">
         SELECT
-            date_format(vde.report_date, '%Y-%m-%d') AS reportDate,
+            date_format(vds.report_date, '%Y-%m-%d') AS reportDate,
             COUNT(vde.daily_active_total_time &gt; 0 OR NULL) AS dayActiveCount,
             COUNT(*) AS dayCount,
             COUNT(vde.daily_active_total_time) AS activeTimeCount,

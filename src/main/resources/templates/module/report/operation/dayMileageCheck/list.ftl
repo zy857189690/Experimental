@@ -172,9 +172,10 @@
            data-options="iconCls:'icon-remove'" >删除</a>
         </@shiro.hasPermission>-->
         <@shiro.hasPermission name="/report/demo1/export">
-             <input type="button" value="导出" onclick="gridList()"  />
+            <a href="#" onclick="gridList()" class="easyui-linkbutton"
+               data-options="iconCls:'icon-export'" menu="0">导出</a>
         </@shiro.hasPermission>
-           <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:5px;margin-right: 100px">列表说明</a>
+           <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-left: 5px;margin-right: 5px;  margin-top:5px;margin-right: 100px">列表说明</a>
     </div>
     <div id="table" name="datagrid" style="width: 100%; height: 100%;"></div>
 </div>
@@ -190,14 +191,14 @@
             <table class="table_search" style="height: 90px;">
                 <tr>
                     <td class="td_label" style="text-align: right;" id="fileButton">
-                        <label>文件上传</label>
+                        <label>文件上传:</label>
                     </td>
                     <td class="td_input" id="fileShow">
                         <input type="file" id="file" style="height: 30px; width: 164px;" name="myfile" />
                     </td>
 
                     <td class="td_label" style="text-align: right;" >
-                        <label>统计日期</label>
+                        <label>统计日期:</label>
                     </td>
                     <td class="td_input">
                         <input  type="text" class="easyui-datebox" name="query.reportDateStart"  value="${(reportDateStart)!}"  id = "reportDateStart"  style="height: 30px; width: 168px;" >
@@ -210,56 +211,56 @@
                     </td>
 
                     <td class="td_label" style="text-align: right;">
-                        <label>VIN</label>
+                        <label>VIN:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" class="input-fat input" name="query.vin"  id = "vin" style="width:150px;" >
                     </td>
 
                     <td class="td_label" style="text-align: right;">
-                        <label>车牌号</label>
+                        <label>车牌号:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" class="input-fat input" id="licensePlate" name="query.licensePlate"  style="width:150px;" >
                     </td>
                     <td class="td_label" style="text-align: right;">
-                        <label>车辆种类</label>
+                        <label>车辆种类:</label>
                     </td>
                     <td class="td_input">
-                        <input id="vehTypeId"  name="query.vehtype"  style="width: 168px;" >
+                        <input id="vehTypeId"  name="query.vehtype"  editable="false" style="width: 168px;" >
                     </td>
                     <td class="td_label" style="text-align: right;">
-                        <label>车型型号</label>
+                        <label>车型型号:</label>
                     </td>
                     <td class="td_input">
-                        <input id="vehModelName" name="query.vehModelNum" style="width: 168px;">
+                        <input id="vehModelName" name="query.vehModelNum" editable="false" style="width: 168px;">
                     </td>
                     <td class="td_label" style="text-align: right;">
-                        <label>运营单位</label>
+                        <label>运营单位:</label>
                     </td>
                     <td class="td_input">
-                        <input id="useUnitId" name="query.unit" style="width: 168px;">
+                        <input id="useUnitId" name="query.unit" editable="false" style="width: 168px;">
                     </td>
                     <td class="td_label" style="text-align: right;">
-                        <label>上牌区域</label>
+                        <label>上牌区域:</label>
                     </td>
                     <td class="td_input">
-                        <input id="areaId" name="query.veharea" style="width: 168px;">
+                        <input id="areaId" name="query.veharea" editable="false" style="width: 168px;">
                     </td>
                     <td class="td_label" style="text-align: right;">
-                        <label>当日有效里程大于（km）</label>
+                        <label>当日有效里程大于（km）:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" class="input-fat input" id="dayVaildMileage" name="query.dayVaildMileage" style="width:150px;">
                     </td>
                     <td class="td_label" style="text-align: right;">
-                        <label>当日轨迹里程大于（km）</label>
+                        <label>当日轨迹里程大于（km）:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" class="input-fat input" id="dayGpsMileage" name="query.dayGpsMileage" style="width:150px;">
                     </td>
                     <td class="td_label" style="text-align: right;">
-                        <label>当日在线里程大于（km）</label>
+                        <label>当日在线里程大于（km）:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" class="input-fat input" id="dayOnlineMileage" name="query.dayOnlineMileage" style="width:150px;">
@@ -309,9 +310,9 @@
         sortOrder: "desc",
         columns: [[
             {field: 'ck', checkbox: true,align:'center', width: '20'},
-//            {field: 'ids', title: '序号',align:'center', width: '90', formatter: function (value, row, index) {
-//                return index+1;
-//            }},
+            {field: 'ids', title: '序号',align:'center', width: '90', formatter: function (value, row, index) {
+                return index+1;
+            }},
             {field: 'vin', title: 'VIN',align:'center', width: '140' },
             {field: 'licensePlate', title: '车牌号',align:'center', width: '100'},
             {field: 'reportDate', title: '统计日期',align:'center', width: '100'},
@@ -355,8 +356,9 @@
         ]],
         toolbar: "#toolbar",
         pagination: true,
-        nowrap: true,
-        rownumbers: true
+        nowrap: true
+
+
     });
 //    toolbar2Menu("monitoringTable");
    toolbar2Menu("table");
