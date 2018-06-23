@@ -27,11 +27,14 @@
         <table class="easyui-datagrid">
             <thead>
             <tr>
-                <th data-options="field:'code'" style="width: 167px">名称</th>
-                <th data-options="field:'name'" style="width: 731px">定义</th>
+                <th data-options="field:'code'" style="width: 167px" align="center">名称</th>
+                <th data-options="field:'name'" style="width: 731px" align="center">定义</th>
             </tr>
             </thead>
             <tbody>
+            <tr>
+                <td>截止时间</td><td>报表查询截止某一天的历史数据</td>
+            </tr>
             <tr>
                 <td>行驶区域总里程（Km）</td><td>该车辆在统计在该区域累计行驶总里程（仪表里程）</td>
             </tr>
@@ -57,7 +60,7 @@
             <a href="#" onclick="exportDatagrid('${base}/report/operation/areaMileage/downloadAreaMonthly','form_search','table')" class="easyui-linkbutton"
                data-options="iconCls:'icon-export'" menu="0">导出</a>
         </@shiro.hasPermission>
-            <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">报表说明</a>
+            <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">报表说明&nbsp;&nbsp;</a>
     </div>
 
    <div id="table" name="datagrid" style="width: 100%; height: 100%"></div>

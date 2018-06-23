@@ -21,7 +21,7 @@
         a.total_valid_mileage as zongYouXiao,
         a.total_check_mileage as zongHeSuan
         from sys_vehicle veh
-        inner Join veh_dayreport_summary a on veh.id=a.vid and a.report_date='${endTime}'
+        inner Join veh_dayreport_summary a on veh.uuid=a.vid and a.report_date='${endTime}'
         left join   sys_veh_model b    on  b.id=veh.veh_model_id
         left join   sys_area f         on  f.id=veh.sys_division_id
         left join   sys_unit  c        on  c.id=veh.use_uint_id
@@ -76,7 +76,7 @@
         select
         count(1)
         from sys_vehicle veh
-        inner Join veh_dayreport_summary a on veh.id=a.vid and a.report_date='${endTime}'
+        inner Join veh_dayreport_summary a on veh.uuid=a.vid and a.report_date='${endTime}'
         left join   sys_veh_model b    on  b.id=veh.veh_model_id
         left join   sys_area f         on  f.id=veh.sys_division_id
         left join   sys_unit  c        on  c.id=veh.use_uint_id
@@ -144,7 +144,7 @@
         sum(e) as e
         from
         veh_dayreport_summary a
-        inner join sys_vehicle veh on a.vid=veh.id
+        inner join sys_vehicle veh on a.vid=veh.uuid
         left join sys_veh_model b on b.id=veh.veh_model_id
         left join sys_unit c on c.id=veh.use_uint_id
         left join (
@@ -189,7 +189,7 @@
         count(1) as jianKongChe
         from
         veh_dayreport_summary a
-        inner join sys_vehicle veh on a.vid=veh.id
+        inner join sys_vehicle veh on a.vid=veh.uuid
         left join sys_veh_model b on b.id=veh.veh_model_id
         left join sys_unit c on c.id=veh.use_uint_id
         left join (

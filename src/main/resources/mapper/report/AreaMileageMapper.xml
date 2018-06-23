@@ -22,7 +22,7 @@
                  g.zong as zong,
                  sd.name as jieDuan
                  from veh_dayreport_region a
-                 inner join  sys_vehicle veh   on  a.vid=veh.id
+                 inner join  sys_vehicle veh   on  a.vid=veh.uuid
                  left join   sys_veh_model b    on  b.id=veh.veh_model_id
                  left join   sys_unit  c        on  c.id=veh.use_uint_id
                  left join   sys_area e         on  e.code=a.city
@@ -56,7 +56,7 @@
         select
         sum(meter_total_mileage) as quYuZong
         from veh_dayreport_region a
-        inner join  sys_vehicle veh   on  a.vid=veh.id
+        inner join  sys_vehicle veh   on  a.vid=veh.uuid
         left join   sys_veh_model b    on  b.id=veh.veh_model_id
         left join   sys_unit  c        on  c.id=veh.use_uint_id
         left join   sys_area e         on  e.code=a.city
