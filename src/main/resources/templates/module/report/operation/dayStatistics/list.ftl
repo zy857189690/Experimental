@@ -412,8 +412,6 @@
         }
     }
 
-
-
     /**
      * 初始化车辆闲置情况统计表格
      **/
@@ -436,14 +434,16 @@
                 queryParams: data,
                 sortName: "",
                 sortOrder: "",
+                frozenColumns:[[
+                    {title: 'VIN', field: 'vin', align: 'center', width: 150, sortable: false, halign: 'center'},
+                    {title: '车牌号', field: 'plate', align: 'center', width: 150, sortable: false, halign: 'center'},
+                ]],
                 columns: [[
-                    {title: 'VIN', field: 'vin', width: 150, sortable: false, halign: 'center'},
-                    {title: '车牌号', field: 'plate', width: 150, sortable: false, halign: 'center'},
-                    {title: '上牌城市', field: 'areaName', width: 150, sortable: false, halign: 'center'},
-                    {title: '车辆种类', field: 'vehTypeName', width: 150, sortable: false, halign: 'center'},
-                    {title: '运营单位', field: 'useUnitName', width: 150, sortable: false, halign: 'center'},
-                    {title: '车辆公告型号', field: 'modelNoticeId', width: 150, sortable: false, halign: 'center'},
-                    {title: '车辆阶段', field: 'vehStage', width: 140, sortable: false, halign: 'center'},
+                    {title: '上牌城市', field: 'areaName', align: 'center', width: 150, sortable: false, halign: 'center'},
+                    {title: '车辆种类', field: 'vehTypeName', align: 'center', width: 150, sortable: false, halign: 'center'},
+                    {title: '运营单位', field: 'useUnitName', align: 'center', width: 150, sortable: false, halign: 'center'},
+                    {title: '车辆公告型号', field: 'modelNoticeId', align: 'center', width: 150, sortable: false, halign: 'center'},
+                    {title: '车辆阶段', field: 'vehStage', align: 'center', width: 140, sortable: false, halign: 'center'},
                     {title: '录入时间', field: 'entryDate', align: 'center', width: 150, sortable: false, halign: 'center'},
                     {title: '闲置里程（km）', field: 'xzlc', align: 'center', width: 150, sortable: false, halign: 'center'},
                     {title: '最后通讯时间', field: 'lastCommitTime', align: 'center', width: 150, sortable: false, halign: 'center'},
@@ -692,13 +692,13 @@
                 sortName: "",
                 sortOrder: "",
                 columns: [[
-                    {title: 'VIN', field: 'vin', width: 150, sortable: false, halign: 'center'},
-                    {title: '车牌号', field: 'plate', width: 150, sortable: false, halign: 'center'},
-                    {title: '上牌城市', field: 'areaName', width: 150, sortable: false, halign: 'center'},
-                    {title: '车型公告型号', field: 'modelNoticeId', width: 150, sortable: false, halign人    : 'center'},
-                    {title: '车辆阶段', field: 'vehStage', width: 150, sortable: false, halign: 'center'},
-                    {title: '录入时间', field: 'entryDate', width: 150, sortable: false, halign: 'center'},
-                    {title: '最后通讯时间', field: 'updateTime', width: 150, sortable: false, halign: 'center'}
+                    {title: 'VIN', field: 'vin', width: 150, sortable: false, align: 'center', halign: 'center'},
+                    {title: '车牌号', field: 'plate', width: 150, sortable: false, align: 'center', halign: 'center'},
+                    {title: '上牌城市', field: 'areaName', width: 150, sortable: false, align: 'center', halign: 'center'},
+                    {title: '车型公告型号', field: 'modelNoticeId', width: 150, sortable: false, align: 'center', halign: 'center'},
+                    {title: '车辆阶段', field: 'vehStage', width: 150, sortable: false, align: 'center', halign: 'center'},
+                    {title: '录入时间', field: 'entryDate', width: 150, sortable: false, align: 'center', halign: 'center'},
+                    {title: '最后通讯时间', field: 'updateTime', width: 150, sortable: false, align: 'center', halign: 'center'}
                 ]],
                 toolbar:"#vehListDialgToolbar",
                 pagination: true,
@@ -788,11 +788,13 @@
         });
         //上牌城市
         $('#idleAreaId').combotree({
-            url: '${base}/report/common/queryAreaList'
+            url: '${base}/report/common/queryAreaList',
+            editable: true
         });
         //运营单位
         $('#idleUseUnitId').combotree({
-            url: '${base}/report/common/queryUnitList'
+            url: '${base}/report/common/queryUnitList',
+            editable: true
         });
         //车辆型号
         $('#idleModelNoticeId').combobox({
@@ -802,7 +804,8 @@
         });
         //车辆种类
         $('#idleVehTypeId').combotree({
-            url: '${base}/report/common/queryVehTypeList'
+            url: '${base}/report/common/queryVehTypeList',
+            editable: true
         });
     }
 
