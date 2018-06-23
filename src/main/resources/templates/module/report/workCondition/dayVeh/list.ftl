@@ -64,7 +64,7 @@
             <table class="table_search" style="height: 90px;">
                 <tr>
                     <td class="td_label" id="fileButton">
-                        <label>文件上传</label>
+                        <label>文件上传:</label>
                     </td>
                     <td class="td_input" id="fileShow">
                         <input type="file" id="file" style="height: 30px; width: 168px;" name="myfile" />
@@ -72,7 +72,7 @@
                     </td>
 
                     <td class="td_label">
-                        <label>查询时间</label>
+                        <label>查询时间:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" name="query.startTime" id="startTime" style="height: 30px; width: 168px" value="${(startTime)!}" class="easyui-datebox" autocomplete="off" data-options="editable:false"/>
@@ -86,42 +86,42 @@
                     </td>
 
                     <td class="td_label" style="text-align: center;">
-                        <label>车牌号</label>
+                        <label>车牌号:</label>
                     </td>
                     <td class="td_input">
                         <input id="licensePlate" type="text"class="input-fat input" style="width:150px;"   name="query.licensePlate"  autocomplete="off" >
                     </td>
 
                     <td class="td_label" style="text-align: right">
-                        <label>VIN</label>
+                        <label>VIN:</label>
                     </td>
 
                     <td class="td_input">
                         <input id="vin" type="text"class="input-fat input" style="width:150px;"   name="query.vin"  autocomplete="off" >
                     </td>
                     <td class="td_label">
-                        <label>车辆种类</label>
+                        <label>车辆种类:</label>
                     </td>
                     <td class="td_input">
                         <input id="vehTypeId" name="query.vehTypeId" style="width: 168px;" />
                     </td>
 
                     <td class="td_label">
-                        <label>车型型号</label>
+                        <label>车型型号:</label>
                     </td>
                     <td class="td_input">
                         <input id="vehModelName" name="query.vehModelName" editable="false" style="width: 168px;" />
                     </td>
 
                     <td class="td_label">
-                        <label>运营单位</label>
+                        <label>运营单位:</label>
                     </td>
                     <td class="td_input">
                         <input id="useUintId" name="query.useUintId" style="width: 168px;" />
                     </td>
 
                     <td class="td_label">
-                        <label>上牌区域</label>
+                        <label>上牌区域:</label>
                     </td>
                     <td class="td_input">
                         <input id="sysDivisionId" name="query.sysDivisionId" style="width: 168px;" />
@@ -279,87 +279,87 @@
         sortOrder: "desc",
         queryParams: queryParams,
         columns:[[
-            //{field: 'ck', checkbox: true, width: '20'},
-            // {field:'number',title:'序号',align:'center',
-            //     formatter:function(value,row,index){
-            //         if(value == null){
-            //             return index+1;
-            //         }
-            //     }},
-            {field:'reportDate',title:'日期',align:'center'},
-            {field:'licensePlate',title:'车牌号',align:'center'},
-            {field:'vin',title:'VIN',align:'center'},
-            {field:'vehTypeId',title:'车辆种类',align:'center'},
-            {field:'vehModelName',title:'车型型号',align:'center'},
-            {field:'modelNoticeId',title:'公告号',align:'center'},
-            {field:'termPartFirmwareNumbers',title:'终端零件号',align:'center'},
-            {field:'termBarCode',title:'条形码编码',align:'center'},
-            {field:'termVendorCode',title:'终端厂商自定义编号',align:'center'},
-            {field:'manuUnitId',title:'车辆厂商',align:'center'},
-            {field:'useUintId',title:'运营单位',align:'center'},
-            {field:'sysDivisionId',title:'上牌区域',align:'center'},
-            {field:'entryDate',title:'激活时间',align:'center'},
-            {field:'saleTime',title:'销售日期',align:'center'},
-            {field:'dailyActiveTotalTime',title:'日活跃总时间（h）',align:'center'},
-            {field:'runTimeSum',title:'日总行驶时间（h）',align:'center'},
-            {field:'runTimes',title:'日行驶次数',align:'center'},
-            {field:'runKm',title:'日总行驶里程（km）',align:'center'},
-            {field:'runKmMax',title:'单次运行最大里程（km）',align:'center'},
-            {field:'lastMeterMileage',title:'总里程',align:'center'},
-            {field:'lastGpsMileage',title:'GPS总里程',align:'center',
+            // {field: 'ck', checkbox: true, width: '20'},
+            {field:'number',title:'序号',align:'center',halign:'center',
+                formatter:function(value,row,index){
+                    if(value == null){
+                        return index+1;
+                    }
+                }},
+            {field:'reportDate',title:'日期',align:'center',halign:'center'},
+            {field:'licensePlate',title:'车牌号',align:'center',halign:'center'},
+            {field:'vin',title:'VIN',align:'center',halign:'center'},
+            {field:'vehTypeId',title:'车辆种类',align:'center',halign:'center'},
+            {field:'vehModelName',title:'车型型号',align:'center',halign:'center'},
+            {field:'modelNoticeId',title:'公告号',align:'center',halign:'center'},
+            {field:'termPartFirmwareNumbers',title:'终端零件号',align:'center',halign:'center'},
+            {field:'termBarCode',title:'条形码编码',align:'center',halign:'center'},
+            {field:'termVendorCode',title:'终端厂商自定义编号',align:'center',halign:'center'},
+            {field:'manuUnitId',title:'车辆厂商',align:'center',halign:'center'},
+            {field:'useUintId',title:'运营单位',align:'center',halign:'center'},
+            {field:'sysDivisionId',title:'上牌区域',align:'center',halign:'center'},
+            {field:'entryDate',title:'激活时间',align:'center',halign:'center'},
+            {field:'saleTime',title:'销售日期',align:'center',halign:'center'},
+            {field:'dailyActiveTotalTime',title:'日活跃总时间（h）',align:'center',halign:'center'},
+            {field:'runTimeSum',title:'日总行驶时间（h）',align:'center',halign:'center'},
+            {field:'runTimes',title:'日行驶次数',align:'center',halign:'center'},
+            {field:'runKm',title:'日总行驶里程（km）',align:'center',halign:'center'},
+            {field:'runKmMax',title:'单次运行最大里程（km）',align:'center',halign:'center'},
+            {field:'lastMeterMileage',title:'总里程',align:'center',halign:'center'},
+            {field:'lastGpsMileage',title:'GPS总里程',align:'center',halign:'center',
                 formatter:function(value,row,index){
                     if(value == null){
                         return "-";
                     }
                 }},
-            {field:'chargeConsume',title:'当日累计耗电量（kw.h）',align:'center',
+            {field:'chargeConsume',title:'当日累计耗电量（kw.h）',align:'center',halign:'center',
                 formatter:function(value,row,index){
                     if(value == null){
                         return "-";
                     }
                 }},
-            {field:'chargeCon100km',title:'实际百公里耗电量',align:'center',
+            {field:'chargeCon100km',title:'实际百公里耗电量',align:'center',halign:'center',
                 formatter:function(value,row,index){
                     if(value == null){
                         return "-";
                     }
                 }},
-            {field:'statedCharge_con100km',title:'百公里额定耗电量',align:'center',
+            {field:'statedCharge_con100km',title:'百公里额定耗电量',align:'center',halign:'center',
                 formatter:function(value,row,index){
                     if(value == null){
                         return "-";
                     }
                 }},
-            {field:'chargeSconsumeMax',title:'单次充电后最大耗电量（kw.h）',align:'center',
+            {field:'chargeSconsumeMax',title:'单次充电后最大耗电量（kw.h）',align:'center',halign:'center',
                 formatter:function(value,row,index){
                     if(value == null){
                         return "-";
                     }
                 }},
-            {field:'chargeTimes',title:'充电总次数',align:'center'},
-            {field:'fastTimes',title:'快充次数',align:'center',
+            {field:'chargeTimes',title:'充电总次数',align:'center',halign:'center'},
+            {field:'fastTimes',title:'快充次数',align:'center',halign:'center',
                 formatter:function(value,row,index){
                     if(value == null){
                         return "-";
                     }
                 }},
-            {field:'lowTimes',title:'慢充次数',align:'center',
+            {field:'lowTimes',title:'慢充次数',align:'center',halign:'center',
                 formatter:function(value,row,index){
                     if(value == null){
                         return "-";
                     }
                 }},
-            {field:'chargeTimeSum',title:'充电总时长',align:'center'},
-            {field:'chargeTimeMax',title:'单次最长充电时间（h）',align:'center'},
-            {field:'singleChargeMaxMileage',title:'单次充电最大行驶里程',align:'center'},
-            {field:'runSpeedMax',title:'日最高速度（km/h）',align:'center'},
-            {field:'runSpeedAvg',title:'日平均速度（km/h）',align:'center'},
-            {field:'lastCommunTime',title:'数据最后上传时间',align:'center'},
+            {field:'chargeTimeSum',title:'充电总时长',align:'center',halign:'center'},
+            {field:'chargeTimeMax',title:'单次最长充电时间（h）',align:'center',halign:'center'},
+            {field:'singleChargeMaxMileage',title:'单次充电最大行驶里程',align:'center',halign:'center'},
+            {field:'runSpeedMax',title:'日最高速度（km/h）',align:'center',halign:'center'},
+            {field:'runSpeedAvg',title:'日平均速度（km/h）',align:'center',halign:'center'},
+            {field:'lastCommunTime',title:'数据最后上传时间',align:'center',halign:'center'},
         ]],
         toolbar:"#toolbar",
         pagination:true,
-        nowrap:true,
-        rownumbers: true
+        nowrap:true
+        // rownumbers: true
     });
 
     toolbar2Menu("table");
