@@ -695,7 +695,7 @@
                     {title: 'VIN', field: 'vin', width: 150, sortable: false, halign: 'center'},
                     {title: '车牌号', field: 'plate', width: 150, sortable: false, halign: 'center'},
                     {title: '上牌城市', field: 'areaName', width: 150, sortable: false, halign: 'center'},
-                    {title: '车型公告型号', field: 'modelNoticeId', width: 150, sortable: false, halign: 'center'},
+                    {title: '车型公告型号', field: 'modelNoticeId', width: 150, sortable: false, halign人    : 'center'},
                     {title: '车辆阶段', field: 'vehStage', width: 150, sortable: false, halign: 'center'},
                     {title: '录入时间', field: 'entryDate', width: 150, sortable: false, halign: 'center'},
                     {title: '最后通讯时间', field: 'updateTime', width: 150, sortable: false, halign: 'center'}
