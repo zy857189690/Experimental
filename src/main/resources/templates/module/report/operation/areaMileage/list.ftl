@@ -22,7 +22,7 @@
 </head>
 
 
-<div id="report" class="easyui-window" title="报表说明" style="width: 853px; height: 500px;display: none"  data-options="modal:true,closed:true">
+<div id="report" class="easyui-dialog" title="报表说明" style="width: 853px; height: 500px;display: none"  data-options="modal:true,closed:true">
     <div class="easyui-layout">
         <table class="easyui-datagrid">
             <thead>
@@ -157,7 +157,7 @@
         columns: [[
             {field: 'shiJian', title: '截止时间', width: 120, align: 'center'},
             {field: 'chePai', title: '车牌号', width: 120, align: 'center'},
-            {field: 'VIN', title: 'VIN', width: 120, align: 'center'},
+            {field: 'VIN', title: 'VIN', width: 180, align: 'center'},
             {field: 'shangPai', title: '上牌城市', width: 120, align: 'center'},
             {field: 'xingShi', title: '行驶区域', width: 120, align: 'center'},
             {field: 'yunYing', title: '运营单位', width: 120, align: 'center'},

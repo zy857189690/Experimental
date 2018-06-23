@@ -22,7 +22,7 @@
 </head>
 <body class="easyui-layout" fit="true" id="fullid">
 
-<div id="reportDialog" class="easyui-window" title="报表说明" style="width: 853px; height: 500px;display: none"  data-options="modal:true,closed:true">
+<div id="reportDialog" class="easyui-dialog" title="报表说明" style="width: 853px; height: 500px;display: none"  data-options="modal:true,closed:true">
     <div class="easyui-layout">
         <table class="easyui-datagrid">
             <thead>
