@@ -64,7 +64,7 @@
             <table class="table_search" style="height: 90px;">
                 <tr>
                     <td class="td_label" id="fileButton">
-                        <label>文件上传</label>
+                        <label>文件上传:</label>
                     </td>
                     <td class="td_input" id="fileShow">
                         <input type="file" id="file" style="height: 30px; width: 168px;" name="myfile" />
@@ -72,7 +72,7 @@
                     </td>
 
                     <td class="td_label">
-                        <label>查询时间</label>
+                        <label>查询时间:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" name="query.startTime" id="startTime" style="height: 30px; width: 168px" value="${(startTime)!}" class="easyui-datebox" autocomplete="off" data-options="editable:false"/>
@@ -86,42 +86,42 @@
                     </td>
 
                     <td class="td_label" style="text-align: center;">
-                        <label>车牌号</label>
+                        <label>车牌号:</label>
                     </td>
                     <td class="td_input">
                         <input id="licensePlate" type="text"class="input-fat input" style="width:150px;"   name="query.licensePlate"  autocomplete="off" >
                     </td>
 
                     <td class="td_label" style="text-align: right">
-                        <label>VIN</label>
+                        <label>VIN:</label>
                     </td>
 
                     <td class="td_input">
                         <input id="vin" type="text"class="input-fat input" style="width:150px;"   name="query.vin"  autocomplete="off" >
                     </td>
                     <td class="td_label">
-                        <label>车辆种类</label>
+                        <label>车辆种类:</label>
                     </td>
                     <td class="td_input">
                         <input id="vehTypeId" name="query.vehTypeId" style="width: 168px;" />
                     </td>
 
                     <td class="td_label">
-                        <label>车型型号</label>
+                        <label>车型型号:</label>
                     </td>
                     <td class="td_input">
                         <input id="vehModelName" name="query.vehModelName" editable="false" style="width: 168px;" />
                     </td>
 
                     <td class="td_label">
-                        <label>运营单位</label>
+                        <label>运营单位:</label>
                     </td>
                     <td class="td_input">
                         <input id="useUintId" name="query.useUintId" style="width: 168px;" />
                     </td>
 
                     <td class="td_label">
-                        <label>上牌区域</label>
+                        <label>上牌区域:</label>
                     </td>
                     <td class="td_input">
                         <input id="sysDivisionId" name="query.sysDivisionId" style="width: 168px;" />
