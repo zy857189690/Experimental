@@ -154,10 +154,15 @@
         sortName: "createTime",
         sortOrder: "desc",
         rownumbers: true,
+        frozenColumns:[[
+            {field:'shiJian',title:'截止时间'},
+            {field:'chePai',title:'车牌号'},
+            {field:'VIN',title:'VIN'},
+        ]],
         columns: [[
-            {field: 'shiJian', title: '截止时间', width: 120, align: 'center'},
-            {field: 'chePai', title: '车牌号', width: 120, align: 'center'},
-            {field: 'VIN', title: 'VIN', width: 180, align: 'center'},
+           // {field: 'shiJian', title: '截止时间', width: 120, align: 'center'},
+           // {field: 'chePai', title: '车牌号', width: 120, align: 'center'},
+           // {field: 'VIN', title: 'VIN', width: 180, align: 'center'},
             {field: 'shangPai', title: '上牌城市', width: 120, align: 'center'},
             {field: 'xingShi', title: '行驶区域', width: 120, align: 'center'},
             {field: 'yunYing', title: '运营单位', width: 120, align: 'center'},
@@ -235,9 +240,13 @@
     function queryArea(){
         $('#xingShi').combotree({
             url: '${base}/report/operation/areaMileage/getDrivingArea'
+            ,
+            editable: true
         });
         $('#yunYing').combotree({
             url: '${base}/report/common/queryUnitList'
+            ,
+            editable: true
         });
         $('#jieDuan').combobox({
             url: '${base}/report/common/queryVehStageList',

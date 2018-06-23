@@ -136,6 +136,7 @@
             sortName: "createTime",
             sortOrder: "desc",
             rownumbers: true,
+
             columns: [[
                 {field: 'VIN', title: 'VIN'},
                 {field: 'chePai', title: '车牌号'},

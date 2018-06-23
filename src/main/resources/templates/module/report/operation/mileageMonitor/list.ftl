@@ -104,6 +104,8 @@
         $("#endTime").datebox('setValue',getCurentDateStr());
         $('#yunYing').combotree({
             url: '${base}/report/common/queryUnitList'
+            ,
+            editable: true
         });
     });
 
