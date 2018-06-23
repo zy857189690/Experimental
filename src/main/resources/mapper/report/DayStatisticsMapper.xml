@@ -11,7 +11,7 @@
     <select id="queryMonitoringTable" parameterType="java.util.HashMap" resultType="java.util.HashMap">
         SELECT
             date_format(vds.report_date, '%Y-%m-%d') AS reportDate,
-            COUNT(*) AS dayCount,
+            COUNT(date_format(veh.entry_date, '%Y-%m-%d')  &lt;= date_format(vds.report_date, '%Y-%m-%d') OR NULL) AS dayCount,
             COUNT(vds.append=1 OR NULL) AS newVehCount,
             COUNT((vds.last_commit_time &lt; CONCAT(date_format(vds.report_date, '%Y-%m-%d'), ' 00:00:00')) OR NULL ) AS notOnlineCount
         FROM
@@ -115,7 +115,7 @@
                 AND veh.veh_type_id=#{idleVehTypeId}
             </if>
             <if test="idleModelNoticeId != null and idleModelNoticeId != '-1'">
-                AND model.model_notice_id=#{idleModelNoticeId}
+                AND model.id=#{idleModelNoticeId}
             </if>
             ORDER BY vds.report_date DESC ) idle
         GROUP BY idle.vid HAVING sum(idle.run_km) &lt; #{idleMileageValue}
