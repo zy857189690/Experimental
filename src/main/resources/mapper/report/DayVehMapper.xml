@@ -83,7 +83,7 @@
         <if test="vehTypeId != null and vehTypeId != ''">
             AND veh.veh_type_id = #{vehTypeId}
         </if>
-        <if test="vehModelName != null and vehModelName != ''">
+        <if test="vehModelName != null and vehModelName != '-1'">
             AND s_v_m.id = #{vehModelName}
         </if>
         <if test="useUintId != null and useUintId != ''">
@@ -117,7 +117,8 @@
     <select id="queryVehModelList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
         SELECT
             veh_model_name AS text,
-            id
+            id,
+            model_notice_id AS vehModelName
         FROM
             sys_veh_model
     </select>
