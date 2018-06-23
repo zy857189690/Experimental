@@ -439,11 +439,11 @@
                 columns: [[
                     {title: 'VIN', field: 'vin', width: 150, sortable: false, halign: 'center'},
                     {title: '车牌号', field: 'plate', width: 150, sortable: false, halign: 'center'},
-                    {title: '上牌区域', field: 'areaName', width: 150, sortable: false, halign: 'center'},
+                    {title: '上牌城市', field: 'areaName', width: 150, sortable: false, halign: 'center'},
                     {title: '车辆种类', field: 'vehTypeName', width: 150, sortable: false, halign: 'center'},
                     {title: '运营单位', field: 'useUnitName', width: 150, sortable: false, halign: 'center'},
                     {title: '车辆公告型号', field: 'modelNoticeId', width: 150, sortable: false, halign: 'center'},
-                    {title: '车辆状态', field: 'vehStage', width: 140, sortable: false, halign: 'center'},
+                    {title: '车辆阶段', field: 'vehStage', width: 140, sortable: false, halign: 'center'},
                     {title: '录入时间', field: 'entryDate', align: 'center', width: 150, sortable: false, halign: 'center'},
                     {title: '闲置里程（km）', field: 'xzlc', align: 'center', width: 150, sortable: false, halign: 'center'},
                     {title: '最后通讯时间', field: 'lastCommitTime', align: 'center', width: 150, sortable: false, halign: 'center'},
@@ -526,7 +526,12 @@
                 sortOrder: "",
                 columns: [[
                     {title: '日期', field: 'reportDate', align: 'center', width: '20%', sortable: false},
-                    {title: '日总行驶时间（h）', field: 'dayTravelTime', align: 'center', width: '15%', sortable: false},
+                    {title: '日总行驶时间（h）', field: 'dayTravelTime', align: 'center', width: '15%', sortable: false, formatter: function(val, row, index){
+                        if (undefined != val && val > 0) {
+                            return val.toFixed(2);
+                        }
+                        return val;
+                    }},
                     {title: '单车平均行驶时间', field: 'vehAverageTime', align: 'center', width: '15%', sortable: false, formatter: function(val, row, index){
                         if (undefined != row.dayTravelTime && undefined != row.vehOnlineCount && parseInt(row.vehOnlineCount) > 0) {
                             return (row.dayTravelTime / row.vehOnlineCount).toFixed(2);
@@ -781,7 +786,7 @@
             textField: 'text',
             editable: false
         });
-        //上牌区域
+        //上牌城市
         $('#idleAreaId').combotree({
             url: '${base}/report/common/queryAreaList'
         });
@@ -815,7 +820,7 @@
      data-options="iconCls:'',closed: true, resizable:false, modal:true">
     <table style="width: 530; height: 220; margin: 10px;">
         <tr>
-            <td style="text-align: right; width: 100px; height: 50px;">统计时间</td>
+            <td style="text-align: right; width: 100px; height: 50px;">统计时间：</td>
             <td>
                 <input type="text" name="query.beginDate" value="${idleBeginDate!}" id="beginDate" style="height: 30px; width: 168px" class="easyui-datebox" data-options="editable:false"/>
                 &nbsp;&nbsp;至&nbsp;&nbsp;
@@ -823,7 +828,7 @@
             </td>
         </tr>
         <tr>
-            <td style="text-align: right; width: 100px; height: 50px;">闲置里程阈值</td>
+            <td style="text-align: right; width: 100px; height: 50px;">闲置里程阈值：</td>
             <td>
                 <input type="text" name="query.idleMileageValue" id="idleMileageValue" value="100" class="input-fat input" style="height: 26px; width:365px;" />
             </td>
@@ -948,7 +953,7 @@
                 <td>单次充电最大里程</td>
                 <td>
                     比较每两次充电之间的行驶里程，得出单次充电最大行驶里程；<br />
-                    两次充电之间算一次，0点到当天第一次充电开始记为一次，最后一次充电结束到当天23:59:59计为一次；<br />
+                    两次充电之间算一次，0点到当天第一次充电开始记为一次，最后一次充电结束到当天<br />23:59:59计为一次；<br />
                     若当天（00:00：00~23:59：59）未充电，计算当天累计行驶里程，记为一次；<br />
                     若当天只充一次电，0点到充电开始，记为一次；充电结束到当天24点记为一次
                 </td>
