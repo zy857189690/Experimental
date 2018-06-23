@@ -278,8 +278,7 @@
         sortName: "lastCommunTime",
         sortOrder: "desc",
         queryParams: queryParams,
-        columns:[[
-            // {field: 'ck', checkbox: true, width: '20'},
+        frozenColumns:[[
             {field:'number',title:'序号',align:'center',halign:'center',
                 formatter:function(value,row,index){
                     if(value == null){
@@ -289,6 +288,9 @@
             {field:'reportDate',title:'日期',align:'center',halign:'center'},
             {field:'licensePlate',title:'车牌号',align:'center',halign:'center'},
             {field:'vin',title:'VIN',align:'center',halign:'center'},
+        ]],
+        columns:[[
+            // {field: 'ck', checkbox: true, width: '20'},
             {field:'vehTypeId',title:'车辆种类',align:'center',halign:'center'},
             {field:'vehModelName',title:'车型型号',align:'center',halign:'center'},
             {field:'modelNoticeId',title:'公告号',align:'center',halign:'center'},
