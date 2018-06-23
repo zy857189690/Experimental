@@ -155,9 +155,9 @@
         sortOrder: "desc",
         rownumbers: true,
         frozenColumns:[[
-            {field:'shiJian',title:'截止时间'},
-            {field:'chePai',title:'车牌号'},
-            {field:'VIN',title:'VIN'},
+            {field:'shiJian',title:'截止时间',align: 'center'},
+            {field:'chePai',title:'车牌号',align: 'center'},
+            {field:'VIN',title:'VIN',align: 'center'},
         ]],
         columns: [[
            // {field: 'shiJian', title: '截止时间', width: 120, align: 'center'},
