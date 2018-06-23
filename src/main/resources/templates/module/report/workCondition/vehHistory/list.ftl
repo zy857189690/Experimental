@@ -166,7 +166,7 @@
                         <input type="text" id="vehTypeId" class="input-fat input" style="width:150px;" editable="false"   name="query.vehTypeName"   >
                     </td>
                     <td class="td_label" style="text-align: right;">
-                        <label>车辆型号名称:</label>
+                        <label>车辆型号:</label>
                     </td>
                     <td class="td_input">
                         <input id="vehModelName" class="input-fat input" style="width:150px;" editable="false"   name="query.vehModelName"   >
