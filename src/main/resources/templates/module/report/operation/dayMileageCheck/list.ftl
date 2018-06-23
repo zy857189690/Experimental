@@ -179,7 +179,7 @@
     </div>
     <div id="table" name="datagrid" style="width: 100%; height: 100%;"></div>
 </div>
-<div data-options="region:'north',title:'查询',split:true,collapsable:true" style="width: 100%;height: 180px">
+<div data-options="region:'north',title:'查询',split:true,collapsable:true" style="width: 100%;height: 200px">
     <div style="width: 100%;border: 1;margin:5 5 5 10 ">
         <form id="form_search" name="" class="sui-form cg-form">
             <div style="width: 90%; height: 20px; margin: 10px;">
@@ -230,7 +230,7 @@
                         <input id="vehTypeId"  name="query.vehtype"  editable="false" style="width: 168px;" >
                     </td>
                     <td class="td_label" style="text-align: right;">
-                        <label>车型型号:</label>
+                        <label>车辆型号:</label>
                     </td>
                     <td class="td_input">
                         <input id="vehModelName" name="query.vehModelNum" editable="false" style="width: 168px;">
@@ -238,9 +238,16 @@
                     <td class="td_label" style="text-align: right;">
                         <label>运营单位:</label>
                     </td>
+
                     <td class="td_input">
                         <input id="useUnitId" name="query.unit" editable="false" style="width: 168px;">
                     </td>
+                    <td class="td_label" style="text-align: right;">
+                    </td>
+                    <td class="td_input">
+                    </td>
+
+
                     <td class="td_label" style="text-align: right;">
                         <label>上牌区域:</label>
                     </td>
@@ -265,7 +272,10 @@
                     <td class="td_input">
                         <input type="text" class="input-fat input" id="dayOnlineMileage" name="query.dayOnlineMileage" style="width:150px;">
                     </td>
-
+                    <td class="td_label" style="width:388px ">
+                    </td>
+                    <td class="td_input">
+                    </td>
                     <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
                         <a href="#" onclick="searchButton()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
                         <a href="#" onclick="resetButton()" class="easyui-linkbutton" data-options="iconCls:'icon-reset'">重置</a>
@@ -308,11 +318,12 @@
         url: '${base}/report/operation/dayMileageCheck/datagrid',
         sortName: "ID",
         sortOrder: "desc",
+        rownumbers: true,
         columns: [[
             {field: 'ck', checkbox: true,align:'center', width: '20'},
-            {field: 'ids', title: '序号',align:'center', width: '90', formatter: function (value, row, index) {
+            /*{field: 'ids', title: '序号',align:'center', width: '90', formatter: function (value, row, index) {
                 return index+1;
-            }},
+            }},*/
             {field: 'vin', title: 'VIN',align:'center', width: '140' },
             {field: 'licensePlate', title: '车牌号',align:'center', width: '100'},
             {field: 'reportDate', title: '统计日期',align:'center', width: '100'},
