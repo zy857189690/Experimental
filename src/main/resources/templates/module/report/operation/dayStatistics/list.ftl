@@ -730,7 +730,7 @@
             $("#" + tabId + "Div #beginDate").datebox('setValue', defaultBeginDate);
             $("#" + tabId + "Div #endDate").datebox('setValue', defaultEndDate);
         }
-        loadTable(tabId);
+//        loadTable(tabId);
     }
 
     /**
