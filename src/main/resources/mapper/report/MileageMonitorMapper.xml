@@ -6,15 +6,18 @@
 
     <select id="queryPopup" resultType="java.util.HashMap" parameterType="java.util.HashMap">
         select
+        <if test="s != null ">
+             '${s}' as  fanWei,
+        </if>
         veh.vin as VIN ,
         veh.license_plate as chePai,
         b.veh_model_name as cheLiangMing,
         f.name  as shangPai,
         c.name as yunYing,
         sd.name as jieDuan,
-        veh.entry_date as luRu,
-        veh.first_reg as shouCi,
-        a.last_commit_time as zuiHou,
+        date_format(veh.entry_date,'%Y-%m-%d %H:%i:%s' ) as luRu,
+        date_format(veh.first_reg,'%Y-%m-%d %H:%i:%s' ) as shouCi,
+        date_format(a.last_commit_time,'%Y-%m-%d %H:%i:%s' ) as zuiHou,
         a.last_end_mileage as zongLiCheng,
         a.total_online_mileage as zongZaiXian,
         a.total_gps_mileage as zongGuiJi,

@@ -8,6 +8,9 @@
         .td_input a:not(.bg_button) {
             right: 20px !important;
         }
+        .table_search tr .td_label {
+            text-align: right;
+        }
     </style>
     <script language="javascript">
         $(function(){
@@ -74,7 +77,7 @@
         <form id="form_search" name="" class="sui-form cg-form">
             <table class="table_search">
                 <tr>
-                    <td class="td_label">
+                    <td class="td_label" >
                         <label>车辆阶段：</label>
                     </td>
                     <td class="td_input">
@@ -83,7 +86,7 @@
                     </td>
 
                     <td class="td_label">
-                        <label>总里程（仪表）大于（km）：</label>
+                        <label>总里程(仪表)大于(km)：</label>
                     </td>
                     <td class="td_input">
 
@@ -91,26 +94,26 @@
 
                     </td>
                     <td class="td_label"  >
-                        <label>总有效里程大于（km）：</label>
+                        <label>总有效里程大于(km)：</label>
                     </td>
                     <td class="td_input">
                         <input type="text"class="input-fat input" style="width:150px;" onkeyup="value=value.replace(/[^\d]/g,'')"   name="query.zongYouXiao"  autocomplete="off" >
                     </td>
                     <td class="td_label">
-                        <label>总轨迹里程大于（km）：</label>
+                        <label>总轨迹里程大于(km)：</label>
                     </td>
                     <td class="td_input">
                         <input type="text"class="input-fat input" style="width:150px;"    onkeyup="value=value.replace(/[^\d]/g,'')"   name="query.zongGuiJi"  autocomplete="off" >
                     </td>
 
                     <td class="td_label">
-                        <label>总在线里程大于（km）：</label>
+                        <label>总在线里程大于(km)：</label>
                     </td>
                     <td class="td_input">
                         <input type="text"class="input-fat input" style="width:150px;"  onkeyup="value=value.replace(/[^\d]/g,'')"  name="query.zongZaiXian"  autocomplete="off" >
                     </td>
                     <td class="td_label">
-                        <label>总核算里程大于（km）：</label>
+                        <label>总核算里程大于(km)：</label>
                     </td>
                     <td class="td_input">
                         <input type="text"class="input-fat input" style="width:150px;"  onkeyup="value=value.replace(/[^\d]/g,'')"  name="query.zongHeSuan"  autocomplete="off" >

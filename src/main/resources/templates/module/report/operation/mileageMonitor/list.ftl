@@ -239,8 +239,8 @@
 
     function openEditWin(url, title) {
         var winid = "pop";
-        var width = 1200;
-        var height = 550;
+        var width = 1350;
+        var height = 600;
         diyWindow(winid, url, title, width, height,false);
     }
 

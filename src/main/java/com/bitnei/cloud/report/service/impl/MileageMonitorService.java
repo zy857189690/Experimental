@@ -287,6 +287,19 @@ public class MileageMonitorService   implements IMileageMonitorService {
         if("null".equals(map.get("yunYing"))  ){
             map.put("yunYing","");
         }
+        String s=null;
+        Object data1 = map.get("data1");
+        data1=data1==null?0:data1;
+        Object data2 = map.get("data2");
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        if(String.valueOf(data1).equals("30000")){
+            s="大于"+data1+"公里车辆详情"+date;
+        }else if(String.valueOf(data2).equals("500")){
+            s="小于"+data2+"公里车辆详情"+date;
+        }else{
+            s=data1+"-"+data2+"公里车辆详情"+date;
+        }
+        map.put("s",s);
         map= PublicDealUtil.bulidUserForParams(map);
         List lists = mileageMonitorMapper.queryPopup(map);
 
@@ -296,18 +309,8 @@ public class MileageMonitorService   implements IMileageMonitorService {
         String srcBase = RequestContext.class.getResource("/templates/").getFile();
         String srcFile = srcBase +"module/report/operation/mileageMonitor/popup.xls";
         //x~y公里车辆详情+导出时间
-        Object data1 = map.get("data1");
-        data1=data1==null?0:data1;
-        Object data2 = map.get("data2");
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        String s=null;
-        if(String.valueOf(data1).equals("30000")){
-                s="大于"+data1+"公里车辆详情"+date;
-        }else if(String.valueOf(data2).equals("500")){
-            s="小于"+data2+"公里车辆详情"+date;
-        }else{
-            s=data1+"-"+data2+"公里车辆详情"+date;
-        }
+
+
 
         ExcelData ed = new ExcelData();
         ed.setTitle(s);
