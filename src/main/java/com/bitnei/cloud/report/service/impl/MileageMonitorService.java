@@ -202,9 +202,18 @@ public class MileageMonitorService   implements IMileageMonitorService {
             map.put("data3", "1");
             map.remove("data1");
         }
-        if (map.get("endTime") == null) {
+        if("0".equals(String.valueOf(map.get("data2")))){
+            map.remove("data2");
+        }
+        if (map.get("endTime") == null||"null".equals(map.get("endTime"))) {
              map.put("endTime", ifDate(String.valueOf(map.get("endTime"))));
            }
+        if("null".equals(map.get("cheLiangMing"))  ){
+            map.put("cheLiangMing","");
+        }
+        if("null".equals(map.get("yunYing"))  ){
+            map.put("yunYing","");
+        }
             map = PublicDealUtil.bulidUserForParams(map);
             Object zongye = map.get("zongye");
             long zong = 0;
@@ -265,9 +274,18 @@ public class MileageMonitorService   implements IMileageMonitorService {
             map.put("data3", "1");
             map.remove("data1");
         }
+        if("0".equals(String.valueOf(map.get("data2")))){
 
-        if(map.get("endTime")==null){
+            map.remove("data2");
+        }
+        if (map.get("endTime") == null||"null".equals(map.get("endTime"))) {
             map.put("endTime", ifDate(String.valueOf(map.get("endTime"))));
+        }
+        if("null".equals(map.get("cheLiangMing"))  ){
+            map.put("cheLiangMing","");
+        }
+        if("null".equals(map.get("yunYing"))  ){
+            map.put("yunYing","");
         }
         map= PublicDealUtil.bulidUserForParams(map);
         List lists = mileageMonitorMapper.queryPopup(map);
@@ -283,9 +301,9 @@ public class MileageMonitorService   implements IMileageMonitorService {
         Object data2 = map.get("data2");
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         String s=null;
-        if(String.valueOf(data2).equals("0")){
+        if(String.valueOf(data1).equals("30000")){
                 s="大于"+data1+"公里车辆详情"+date;
-        }else if(String.valueOf(data1).equals("0")){
+        }else if(String.valueOf(data2).equals("500")){
             s="小于"+data2+"公里车辆详情"+date;
         }else{
             s=data1+"-"+data2+"公里车辆详情"+date;
