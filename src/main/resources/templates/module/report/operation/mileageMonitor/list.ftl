@@ -75,7 +75,7 @@
                         <input type="text"class="input-fat input" style="width: height: 26px;width:150px;" id="yunYing"    name="query.yunYing"  autocomplete="off" >
                     </td>
                     <td class="td_label">
-                        <label>车辆名称：</label>
+                        <label>车型名称：</label>
                     </td>
                     <td class="td_input">
                         <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.cheLiangMing"  autocomplete="off" >
