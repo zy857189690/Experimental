@@ -220,12 +220,18 @@
     function popup(yunYing,cheLiangMing,endTime,data1,data2,title){
         if(yunYing==undefined||yunYing=='undefined'){
             yunYing='';
+        }else if(yunYing==''){
+            yunYing='null';
         }
         if(cheLiangMing==undefined||cheLiangMing=='undefined'){
             cheLiangMing='';
+        }else if(cheLiangMing==''){
+            cheLiangMing='null';
         }
         if(endTime==undefined||endTime=='undefined'){
             endTime='';
+        }else if(endTime==''){
+            endTime='null';
         }
         var url="${base}/report/operation/mileageMonitor/popup?yunYing="+yunYing+"&cheLiangMing="+cheLiangMing+"&endTime="+endTime+"&data1="+data1+"&data2="+data2;
         openEditWin(url,title);

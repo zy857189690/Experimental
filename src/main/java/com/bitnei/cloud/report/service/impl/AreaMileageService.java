@@ -202,9 +202,7 @@ public class AreaMileageService implements IAreaMileageService {
      */
     public void downloadAreaMonthly(Map<String, Object> params) {
         Map<String, Object> map = params;
-
         JSONObject ob = new JSONObject();
-
         if (map.get("shangPai") != null) {
             map.put("shangPai", "%" + map.get("shangPai") + "%");
         }
@@ -224,7 +222,6 @@ public class AreaMileageService implements IAreaMileageService {
             map.remove("jieDuan");
         }
         if (map.get("endTime") == null) {
-
             String shiJian = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis() - 86400000));
             map.put("shiJian", shiJian);
             map.put("date2", shiJian);
@@ -234,7 +231,7 @@ public class AreaMileageService implements IAreaMileageService {
             map.put("date2", endTime);
         }
         map = PublicDealUtil.bulidUserForParams(map);
-        List lists = areaMileageMapper.downloadAreaMonthly(map);
+        List lists = areaMileageMapper.queryAreaMonthly(map);
         DataLoader.loadNames(lists);
         DataLoader.loadDictNames(lists);
         String srcBase = RequestContext.class.getResource("/templates/").getFile();
