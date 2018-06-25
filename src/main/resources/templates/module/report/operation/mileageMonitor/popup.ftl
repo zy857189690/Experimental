@@ -64,7 +64,7 @@
            data-options="iconCls:'icon-export'" menu="0">导出</a>
     </@shiro.hasPermission>
 
-        <a href="#" onclick="openDailog()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">报表说明&nbsp;&nbsp;</a>
+        <a href="#" onclick="openDailog()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">列表说明&nbsp;&nbsp;</a>
     </div>
     <div id="table" name="datagrid" style="width: 100%; height: 100%;"></div>
 </div>

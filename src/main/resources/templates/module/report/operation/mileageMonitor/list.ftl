@@ -22,7 +22,7 @@
             </thead>
             <tbody>
             <tr>
-                <td>截止时间</td><td>报表查询截止某一天的历史数据，而非只显示前一天的数据</td>
+                <td>截止时间</td><td >报表查询截止某一天的历史数据，而非只显示前一天的数据</td>
             </tr>
             <tr>
                 <td>监控车车辆总数（辆）</td><td>即登录过平台为可监控车辆数</td>
@@ -59,7 +59,7 @@
         <a href="#" onclick="exportDatagrid('${base}/report/operation/mileageMonitor/downloadMileageMonthly','form_search','table')" class="easyui-linkbutton"
            data-options="iconCls:'icon-export'" menu="0">导出</a>
     </@shiro.hasPermission>
-        <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">报表说明&nbsp;&nbsp;</a>
+        <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">列表说明&nbsp;&nbsp;</a>
     </div>
     <div id="table" name="datagrid" style="width: 100%; height: 100%;"></div>
 </div>
