@@ -252,9 +252,9 @@
        queryParams: queryParams,
        frozenColumns:[[
            /*{field: 'ck', checkbox: true, width: '20'},*/
-           {field: 'reportDate', title: '时间',align:'center',sortable: false},
-           {field: 'licensePlate', title: '车牌号',align:'center',sortable: false},
-           {field: 'vin', title: 'VIN',align:'center',sortable: false},
+           {field: 'reportDate', title: '时间',align:'center',width: 150,halign:'center',sortable: false},
+           {field: 'licensePlate', title: '车牌号',align:'center',width: 100,halign:'center',sortable: false},
+           {field: 'vin', title: 'VIN',align:'center',width: 150,halign:'center',ortable: false},
        ]],
         columns: [[
             {field: 'vehTypeName', title: '车辆种类',align:'center',width: 150,halign:'center',sortable: false},
@@ -277,10 +277,10 @@
             {field: 'speed', title: '车速(km/h)',align:'center',width: 150,halign:'center',sortable: false},
             {field: 'soc', title: 'SOC(%)',align:'center',width: 150,halign:'center',sortable: false},
             {field: 'location', title: '地理位置',align:'center',width: 150,halign:'center',sortable: false},
-            {field: 'termPartFirmwareNumber', title: '终端零件号',align:'center',halign:'center',sortable: false},
-            {field: 'termBarCode', title: '条形码编码',align:'center',halign:'center',sortable: false},
-            {field: 'serialNumber', title: '终端厂商自定义编号',align:'center',halign:'center',sortable: false},
-            {field: 'iccid', title: 'ICCID',align:'left',halign:'center',sortable: false,width: '120'},
+            {field: 'termPartFirmwareNumber', title: '终端零件号',align:'center',width: 200,halign:'center',sortable: false},
+            {field: 'termBarCode', title: '条形码编码',align:'center',width: 250,halign:'center',sortable: false},
+            {field: 'serialNumber', title: '终端厂商自定义编号',align:'center',width: 200,halign:'center',sortable: false},
+            {field: 'iccid', title: 'ICCID',align:'left',width: 200,halign:'center',sortable: false},
         ]],
         toolbar: "#toolbar",
         pagination: true,
