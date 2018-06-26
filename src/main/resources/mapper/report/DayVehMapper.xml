@@ -93,7 +93,7 @@
             AND s_a.id = #{sysDivisionId}
         </if>
         GROUP BY v_e.report_date,veh.license_plate
-        ORDER BY v_m_c.last_commit_time,v_e.report_date,veh.license_plate,veh.vin,v_e.daily_active_total_time DESC
+        ORDER BY v_m_c.last_commit_time DESC ,v_e.report_date DESC,veh.license_plate DESC,veh.vin DESC,v_e.daily_active_total_time DESC
     </select>
 
     <!--查询车辆种类下拉列表-->
