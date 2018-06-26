@@ -43,7 +43,7 @@
     </script>
 </head>
 <body class="easyui-layout" fit="true" id="fullid">
-<div id="report" class="easyui-window" title="列表说明" style="width:853px; height:650px; display: none;" data-options="modal:true,closed:true">
+<div id="report" class="easyui-window" title="列表说明" style="width:853px; height:600px; display: none;" data-options="modal:true,closed:true">
     <div class="easyui-layout">
         <table class="easyui-datagrid">
             <thead>
@@ -120,21 +120,21 @@
                 <br />
                 1）SOC>100%，或SOC<0；</td>
             </tr>
-            <tr>
-                <td>地理位置</td><td>生成快照时的地理位置，GPS数值转译后的实际地理名称</td>
-            </tr>
-            <tr>
-                <td>最后通讯时间</td><td>车辆在生成快照前，最后与平台通讯的时间，含自动唤醒</td>
-            </tr>
-            <tr>
-                <td>有效CAN数据最后上传时间</td><td>CAN数据有效性仅作车速、里程、总电压、总电流、GPS经纬度、SOC值、时间有效性的判断； <br /> 上述字段均不为空，有效范围内</td>
-            </tr>
-            <tr>
-                <td>最后一次充电时间</td><td>是最后一次上传充电状态的时间（包含停车充电或充电完成状态的时间）</td>
-            </tr>
-            <tr>
-                <td>充放电状态</td><td>32960协议里的状态：停车充电、行驶充电、未充电、充电完成、异常、无效</td>
-            </tr>
+            <#--<tr>-->
+                <#--<td>地理位置</td><td>生成快照时的地理位置，GPS数值转译后的实际地理名称</td>-->
+            <#--</tr>-->
+            <#--<tr>-->
+                <#--<td>最后通讯时间</td><td>车辆在生成快照前，最后与平台通讯的时间，含自动唤醒</td>-->
+            <#--</tr>-->
+            <#--<tr>-->
+                <#--<td>有效CAN数据最后上传时间</td><td>CAN数据有效性仅作车速、里程、总电压、总电流、GPS经纬度、SOC值、时间有效性的判断； <br /> 上述字段均不为空，有效范围内</td>-->
+            <#--</tr>-->
+            <#--<tr>-->
+                <#--<td>最后一次充电时间</td><td>是最后一次上传充电状态的时间（包含停车充电或充电完成状态的时间）</td>-->
+            <#--</tr>-->
+            <#--<tr>-->
+                <#--<td>充放电状态</td><td>32960协议里的状态：停车充电、行驶充电、未充电、充电完成、异常、无效</td>-->
+            <#--</tr>-->
             </tbody>
         </table>
     </div>
@@ -145,8 +145,8 @@
         <table class="easyui-datagrid">
             <thead>
             <tr>
-                <th data-options="field:'code'" style="width: 100px">名称</th>
-                <th data-options="field:'name'" style="width: 100%">定义</th>
+                <th data-options="field:'code',align: 'left', halign: 'center'" style="width: 20%">名称</th>
+                <th data-options="field:'name',align: 'left', halign: 'center'" style="width: 80%">定义</th>
             </tr>
             </thead>
             <tbody>
@@ -168,7 +168,7 @@
 </div>
 
 <div id="exceptionRecord" class="easyui-window" title="车速异常记录详情" style="width:853px;height:100%;" data-options="modal:true,closed:true">
-    <div><label>VIN:</label><label id="vin"></label><label>车牌号:</label><label id="licensePlate"></label><label>车辆公告型号:</label><label id="modelNoticeId"></label></div>
+    <div><label>VIN:</label><label id="vin"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>车牌号:</label><label id="licensePlate"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>车辆公告型号:</label><label id="modelNoticeId"></label></div>
     <div><input type="text" style="display: none" id="typeId"/></div>
     <div> <a href="#" id="reportExplan" onclick="reportExplan()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">列表说明</a> </div>
     <div style="width: auto;height: 500px;">
@@ -202,61 +202,61 @@
             <table class="table_search">
                 <tr>
                     <td class="td_label"  id="filetitle">
-                        <label>导入查询文件</label>
+                        <label>导入查询文件:</label>
                     </td>
                     <td class="td_input" id="fileinput">
                         <input type="file" id="file" style="width:100px;" name="query.myfile" />
                     </td>
                     <td class="td_label">
-                        <label>查询日期</label>
+                        <label>查询日期:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" id="startTime" class="easyui-datetimebox" value="${(startTime)!}" style="width: height: 26px;width:170px;" name="query.startTime" autocomplete="off">
                     </td>
-                    <td class="td_label">
-                        <label>至</label>
+                    <td class="td_label" style="text-align: center">
+                        <label>至:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" id="endTime" class="easyui-datetimebox" value="${(endTime)!}" style="width: height: 26px;width:170px;" name="query.endTime" autocomplete="off">
                     </td>
                     <td class="td_label">
-                        <label>运营单位</label>
+                        <label>运营单位:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" id="useUnitId" class="input-fat input" style="width: height: 26px;width:150px;" name="query.useUnitName" autocomplete="off">
                     </td>
                     <td class="td_label">
-                        <label>车牌号</label>
+                        <label>车牌号:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" class="input-fat input" style="width: height: 26px;width:150px;" name="query.licensePlate" autocomplete="off">
                     </td>
                     <td class="td_label">
-                        <label>VIN</label>
+                        <label>VIN:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" class="input-fat input" style="width: height: 26px;width:150px;" name="query.vin" autocomplete="off">
                     </td>
                     <td class="td_label">
-                        <label>车辆种类</label>
+                        <label>车辆种类:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" id="vehTypeId" class="input-fat input" style="width: height: 26px;width:150px;" name="query.vehTypeName" autocomplete="off">
                     </td>
                     <td class="td_label">
-                        <label>车辆型号名称</label>
+                        <label>车辆型号名称:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" id="vehModelName" class="input-fat input" editable="false" style="width: height: 26px;width:150px;" name="query.vehModelName" autocomplete="off">
                     </td>
                     <td class="td_label">
-                        <label>车辆阶段</label>
+                        <label>车辆阶段:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" id="vehStage" class="input-fat input" editable="false" style="width: height: 26px;width:150px;" name="query.vehStage" autocomplete="off">
                     </td>
                     <td class="td_label">
-                        <label>上牌城市</label>
+                        <label>上牌城市:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" id="areaId" class="input-fat input" style="width: height: 26px;width:150px;" name="query.areaName" autocomplete="off">
