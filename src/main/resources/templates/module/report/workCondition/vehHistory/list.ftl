@@ -169,7 +169,8 @@
                         <label>车辆型号:</label>
                     </td>
                     <td class="td_input">
-                        <input id="vehModelName" class="input-fat input" style="width:150px;" name="query.vehModelName"   >
+                        <#--<input id="vehModelName" class="input-fat input" style="width:150px;" name="query.vehModelName"   >-->
+                        <input id="vehModelName" class="input-fat input" editable="false" style="width:150px;" name="query.vehModelName"   >
                     </td>
                     <td class="td_label" style="text-align: right;">
                         <label>运营单位:</label>
@@ -370,7 +371,7 @@
             // onLoadSuccess:function(node, data){
             //     $('#useUnitId').combotree('setValue', { id: data[0].id, text: data[0].text });
             // },
-            editable: true
+            // editable: true
         });
         //车辆车型名称
         $('#vehModelName').combobox({
@@ -389,7 +390,7 @@
             // onLoadSuccess:function(node, data){
             //     $('#vehTypeId').combotree('setValue', { id: data[0].id, text: data[0].text });
             // },
-            editable: true
+            // editable: true
         });
 
         //车辆阶段

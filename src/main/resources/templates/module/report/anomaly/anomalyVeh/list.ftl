@@ -247,13 +247,13 @@
                         <label>车辆型号名称</label>
                     </td>
                     <td class="td_input">
-                        <input type="text" id="vehModelName" class="input-fat input" style="width: height: 26px;width:150px;" name="query.vehModelName" autocomplete="off">
+                        <input type="text" id="vehModelName" class="input-fat input" editable="false" style="width: height: 26px;width:150px;" name="query.vehModelName" autocomplete="off">
                     </td>
                     <td class="td_label">
                         <label>车辆阶段</label>
                     </td>
                     <td class="td_input">
-                        <input type="text" id="vehStage" class="input-fat input" style="width: height: 26px;width:150px;" name="query.vehStage" autocomplete="off">
+                        <input type="text" id="vehStage" class="input-fat input" editable="false" style="width: height: 26px;width:150px;" name="query.vehStage" autocomplete="off">
                     </td>
                     <td class="td_label">
                         <label>上牌城市</label>
@@ -502,34 +502,34 @@
         //上牌区域
         $('#areaId').combotree({
             url: '${base}/report/common/queryAreaList',
-            onLoadSuccess:function(node, data){
-                $('#areaId').combotree('setValue', { id: data[0].id, text: data[0].text });
-            }
+            // onLoadSuccess:function(node, data){
+            //     $('#areaId').combotree('setValue', { id: data[0].id, text: data[0].text });
+            // }
         });
         //运营单位
         $('#useUnitId').combotree({
             url: '${base}/report/common/queryUnitList',
-            onLoadSuccess:function(node, data){
-                $('#useUnitId').combotree('setValue', { id: data[0].id, text: data[0].text });
-            }
+            // onLoadSuccess:function(node, data){
+            //     $('#useUnitId').combotree('setValue', { id: data[0].id, text: data[0].text });
+            // }
         });
         //车辆车型名称
         $('#vehModelName').combobox({
             url: '${base}/report/common/queryVehModelList',
             valueField: 'id',
             textField: 'text',
-            onLoadSuccess:function(){
-                var val = $(this).combobox("getData");
-                $(this).combobox("select", val[0].text);
-                $(this).combobox("setValue", val[0].id);
-            }
+            // onLoadSuccess:function(){
+            //     var val = $(this).combobox("getData");
+            //     $(this).combobox("select", val[0].text);
+            //     $(this).combobox("setValue", val[0].id);
+            // }
         });
         //车辆种类
         $('#vehTypeId').combotree({
             url: '${base}/report/common/queryVehTypeList',
-            onLoadSuccess:function(node, data){
-                $('#vehTypeId').combotree('setValue', { id: data[0].id, text: data[0].text });
-            }
+            // onLoadSuccess:function(node, data){
+            //     $('#vehTypeId').combotree('setValue', { id: data[0].id, text: data[0].text });
+            // }
         });
 
         //车辆阶段
@@ -537,11 +537,11 @@
             url: '${base}/report/common/queryVehStageList',
             valueField: 'id',
             textField: 'text',
-            onLoadSuccess:function(){
-                var val = $(this).combobox("getData");
-                $(this).combobox("select", val[0].text);
-                $(this).combobox("setValue", val[0].id);
-            }
+            // onLoadSuccess:function(){
+            //     var val = $(this).combobox("getData");
+            //     $(this).combobox("select", val[0].text);
+            //     $(this).combobox("setValue", val[0].id);
+            // }
         });
     }
 
