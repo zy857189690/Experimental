@@ -456,9 +456,9 @@
         });
         //车辆型号
         $('#vehModelName').combobox({
-            url: '${base}/report/workCondition/dayVeh/queryVehModelList',
+            url: '${base}/report/common/queryVehModelList',
             valueField: 'id',
-            textField: 'vehModelName'
+            textField: 'text'
         });
         //车辆种类
         $('#vehTypeId').combotree({
