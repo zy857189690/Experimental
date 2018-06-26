@@ -43,32 +43,36 @@
     </script>
 </head>
 <body class="easyui-layout" fit="true" id="fullid">
-<div id="report" class="easyui-window" title="报表说明" style="width:853px; height:550px; display: none;" data-options="modal:true,closed:true">
+<div id="report" class="easyui-window" title="列表说明" style="width:853px; height:650px; display: none;" data-options="modal:true,closed:true">
     <div class="easyui-layout">
         <table class="easyui-datagrid">
             <thead>
             <tr>
-                <th data-options="field:'code', width: 200">名称</th>
-                <th data-options="field:'name', width: 650">定义</th>
+                <th data-options="field:'code', width: 200, align: 'left', halign: 'center'">名称</th>
+                <th data-options="field:'name', width: 650, align: 'left', halign: 'center'">定义</th>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td>速度异常</td><td>1、车速有效性异常：
+                <br />
                 1）车速为空，或，上传无效值或异常值，及0xFE或0xFF；
                 注：仅实时数据判断，自动唤醒不判断；
                 <br />
                 2、车速数值异常：
+                <br />
                 1）车速超出有效值范围，速度＞200km/h或＜0km/h；</td>
             </tr>
             <tr>
                 <td>仪表里程异常</td><td>1、仪表里程有效性异常
+                <br />
                 1）仪表里程为空，或，上传无效值或异常值，及0xFE或0xFF；
                 注：包含自动唤醒场景下上传的数据；
                 <br />
                 2、仪表里程数值异常
                 <br />
                 1）超出有效值范围：里程值大于等于100万的数值；
+                <br />
                 2）里程跳变：连续两帧数据，后一帧里程—前一帧里程大于2km；
                 <br />
                 注：包含自动唤醒场景下上传的数据；</td>
@@ -78,6 +82,7 @@
                 经度或纬度为空，或，上传无效值或异常值，及0xFE或0xFF；
                 <br />
                 2、经纬度数值异常
+                <br />
                 1）超出范围：经度∈（73,135），纬度∈（4.53）;
                 注：包含自动唤醒情况下上传的经纬度数值；</td>
             </tr>
@@ -101,7 +106,9 @@
                 总电流为空，或，上传无效值或异常值，及0xFE或0xFF；
                 <br />
                 2、总电流数值异常：
+                <br />
                 1）当电流≥5A时，连续3帧相同；
+                <br />
                 2）总电流＞20A；</td>
             </tr>
             <tr>
@@ -110,6 +117,7 @@
                 注：排除自动唤醒情况下上传的数据；
                 <br />
                 2、SOC数值异常：
+                <br />
                 1）SOC>100%，或SOC<0；</td>
             </tr>
             <tr>
@@ -132,7 +140,7 @@
     </div>
 </div>
 
-<div id="recordExplanPopup" class="easyui-window" title="报表说明" style="width:853px;height:550px; display: none;" data-options="modal:true,closed:true">
+<div id="recordExplanPopup" class="easyui-window" title="列表说明" style="width:853px;height:550px; display: none;" data-options="modal:true,closed:true">
     <div class="easyui-layout">
         <table class="easyui-datagrid">
             <thead>
@@ -162,7 +170,7 @@
 <div id="exceptionRecord" class="easyui-window" title="车速异常记录详情" style="width:853px;height:100%;" data-options="modal:true,closed:true">
     <div><label>VIN:</label><label id="vin"></label><label>车牌号:</label><label id="licensePlate"></label><label>车辆公告型号:</label><label id="modelNoticeId"></label></div>
     <div><input type="text" style="display: none" id="typeId"/></div>
-    <div> <a href="#" id="reportExplan" onclick="reportExplan()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">报表说明</a> </div>
+    <div> <a href="#" id="reportExplan" onclick="reportExplan()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">列表说明</a> </div>
     <div style="width: auto;height: 500px;">
         <#--<div id="recordToolbar" style="padding:5px" class="cg-moreBox">-->
             <a href="#" class="easyui-linkbutton" onclick="exceptionExport()"  data-options="iconCls:'icon-export'" menu="0">导出</a>
@@ -177,7 +185,7 @@
         <a href="#" onclick="exportButton()" class="easyui-linkbutton"
            data-options="iconCls:'icon-export'" menu="0">导出</a>
     </@shiro.hasPermission>
-    <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">报表说明</a>
+    <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">列表说明</a>
     </div>
     <div id="table" name="datagrid" style="width: 100%; height: 100%"></div>
 </div>

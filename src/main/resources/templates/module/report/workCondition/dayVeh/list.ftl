@@ -162,8 +162,8 @@
         <table class="easyui-datagrid">
             <thead>
             <tr>
-                <th data-options="field:'code', width: 160, resizable: true">名称</th>
-                <th data-options="field:'name', width: 700, resizable: true">定义</th>
+                <th data-options="field:'code', width: 160, resizable: true, align: 'left', halign: 'center'">名称</th>
+                <th data-options="field:'name', width: 700, resizable: true, align: 'left', halign: 'center'">定义</th>
             </tr>
             </thead>
             <tbody>
