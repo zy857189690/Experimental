@@ -225,6 +225,7 @@
         </if>
         ) VEH
         <include refid="userVehiclePermission"/>
+        ORDER BY  VEH.LAST_COMMIT_TIME DESC ,VEH.REPORT_DATE DESC,VEH.LICENSE_PLATE DESC,VEH.VIN DESC
     </select>
 
     <!-- 根据车牌vin查询出所有的车的ID -->
