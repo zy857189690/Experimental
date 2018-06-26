@@ -247,7 +247,7 @@
                         <label>车辆型号名称:</label>
                     </td>
                     <td class="td_input">
-                        <input type="text" id="vehModelName" class="input-fat input" editable="false" style="width: height: 26px;width:150px;" name="query.vehModelName" autocomplete="off">
+                        <input type="text" id="vehModelName" class="input-fat input" style="width: height: 26px;width:150px;" name="query.vehModelName" autocomplete="off">
                     </td>
                     <td class="td_label">
                         <label>车辆阶段:</label>
@@ -501,7 +501,7 @@
     function initSelectChoose() {
         //上牌区域
         $('#areaId').combotree({
-            url: '${base}/report/common/queryAreaList',
+            url: '${base}/report/common/queryAreaList'
             // onLoadSuccess:function(node, data){
             //     $('#areaId').combotree('setValue', { id: data[0].id, text: data[0].text });
             // }
@@ -512,12 +512,13 @@
             // onLoadSuccess:function(node, data){
             //     $('#useUnitId').combotree('setValue', { id: data[0].id, text: data[0].text });
             // }
+            editable:true
         });
         //车辆车型名称
         $('#vehModelName').combobox({
             url: '${base}/report/common/queryVehModelList',
             valueField: 'id',
-            textField: 'text',
+            textField: 'text'
             // onLoadSuccess:function(){
             //     var val = $(this).combobox("getData");
             //     $(this).combobox("select", val[0].text);
@@ -530,13 +531,14 @@
             // onLoadSuccess:function(node, data){
             //     $('#vehTypeId').combotree('setValue', { id: data[0].id, text: data[0].text });
             // }
+            editable:true
         });
 
         //车辆阶段
         $('#vehStage').combobox({
             url: '${base}/report/common/queryVehStageList',
             valueField: 'id',
-            textField: 'text',
+            textField: 'text'
             // onLoadSuccess:function(){
             //     var val = $(this).combobox("getData");
             //     $(this).combobox("select", val[0].text);

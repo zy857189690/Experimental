@@ -233,7 +233,7 @@
                         <label>车辆型号:</label>
                     </td>
                     <td class="td_input">
-                        <input id="vehModelName" name="query.vehModelNum" editable="false" style="width: 168px;">
+                        <input id="vehModelName" name="query.vehModelNum" style="width: 168px;">
                     </td>
                     <td class="td_label" style="text-align: right;">
                         <label>运营单位:</label>
@@ -559,7 +559,7 @@
         //运营单位
         $('#useUnitId').combotree({
             url: '${base}/report/common/queryUnitList',
-            // editable:true
+            editable:true
         });
         //车辆型号
         $('#vehModelName').combobox({
@@ -570,7 +570,7 @@
         //车辆种类
         $('#vehTypeId').combotree({
             url: '${base}/report/common/queryVehTypeList',
-            // editable:true
+            editable:true
         });
     }
 
