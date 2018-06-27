@@ -19,7 +19,7 @@
         su.name AS manuUnitId,
         s_u.name AS useUintId,
         s_a.name AS sysDivisionId,
-        DATE_FORMAT(veh.entry_date,'%Y-%m-%d %h:%i:%s') AS entryDate,
+        DATE_FORMAT(veh.first_reg,'%Y-%m-%d %h:%i:%s') AS entryDate,
         veh.sale_time AS saleTime,
         v_e.daily_active_total_time AS dailyActiveTotalTime,
         v_r.run_time_sum AS runTimeSum,

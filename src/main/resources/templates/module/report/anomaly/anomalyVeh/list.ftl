@@ -202,12 +202,12 @@
             <table class="table_search">
                 <tr>
                     <td class="td_label"  id="filetitle">
-                        <label>导入查询文件:</label>
+                        <label>文件上传:</label>
                     </td>
                     <td class="td_input" id="fileinput">
-                        <input type="file" id="file" style="width:100px;" name="query.myfile" />
+                        <input type="file" id="file" style="height: 30px; width: 168px;" name="query.myfile" />
                     </td>
-                    <td class="td_label">
+                    <td class="td_label" style="text-align: right">
                         <label>查询日期:</label>
                     </td>
                     <td class="td_input">
@@ -219,43 +219,43 @@
                     <td class="td_input">
                         <input type="text" id="endTime" class="easyui-datetimebox" value="${(endTime)!}" style="width: height: 26px;width:170px;" name="query.endTime" autocomplete="off">
                     </td>
-                    <td class="td_label">
+                    <td class="td_label" style="text-align: right">
                         <label>运营单位:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" id="useUnitId" class="input-fat input" style="width: height: 26px;width:150px;" name="query.useUnitName" autocomplete="off">
                     </td>
-                    <td class="td_label">
+                    <td class="td_label" style="text-align: right">
                         <label>车牌号:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" class="input-fat input" style="width: height: 26px;width:150px;" name="query.licensePlate" autocomplete="off">
                     </td>
-                    <td class="td_label">
+                    <td class="td_label" style="text-align: right">
                         <label>VIN:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" class="input-fat input" style="width: height: 26px;width:150px;" name="query.vin" autocomplete="off">
                     </td>
-                    <td class="td_label">
+                    <td class="td_label" style="text-align: right">
                         <label>车辆种类:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" id="vehTypeId" class="input-fat input" style="width: height: 26px;width:150px;" name="query.vehTypeName" autocomplete="off">
                     </td>
-                    <td class="td_label">
+                    <td class="td_label" style="text-align: right">
                         <label>车辆型号名称:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" id="vehModelName" class="input-fat input" style="width: height: 26px;width:150px;" name="query.vehModelName" autocomplete="off">
                     </td>
-                    <td class="td_label">
+                    <td class="td_label" style="text-align: right">
                         <label>车辆阶段:</label>
                     </td>
                     <td class="td_input">
                         <input type="text" id="vehStage" class="input-fat input" editable="false" style="width: height: 26px;width:150px;" name="query.vehStage" autocomplete="off">
                     </td>
-                    <td class="td_label">
+                    <td class="td_label" style="text-align: right">
                         <label>上牌城市:</label>
                     </td>
                     <td class="td_input">
