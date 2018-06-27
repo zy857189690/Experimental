@@ -366,24 +366,24 @@
     function initSelectChoose() {
         //上牌区域
         $('#areaId').combotree({
-            url: '${base}/report/common/queryAreaList',
+            url: '${base}/report/common/queryAreaList'
             // onLoadSuccess:function(node, data){
             //     $('#areaId').combotree('setValue', { id: data[0].id, text: data[0].text });
             // }
         });
         //运营单位
         $('#useUnitId').combotree({
-            url: '${base}/report/common/queryUnitList',
+            url: '${base}/report/common/queryUnitList'
             // onLoadSuccess:function(node, data){
             //     $('#useUnitId').combotree('setValue', { id: data[0].id, text: data[0].text });
             // },
-            editable: true
+            // editable: true
         });
         //车辆车型名称
         $('#vehModelName').combobox({
             url: '${base}/report/common/queryVehModelList',
             valueField: 'id',
-            textField: 'text',
+            textField: 'text'
             // onLoadSuccess:function(){
             //     var val = $(this).combobox("getData");
             //     $(this).combobox("select", val[0].text);
@@ -396,7 +396,7 @@
             // onLoadSuccess:function(node, data){
             //     $('#vehTypeId').combotree('setValue', { id: data[0].id, text: data[0].text });
             // },
-            editable: true
+            // editable: true
         });
 
         //车辆阶段
@@ -409,6 +409,7 @@
             //     $(this).combobox("select", val[0].text);
             //     $(this).combobox("setValue", val[0].id);
             // }
+            editable: true
         });
     }
 

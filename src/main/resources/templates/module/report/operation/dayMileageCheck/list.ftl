@@ -558,8 +558,8 @@
         });
         //运营单位
         $('#useUnitId').combotree({
-            url: '${base}/report/common/queryUnitList',
-            editable:true
+            url: '${base}/report/common/queryUnitList'
+            // editable:true
         });
         //车辆型号
         $('#vehModelName').combobox({
@@ -569,8 +569,8 @@
         });
         //车辆种类
         $('#vehTypeId').combotree({
-            url: '${base}/report/common/queryVehTypeList',
-            editable:true
+            url: '${base}/report/common/queryVehTypeList'
+            // editable:true
         });
     }
 
