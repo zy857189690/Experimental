@@ -451,8 +451,8 @@
         });
         //运营单位
         $('#useUintId').combotree({
-            url: '${base}/report/workCondition/dayVeh/queryUnitList',
-            editable:true
+            url: '${base}/report/workCondition/dayVeh/queryUnitList'
+            // editable:true
         });
         //车辆型号
         $('#vehModelName').combobox({
@@ -462,8 +462,8 @@
         });
         //车辆种类
         $('#vehTypeId').combotree({
-            url: '${base}/report/workCondition/dayVeh/queryVehTypeList',
-            editable:true
+            url: '${base}/report/workCondition/dayVeh/queryVehTypeList'
+            // editable:true
         });
     }
 

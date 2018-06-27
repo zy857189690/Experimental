@@ -783,18 +783,7 @@
         $('#diaVehStage, #idleVehStage').combobox({
             url: '${base}/report/common/queryVehStageList',
             valueField: 'id',
-            textField: 'text',
-            editable: false
-        });
-        //上牌城市
-        $('#idleAreaId').combotree({
-            url: '${base}/report/common/queryAreaList',
-            editable: true
-        });
-        //运营单位
-        $('#idleUseUnitId').combotree({
-            url: '${base}/report/common/queryUnitList',
-            editable: true
+            textField: 'text'
         });
         //车辆型号
         $('#idleModelNoticeId').combobox({
@@ -802,10 +791,17 @@
             valueField: 'id',
             textField: 'modelNoticeId'
         });
+        //上牌城市
+        $('#idleAreaId').combotree({
+            url: '${base}/report/common/queryAreaList'
+        });
+        //运营单位
+        $('#idleUseUnitId').combotree({
+            url: '${base}/report/common/queryUnitList'
+        });
         //车辆种类
         $('#idleVehTypeId').combotree({
-            url: '${base}/report/common/queryVehTypeList',
-            editable: true
+            url: '${base}/report/common/queryVehTypeList'
         });
     }
 
