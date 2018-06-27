@@ -91,7 +91,7 @@
         <if test="vehStage != null and vehStage != '-1'.toString()">
             AND veh.registerstatus = #{vehStage}
         </if>
-        ORDER BY vhs.last_can_valid_time DESC,vhs.report_date DESC,veh.license_plate DESC,veh.vin DESC
+        ORDER BY vhs.last_can_valid_time DESC,vhs.report_date,veh.license_plate,veh.vin
     </select>
 
 </mapper>
