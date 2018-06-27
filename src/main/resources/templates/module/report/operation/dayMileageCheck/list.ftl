@@ -255,22 +255,22 @@
                         <input id="areaId" name="query.veharea" editable="false" style="width: 168px;">
                     </td>
                     <td class="td_label" style="text-align: right;">
-                        <label>当日有效里程大于（km）:</label>
+                        <label>当日有效里程大于(km):</label>
                     </td>
                     <td class="td_input">
-                        <input type="text" class="input-fat input" id="dayVaildMileage" name="query.dayVaildMileage" style="width:150px;">
+                        <input type="text" class="input-fat input" id="dayVaildMileage" name="query.dayVaildMileage" style="width:100px;position: relative;left: 50px;">
                     </td>
                     <td class="td_label" style="text-align: right;">
-                        <label>当日轨迹里程大于（km）:</label>
+                        <label>当日轨迹里程大于(km):</label>
                     </td>
                     <td class="td_input">
-                        <input type="text" class="input-fat input" id="dayGpsMileage" name="query.dayGpsMileage" style="width:150px;">
+                        <input type="text" class="input-fat input" id="dayGpsMileage" name="query.dayGpsMileage" style="width:100px;position: relative;left: 50px;">
                     </td>
                     <td class="td_label" style="text-align: right;">
-                        <label>当日在线里程大于（km）:</label>
+                        <label>当日在线里程大于(km):</label>
                     </td>
                     <td class="td_input">
-                        <input type="text" class="input-fat input" id="dayOnlineMileage" name="query.dayOnlineMileage" style="width:150px;">
+                        <input type="text" class="input-fat input" id="dayOnlineMileage" name="query.dayOnlineMileage" style="width:100px;position: relative;left: 50px;">
                     </td>
                     <td class="td_label" style="width:388px ">
                     </td>
@@ -558,8 +558,8 @@
         });
         //运营单位
         $('#useUnitId').combotree({
-            url: '${base}/report/common/queryUnitList',
-            editable:true
+            url: '${base}/report/common/queryUnitList'
+            // editable:true
         });
         //车辆型号
         $('#vehModelName').combobox({
@@ -569,8 +569,8 @@
         });
         //车辆种类
         $('#vehTypeId').combotree({
-            url: '${base}/report/common/queryVehTypeList',
-            editable:true
+            url: '${base}/report/common/queryVehTypeList'
+            // editable:true
         });
     }
 

@@ -80,20 +80,20 @@
                 #{item}
             </foreach>
          </if>
-        <if test="vehTypeId != null and vehTypeId != ''">
+        <if test="vehTypeId != null and vehTypeId != '0'.toString() ">
             AND veh.veh_type_id = #{vehTypeId}
         </if>
         <if test="vehModelName != null and vehModelName != '-1'">
             AND s_v_m.id = #{vehModelName}
         </if>
-        <if test="useUintId != null and useUintId != ''">
+        <if test="useUintId != null and useUintId != '0'.toString() ">
             AND s_u.id = #{useUintId}
         </if>
-        <if test="sysDivisionId != null and sysDivisionId != ''">
+        <if test="sysDivisionId != null and sysDivisionId != '0'.toString() ">
             AND s_a.id = #{sysDivisionId}
         </if>
         GROUP BY v_e.report_date,veh.license_plate
-        ORDER BY v_m_c.last_commit_time,v_e.report_date,veh.license_plate,veh.vin,v_e.daily_active_total_time DESC
+        ORDER BY v_m_c.last_commit_time DESC ,v_e.report_date DESC,veh.license_plate DESC,veh.vin DESC,v_e.daily_active_total_time DESC
     </select>
 
     <!--查询车辆种类下拉列表-->

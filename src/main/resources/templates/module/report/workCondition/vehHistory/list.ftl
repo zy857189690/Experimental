@@ -51,7 +51,7 @@
     </div>
 </div>
 
-<div id="report" class="easyui-window" title="报表说明" style="width: 853px; height: 500px;display: none"  data-options="modal:true,closed:true">
+<div id="report" class="easyui-window" title="列表说明" style="width: 853px; height: 500px;display: none"  data-options="modal:true,closed:true">
     <div class="easyui-layout">
         <table class="easyui-datagrid">
             <thead>
@@ -108,7 +108,7 @@
             <a href="#" onclick="exportData()" class="easyui-linkbutton"
                data-options="iconCls:'icon-export'" menu="0">导出</a>
         </@shiro.hasPermission>
-        <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">报表说明</a>
+        <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" style="float: right;margin-top:5px;margin-right: 120px">列表说明</a>
     </div>
     <div id="table" name="datagrid" style="width: 100%; height: 100%;"></div>
 </div>
@@ -141,12 +141,12 @@
                     <td class="td_input">
                         <input type="text"class="easyui-datetimebox" id="endTime" style="height: 30px;width:150px;" value="${(endTime)!}" name="query.endTime"   data-options="editable:false">
                     </td>
-                    <td class="td_label" style="text-align: right;">
-                        <label>仪表里程大于:</label>
-                    </td>
-                    <td class="td_input">
-                        <input type="text" class="input-fat input" style="width:125px;"   name="query.gaugesMileage"   >
-                    </td>
+                    <#--<td class="td_label" style="text-align: right;">-->
+                        <#--<label>仪表里程大于:</label>-->
+                    <#--</td>-->
+                    <#--<td class="td_input">-->
+                        <#--<input type="text" class="input-fat input" style="width:125px;"   name="query.gaugesMileage"   >-->
+                    <#--</td>-->
                     <td class="td_label" style="text-align: right;">
                         <label>车牌号:</label>
                     </td>
@@ -170,6 +170,7 @@
                     </td>
                     <td class="td_input">
                         <input id="vehModelName" class="input-fat input" style="width:150px;" name="query.vehModelName"   >
+                        <#--<input id="vehModelName" class="input-fat input" editable="false" style="width:150px;" name="query.vehModelName"   >-->
                     </td>
                     <td class="td_label" style="text-align: right;">
                         <label>运营单位:</label>
@@ -182,6 +183,12 @@
                     </td>
                     <td class="td_input">
                         <input type="text" id="areaId" class="input-fat input" editable="false" style="width:150px;"   name="query.areaName"   >
+                    </td>
+                    <td class="td_label" style="text-align: right;">
+                        <label>仪表里程大于:</label>
+                    </td>
+                    <td class="td_input">
+                        <input type="text" class="input-fat input" style="width:130px;"   name="query.gaugesMileage"   >
                     </td>
                 <#--<td class="td_label">-->
                 <#--<label>GPS里程大于</label>-->
@@ -359,24 +366,24 @@
     function initSelectChoose() {
         //上牌区域
         $('#areaId').combotree({
-            url: '${base}/report/common/queryAreaList',
+            url: '${base}/report/common/queryAreaList'
             // onLoadSuccess:function(node, data){
             //     $('#areaId').combotree('setValue', { id: data[0].id, text: data[0].text });
             // }
         });
         //运营单位
         $('#useUnitId').combotree({
-            url: '${base}/report/common/queryUnitList',
+            url: '${base}/report/common/queryUnitList'
             // onLoadSuccess:function(node, data){
             //     $('#useUnitId').combotree('setValue', { id: data[0].id, text: data[0].text });
             // },
-            editable: true
+            // editable: true
         });
         //车辆车型名称
         $('#vehModelName').combobox({
             url: '${base}/report/common/queryVehModelList',
             valueField: 'id',
-            textField: 'text',
+            textField: 'text'
             // onLoadSuccess:function(){
             //     var val = $(this).combobox("getData");
             //     $(this).combobox("select", val[0].text);
@@ -389,7 +396,7 @@
             // onLoadSuccess:function(node, data){
             //     $('#vehTypeId').combotree('setValue', { id: data[0].id, text: data[0].text });
             // },
-            editable: true
+            // editable: true
         });
 
         //车辆阶段
@@ -402,6 +409,7 @@
             //     $(this).combobox("select", val[0].text);
             //     $(this).combobox("setValue", val[0].id);
             // }
+            editable: true
         });
     }
 

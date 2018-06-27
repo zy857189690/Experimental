@@ -48,7 +48,7 @@
             <a href="#" onclick="exportData()" class="easyui-linkbutton"
                 data-options="iconCls:'icon-export'" menu="0">导出</a>
         </@shiro.hasPermission>
-        <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">报表说明</a>
+        <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" style="float: right;margin-top:5px;margin-right: 120px">列表说明</a>
     </div>
     <div id="table" name="datagrid" style="width: 100%;height: 100%"></div>
 </div>
@@ -157,13 +157,13 @@
     </div>
 </div>
 
-<div id="report" class="easyui-window" title="报表说明" style="width:853px;height:600px; display: none;" data-options="modal:true,closed:true">
+<div id="report" class="easyui-window" title="列表说明" style="width:853px;height:600px; display: none;" data-options="iconCls:'',modal:true,resizable:false,closed:true">
     <div class="easyui-layout">
         <table class="easyui-datagrid">
             <thead>
             <tr>
-                <th data-options="field:'code', width: 160, resizable: true">名称</th>
-                <th data-options="field:'name', width: 700, resizable: true">定义</th>
+                <th data-options="field:'code', width: 160, resizable: true, align: 'left', halign: 'center'">名称</th>
+                <th data-options="field:'name', width: 700, resizable: true, align: 'left', halign: 'center'">定义</th>
             </tr>
             </thead>
             <tbody>
@@ -451,19 +451,19 @@
         });
         //运营单位
         $('#useUintId').combotree({
-            url: '${base}/report/workCondition/dayVeh/queryUnitList',
-            editable:true
+            url: '${base}/report/workCondition/dayVeh/queryUnitList'
+            // editable:true
         });
         //车辆型号
         $('#vehModelName').combobox({
-            url: '${base}/report/workCondition/dayVeh/queryVehModelList',
+            url: '${base}/report/common/queryVehModelList',
             valueField: 'id',
-            textField: 'vehModelName'
+            textField: 'text'
         });
         //车辆种类
         $('#vehTypeId').combotree({
-            url: '${base}/report/workCondition/dayVeh/queryVehTypeList',
-            editable:true
+            url: '${base}/report/workCondition/dayVeh/queryVehTypeList'
+            // editable:true
         });
     }
 

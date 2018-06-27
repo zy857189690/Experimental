@@ -45,19 +45,19 @@
 
         /*字典查询项*/
         /*运营单位*/
-        <if test="unit!=null and unit!=''">
+        <if test="unit!=null and unit!='0'.toString()">
             AND  UNITUSE.id = #{unit}
         </if>
         /* 车型*/
-        <if test="vehModelNum!=null and vehModelNum!=''">
+        <if test="vehModelNum!=null and vehModelNum!='-1'">
             AND  SVM.id = #{vehModelNum}
         </if>
         /* 车辆种类 */
-        <if test="vehtype!=null and vehtype!=''">
+        <if test="vehtype!=null and vehtype!='' and vehtype!='0'.toString()">
             AND  SYSDICT.id = #{vehtype}
         </if>
         /* 上牌区域*/
-        <if test="veharea!=null and veharea!=''">
+        <if test="veharea!=null and veharea!='0'.toString()">
             AND  SYSAREA.id =  #{veharea}
         </if>
 
@@ -225,6 +225,7 @@
         </if>
         ) VEH
         <include refid="userVehiclePermission"/>
+        ORDER BY  VEH.LAST_COMMIT_TIME DESC ,VEH.REPORT_DATE DESC,VEH.LICENSE_PLATE DESC,VEH.VIN DESC
     </select>
 
     <!-- 根据车牌vin查询出所有的车的ID -->

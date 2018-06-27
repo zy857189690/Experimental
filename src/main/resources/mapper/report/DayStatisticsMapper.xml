@@ -195,7 +195,7 @@
             vds.vid AS vdsVid
         FROM
         veh_dayreport_summary vds
-        LEFT JOIN	sys_vehicle veh ON vds.vid=veh.uuid
+        LEFT JOIN sys_vehicle veh ON vds.vid = veh.uuid
         LEFT JOIN sys_veh_model model ON veh.veh_model_id = model.id
         LEFT JOIN sys_area area ON veh.sys_division_id = area.id
         LEFT JOIN sys_dict sd ON veh.registerstatus=sd.val AND sd.type='500'
@@ -203,6 +203,7 @@
             <choose>
                 <when test="searchType == 'dayCount'">
                     AND date_format(vds.report_date, '%Y-%m-%d') = #{reportDate}
+                    AND date_format(veh.entry_date, '%Y-%m-%d') &lt;= date_format(vds.report_date, '%Y-%m-%d')
                 </when>
                 <when test="searchType == 'newVehCount'">
                     AND date_format(vds.report_date, '%Y-%m-%d') = #{reportDate} AND vds.append = '1'
