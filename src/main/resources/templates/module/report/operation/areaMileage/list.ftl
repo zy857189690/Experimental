@@ -240,13 +240,11 @@
     function queryArea(){
         $('#xingShi').combotree({
             url: '${base}/report/operation/areaMileage/getDrivingArea'
-            ,
-            editable: true
+
         });
         $('#yunYing').combotree({
             url: '${base}/report/common/queryUnitList'
-            ,
-            editable: true
+
         });
         $('#jieDuan').combobox({
             url: '${base}/report/common/queryVehStageList',
