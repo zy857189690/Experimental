@@ -108,7 +108,7 @@
             </foreach>
         </if>
         /*GROUP BY veh.vin*/
-        ORDER BY vdas.reportDate DESC
+        ORDER BY vdas.reportDate DESC,veh.license_plate,veh.vin
     </select>
 
     <select id="pageQueryTimeException" resultType="java.util.HashMap" parameterType="java.util.HashMap">
