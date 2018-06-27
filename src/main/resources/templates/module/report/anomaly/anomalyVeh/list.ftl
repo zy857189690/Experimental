@@ -501,10 +501,11 @@
     function initSelectChoose() {
         //上牌区域
         $('#areaId').combotree({
-            url: '${base}/report/common/queryAreaList'
+            url: '${base}/report/common/queryAreaList',
             // onLoadSuccess:function(node, data){
             //     $('#areaId').combotree('setValue', { id: data[0].id, text: data[0].text });
             // }
+            editable:true
         });
         //运营单位
         $('#useUnitId').combotree({
@@ -538,12 +539,13 @@
         $('#vehStage').combobox({
             url: '${base}/report/common/queryVehStageList',
             valueField: 'id',
-            textField: 'text'
+            textField: 'text',
             // onLoadSuccess:function(){
             //     var val = $(this).combobox("getData");
             //     $(this).combobox("select", val[0].text);
             //     $(this).combobox("setValue", val[0].id);
             // }
+            editable:true
         });
     }
 
