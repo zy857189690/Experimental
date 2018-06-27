@@ -117,7 +117,7 @@
             <if test="idleModelNoticeId != null and idleModelNoticeId != '-1'">
                 AND model.id=#{idleModelNoticeId}
             </if>
-            ORDER BY vds.report_date DESC ) idle
+            ORDER BY vds.report_date, veh.entry_date DESC ) idle
         GROUP BY idle.vid HAVING sum(idle.run_km) &lt; #{idleMileageValue}
         <if test="idleMileage != null">
             AND sum(idle.run_km) &gt; #{idleMileage}
