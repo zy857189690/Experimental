@@ -783,8 +783,7 @@
         $('#diaVehStage, #idleVehStage').combobox({
             url: '${base}/report/common/queryVehStageList',
             valueField: 'id',
-            textField: 'text',
-            editable: false
+            textField: 'text'
         });
         //上牌城市
         $('#idleAreaId').combotree({
