@@ -141,12 +141,12 @@
                     <td class="td_input">
                         <input type="text"class="easyui-datetimebox" id="endTime" style="height: 30px;width:150px;" value="${(endTime)!}" name="query.endTime"   data-options="editable:false">
                     </td>
-                    <td class="td_label" style="text-align: right;">
-                        <label>仪表里程大于:</label>
-                    </td>
-                    <td class="td_input">
-                        <input type="text" class="input-fat input" style="width:125px;"   name="query.gaugesMileage"   >
-                    </td>
+                    <#--<td class="td_label" style="text-align: right;">-->
+                        <#--<label>仪表里程大于:</label>-->
+                    <#--</td>-->
+                    <#--<td class="td_input">-->
+                        <#--<input type="text" class="input-fat input" style="width:125px;"   name="query.gaugesMileage"   >-->
+                    <#--</td>-->
                     <td class="td_label" style="text-align: right;">
                         <label>车牌号:</label>
                     </td>
@@ -183,6 +183,12 @@
                     </td>
                     <td class="td_input">
                         <input type="text" id="areaId" class="input-fat input" editable="false" style="width:150px;"   name="query.areaName"   >
+                    </td>
+                    <td class="td_label" style="text-align: right;">
+                        <label>仪表里程大于:</label>
+                    </td>
+                    <td class="td_input">
+                        <input type="text" class="input-fat input" style="width:130px;"   name="query.gaugesMileage"   >
                     </td>
                 <#--<td class="td_label">-->
                 <#--<label>GPS里程大于</label>-->
