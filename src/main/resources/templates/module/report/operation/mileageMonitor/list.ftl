@@ -114,36 +114,36 @@
         sortOrder: "desc",
         rownumbers: true,
         columns: [[
-            {field: 'shiJian', title: '截止时间', width: 120, align: 'center'},
-            {field: 'yunYing', title: '运营单位', width: 120, align: 'center'},
-            {field: 'cheLiangMing', title: '车型名称', width: 120, align: 'center'},
-            {field: 'jianKongChe', title: '监控车车辆总数（辆）', width: 150, align: 'center'},
-            {field: 'cheLiangYunYing', title: '本月车辆运营数（辆）', width: 150, align: 'center'},
-            {field: 'a', title: '≥3万公里（辆）', width: 120, align: 'center',formatter:function(val, row, index){
+            {field: 'shiJian', title: '截止时间',  align: 'center'},
+            {field: 'yunYing', title: '运营单位',  align: 'center'},
+            {field: 'cheLiangMing', title: '车型名称',align: 'center'},
+            {field: 'jianKongChe', title: '监控车车辆总数（辆）',  align: 'center'},
+            {field: 'cheLiangYunYing', title: '本月车辆运营数（辆）',  align: 'center'},
+            {field: 'a', title: '≥3万公里（辆）',  align: 'center',formatter:function(val, row, index){
                 if(val==undefined||val==""){
                     return "0";
                 }
                  return compile(val,row,index,30000,0,'≥3万公里（辆）');
             }},
-            {field: 'b', title: '2~3万公里（辆）', width: 150, align: 'center',formatter:function(val, row, index){
+            {field: 'b', title: '2~3万公里（辆）', align: 'center',formatter:function(val, row, index){
                 if(val==undefined||val==""){
                     return "0";
                 }
                 return  compile(val,row,index,20000,30000,'2~3万公里（辆）');
             }},
-            {field: 'c', title: '1~2万公里（辆）', width: 150, align: 'center',formatter:function(val, row, index){
+            {field: 'c', title: '1~2万公里（辆）', align: 'center',formatter:function(val, row, index){
                 if(val==undefined||val==""){
                     return "0";
                 }
                 return  compile(val,row,index,10000,20000,'1~2万公里（辆）');
             }},
-            {field: 'd', title: '0.05~1万公里（辆）', width: 150, align: 'center',formatter:function(val, row, index){
+            {field: 'd', title: '0.05~1万公里（辆）',  align: 'center',formatter:function(val, row, index){
                 if(val==undefined||val==""){
                     return "0";
                 }
                 return  compile(val,row,index,500,10000, '0.05~1万公里（辆）');
             }},
-            {field: 'e', title: '＜0,05万公里（辆）', width: 150, align: 'center',formatter:function(val, row, index){
+            {field: 'e', title: '＜0,05万公里（辆）',  align: 'center',formatter:function(val, row, index){
                 if(val==undefined||val==""){
                     return "0";
                 }
