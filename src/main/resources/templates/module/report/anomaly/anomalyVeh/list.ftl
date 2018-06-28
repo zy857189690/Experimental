@@ -180,7 +180,7 @@
         </a>
         <a href="#" id="reportExplan" onclick="reportExplan()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 20px">列表说明</a>
     </div>
-    <div style="width: auto;height: 500px;">
+    <div style="width: auto;height: 415px;">
         <#--<div id="recordToolbar" style="padding:5px" class="cg-moreBox">-->
             <#--<a href="#" class="easyui-linkbutton" onclick="exceptionExport()"  data-options="iconCls:'icon-export'" menu="0">导出</a>-->
         <#--</div>-->
@@ -276,8 +276,6 @@
                         <a href="#" onclick="downFile()" id = "downLadfile" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
                     </td>
                 </tr>
-
-
             </table>
         </form>
     </div>
