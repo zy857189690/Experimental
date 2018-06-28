@@ -34,8 +34,8 @@
         stmu.serial_number AS serialNumber,
         stmu.iccid
         FROM
-        veh_history_state vhs,
-        sys_vehicle veh
+        veh_history_state vhs
+        LEFT JOIN sys_vehicle veh ON veh.uuid = vhs.vid
         LEFT JOIN sys_veh_model svm ON veh.veh_model_id = svm.id
         LEFT JOIN sys_dict sd ON svm.veh_model_type_id = sd.id AND sd.type = 2
         LEFT JOIN sys_dict sd2 ON veh.registerstatus = sd2.val  AND sd2.type = 500
@@ -44,7 +44,6 @@
         LEFT JOIN sys_area area ON area.id = veh.sys_division_id
         LEFT JOIN sys_term_model_unit stmu ON veh.term_id = stmu.id
         <include refid="Common.userVehiclePermission"/>
-        AND veh.uuid = vhs.vid
         <if test="startTime != null and endTime != null">
             AND UNIX_TIMESTAMP(vhs.report_date) >= UNIX_TIMESTAMP(#{startTime})
             AND UNIX_TIMESTAMP(#{endTime}) >= UNIX_TIMESTAMP(vhs.report_date)
