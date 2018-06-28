@@ -289,73 +289,73 @@
         sortOrder: "desc",
         frozenColumns:[[
             /*{field: 'ck', checkbox: true, width: '20'},*/
-            {field: 'licensePlate', title: '车牌号',align:'center',sortable: false},
-            {field: 'vin', title: 'VIN',align:'center',sortable: false},
+            {field: 'licensePlate', title: '车牌号',align:'center',hlign:'center',sortable: false},
+            {field: 'vin', title: 'VIN',align:'center',hlign:'center',sortable: false},
         ]],
         columns: [[
-            {field: 'vehTypeName', title: '车辆种类',align:'center',sortable: false},
-            {field: 'vehModelName', title: '车辆型号名称',align:'center',sortable: false},
-            {field: 'modelNoticeId', title: '车辆公告型号',align:'center',sortable: false},
-            {field: 'termPartFirmwareNumber', title: '终端零件号',align:'center',sortable: false},
-            {field: 'termBarCode', title: '条形码编码',align:'center',sortable: false},
-            {field: 'serialNumber', title: '终端厂商自定义编号',align:'center',sortable: false},
-            {field: 'manuUnitName', title: '车辆厂商',align:'center',sortable: false},
-            {field: 'useUnitName', title: '运营单位',align:'center',sortable: false},
-            {field: 'areaName', title: '上牌城市',align:'center',sortable: false},
-            {field: 'firstReg', title: '激活时间',align:'center',sortable: false},
-            {field: 'saleTime', title: '销售日期',align:'center',sortable: false},
-            {field: 'iccid', title: 'ICCID',align:'center',sortable: false},
-            {field: 'reportDate', title: '最近异常时间',align:'center',sortable: false},
-            {field: 'speedNumber', title: '车速异常（条）',align:'center',sortable: false,formatter:function(value,row,index){
-                return value;
-            /*if (value == null || value == undefined){
-                    value = 0;
-                }
-                return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',1,\''+row.vid+'\')">'+value+'</a>'
-            */}},
-            {field: 'mileageNumber', title: '里程异常（条）',align:'center',sortable: false,formatter:function(value,row,index){
-                return value;
-            /*if (value == null || value == undefined){
-                    value = 0;
-                }
-                return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',2,\''+row.vid+'\')">'+value+'</a>'
-            */}},
-            {field: 'lngLatNumber', title: '经纬度异常（条）',align:'center',sortable: false,formatter:function(value,row,index){
-                return value;
-            /*if (value == null || value == undefined){
-                    value = 0;
-                }
-                return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',3,\''+row.vid+'\')">'+value+'</a>'
-            */}},
-            {field: 'timeNumber', title: '时间异常（条）',align:'center',sortable: false,formatter:function(value,row,index){
-                return value;
-            /*if (value == null || value == undefined){
-                    value = 0;
-                }
-                return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',4,\''+row.vid+'\')">'+value+'</a>'
-            */}},
-            {field: 'voltageNumber', title: '总电压异常（条）',align:'center',sortable: false,formatter:function(value,row,index){
-                return value;
-            /*if (value == null || value == undefined){
-                    value = 0;
-                }
-                return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',5,\''+row.vid+'\')">'+value+'</a>'
-            */}},
-            {field: 'electricNumber', title: '总电流异常（条）',align:'center',sortable: false,formatter:function(value,row,index){
+            {field: 'vehTypeName', title: '车辆种类',align:'center',hlign:'center',sortable: false},
+            {field: 'vehModelName', title: '车辆型号名称',align:'center',hlign:'center',sortable: false},
+            {field: 'modelNoticeId', title: '车辆公告型号',align:'center',hlign:'center',sortable: false},
+            {field: 'termPartFirmwareNumber', title: '终端零件号',align:'center',hlign:'center',sortable: false},
+            {field: 'termBarCode', title: '条形码编码',align:'center',hlign:'center',sortable: false},
+            {field: 'serialNumber', title: '终端厂商自定义编号',align:'center',hlign:'center',sortable: false},
+            {field: 'manuUnitName', title: '车辆厂商',align:'center',hlign:'center',sortable: false},
+            {field: 'useUnitName', title: '运营单位',align:'center',hlign:'center',sortable: false},
+            {field: 'areaName', title: '上牌城市',align:'center',hlign:'center',sortable: false},
+            {field: 'firstReg', title: '激活时间',align:'center',hlign:'center',sortable: false},
+            {field: 'saleTime', title: '销售日期',align:'center',hlign:'center',sortable: false},
+            {field: 'iccid', title: 'ICCID',align:'center',hlign:'center',sortable: false},
+            {field: 'reportDate', title: '最近异常时间',align:'center',hlign:'center',sortable: false},
+            {field: 'speedNumber', title: '车速异常（条）',align:'center',hlign:'center',sortable: false,formatter:function(value,row,index){
+                    return value;
+                    /*if (value == null || value == undefined){
+                            value = 0;
+                        }
+                        return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',1,\''+row.vid+'\')">'+value+'</a>'
+                    */}},
+            {field: 'mileageNumber', title: '里程异常（条）',align:'center',hlign:'center',sortable: false,formatter:function(value,row,index){
+                    return value;
+                    /*if (value == null || value == undefined){
+                            value = 0;
+                        }
+                        return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',2,\''+row.vid+'\')">'+value+'</a>'
+                    */}},
+            {field: 'lngLatNumber', title: '经纬度异常（条）',align:'center',hlign:'center',sortable: false,formatter:function(value,row,index){
+                    return value;
+                    /*if (value == null || value == undefined){
+                            value = 0;
+                        }
+                        return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',3,\''+row.vid+'\')">'+value+'</a>'
+                    */}},
+            {field: 'timeNumber', title: '时间异常（条）',align:'center',hlign:'center',sortable: false,formatter:function(value,row,index){
+                    return value;
+                    /*if (value == null || value == undefined){
+                            value = 0;
+                        }
+                        return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',4,\''+row.vid+'\')">'+value+'</a>'
+                    */}},
+            {field: 'voltageNumber', title: '总电压异常（条）',align:'center',hlign:'center',sortable: false,formatter:function(value,row,index){
+                    return value;
+                    /*if (value == null || value == undefined){
+                            value = 0;
+                        }
+                        return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',5,\''+row.vid+'\')">'+value+'</a>'
+                    */}},
+            {field: 'electricNumber', title: '总电流异常（条）',align:'center',hlign:'center',sortable: false,formatter:function(value,row,index){
 
-                return value;
-              /*  if (value == null || value == undefined){
-                    value = 0;
-                }
-                return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',6,\''+row.vid+'\')">'+value+'</a>'
-            */}},
-            {field: 'socNumber', title: 'SOC异常（条）',align:'center',sortable: false,formatter:function(value,row,index){
-                return value;
-            /*if (value == null || value == undefined){
-                    value = 0;
-                }
-                return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',7,\''+row.vid+'\')">'+value+'</a>'
-            */}},
+                    return value;
+                    /*  if (value == null || value == undefined){
+                          value = 0;
+                      }
+                      return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',6,\''+row.vid+'\')">'+value+'</a>'
+                  */}},
+            {field: 'socNumber', title: 'SOC异常（条）',align:'center',hlign:'center',sortable: false,formatter:function(value,row,index){
+                    return value;
+                    /*if (value == null || value == undefined){
+                            value = 0;
+                        }
+                        return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',7,\''+row.vid+'\')">'+value+'</a>'
+                    */}},
         ]],
         toolbar: "#toolbar",
         pagination: true,
