@@ -5,6 +5,7 @@
     <select id="pagerModel" resultType="java.util.HashMap" parameterType="java.util.HashMap">
         SELECT
         vdas.vin,
+        vdas.vid,
         veh.license_plate as licensePlate,
         sd.name AS vehTypeName,
         svm.veh_model_name AS vehModelName,
@@ -31,6 +32,7 @@
         (
         SELECT
         vda.vin,
+        vda.vid,
         vda.type as typeFlag,
         max(vda.report_date) as reportDate,
         sum( IF ( vda.type = 1, vda.abnormal_num, 0 ) ) AS speedNumber,
@@ -60,7 +62,7 @@
         LEFT JOIN sys_area area ON area.id = veh.sys_division_id
         LEFT JOIN
         (
-        select count(id) as timeNumber,server_time as serverTime,vin from veh_time_exception_record
+        select count(id) as timeNumber,server_time as serverTime,vin,vid from veh_time_exception_record
         WHERE 1 = 1
         <if test="startTime != null and endTime != null">
             AND UNIX_TIMESTAMP(server_time) >= UNIX_TIMESTAMP(#{startTime})

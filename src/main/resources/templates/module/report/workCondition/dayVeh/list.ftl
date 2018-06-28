@@ -308,7 +308,7 @@
             {field:'runTimes',title:'日行驶次数',align:'center',width: 150,halign:'center'},
             {field:'runKm',title:'日总行驶里程（km）',align:'center',width: 150,halign:'center'},
             {field:'runKmMax',title:'单次运行最大里程（km）',align:'center',width: 150,halign:'center'},
-            {field:'lastMeterMileage',title:'总里程',align:'center',width: 150,halign:'center'},
+            {field:'lastEndMileage',title:'总里程',align:'center',width: 150,halign:'center'},
             {field:'lastGpsMileage',title:'GPS总里程',align:'center',width: 150,halign:'center',
                 formatter:function(value,row,index){
                     if(value == null){
