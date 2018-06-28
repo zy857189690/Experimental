@@ -5,7 +5,7 @@
     <!-- 分页查询 -->
     <select id="pagerModel" resultType="java.util.HashMap" parameterType="java.util.HashMap">
         SELECT
-        DATE_FORMAT(vhs.report_date, '%Y-%m-%d %h:%i:%s') AS reportDate,
+        DATE_FORMAT(vhs.report_date, '%Y-%m-%d %H:%i:%s') AS reportDate,
         veh.license_plate AS licensePlate,
         veh.vin,
         sd.name AS vehTypeName,
@@ -16,11 +16,11 @@
         vhs.state AS vehState,
         sun.name AS useUnitName,
         area.name AS areaName,
-        DATE_FORMAT(veh.first_reg,'%Y-%m-%d %h:%i:%s') AS firstReg,
+        DATE_FORMAT(veh.first_reg,'%Y-%m-%d %H:%i:%s') AS firstReg,
         veh.sale_time AS saleTime,
-        DATE_FORMAT(vhs.last_communication_time,'%Y-%m-%d %h:%i:%s') AS lastCommunicationTime,
-        DATE_FORMAT(vhs.last_can_valid_time,'%Y-%m-%d %h:%i:%s') AS lastCanValidTime,
-        DATE_FORMAT(vhs.last_charge_time,'%Y-%m-%d %h:%i:%s') AS lastChargeTime,
+        DATE_FORMAT(vhs.last_communication_time,'%Y-%m-%d %H:%i:%s') AS lastCommunicationTime,
+        DATE_FORMAT(vhs.last_can_valid_time,'%Y-%m-%d %H:%i:%s') AS lastCanValidTime,
+        DATE_FORMAT(vhs.last_charge_time,'%Y-%m-%d %H:%i:%s') AS lastChargeTime,
         vhs.charge_discharge_state AS chargeDischargeState,
         vhs.gauges_mileage AS gaugesMileage,
         vhs.total_voltage AS totalVoltage,
@@ -34,8 +34,8 @@
         stmu.serial_number AS serialNumber,
         stmu.iccid
         FROM
-        veh_history_state vhs,
-        sys_vehicle veh
+        veh_history_state vhs
+        LEFT JOIN sys_vehicle veh ON veh.uuid = vhs.vid
         LEFT JOIN sys_veh_model svm ON veh.veh_model_id = svm.id
         LEFT JOIN sys_dict sd ON svm.veh_model_type_id = sd.id AND sd.type = 2
         LEFT JOIN sys_dict sd2 ON veh.registerstatus = sd2.val  AND sd2.type = 500
@@ -44,7 +44,6 @@
         LEFT JOIN sys_area area ON area.id = veh.sys_division_id
         LEFT JOIN sys_term_model_unit stmu ON veh.term_id = stmu.id
         <include refid="Common.userVehiclePermission"/>
-        AND veh.uuid = vhs.vid
         <if test="startTime != null and endTime != null">
             AND UNIX_TIMESTAMP(vhs.report_date) >= UNIX_TIMESTAMP(#{startTime})
             AND UNIX_TIMESTAMP(#{endTime}) >= UNIX_TIMESTAMP(vhs.report_date)

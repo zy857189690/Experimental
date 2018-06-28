@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resource version="1.0" name="jiliReport">
     <menu name="吉利报表" parent-name="/" icon="" order="14" id="jiliReport_WAV2A2BlbccYPF58jvzwpHh">
-        <menu name="运营分析" parent-name="/" icon="" order="2" id="jiliReport_eEIknYYqpZqvYzfpid1uf7Z">
+        <menu name="运营分析" parent-name="/" icon="" order="1" id="jiliReport_eEIknYYqpZqvYzfpid1uf7Z">
             <menu name="车辆运行统计" url="/report/operation/dayStatistics/list" icon="" order="1" id="jiliReport_2rdBVFLUAHe9dXPp9Op8jMU">
                 <button name="查看" url="/report/operation/dayStatistics/view" id="jiliReport_HA3YOAVLwmXGGCi3slWWzF7" />
                 <button name="新增" url="/report/operation/dayStatistics/add" id="jiliReport_l6X5YjBsznT7AP3fhkcSYSR" />
@@ -9,14 +9,14 @@
                 <button name="删除" url="/report/operation/dayStatistics/del" id="jiliReport_Mu3l1GKBzqvPsFFdHWmcFmt" />
                 <button name="导出" url="/report/operation/dayStatistics/export" id="jiliReport_JrrRdWwzyGBMRJQPDh6Rlov" />
             </menu>
-            <menu name="区域里程月报" url="/report/operation/areaMileage/list" icon="" order="2" id="jiliReport_8WjOTULF9TaeHfimOAvR6ut">
+            <menu name="区域里程统计" url="/report/operation/areaMileage/list" icon="" order="2" id="jiliReport_8WjOTULF9TaeHfimOAvR6ut">
                 <button name="查看" url="/report/operation/areaMileage/view" id="jiliReport_oWXF1fIQefo5W2yYW20i7SH" />
                 <button name="新增" url="/report/operation/areaMileage/add" id="jiliReport_3vCFAR90rzVyVnJLwKf4BSZ" />
                 <button name="编辑" url="/report/operation/areaMileage/update" id="jiliReport_BfgkQQQMioSaxLfZdn4mwDs" />
                 <button name="删除" url="/report/operation/areaMileage/del" id="jiliReport_ebnslVH4yoQgzBgVSdWtRmo" />
                 <button name="导出" url="/report/operation/areaMileage/export" id="jiliReport_ST8Kzycjo9zta9JsXwC9A71" />
             </menu>
-            <menu name="里程监控月报" url="/report/operation/mileageMonitor/list" icon="" order="3" id="jiliReport_6nTK76EmsvSJFIFoaU5XVDD">
+            <menu name="里程监控统计" url="/report/operation/mileageMonitor/list" icon="" order="3" id="jiliReport_6nTK76EmsvSJFIFoaU5XVDD">
                 <button name="查看" url="/report/operation/mileageMonitor/view" id="jiliReport_B7ePyar2Maw3zwlWI5009gs" />
                 <button name="新增" url="/report/operation/mileageMonitor/add" id="jiliReport_XT9RSHGYNVicgpMMJ3irnuA" />
                 <button name="编辑" url="/report/operation/mileageMonitor/update" id="jiliReport_B5k3UOF3Q8H9fWbOtnuonW4" />
