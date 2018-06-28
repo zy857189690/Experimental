@@ -307,55 +307,47 @@
             {field: 'iccid', title: 'ICCID',align:'center',hlign:'center',sortable: false},
             {field: 'reportDate', title: '最近异常时间',align:'center',hlign:'center',sortable: false},
             {field: 'speedNumber', title: '车速异常（条）',align:'center',hlign:'center',sortable: false,formatter:function(value,row,index){
-                    return value;
-                    /*if (value == null || value == undefined){
+                    if (value == null || value == undefined){
                             value = 0;
                         }
                         return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',1,\''+row.vid+'\')">'+value+'</a>'
-                    */}},
+                    }},
             {field: 'mileageNumber', title: '里程异常（条）',align:'center',hlign:'center',sortable: false,formatter:function(value,row,index){
-                    return value;
-                    /*if (value == null || value == undefined){
+                    if (value == null || value == undefined){
                             value = 0;
                         }
                         return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',2,\''+row.vid+'\')">'+value+'</a>'
-                    */}},
+                    }},
             {field: 'lngLatNumber', title: '经纬度异常（条）',align:'center',hlign:'center',sortable: false,formatter:function(value,row,index){
-                    return value;
-                    /*if (value == null || value == undefined){
+                    if (value == null || value == undefined){
                             value = 0;
                         }
                         return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',3,\''+row.vid+'\')">'+value+'</a>'
-                    */}},
+                    }},
             {field: 'timeNumber', title: '时间异常（条）',align:'center',hlign:'center',sortable: false,formatter:function(value,row,index){
-                    return value;
-                    /*if (value == null || value == undefined){
+                    if (value == null || value == undefined){
                             value = 0;
                         }
                         return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',4,\''+row.vid+'\')">'+value+'</a>'
-                    */}},
+                    }},
             {field: 'voltageNumber', title: '总电压异常（条）',align:'center',hlign:'center',sortable: false,formatter:function(value,row,index){
-                    return value;
-                    /*if (value == null || value == undefined){
+                    if (value == null || value == undefined){
                             value = 0;
                         }
                         return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',5,\''+row.vid+'\')">'+value+'</a>'
-                    */}},
+                    }},
             {field: 'electricNumber', title: '总电流异常（条）',align:'center',hlign:'center',sortable: false,formatter:function(value,row,index){
-
-                    return value;
-                    /*  if (value == null || value == undefined){
+                    if (value == null || value == undefined){
                           value = 0;
                       }
                       return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',6,\''+row.vid+'\')">'+value+'</a>'
-                  */}},
+                  }},
             {field: 'socNumber', title: 'SOC异常（条）',align:'center',hlign:'center',sortable: false,formatter:function(value,row,index){
-                    return value;
-                    /*if (value == null || value == undefined){
+                    if (value == null || value == undefined){
                             value = 0;
                         }
                         return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',7,\''+row.vid+'\')">'+value+'</a>'
-                    */}},
+                    }},
         ]],
         toolbar: "#toolbar",
         pagination: true,
