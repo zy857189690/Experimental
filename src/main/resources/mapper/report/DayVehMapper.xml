@@ -19,7 +19,7 @@
         su.name AS manuUnitId,
         s_u.name AS useUintId,
         s_a.name AS sysDivisionId,
-        DATE_FORMAT(veh.first_reg,'%Y-%m-%d %h:%i:%s') AS entryDate,
+        DATE_FORMAT(veh.first_reg,'%Y-%m-%d %H:%i:%s') AS entryDate,
         veh.sale_time AS saleTime,
         v_e.daily_active_total_time AS dailyActiveTotalTime,
         v_r.run_time_sum AS runTimeSum,
@@ -33,7 +33,7 @@
         v_e.single_charge_max_mileage AS singleChargeMaxMileage,
         v_r.run_speed_max AS runSpeedMax,
         v_r.run_speed_avg AS runSpeedAvg,
-        DATE_FORMAT(v_m_c.last_commit_time,'%Y-%m-%d %h:%i:%s') AS lastCommunTime
+        DATE_FORMAT(v_m_c.last_commit_time,'%Y-%m-%d %H:%i:%s') AS lastCommunTime
         FROM
         sys_vehicle AS veh
         LEFT JOIN veh_dayreport_expansion v_e ON veh.vin = v_e.vin
