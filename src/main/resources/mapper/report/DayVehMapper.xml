@@ -7,63 +7,76 @@
 
     <select id="pagerModel"  resultMap="dayVehInfo" parameterType="java.util.HashMap">
         SELECT
+        *
+        FROM
+        (SELECT
         DATE_FORMAT(v_e.report_date, '%Y-%m-%d') AS reportDate,
         veh.license_plate AS licensePlate,
         veh.vin AS vin,
+        veh.uuid AS vid,
         s_d.name AS vehTypeId,
         s_v_m.veh_model_name AS vehModelName,
         s_v_m.model_notice_id AS modelNoticeId,
-        s_t_m.term_part_firmware_numbers AS termPartFirmwareNumbers,
-        t_u.term_bar_code AS termBarCode,
-        t_u.term_vendor_code AS termVendorCode,
+        stmu.term_part_firmware_number AS termPartFirmwareNumbers,
+        stmu.term_bar_code AS termBarCode,
+        stmu.serial_number AS termVendorCode,
         su.name AS manuUnitId,
         s_u.name AS useUintId,
         s_a.name AS sysDivisionId,
         DATE_FORMAT(veh.first_reg,'%Y-%m-%d %H:%i:%s') AS entryDate,
         veh.sale_time AS saleTime,
         v_e.daily_active_total_time AS dailyActiveTotalTime,
-        v_r.run_time_sum AS runTimeSum,
-        v_r.run_times AS runTimes,
-        v_r.run_km AS runKm,
-        v_r.run_km_max AS runKmMax,
         v_m_c.last_end_mileage AS lastEndMileage,
         v_c.charge_times AS chargeTimes,
         v_c.charge_time_sum AS chargeTimeSum,
         v_c.charge_time_max AS chargeTimeMax,
         v_e.single_charge_max_mileage AS singleChargeMaxMileage,
-        v_r.run_speed_max AS runSpeedMax,
-        v_r.run_speed_avg AS runSpeedAvg,
-        DATE_FORMAT(v_m_c.last_commit_time,'%Y-%m-%d %H:%i:%s') AS lastCommunTime
+        DATE_FORMAT(v_m_c.last_commit_time,'%Y-%m-%d %H:%i:%s') AS lastCommunTime,
+        s_v_m.id AS svmId,
+        s_u.id AS suId,
+        s_a.id AS saId
         FROM
-        sys_vehicle AS veh
+        sys_vehicle veh
         LEFT JOIN veh_dayreport_expansion v_e ON veh.vin = v_e.vin
-        LEFT JOIN sys_dict s_d ON veh.veh_type_id = s_d.id
         LEFT JOIN sys_veh_model s_v_m ON veh.veh_model_id = s_v_m.id
-        LEFT JOIN sys_term_model_unit t_u ON veh.vin = t_u.vin
-        LEFT JOIN sys_term_model s_t_m ON s_t_m.id = t_u.sys_term_model_id
-        <!--LEFT JOIN sys_manufacturer s_m ON veh.manu_unit_id = s_m.fou_unit_id-->
+        LEFT JOIN sys_dict s_d ON s_v_m.veh_model_type_id = s_d.id
         LEFT JOIN sys_unit su ON veh.manu_unit_id = su.id
         LEFT JOIN sys_unit s_u ON veh.use_uint_id = s_u.id
         LEFT JOIN sys_area s_a ON veh.sys_division_id = s_a.id
-        LEFT JOIN veh_dayreport_runstate v_r ON veh.uuid = v_r.vid
+        LEFT JOIN sys_term_model_unit stmu ON veh.term_id = stmu.id
         LEFT JOIN veh_dayreport_mileage_check v_m_c ON veh.vin = v_m_c.vin
         LEFT JOIN veh_dayreport_chargestate v_c ON veh.uuid = v_c.vid
+        ) new
+        LEFT JOIN
+        (
+        SELECT
+        v_r.vid AS vrVid,
+        v_r.run_time_sum AS runTimeSum,
+        v_r.run_times AS runTimes,
+        v_r.run_km AS runKm,
+        v_r.run_km_max AS runKmMax,
+        v_r.run_speed_max AS runSpeedMax,
+        v_r.run_speed_avg AS runSpeedAvg
+        FROM
+        veh_dayreport_runstate v_r
+        LEFT JOIN sys_vehicle veh ON veh.uuid = v_r.vid
+        ) vr ON new.vid = vr.vrVid
         <include refid="Common.userVehiclePermission"/>
         <if test="startTime != null and endTime != null">
-            AND v_e.report_date <![CDATA[>=]]> #{startTime}
-            AND v_e.report_date <![CDATA[<=]]> #{endTime}
+            AND new.reportDate <![CDATA[>=]]> #{startTime}
+            AND new.reportDate <![CDATA[<=]]> #{endTime}
         </if>
         <!--<if test="startTime = null and endTime = null or startTime = '' and endTime = ''">-->
             <!--AND v_e.report_date = '2018-03-13'-->
         <!--</if>-->
         <if test="licensePlate != null and identity == null">
-            AND veh.license_plate LIKE concat(concat('%',#{licensePlate}),'%')
+            AND new.licensePlate LIKE concat(concat('%',#{licensePlate}),'%')
         </if>
         <if test="vin != null and identity == null">
-            AND veh.vin LIKE concat(concat('%',#{vin}),'%')
+            AND new.vin LIKE concat(concat('%',#{vin}),'%')
         </if>
         <if test="vinList != null and identity == 'importType'">
-            AND veh.vin IN
+            AND new.vin IN
             <foreach collection="vinList" index="index" item="item" open="(" separator="," close=")">
                 #{item}
             </foreach>
@@ -75,25 +88,25 @@
             AND
         </if>
         <if test="licensePlateList != null and identity == 'importType'">
-            veh.license_plate IN
+            new.licensePlate IN
             <foreach collection="licensePlateList" index="index" item="item" open="(" separator="," close=")">
                 #{item}
             </foreach>
          </if>
         <if test="vehTypeId != null and vehTypeId != '0'.toString() ">
-            AND veh.veh_type_id = #{vehTypeId}
+            AND new.vehTypeId = #{vehTypeId}
         </if>
         <if test="vehModelName != null and vehModelName != '-1'">
-            AND s_v_m.id = #{vehModelName}
+            AND new.svmId = #{vehModelName}
         </if>
         <if test="useUintId != null and useUintId != '0'.toString() ">
-            AND s_u.id = #{useUintId}
+            AND new.suId = #{useUintId}
         </if>
         <if test="sysDivisionId != null and sysDivisionId != '0'.toString() ">
-            AND s_a.id = #{sysDivisionId}
+            AND new.saId = #{sysDivisionId}
         </if>
-        GROUP BY v_e.report_date,veh.license_plate
-        ORDER BY v_m_c.last_commit_time DESC ,v_e.report_date DESC,veh.license_plate DESC,veh.vin DESC,v_e.daily_active_total_time DESC
+        GROUP BY new.reportDate,new.licensePlate
+        ORDER BY new.lastCommunTime DESC ,new.reportDate DESC,new.licensePlate DESC,new.vin DESC,new.dailyActiveTotalTime DESC
     </select>
 
     <!--查询车辆种类下拉列表-->
