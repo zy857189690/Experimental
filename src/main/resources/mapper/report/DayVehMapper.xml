@@ -34,7 +34,8 @@
         DATE_FORMAT(v_m_c.last_commit_time,'%Y-%m-%d %H:%i:%s') AS lastCommunTime,
         s_v_m.id AS svmId,
         s_u.id AS suId,
-        s_a.id AS saId
+        s_a.id AS saId,
+        veh.veh_type_id AS vehTypeName
         FROM
         sys_vehicle veh
         LEFT JOIN veh_dayreport_expansion v_e ON veh.vin = v_e.vin
@@ -94,7 +95,7 @@
             </foreach>
          </if>
         <if test="vehTypeId != null and vehTypeId != '0'.toString() ">
-            AND new.vehTypeId = #{vehTypeId}
+            AND new.vehTypeName = #{vehTypeId}
         </if>
         <if test="vehModelName != null and vehModelName != '-1'">
             AND new.svmId = #{vehModelName}
