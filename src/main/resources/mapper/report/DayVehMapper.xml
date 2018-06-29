@@ -38,14 +38,14 @@
         veh.veh_type_id AS vehTypeName
         FROM
         sys_vehicle veh
-        LEFT JOIN veh_dayreport_expansion v_e ON veh.vin = v_e.vin
+        LEFT JOIN veh_dayreport_expansion v_e ON veh.uuid = v_e.vid
         LEFT JOIN sys_veh_model s_v_m ON veh.veh_model_id = s_v_m.id
         LEFT JOIN sys_dict s_d ON s_v_m.veh_model_type_id = s_d.id
         LEFT JOIN sys_unit su ON veh.manu_unit_id = su.id
         LEFT JOIN sys_unit s_u ON veh.use_uint_id = s_u.id
         LEFT JOIN sys_area s_a ON veh.sys_division_id = s_a.id
         LEFT JOIN sys_term_model_unit stmu ON veh.term_id = stmu.id
-        LEFT JOIN veh_dayreport_mileage_check v_m_c ON veh.vin = v_m_c.vin
+        LEFT JOIN veh_dayreport_mileage_check v_m_c ON veh.uuid = v_m_c.vid
         LEFT JOIN veh_dayreport_chargestate v_c ON veh.uuid = v_c.vid
         ) new
         LEFT JOIN
