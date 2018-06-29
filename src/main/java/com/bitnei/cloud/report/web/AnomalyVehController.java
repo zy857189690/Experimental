@@ -138,8 +138,8 @@ public class AnomalyVehController {
             pm.setRows(list);
         } else {
             if (!StringUtil.isEmpty(vid) && !StringUtil.isEmpty(type) && !StringUtil.isEmpty(startTime) && !StringUtil.isEmpty(endTime)) {
-                startTime = DateUtil.formatTime(DateUtil.strToDate_ex(startTime), DateUtil.DATA_FORMAT);
-                endTime = DateUtil.formatTime(DateUtil.strToDate_ex(endTime), DateUtil.DATA_FORMAT);
+                startTime = DateUtil.formatTime(DateUtil.strToDate_ex_full(startTime), DateUtil.DATA_FORMAT);
+                endTime = DateUtil.formatTime(DateUtil.strToDate_ex_full(endTime), DateUtil.DATA_FORMAT);
                 List<AbnormalDetail> lists = dataCenterService.findAbnormalDetail(vid, type,startTime, endTime, true);
                 List list = CommonDataTypeRetrun.cyclicData(lists, type);
                 pm.setRows(list);

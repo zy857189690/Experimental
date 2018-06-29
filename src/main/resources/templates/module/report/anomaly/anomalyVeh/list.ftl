@@ -1,4 +1,3 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -140,7 +139,7 @@
     </div>
 </div>
 
-<div id="recordExplanPopup" class="easyui-window" title="列表说明" style="width:853px;height:550px; display: none;" data-options="modal:true,closed:true">
+<div id="recordExplanPopup" class="easyui-window" title="列表说明" style="width:853px;height:350px; display: none;" data-options="modal:true,closed:true">
     <div class="easyui-layout">
         <table class="easyui-datagrid">
             <thead>
@@ -167,18 +166,27 @@
     </div>
 </div>
 
-<div id="exceptionRecord" class="easyui-window" title="车速异常记录详情" style="width:853px;height:100%;" data-options="modal:true,closed:true">
-    <div><label>VIN:</label><label id="vin"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>车牌号:</label><label id="licensePlate"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>车辆公告型号:</label><label id="modelNoticeId"></label></div>
+<div id="exceptionRecord" class="easyui-window" title="车速异常记录详情" style="width:853px;height:550px" data-options="modal:true,closed:true">
+    <div style="width: 90%; height: 30px; margin-top: 20px; margin-left: 10px">
+        <div style="height: 100%; width: 150px; float: left;"><label>VIN：</label><label id="vin"></label></div>
+        <div style="height: 100%; width: 150px; float: left; margin-left: 50px;"><label>车牌号：</label><label id="licensePlate"></label></div>
+        <input type="hidden" id="vid" name="vid" value="" />
+        <#--<label>VIN:</label><label id="vin"></label><label>车牌号:</label><label id="licensePlate"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>车辆公告型号:</label><label id="modelNoticeId"></label></div>-->
+    </div>
     <div><input type="text" style="display: none" id="typeId"/></div>
-    <div> <a href="#" id="reportExplan" onclick="reportExplan()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">列表说明</a> </div>
-    <div style="width: auto;height: 500px;">
+    <div style="margin-bottom: 5px;">
+        <a href="#" onclick="exceptionExport()" class="easyui-linkbutton" data-options="iconCls:'icon-export'" style="margin-left: 10px; width: 65px;">
+            导出
+        </a>
+        <a href="#" id="reportExplan" onclick="reportExplan()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 20px">列表说明</a>
+    </div>
+    <div style="width: auto;height: 415px;">
         <#--<div id="recordToolbar" style="padding:5px" class="cg-moreBox">-->
-            <a href="#" class="easyui-linkbutton" onclick="exceptionExport()"  data-options="iconCls:'icon-export'" menu="0">导出</a>
+            <#--<a href="#" class="easyui-linkbutton" onclick="exceptionExport()"  data-options="iconCls:'icon-export'" menu="0">导出</a>-->
         <#--</div>-->
         <div id="recordTable" name="datagrid" style="width: 100%;height: 100%"></div>
     </div>
 </div>
-
 <div region="center" style="overflow: hidden;width: 100%;">
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
     <@shiro.hasPermission name="/report/anomaly/anomalyVeh/export">
@@ -268,20 +276,19 @@
                         <a href="#" onclick="downFile()" id = "downLadfile" data-options="iconCls:'icon-reset'">导入查询模板下载</a>
                     </td>
                 </tr>
-
-
             </table>
         </form>
     </div>
 </div>
 </body>
 <script>
+    var searchBeginTime = "${(startTime)!}";
+    var searchEndTime = "${(endTime)!}";
     //序列化搜索条件
     var queryParams = $('#form_search').serializeObject();
 
     //重置使用参数对象(暂时存储初次加载的数据，用于重置事件)
     var resetQueryParams = queryParams;
-
     $('#table').datagrid({
         url: '${base}/report/anomaly/anomalyVeh/datagrid',
         queryParams: queryParams,
@@ -385,8 +392,9 @@
 
     //查询按钮事件
     function searchButton(){
-
         if (checkTime()) {
+            searchBeginTime = $("#startTime").datetimebox("getValue");
+            searchEndTime = $("#endTime").datetimebox("getValue");
             var val=$('input:radio[name="query.adminFlag"]:checked').val();
             if (val == 0) {
                 //请求查询
@@ -395,7 +403,6 @@
               //执行导入查询
                 importSearchButton();
             }
-
         }
     }
 
@@ -452,6 +459,8 @@
         var endTimeTemp = "${endTime}";
         $("#startTime").datetimebox("setValue",startTimeTemp);
         $("#endTime").datetimebox("setValue",endTimeTemp);
+        searchBeginTime = $("#startTime").datetimebox("getValue");
+        searchEndTime = $("#endTime").datetimebox("getValue");
         //初始化条件
         initSelectChoose();
         $("input[name='query.vin']").val("");
@@ -621,6 +630,7 @@
 
         $("#licensePlate").text(licensePlate);
         $("#vin").text(vin);
+        $("#vid").text(vid);
         $("#modelNoticeId").text(modelNoticeId);
         $("#typeId").val(type);
         $("#exceptionRecord").attr("title",titleName)
@@ -668,10 +678,13 @@
         var myUrl = "${base}/report/anomaly/anomalyVeh/exceptionExport";
         var searchParames = $("#form_search").serializeObject();
 //        var vid = '0a4a76a0-62d7-4764-b1ac-447763919981';
+        var vid = $("#vid").text();
         searchParames['vid'] = vid;
         searchParames['vin'] = vin;
         searchParames["type"] = type;
         searchParames['licensePlate'] = licensePlate;
+        searchParames['startTime'] = searchBeginTime;
+        searchParames['endTime'] = searchEndTime;
         myUrl += '?exportId=' + new Date().getTime();
         for (var key in searchParames) {
             var value = searchParames[key];
@@ -680,7 +693,6 @@
             }
         }
         window.open(myUrl, '_blank');
-
     }
 </script>
 </html>

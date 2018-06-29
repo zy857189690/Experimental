@@ -106,7 +106,7 @@ public class CommonDataTypeRetrun {
 				String lat = abnormalDetail.getLat();
 				String address = ConnectionGdApi.getAddress(lng,lat);
 				map.put("location", address);
-				map.put("reportDate", com.bitnei.cloud.common.DateUtil.getTimefromNum(abnormalDetail.getUploadTime()));
+				map.put("reportDate", DateUtil.formatTime(DateUtil.strToDate_ex(abnormalDetail.getUploadTime()), DateUtil.FULL_ST_FORMAT));
 				newList.add(map);
 			}
 		}
