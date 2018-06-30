@@ -7,7 +7,7 @@
 
     <select id="pagerModel"  resultMap="dayVehInfo" parameterType="java.util.HashMap">
         SELECT
-        DATE_FORMAT(smm.report_date, '%Y-%m-%d') AS reportDate,
+        <!--DATE_FORMAT(smm.report_date, '%Y-%m-%d') AS reportDate,
         veh.license_plate AS licensePlate,
         veh.vin AS vin,
         veh.uuid AS vid,
@@ -45,7 +45,34 @@
         v_r.run_km AS runKm,
         v_r.run_km_max AS runKmMax,
         v_r.run_speed_max AS runSpeedMax,
-        v_r.run_speed_avg AS runSpeedAvg
+        v_r.run_speed_avg AS runSpeedAvg-->
+        DATE_FORMAT(smm.report_date, '%Y-%m-%d') AS reportDate,
+        veh.license_plate AS licensePlate,
+        veh.vin AS vin,
+        s_d. NAME AS vehTypeId,
+        s_v_m.veh_model_name AS vehModelName,
+        s_v_m.model_notice_id AS modelNoticeId,
+        stmu.term_part_firmware_number AS termPartFirmwareNumbers,
+        stmu.term_bar_code AS termBarCode,
+        stmu.serial_number AS termVendorCode,
+        su. NAME AS manuUnitId,
+        s_u. NAME AS useUintId,
+        s_a. NAME AS sysDivisionId,
+        DATE_FORMAT(veh.first_reg,'%Y-%m-%d %H:%i:%s') AS entryDate,
+        veh.sale_time AS saleTime,
+        v_e.daily_active_total_time AS dailyActiveTotalTime,
+        v_r.run_time_sum AS runTimeSum,
+        v_r.run_times AS runTimes,
+        v_r.run_km AS runKm,
+        v_r.run_km_max AS runKmMax,
+        v_m_c.last_end_mileage AS lastEndMileage,
+        v_c.charge_times AS chargeTimes,
+        v_c.charge_time_sum AS chargeTimeSum,
+        v_c.charge_time_max AS chargeTimeMax,
+        v_e.single_charge_max_mileage AS singleChargeMaxMileage,
+        v_r.run_speed_max AS runSpeedMax,
+        v_r.run_speed_avg AS runSpeedAvg,
+        DATE_FORMAT(v_m_c.last_commit_time,'%Y-%m-%d %H:%i:%s') AS lastCommunTime
         FROM
         veh_dayreport_summary smm
         LEFT JOIN sys_vehicle veh ON smm.vid=veh.uuid
