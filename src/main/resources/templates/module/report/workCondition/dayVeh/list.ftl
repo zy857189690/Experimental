@@ -44,10 +44,10 @@
 <body class="easyui-layout" fit="true" id="fullid">
 <div region="center" style="overflow: hidden; width: 100%;height: 300px;">
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
-        <@shiro.hasPermission name="/report/demo1/export">
+        <#--<@shiro.hasPermission name="/report/workCondition/dayVeh/export">-->
             <a href="#" onclick="exportData()" class="easyui-linkbutton"
                 data-options="iconCls:'icon-export'" menu="0">导出</a>
-        </@shiro.hasPermission>
+        <#--</@shiro.hasPermission>-->
         <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" style="float: right;margin-top:5px;margin-right: 120px">列表说明</a>
     </div>
     <div id="table" name="datagrid" style="width: 100%;height: 100%"></div>
