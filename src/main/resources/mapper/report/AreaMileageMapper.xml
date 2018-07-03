@@ -38,6 +38,7 @@
                  <if test= 'cheLiangMing!=null '> and b.veh_model_name like #{cheLiangMing} </if>
                  <if test= 'yunYing!=null '> and c.path like #{yunYing} </if>
                  <if test= 'jieDuan!=null '> and  veh.registerstatus = #{jieDuan} </if>
+                 and e.name is not null
                  group by veh.license_plate,  a.city
           ) u
          where 1=1
@@ -72,6 +73,7 @@
         <if test= 'cheLiangMing!=null '> and b.veh_model_name like #{cheLiangMing} </if>
         <if test= 'yunYing!=null '> and c.path like #{yunYing} </if>
         <if test= 'jieDuan!=null '> and  veh.registerstatus = #{jieDuan} </if>
+                                        and e.name is not null
         group by veh.license_plate,  a.city
         ) u
         where 1=1
