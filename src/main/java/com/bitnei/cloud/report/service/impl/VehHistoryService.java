@@ -13,6 +13,7 @@ import com.bitnei.cloud.report.service.IVehHistoryService;
 import com.bitnei.cloud.service.impl.BaseService;
 import com.bitnei.commons.datatables.DataGridOptions;
 import com.bitnei.commons.datatables.PagerModel;
+import com.github.pagehelper.PageRowBounds;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.support.RequestContext;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +36,6 @@ import java.util.Map;
 @Service
 @Mybatis(namespace = "com.bitnei.cloud.report.mapper.VehHistoryMapper" )
 public class VehHistoryService extends BaseService implements IVehHistoryService {
-
 	@Override
 	public PagerModel pageQuery() {
 
@@ -58,8 +59,9 @@ public class VehHistoryService extends BaseService implements IVehHistoryService
 
 		List list = findBySqlId("pagerModel", PublicDealUtil.bulidUserForParams(ServletUtil.getQueryParams()));
 		this.cyclicData(list);
-		DataLoader.loadNames(list);
-		DataLoader.loadDictNames(list);
+		List<Map<String, Object>> list1 = list;
+		DataLoader.loadNames(list1);
+		DataLoader.loadDictNames(list1);
 
 		String srcBase = RequestContext.class.getResource("/templates/").getFile();
 		String srcFile = srcBase +"module/report/workCondition/vehHistory/export.xls";
@@ -67,7 +69,7 @@ public class VehHistoryService extends BaseService implements IVehHistoryService
 		ExcelData ed = new ExcelData();
 		ed.setTitle("车辆历史状态报表");
 		ed.setExportTime(DateUtil.getNow());
-		ed.setData(list);
+		ed.setData(rebulidExcelDate(list1));
 		String outName = String.format("%s-导出-%s.xls", "车辆历史状态报表", DateUtil.getNow());
 		EasyExcel.renderResponse(srcFile,outName,ed);
 	}
@@ -196,5 +198,50 @@ public class VehHistoryService extends BaseService implements IVehHistoryService
 			String vehStateName = CommonDataTypeRetrun.findVehStateName(vehState);
 			map.put("vehStateName", vehStateName);
 		}
+	}
+
+	private List rebulidExcelDate(List<Map<String, Object>> list){
+		if (null == list || list.size() == 0) {
+			return null;
+		}
+		DecimalFormat df = new DecimalFormat("#.##");
+		for(Map<String,Object> map : list){
+			//仪表里程gaugesMileage
+			String gaugesMileage = PublicDealUtil.getMapValueString(map.get("gaugesMileage"));
+			if(!org.springframework.util.StringUtils.isEmpty(gaugesMileage)){
+				if(gaugesMileage.contains(".")){
+					map.put("gaugesMileage",df.format(Double.valueOf(gaugesMileage)));
+				}
+			}
+			//总电压totalVoltage
+			String totalVoltage = PublicDealUtil.getMapValueString(map.get("totalVoltage"));
+			if(!org.springframework.util.StringUtils.isEmpty(totalVoltage)){
+				if(totalVoltage.contains(".")){
+					map.put("totalVoltage",df.format(Double.valueOf(totalVoltage)));
+				}
+			}
+			//总电流totalCurrent
+			String totalCurrent = PublicDealUtil.getMapValueString(map.get("totalCurrent"));
+			if(!org.springframework.util.StringUtils.isEmpty(totalCurrent)){
+				if(totalCurrent.contains(".")){
+					map.put("totalCurrent",df.format(Double.valueOf(totalCurrent)));
+				}
+			}
+			//车速speed
+			String speed = PublicDealUtil.getMapValueString(map.get("speed"));
+			if(!org.springframework.util.StringUtils.isEmpty(speed)){
+				if(speed.contains(".")){
+					map.put("speed",df.format(Double.valueOf(speed)));
+				}
+			}
+			//soc soc
+			String soc = PublicDealUtil.getMapValueString(map.get("soc"));
+			if(!org.springframework.util.StringUtils.isEmpty(soc)){
+				if(soc.contains(".")){
+					map.put("soc",df.format(Double.valueOf(soc)));
+				}
+			}
+		}
+		return list;
 	}
 }
