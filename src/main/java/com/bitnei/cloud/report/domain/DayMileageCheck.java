@@ -27,10 +27,10 @@ public class DayMileageCheck  extends TailBean {
     private String dayOnlineMileage;//当日上线里程
     private String deductJumpMileage;//总跳变扣除里程
     private String deductCurrentMileage;//总连续电流扣除里程
-    private String dayVaildMileage;//当日有效里程
+    private String dayValidMileage;//当日有效里程
     private String dayGpsMileage;//当日轨迹里程
-    private String vaildGpsDeviation;//有效里程和轨迹里程相对误差
-    private String onlineVaildDeviation;//上线里程和有效里程相对误差
+    private String validGpsDeviation;//有效里程和轨迹里程相对误差
+    private String onlineValidDeviation;//上线里程和有效里程相对误差
     private String dayCheckMileage;//单日核算里程
     
     
@@ -228,12 +228,12 @@ public class DayMileageCheck  extends TailBean {
         this.deductCurrentMileage = deductCurrentMileage;
     }
 
-    public String getDayVaildMileage() {
-        return dayVaildMileage;
+    public String getDayValidMileage() {
+        return dayValidMileage;
     }
 
-    public void setDayVaildMileage(String dayVaildMileage) {
-        this.dayVaildMileage = dayVaildMileage;
+    public void setDayValidMileage(String dayValidMileage) {
+        this.dayValidMileage = dayValidMileage;
     }
 
     public String getDayGpsMileage() {
@@ -244,20 +244,20 @@ public class DayMileageCheck  extends TailBean {
         this.dayGpsMileage = dayGpsMileage;
     }
 
-    public String getVaildGpsDeviation() {
-        return vaildGpsDeviation;
+    public String getValidGpsDeviation() {
+        return validGpsDeviation;
     }
 
-    public void setVaildGpsDeviation(String vaildGpsDeviation) {
-        this.vaildGpsDeviation = vaildGpsDeviation;
+    public void setValidGpsDeviation(String validGpsDeviation) {
+        this.validGpsDeviation = validGpsDeviation;
     }
 
-    public String getOnlineVaildDeviation() {
-        return onlineVaildDeviation;
+    public String getOnlineValidDeviation() {
+        return onlineValidDeviation;
     }
 
-    public void setOnlineVaildDeviation(String onlineVaildDeviation) {
-        this.onlineVaildDeviation = onlineVaildDeviation;
+    public void setOnlineValidDeviation(String onlineValidDeviation) {
+        this.onlineValidDeviation = onlineValidDeviation;
     }
 
     public String getDayCheckMileage() {
