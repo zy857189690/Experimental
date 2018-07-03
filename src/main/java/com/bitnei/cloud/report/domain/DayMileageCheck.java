@@ -18,20 +18,20 @@ public class DayMileageCheck  extends TailBean {
     private String vin;
     private Date reportDate; //统计日期
     private Timestamp firstOnlineTime;//当日首次上线时间
-    private Double firstStartMileage;//当日开始里程
+    private String firstStartMileage;//当日开始里程
     private Timestamp lastCommitTime;//当日最后通讯时间
-    private Double lastEndMileage;//当日结束里程
+    private String lastEndMileage;//当日结束里程
     private Double checkDataTotalNum;//核查数据总条数
     private Double invalidNum;//无效数据条数
     private Double abnormalNum;//异常数据条数
-    private Double dayOnlineMileage;//当日上线里程
-    private Double deductJumpMileage;//总跳变扣除里程
-    private Double deductCurrentMileage;//总连续电流扣除里程
-    private Double dayVaildMileage;//当日有效里程
-    private Double dayGpsMileage;//当日轨迹里程
-    private Double vaildGpsDeviation;//有效里程和轨迹里程相对误差
-    private Double onlineVaildDeviation;//上线里程和有效里程相对误差
-    private Double dayCheckMileage;//单日核算里程
+    private String dayOnlineMileage;//当日上线里程
+    private String deductJumpMileage;//总跳变扣除里程
+    private String deductCurrentMileage;//总连续电流扣除里程
+    private String dayVaildMileage;//当日有效里程
+    private String dayGpsMileage;//当日轨迹里程
+    private String vaildGpsDeviation;//有效里程和轨迹里程相对误差
+    private String onlineVaildDeviation;//上线里程和有效里程相对误差
+    private String dayCheckMileage;//单日核算里程
     
     
     private String  maker;
@@ -156,11 +156,11 @@ public class DayMileageCheck  extends TailBean {
         this.firstOnlineTime = firstOnlineTime;
     }
 
-    public Double getFirstStartMileage() {
+    public String getFirstStartMileage() {
         return firstStartMileage;
     }
 
-    public void setFirstStartMileage(Double firstStartMileage) {
+    public void setFirstStartMileage(String firstStartMileage) {
         this.firstStartMileage = firstStartMileage;
     }
 
@@ -172,11 +172,11 @@ public class DayMileageCheck  extends TailBean {
         this.lastCommitTime = lastCommitTime;
     }
 
-    public Double getLastEndMileage() {
+    public String getLastEndMileage() {
         return lastEndMileage;
     }
 
-    public void setLastEndMileage(Double lastEndMileage) {
+    public void setLastEndMileage(String lastEndMileage) {
         this.lastEndMileage = lastEndMileage;
     }
 
@@ -204,67 +204,67 @@ public class DayMileageCheck  extends TailBean {
         this.abnormalNum = abnormalNum;
     }
 
-    public Double getDayOnlineMileage() {
+    public String getDayOnlineMileage() {
         return dayOnlineMileage;
     }
 
-    public void setDayOnlineMileage(Double dayOnlineMileage) {
+    public void setDayOnlineMileage(String dayOnlineMileage) {
         this.dayOnlineMileage = dayOnlineMileage;
     }
 
-    public Double getDeductJumpMileage() {
+    public String getDeductJumpMileage() {
         return deductJumpMileage;
     }
 
-    public void setDeductJumpMileage(Double deductJumpMileage) {
+    public void setDeductJumpMileage(String deductJumpMileage) {
         this.deductJumpMileage = deductJumpMileage;
     }
 
-    public Double getDeductCurrentMileage() {
+    public String getDeductCurrentMileage() {
         return deductCurrentMileage;
     }
 
-    public void setDeductCurrentMileage(Double deductCurrentMileage) {
+    public void setDeductCurrentMileage(String deductCurrentMileage) {
         this.deductCurrentMileage = deductCurrentMileage;
     }
 
-    public Double getDayVaildMileage() {
+    public String getDayVaildMileage() {
         return dayVaildMileage;
     }
 
-    public void setDayVaildMileage(Double dayVaildMileage) {
+    public void setDayVaildMileage(String dayVaildMileage) {
         this.dayVaildMileage = dayVaildMileage;
     }
 
-    public Double getDayGpsMileage() {
+    public String getDayGpsMileage() {
         return dayGpsMileage;
     }
 
-    public void setDayGpsMileage(Double dayGpsMileage) {
+    public void setDayGpsMileage(String dayGpsMileage) {
         this.dayGpsMileage = dayGpsMileage;
     }
 
-    public Double getVaildGpsDeviation() {
+    public String getVaildGpsDeviation() {
         return vaildGpsDeviation;
     }
 
-    public void setVaildGpsDeviation(Double vaildGpsDeviation) {
+    public void setVaildGpsDeviation(String vaildGpsDeviation) {
         this.vaildGpsDeviation = vaildGpsDeviation;
     }
 
-    public Double getOnlineVaildDeviation() {
+    public String getOnlineVaildDeviation() {
         return onlineVaildDeviation;
     }
 
-    public void setOnlineVaildDeviation(Double onlineVaildDeviation) {
+    public void setOnlineVaildDeviation(String onlineVaildDeviation) {
         this.onlineVaildDeviation = onlineVaildDeviation;
     }
 
-    public Double getDayCheckMileage() {
+    public String getDayCheckMileage() {
         return dayCheckMileage;
     }
 
-    public void setDayCheckMileage(Double dayCheckMileage) {
+    public void setDayCheckMileage(String dayCheckMileage) {
         this.dayCheckMileage = dayCheckMileage;
     }
 }

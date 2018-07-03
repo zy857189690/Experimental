@@ -305,7 +305,6 @@
      * 初始化车辆监控情况统计表格
      **/
     function loadMonitoringTable() {
-
         if (!checkBeginAndEndDate("form_search1")) {
             return;
         }
@@ -318,26 +317,26 @@
                 sortName: "",
                 sortOrder: "",
                 columns: [[
-                    {title: '日期', field: 'reportDate', align: 'center', width: '20%', sortable: false},
-                    {title: '车辆录入总数（辆）', field: 'dayCount', align: 'center', width: '20%', sortable: false, formatter: function(val, row, index){
+                    {title: '日期', field: 'reportDate', align: 'center', sortable: false},
+                    {title: '车辆录入总数（辆）', field: 'dayCount', align: 'center', sortable: false, formatter: function(val, row, index){
                         if (undefined != val && parseInt(val) > 0) {
                             return "<a href='javascript:void(0);' onclick=\"showVehListByDialog('dayCount', '车辆录入总数（辆）', '" + row.reportDate + "')\">" + val + "</a>";
                         }
                         return val;
                     }},
-                    {title: '新增录入车辆数（辆）', field: 'newVehCount', align: 'center', width: '20%', sortable: false, formatter: function(val, row, index){
+                    {title: '新增录入车辆数（辆）', field: 'newVehCount', align: 'center', sortable: false, formatter: function(val, row, index){
                         if (undefined != val && parseInt(val) > 0) {
                             return "<a href='javascript:void(0);' onclick=\"showVehListByDialog('newVehCount', '新增录入车辆数（辆）', '" + row.reportDate + "')\">" + val + "</a>";
                         }
                         return val;
                     }},
-                    {title: '通讯异常车辆数（辆）', field: 'notOnlineCount', align: 'center', width: '20%', sortable: false, formatter: function(val, row, index){
+                    {title: '通讯异常车辆数（辆）', field: 'notOnlineCount', align: 'center', sortable: false, formatter: function(val, row, index){
                         if (undefined != val && parseInt(val) > 0) {
                             return "<a href='javascript:void(0);' onclick=\"showVehListByDialog('notOnlineCount', '通讯异常车辆数（辆）', '" + row.reportDate + "')\">" + val + "</a>";
                         }
                         return val;
                     }},
-                    {title: '正常监控车辆比例（%）', field: 'ratio', align: 'center', width: '20%', sortable: false, formatter: function(val, row, index){
+                    {title: '正常监控车辆比例（%）', field: 'ratio', align: 'center', sortable: false, formatter: function(val, row, index){
                         if (undefined != row.dayCount && undefined != row.notOnlineCount && row.dayCount > 0) {
                             return ((parseInt(row.dayCount) - parseInt(row.notOnlineCount)) * 100 / parseInt(row.dayCount)).toFixed(2);
                         }
@@ -370,33 +369,33 @@
                 sortName: "",
                 sortOrder: "",
                 columns: [[
-                    {title: '日期', field: 'reportDate', align: 'center', width: '15%', sortable: false},
-                    {title: '车辆录入总数', field: 'dayCount', align: 'center', width: '15%', sortable: false},
-                    {title: '当天活跃车辆总数', field: 'dayActiveCount', align: 'center', width: '15%', sortable: false, formatter: function(val, row, index){
+                    {title: '日期', field: 'reportDate', align: 'center', sortable: false},
+                    {title: '车辆录入总数', field: 'dayCount', align: 'center', sortable: false},
+                    {title: '当天活跃车辆总数', field: 'dayActiveCount', align: 'center', sortable: false, formatter: function(val, row, index){
                         if (undefined != val && val > 0) {
                             return "<a href='javascript:void(0);' onclick=\"showVehListByDialog('dayActiveCount', '当天活跃车辆总数', '" + row.reportDate + "')\">" + val + "</a>";
                         }
                         return val;
                     }},
-                    {title: '活跃率（%）', field: 'activeRate', align: 'center', width: '10%', sortable: false, formatter: function(val, row, index){
+                    {title: '活跃率（%）', field: 'activeRate', align: 'center', sortable: false, formatter: function(val, row, index){
                         if (undefined != row.dayActiveCount && undefined != row.dayCount && row.dayCount > 0) {
                             return ((row.dayActiveCount / row.dayCount) * 100).toFixed(2);
                         }
                         return "-";
                     }},
-                    {title: '里程异常数（辆）', field: 'abnormalVehCount', align: 'center', width: '15%', sortable: false, formatter: function(val, row, index){
+                    {title: '里程异常数（辆）', field: 'abnormalVehCount', align: 'center', sortable: false, formatter: function(val, row, index){
                         if (undefined != val && parseInt(val) > 0) {
                             return "<a href='javascript:void(0);' onclick=\"showVehListByDialog('abnormalVehCount', '里程异常数（辆）', '" + row.reportDate + "')\">" + val + "</a>";
                         }
                         return val;
                     }},
-                    {title: '里程异常比例（%）', field: 'abnormalRate', align: 'center', width: '15%', sortable: false, formatter: function(val, row, index){
+                    {title: '里程异常比例（%）', field: 'abnormalRate', align: 'center', sortable: false, formatter: function(val, row, index){
                         if (undefined != row.abnormalVehCount && undefined != row.dayCount && row.dayCount > 0) {
                             return ((row.abnormalVehCount / row.dayCount) * 100).toFixed(2);
                         }
                         return "-";
                     }},
-                    {title: '单车日均活跃时间', field: 'activeTime', align: 'center', width: '15%', sortable: false, formatter: function(val, row, index){
+                    {title: '单车日均活跃时间', field: 'activeTime', align: 'center', sortable: false, formatter: function(val, row, index){
                         if (undefined != row.activeTimeCount && undefined != row.dayActiveCount && row.dayActiveCount > 0) {
                             return (row.activeTimeCount / row.dayActiveCount).toFixed(2);
                         }
@@ -435,19 +434,19 @@
                 sortName: "",
                 sortOrder: "",
                 frozenColumns:[[
-                    {title: 'VIN', field: 'vin', align: 'center', width: 150, sortable: false, halign: 'center'},
-                    {title: '车牌号', field: 'plate', align: 'center', width: 150, sortable: false, halign: 'center'},
+                    {title: 'VIN', field: 'vin', align: 'center', sortable: false, halign: 'center'},
+                    {title: '车牌号', field: 'plate', align: 'center', sortable: false, halign: 'center'},
                 ]],
                 columns: [[
-                    {title: '上牌城市', field: 'areaName', align: 'center', width: 150, sortable: false, halign: 'center'},
-                    {title: '车辆种类', field: 'vehTypeName', align: 'center', width: 150, sortable: false, halign: 'center'},
-                    {title: '运营单位', field: 'useUnitName', align: 'center', width: 150, sortable: false, halign: 'center'},
-                    {title: '车辆公告型号', field: 'modelNoticeId', align: 'center', width: 150, sortable: false, halign: 'center'},
-                    {title: '车辆阶段', field: 'vehStage', align: 'center', width: 140, sortable: false, halign: 'center'},
-                    {title: '录入时间', field: 'entryDate', align: 'center', width: 150, sortable: false, halign: 'center'},
-                    {title: '闲置里程（km）', field: 'xzlc', align: 'center', width: 150, sortable: false, halign: 'center'},
-                    {title: '最后通讯时间', field: 'lastCommitTime', align: 'center', width: 150, sortable: false, halign: 'center'},
-                    {title: '最后通讯里程', field: 'lastEndMileage', align: 'center', width: 150, sortable: false, halign: 'center'}
+                    {title: '上牌城市', field: 'areaName', align: 'center', sortable: false, halign: 'center'},
+                    {title: '车辆种类', field: 'vehTypeName', align: 'center', sortable: false, halign: 'center'},
+                    {title: '运营单位', field: 'useUnitName', align: 'center', sortable: false, halign: 'center'},
+                    {title: '车辆公告型号', field: 'modelNoticeId', align: 'center', sortable: false, halign: 'center'},
+                    {title: '车辆阶段', field: 'vehStage', align: 'center', sortable: false, halign: 'center'},
+                    {title: '录入时间', field: 'entryDate', align: 'center', sortable: false, halign: 'center'},
+                    {title: '闲置里程（km）', field: 'xzlc', align: 'center', sortable: false, halign: 'center'},
+                    {title: '最后通讯时间', field: 'lastCommitTime', align: 'center', sortable: false, halign: 'center'},
+                    {title: '最后通讯里程', field: 'lastEndMileage', align: 'center', sortable: false, halign: 'center'}
                 ]],
                 toolbar:"#idleToolbar",
                 pagination: true,
@@ -525,27 +524,27 @@
                 sortName: "",
                 sortOrder: "",
                 columns: [[
-                    {title: '日期', field: 'reportDate', align: 'center', width: '20%', sortable: false},
-                    {title: '日总行驶时间（h）', field: 'dayTravelTime', align: 'center', width: '15%', sortable: false, formatter: function(val, row, index){
+                    {title: '日期', field: 'reportDate', align: 'center', sortable: false},
+                    {title: '日总行驶时间（h）', field: 'dayTravelTime', align: 'center', sortable: false, formatter: function(val, row, index){
                         if (undefined != val && val > 0) {
                             return val.toFixed(2);
                         }
                         return val;
                     }},
-                    {title: '单车平均行驶时间', field: 'vehAverageTime', align: 'center', width: '15%', sortable: false, formatter: function(val, row, index){
+                    {title: '单车平均行驶时间', field: 'vehAverageTime', align: 'center', sortable: false, formatter: function(val, row, index){
                         if (undefined != row.dayTravelTime && undefined != row.vehOnlineCount && parseInt(row.vehOnlineCount) > 0) {
                             return (row.dayTravelTime / row.vehOnlineCount).toFixed(2);
                         }
                         return "-";
                     }},
-                    {title: '单车平均行驶里程', field: 'vehAverageMileage', align: 'center', width: '15%', sortable: false, formatter: function(val, row, index){
+                    {title: '单车平均行驶里程', field: 'vehAverageMileage', align: 'center', sortable: false, formatter: function(val, row, index){
                         if (undefined != row.zlc && undefined != row.vehOnlineCount && parseInt(row.vehOnlineCount) > 0) {
                             return (row.zlc / row.vehOnlineCount).toFixed(2);
                         }
                         return "-";
                     }},
-                    {title: '单次充电最大里程（Km）', field: 'onceChargeMaxMileage', align: 'center', width: '20%', sortable: false},
-                    {title: '日平均车速（km/h）', field: 'dayAverageSpeed', align: 'center', width: '15%', sortable: false, formatter: function(val, row, index){
+                    {title: '单次充电最大里程（Km）', field: 'onceChargeMaxMileage', align: 'center', sortable: false},
+                    {title: '日平均车速（km/h）', field: 'dayAverageSpeed', align: 'center', sortable: false, formatter: function(val, row, index){
                         if (undefined != row.zlc && undefined != row.dayTravelTime && parseInt(row.dayTravelTime) > 0) {
                             return (row.zlc / row.dayTravelTime).toFixed(2);
                         }
@@ -578,64 +577,64 @@
                 sortName: "",
                 sortOrder: "",
                 columns: [[
-                    {title: '日期', field: 'reportDate', width: 150, align: 'center', sortable: false},
-                    {title: '充电车辆总数', field: 'chargeVehCount', width: 150, align: 'center', sortable: false, formatter: function(val, row, index){
+                    {title: '日期', field: 'reportDate', align: 'center', sortable: false},
+                    {title: '充电车辆总数', field: 'chargeVehCount', align: 'center', sortable: false, formatter: function(val, row, index){
                         if (undefined != val && val > 0) {
                             return "<a href='javascript:void(0);' onclick=\"showVehListByDialog('chargeVehCount', '充电车辆总数', '" + row.reportDate + "')\">" + val + "</a>";
                         }
                         return val;
                     }},
-                    {title: '充电总次数', field: 'chargeCount', width: 150, align: 'center', sortable: false},
-                    {title: '快充次数（次）', field: 'fastChargeCount', width: 150, align: 'center', sortable: false, formatter: function(val, row, index){
+                    {title: '充电总次数', field: 'chargeCount', align: 'center', sortable: false},
+                    {title: '快充次数（次）', field: 'fastChargeCount', align: 'center', sortable: false, formatter: function(val, row, index){
                         return "-";
                     }},
-                    {title: '慢充次数（次）', field: 'slowChargeCount', width: 150, align: 'center', sortable: false, formatter: function(val, row, index){
+                    {title: '慢充次数（次）', field: 'slowChargeCount', align: 'center', sortable: false, formatter: function(val, row, index){
                         return "-";
                     }},
-                    {title: '充电总时长（h）', field: 'chargeTime', width: 150, align: 'center', sortable: false, formatter: function(val, row, index){
+                    {title: '充电总时长（h）', field: 'chargeTime', align: 'center', sortable: false, formatter: function(val, row, index){
                         if (undefined != val) {
                             return val.toFixed(2);
                         }
                         return "-";
                     }},
-                    {title: '快充时长（h）', field: 'faseChargeTime', width: 150, align: 'center', sortable: false, formatter: function(val, row, index){
+                    {title: '快充时长（h）', field: 'faseChargeTime', align: 'center', sortable: false, formatter: function(val, row, index){
                         return "-";
                     }},
-                    {title: '慢充时长（h）', field: 'slowChargeTime', width: 150, align: 'center', sortable: false, formatter: function(val, row, index){
+                    {title: '慢充时长（h）', field: 'slowChargeTime', align: 'center', sortable: false, formatter: function(val, row, index){
                         return "-";
                     }},
-                    {title: '单车平均充电次数', field: 'vehAveCharge', width: 150, align: 'center', sortable: false, formatter: function(val, row, index){
+                    {title: '单车平均充电次数', field: 'vehAveCharge', align: 'center', sortable: false, formatter: function(val, row, index){
                         if (undefined != row.chargeCount && undefined != row.chargeVehCount && parseInt(row.chargeVehCount) > 0) {
                             return (row.chargeCount / row.chargeVehCount).toFixed(2);
                         }
                         return "-";
                     }},
-                    {title: '单车平均快充次数', field: 'vehAveFastCharge', width: 150, align: 'center', sortable: false, formatter: function(val, row, index){
+                    {title: '单车平均快充次数', field: 'vehAveFastCharge', align: 'center', sortable: false, formatter: function(val, row, index){
                         return "-";
                     }},
-                    {title: '单车平均慢充次数', field: 'vehAveSlowCharge', width: 150, align: 'center', sortable: false, formatter: function(val, row, index){
+                    {title: '单车平均慢充次数', field: 'vehAveSlowCharge', align: 'center', sortable: false, formatter: function(val, row, index){
                         return "-";
                     }},
-                    {title: '单次充电平均时长', field: 'vehAveChargeTime', width: 150, align: 'center', sortable: false, formatter: function(val, row, index){
+                    {title: '单次充电平均时长', field: 'vehAveChargeTime', align: 'center', sortable: false, formatter: function(val, row, index){
                         if (undefined != row.chargeTime && undefined != row.chargeCount && parseInt(row.chargeCount) > 0) {
                             return (row.chargeTime / row.chargeCount).toFixed(2);
                         }
                         return "-";
                     }},
-                    {title: '单车平均快充时长', field: 'vehAveFastChargeTime', width: 150, align: 'center', sortable: false, formatter: function(val, row, index){
+                    {title: '单车平均快充时长', field: 'vehAveFastChargeTime', align: 'center', sortable: false, formatter: function(val, row, index){
                         return "-";
                     }},
-                    {title: '单车平均慢充时长', field: 'vehAveSlowChargeTime', width: 150, align: 'center', sortable: false, formatter: function(val, row, index){
+                    {title: '单车平均慢充时长', field: 'vehAveSlowChargeTime', align: 'center', sortable: false, formatter: function(val, row, index){
                         return "-";
                     }},
-                    {title: '最长充电时间（h）', field: 'longestChargeTime', width: 150, align: 'center', sortable: false},
-                    {title: '累计耗电量', field: 'electricityTotal', width: 150, align: 'center', sortable: false, formatter: function(val, row, index){
+                    {title: '最长充电时间（h）', field: 'longestChargeTime', align: 'center', sortable: false},
+                    {title: '累计耗电量', field: 'electricityTotal', align: 'center', sortable: false, formatter: function(val, row, index){
                         return "-";
                     }},
-                    {title: '平均单车耗电量', field: 'aveVehElectricity', width: 150, align: 'center', sortable: false, formatter: function(val, row, index){
+                    {title: '平均单车耗电量', field: 'aveVehElectricity', align: 'center', sortable: false, formatter: function(val, row, index){
                         return "-";
                     }},
-                    {title: '累计充电量', field: 'chargeTotal', width: 150, align: 'center', sortable: false, formatter: function(val, row, index){
+                    {title: '累计充电量', field: 'chargeTotal', align: 'center', sortable: false, formatter: function(val, row, index){
                         return "-";
                     }}
                 ]],
@@ -692,13 +691,13 @@
                 sortName: "",
                 sortOrder: "",
                 columns: [[
-                    {title: 'VIN', field: 'vin', width: 150, sortable: false, align: 'center', halign: 'center'},
-                    {title: '车牌号', field: 'plate', width: 150, sortable: false, align: 'center', halign: 'center'},
-                    {title: '上牌城市', field: 'areaName', width: 150, sortable: false, align: 'center', halign: 'center'},
-                    {title: '车型公告型号', field: 'modelNoticeId', width: 150, sortable: false, align: 'center', halign: 'center'},
-                    {title: '车辆阶段', field: 'vehStage', width: 150, sortable: false, align: 'center', halign: 'center'},
-                    {title: '录入时间', field: 'entryDate', width: 150, sortable: false, align: 'center', halign: 'center'},
-                    {title: '最后通讯时间', field: 'updateTime', width: 150, sortable: false, align: 'center', halign: 'center'}
+                    {title: 'VIN', field: 'vin', sortable: false, align: 'center', halign: 'center'},
+                    {title: '车牌号', field: 'plate', sortable: false, align: 'center', halign: 'center'},
+                    {title: '上牌城市', field: 'areaName', sortable: false, align: 'center', halign: 'center'},
+                    {title: '车型公告型号', field: 'modelNoticeId', sortable: false, align: 'center', halign: 'center'},
+                    {title: '车辆阶段', field: 'vehStage', sortable: false, align: 'center', halign: 'center'},
+                    {title: '录入时间', field: 'entryDate', sortable: false, align: 'center', halign: 'center'},
+                    {title: '最后通讯时间', field: 'updateTime', sortable: false, align: 'center', halign: 'center'}
                 ]],
                 toolbar:"#vehListDialgToolbar",
                 pagination: true,

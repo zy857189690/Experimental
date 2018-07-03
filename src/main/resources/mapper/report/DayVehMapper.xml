@@ -2,24 +2,63 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitnei.cloud.report.mapper.DayVehMapper">
     <!--<cache type="com.bitnei.cloud.common.cache.MybatisRedisCache" eviction="LRU" flushInterval="6000000" size="1024" readOnly="false"/>-->
-    <resultMap id="dayVehInfo" type="com.bitnei.cloud.report.domain.DayVehInfo" autoMapping="true">
-    </resultMap>
+    <!--<resultMap id="dayVehInfo" type="com.bitnei.cloud.report.domain.DayVehInfo" autoMapping="true">-->
+    <!--</resultMap>-->
 
-    <select id="pagerModel"  resultMap="dayVehInfo" parameterType="java.util.HashMap">
+    <select id="pagerModel"  resultType="java.util.HashMap" parameterType="java.util.HashMap">
         SELECT
-        DATE_FORMAT(v_e.report_date, '%Y-%m-%d') AS reportDate,
+        <!--DATE_FORMAT(smm.report_date, '%Y-%m-%d') AS reportDate,
         veh.license_plate AS licensePlate,
         veh.vin AS vin,
-        s_d.name AS vehTypeId,
+        veh.uuid AS vid,
+        s_d. NAME AS vehTypeId,
         s_v_m.veh_model_name AS vehModelName,
         s_v_m.model_notice_id AS modelNoticeId,
-        s_t_m.term_part_firmware_numbers AS termPartFirmwareNumbers,
-        t_u.term_bar_code AS termBarCode,
-        t_u.term_vendor_code AS termVendorCode,
-        su.name AS manuUnitId,
-        s_u.name AS useUintId,
-        s_a.name AS sysDivisionId,
-        DATE_FORMAT(veh.first_reg,'%Y-%m-%d %h:%i:%s') AS entryDate,
+        stmu.term_part_firmware_number AS termPartFirmwareNumbers,
+        stmu.term_bar_code AS termBarCode,
+        stmu.serial_number AS termVendorCode,
+        su. NAME AS manuUnitId,
+        s_u. NAME AS useUintId,
+        s_a. NAME AS sysDivisionId,
+        DATE_FORMAT(
+        veh.first_reg,
+        '%Y-%m-%d %H:%i:%s'
+        ) AS entryDate,
+        veh.sale_time AS saleTime,
+        v_e.daily_active_total_time AS dailyActiveTotalTime,
+        v_m_c.last_end_mileage AS lastEndMileage,
+        v_c.charge_times AS chargeTimes,
+        v_c.charge_time_sum AS chargeTimeSum,
+        v_c.charge_time_max AS chargeTimeMax,
+        v_e.single_charge_max_mileage AS singleChargeMaxMileage,
+        DATE_FORMAT(
+        v_m_c.last_commit_time,
+        '%Y-%m-%d %H:%i:%s'
+        ) AS lastCommunTime,
+        s_v_m.id AS svmId,
+        s_u.id AS suId,
+        s_a.id AS saId,
+        veh.veh_type_id AS vehTypeName,
+        v_r.vid AS vrVid,
+        v_r.run_time_sum AS runTimeSum,
+        v_r.run_times AS runTimes,
+        v_r.run_km AS runKm,
+        v_r.run_km_max AS runKmMax,
+        v_r.run_speed_max AS runSpeedMax,
+        v_r.run_speed_avg AS runSpeedAvg-->
+        DATE_FORMAT(smm.report_date, '%Y-%m-%d') AS reportDate,
+        veh.license_plate AS licensePlate,
+        veh.vin AS vin,
+        s_d. NAME AS vehTypeId,
+        s_v_m.veh_model_name AS vehModelName,
+        s_v_m.model_notice_id AS modelNoticeId,
+        stmu.term_part_firmware_number AS termPartFirmwareNumbers,
+        stmu.term_bar_code AS termBarCode,
+        stmu.serial_number AS termVendorCode,
+        su. NAME AS manuUnitId,
+        s_u. NAME AS useUintId,
+        s_a. NAME AS sysDivisionId,
+        DATE_FORMAT(veh.first_reg,'%Y-%m-%d %H:%i:%s') AS entryDate,
         veh.sale_time AS saleTime,
         v_e.daily_active_total_time AS dailyActiveTotalTime,
         v_r.run_time_sum AS runTimeSum,
@@ -33,31 +72,31 @@
         v_e.single_charge_max_mileage AS singleChargeMaxMileage,
         v_r.run_speed_max AS runSpeedMax,
         v_r.run_speed_avg AS runSpeedAvg,
-        DATE_FORMAT(v_m_c.last_commit_time,'%Y-%m-%d %h:%i:%s') AS lastCommunTime
+        DATE_FORMAT(v_m_c.last_commit_time,'%Y-%m-%d %H:%i:%s') AS lastCommunTime
         FROM
-        sys_vehicle AS veh
-        LEFT JOIN veh_dayreport_expansion v_e ON veh.vin = v_e.vin
-        LEFT JOIN sys_dict s_d ON veh.veh_type_id = s_d.id
+        veh_dayreport_summary smm
+        LEFT JOIN sys_vehicle veh ON smm.vid=veh.uuid
         LEFT JOIN sys_veh_model s_v_m ON veh.veh_model_id = s_v_m.id
-        LEFT JOIN sys_term_model_unit t_u ON veh.vin = t_u.vin
-        LEFT JOIN sys_term_model s_t_m ON s_t_m.id = t_u.sys_term_model_id
-        <!--LEFT JOIN sys_manufacturer s_m ON veh.manu_unit_id = s_m.fou_unit_id-->
+        LEFT JOIN sys_dict s_d ON s_v_m.veh_model_type_id = s_d.id
         LEFT JOIN sys_unit su ON veh.manu_unit_id = su.id
         LEFT JOIN sys_unit s_u ON veh.use_uint_id = s_u.id
         LEFT JOIN sys_area s_a ON veh.sys_division_id = s_a.id
-        LEFT JOIN veh_dayreport_runstate v_r ON veh.uuid = v_r.vid
-        LEFT JOIN veh_dayreport_mileage_check v_m_c ON veh.vin = v_m_c.vin
-        LEFT JOIN veh_dayreport_chargestate v_c ON veh.uuid = v_c.vid
+        LEFT JOIN sys_term_model_unit stmu ON veh.term_id = stmu.id
+        LEFT JOIN veh_dayreport_expansion v_e ON (smm.vid = v_e.vid AND date_format(smm.report_date, '%Y-%m-%d') = date_format(v_e.report_date, '%Y-%m-%d'))
+        LEFT JOIN veh_dayreport_mileage_check v_m_c ON (smm.vid = v_m_c.vid AND date_format(smm.report_date, '%Y-%m-%d') = date_format(v_m_c.report_date, '%Y-%m-%d'))
+        LEFT JOIN veh_dayreport_chargestate v_c ON (smm.vid = v_c.vid AND date_format(smm.report_date, '%Y-%m-%d') = date_format(v_c.report_time, '%Y-%m-%d'))
+        LEFT JOIN veh_dayreport_runstate v_r ON (smm.vid = v_r.vid AND date_format(smm.report_date, '%Y-%m-%d') = date_format(v_r.report_time, '%Y-%m-%d'))
+        <!-- GROUP BY v_e.report_date,veh.license_plate -->
         <include refid="Common.userVehiclePermission"/>
         <if test="startTime != null and endTime != null">
-            AND v_e.report_date <![CDATA[>=]]> #{startTime}
-            AND v_e.report_date <![CDATA[<=]]> #{endTime}
+            AND smm.report_date <![CDATA[>=]]> #{startTime}
+            AND smm.report_date <![CDATA[<=]]> #{endTime}
         </if>
         <!--<if test="startTime = null and endTime = null or startTime = '' and endTime = ''">-->
             <!--AND v_e.report_date = '2018-03-13'-->
         <!--</if>-->
         <if test="licensePlate != null and identity == null">
-            AND veh.license_plate LIKE concat(concat('%',#{licensePlate}),'%')
+            AND veh.license_plate  LIKE concat(concat('%',#{licensePlate}),'%')
         </if>
         <if test="vin != null and identity == null">
             AND veh.vin LIKE concat(concat('%',#{vin}),'%')
@@ -92,8 +131,8 @@
         <if test="sysDivisionId != null and sysDivisionId != '0'.toString() ">
             AND s_a.id = #{sysDivisionId}
         </if>
-        GROUP BY v_e.report_date,veh.license_plate
-        ORDER BY v_m_c.last_commit_time DESC ,v_e.report_date DESC,veh.license_plate DESC,veh.vin DESC,v_e.daily_active_total_time DESC
+        <!--GROUP BY new.reportDate,new.licensePlate-->
+        ORDER BY smm.report_date,smm.vin DESC
     </select>
 
     <!--查询车辆种类下拉列表-->

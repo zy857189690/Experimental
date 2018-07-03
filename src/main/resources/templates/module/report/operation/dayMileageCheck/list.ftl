@@ -33,6 +33,24 @@
                 }
             }
         });
+
+        function timestampToTime(timestamp) {
+            var date;
+            if(timestamp.toString().length >11){
+                date = new Date(timestamp);
+            }else {
+                date = new Date(timestamp * 1000);
+            }
+            //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+            Y = date.getFullYear() + '-';
+            M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+            D = date.getDate() + ' ';
+            h = date.getHours() + ':';
+            m = date.getMinutes() + ':';
+            s = date.getSeconds();
+            return Y+M+D+h+m+s;
+        }
+
     </script>
     <style type="text/css">
         .td_input a:not(.bg_button) {
@@ -171,10 +189,10 @@
         <a href="#" onclick="del_item()" class="easyui-linkbutton"
            data-options="iconCls:'icon-remove'" >删除</a>
         </@shiro.hasPermission>-->
-        <@shiro.hasPermission name="/report/demo1/export">
-            <a href="#" onclick="gridList()" class="easyui-linkbutton"
+        <#--<@shiro.hasPermission name="/report/operation/dayMileageCheck/export">-->
+           <a href="#" onclick="gridList()" class="easyui-linkbutton"
                data-options="iconCls:'icon-export'" menu="0">导出</a>
-        </@shiro.hasPermission>
+        <#--</@shiro.hasPermission>-->
            <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-left: 5px;margin-right: 5px;  margin-top:5px;margin-right: 100px">列表说明</a>
     </div>
     <div id="table" name="datagrid" style="width: 100%; height: 100%;"></div>
@@ -324,12 +342,12 @@
             /*{field: 'ids', title: '序号',align:'center', width: '90', formatter: function (value, row, index) {
                 return index+1;
             }},*/
-            {field: 'vin', title: 'VIN',align:'center',width: 150,halign:'center'},
-            {field: 'licensePlate', title: '车牌号',align:'center',width: 100,halign:'center'}
+            {field: 'vin', title: 'VIN',align:'center',halign:'center'},
+            {field: 'licensePlate', title: '车牌号',align:'center',halign:'center'}
         ]],
         columns: [[
-            {field: 'reportDate', title: '统计日期',align:'center',width: 150,halign:'center'},
-            {field: 'firstOnlineTime', title: '当日首次上线时间',align:'center',width: 150,halign:'center', formatter: function (value, row, index) {
+            {field: 'reportDate', title: '统计日期',align:'center',halign:'center'},
+            {field: 'firstOnlineTime', title: '当日首次上线时间',align:'center',halign:'center', formatter: function (value, row, index) {
                 var  tinesp = "";
                 if(value!=null && value!=""){
                     tinesp = timestampToTime(value);
@@ -337,8 +355,8 @@
 
                 return tinesp;
             }},
-            {field: 'firstStartMileage', title: '当日开始里程(KM)',align:'center',width: 150,halign:'center'},
-            {field: 'lastCommitTime', title: '当日最后通讯时间',align:'center',width: 150,halign:'center', formatter: function (value, row, index) {
+            {field: 'firstStartMileage', title: '当日开始里程(KM)',align:'center',halign:'center'},
+            {field: 'lastCommitTime', title: '当日最后通讯时间',align:'center',halign:'center', formatter: function (value, row, index) {
             var  tinesp = "";
             if(value!=null && value!=""){
                 tinesp = timestampToTime(value);
@@ -346,26 +364,26 @@
 
                 return tinesp;
             }},
-            {field: 'lastEndMileage', title: '当日结束里程(KM)',align:'center',width: 150,halign:'center'},
-            {field: 'checkDataTotalNum', title: '核查数据总条数(条)',align:'center',width: 150,halign:'center'},
+            {field: 'lastEndMileage', title: '当日结束里程(KM)',align:'center',halign:'center'},
+            {field: 'checkDataTotalNum', title: '核查数据总条数(条)',align:'center',halign:'center'},
             /*{field: 'invalidNum', title: '含无效数据条数(条)',align:'center', width: '160'},
             {field: 'abnormalNum', title: '含异常数据条数(条)',align:'center', width: '160'},*/
-            {field: 'abnormalNum', title: '无效异常总条数（条）',align:'center',width: 150,halign:'center', formatter: function (value, row, index) {
+            {field: 'abnormalNum', title: '无效异常总条数（条）',align:'center',halign:'center', formatter: function (value, row, index) {
 
                 return row.invalidNum+row.abnormalNum;
             }},
-            {field: 'dayOnlineMileage', title: '当日上线里程(KM)',align:'center',width: 150,halign:'center'},
-            {field: 'deductJumpMileage', title: '总跳变扣除里程(KM)',align:'center',width: 150,halign:'center'},
-            {field: 'deductCurrentMileage', title: '总连续电流扣除里程(KM)',align:'center',width: 150,halign:'center'},
-            {field: 'dayVaildMileage', title: '当日有效里程(KM)',align:'center',width: 150,halign:'center'},
-            {field: 'dayGpsMileage', title: '当日轨迹里程(KM)',align:'center',width: 150,halign:'center'},
+            {field: 'dayOnlineMileage', title: '当日上线里程(KM)',align:'center',halign:'center'},
+            {field: 'deductJumpMileage', title: '总跳变扣除里程(KM)',align:'center',halign:'center'},
+            {field: 'deductCurrentMileage', title: '总连续电流扣除里程(KM)',align:'center',halign:'center'},
+            {field: 'dayVaildMileage', title: '当日有效里程(KM)',align:'center',halign:'center'},
+            {field: 'dayGpsMileage', title: '当日轨迹里程(KM)',align:'center',halign:'center'},
             {field: 'vaildGpsDeviation', title: '有效里程和轨迹里程相对误差（百分比）',align:'center',halign:'center'},
             {field: 'onlineVaildDeviation', title: '上线里程和有效里程相对误差（百分比）',align:'center',halign:'center'},
-            {field: 'dayCheckMileage', title: '单日核算里程(KM)',align:'center',width: 150,halign:'center'},
-            {field: 'veharea', title: '上牌区域',align:'center',width: 150,halign:'center'},
-            {field: 'unit', title: '运营单位',align:'center',width: 150,halign:'center'},
-            {field: 'vehModelNum', title: '车辆型号',align:'center',width: 150,halign:'center'},
-            {field: 'vehtype', title: '车辆种类',align:'center',width: 150,halign:'center'},
+            {field: 'dayCheckMileage', title: '单日核算里程(KM)',align:'center',halign:'center'},
+            {field: 'veharea', title: '上牌区域',align:'center',halign:'center'},
+            {field: 'unit', title: '运营单位',align:'center',halign:'center'},
+            {field: 'vehModelNum', title: '车辆型号',align:'center',halign:'center'},
+            {field: 'vehtype', title: '车辆种类',align:'center',halign:'center'},
         ]],
         toolbar: "#toolbar",
         pagination: true,
@@ -642,22 +660,7 @@
         return true;
     }
 
-    function timestampToTime(timestamp) {
-        var date;
-        if(timestamp.toString().length >11){
-            date = new Date(timestamp);
-        }else {
-            date = new Date(timestamp * 1000);
-        }
-        //时间戳为10位需*1000，时间戳为13位的话不需乘1000
-        Y = date.getFullYear() + '-';
-        M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-        D = date.getDate() + ' ';
-        h = date.getHours() + ':';
-        m = date.getMinutes() + ':';
-        s = date.getSeconds();
-        return Y+M+D+h+m+s;
-    }
+
 
     /*报表说明弹框*/
     function reportSpecification(){

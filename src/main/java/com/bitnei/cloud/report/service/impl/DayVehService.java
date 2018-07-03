@@ -28,6 +28,7 @@ import com.bitnei.cloud.common.bean.AppBean;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -158,7 +159,7 @@ public class DayVehService extends BaseService implements IDayVehService {
     @Override
     public void export() {
 
-        List list = findBySqlId("pagerModel",PublicDealUtil.bulidUserForParams(ServletUtil.getQueryParams()));
+        List<Map<String, Object>> list = findBySqlId("pagerModel",PublicDealUtil.bulidUserForParams(ServletUtil.getQueryParams()));
         DataLoader.loadNames(list);
         DataLoader.loadDictNames(list);
 
@@ -168,7 +169,7 @@ public class DayVehService extends BaseService implements IDayVehService {
         ExcelData ed = new ExcelData();
         ed.setTitle("单车日报");
         ed.setExportTime(DateUtil.getNow());
-        ed.setData(list);
+        ed.setData(rebulidExcelDate(list));
         String outName = String.format("%s-导出-%s.xls", "单车日报", DateUtil.getShortDate());
         EasyExcel.renderResponse(srcFile,outName,ed);
 
@@ -298,5 +299,85 @@ public class DayVehService extends BaseService implements IDayVehService {
         outDate = sdf.format(date);
         System.out.print(outDate);
         return outDate;
+    }
+
+    private List rebulidExcelDate(List<Map<String, Object>> list){
+        if (null == list || list.size() == 0) {
+            return null;
+        }
+        DecimalFormat df = new DecimalFormat("#.##");
+        for (Map<String, Object> map : list){
+            //日平均速度
+            String runSpeedAvg = PublicDealUtil.getMapValueString(map.get("runSpeedAvg"));
+            if(!org.springframework.util.StringUtils.isEmpty(runSpeedAvg)){
+                if(runSpeedAvg.contains(".")){
+                    map.put("runSpeedAvg",df.format(Double.valueOf(runSpeedAvg)));
+                }
+            }
+            //日最高速度
+            String runSpeedMax = PublicDealUtil.getMapValueString(map.get("runSpeedMax"));
+            if(!org.springframework.util.StringUtils.isEmpty(runSpeedMax)){
+                if(runSpeedMax.contains(".")){
+                    map.put("runSpeedMax",df.format(Double.valueOf(runSpeedMax)));
+                }
+            }
+            //单次充电最大里程
+            String singleChargeMaxMileage = PublicDealUtil.getMapValueString(map.get("singleChargeMaxMileage"));
+            if(!org.springframework.util.StringUtils.isEmpty(singleChargeMaxMileage)){
+                if(singleChargeMaxMileage.contains(".")){
+                    map.put("singleChargeMaxMileage",df.format(Double.valueOf(singleChargeMaxMileage)));
+                }
+            }
+            //单次最长充电时间
+            String chargeTimeMax = PublicDealUtil.getMapValueString(map.get("chargeTimeMax"));
+            if(!org.springframework.util.StringUtils.isEmpty(chargeTimeMax)){
+                if(chargeTimeMax.contains(".")){
+                    map.put("chargeTimeMax",df.format(Double.valueOf(chargeTimeMax)));
+                }
+            }
+            //充电总时长
+            String chargeTimeSum = PublicDealUtil.getMapValueString(map.get("chargeTimeSum"));
+            if(!org.springframework.util.StringUtils.isEmpty(chargeTimeSum)){
+                if(chargeTimeSum.contains(".")){
+                    map.put("chargeTimeSum",df.format(Double.valueOf(chargeTimeSum)));
+                }
+            }
+            //总里程
+            String lastEndMileage = PublicDealUtil.getMapValueString(map.get("lastEndMileage"));
+            if(!org.springframework.util.StringUtils.isEmpty(lastEndMileage)){
+                if(lastEndMileage.contains(".")){
+                    map.put("lastEndMileage",df.format(Double.valueOf(lastEndMileage)));
+                }
+            }
+            //单次运行最大里程
+            String runKmMax = PublicDealUtil.getMapValueString(map.get("runKmMax"));
+            if(!org.springframework.util.StringUtils.isEmpty(runKmMax)){
+                if(runKmMax.contains(".")){
+                    map.put("runKmMax",df.format(Double.valueOf(runKmMax)));
+                }
+            }
+            //日总行驶里程
+            String runKm = PublicDealUtil.getMapValueString(map.get("runKm"));
+            if(!org.springframework.util.StringUtils.isEmpty(runKm)){
+                if(runKm.contains(".")){
+                    map.put("runKm",df.format(Double.valueOf(runKm)));
+                }
+            }
+            //日总行驶时间
+            String runTimeSum = PublicDealUtil.getMapValueString(map.get("runTimeSum"));
+            if(!org.springframework.util.StringUtils.isEmpty(runTimeSum)){
+                if(runTimeSum.contains(".")){
+                    map.put("runTimeSum",df.format(Double.valueOf(runTimeSum)));
+                }
+            }
+            //日活跃总时间
+            String dailyActiveTotalTime = PublicDealUtil.getMapValueString(map.get("dailyActiveTotalTime"));
+            if(!org.springframework.util.StringUtils.isEmpty(dailyActiveTotalTime)){
+                if(dailyActiveTotalTime.contains(".")){
+                    map.put("dailyActiveTotalTime",df.format(Double.valueOf(dailyActiveTotalTime)));
+                }
+            }
+        }
+        return list;
     }
 }
