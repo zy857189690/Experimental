@@ -347,23 +347,9 @@
         ]],
         columns: [[
             {field: 'reportDate', title: '统计日期',align:'center',halign:'center'},
-            {field: 'firstOnlineTime', title: '当日首次上线时间',align:'center',halign:'center', formatter: function (value, row, index) {
-                var  tinesp = "";
-                if(value!=null && value!=""){
-                    tinesp = timestampToTime(value);
-                }
-
-                return tinesp;
-            }},
+            {field: 'firstOnlineTime', title: '当日首次上线时间',align:'center',halign:'center'},
             {field: 'firstStartMileage', title: '当日开始里程(KM)',align:'center',halign:'center'},
-            {field: 'lastCommitTime', title: '当日最后通讯时间',align:'center',halign:'center', formatter: function (value, row, index) {
-            var  tinesp = "";
-            if(value!=null && value!=""){
-                tinesp = timestampToTime(value);
-            }
-
-                return tinesp;
-            }},
+            {field: 'lastCommitTime', title: '当日最后通讯时间',align:'center',halign:'center'},
             {field: 'lastEndMileage', title: '当日结束里程(KM)',align:'center',halign:'center'},
             {field: 'checkDataTotalNum', title: '核查数据总条数(条)',align:'center',halign:'center'},
             /*{field: 'invalidNum', title: '含无效数据条数(条)',align:'center', width: '160'},

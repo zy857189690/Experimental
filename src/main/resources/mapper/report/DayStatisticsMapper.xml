@@ -105,13 +105,13 @@
             <if test="idleVehStage != null and idleVehStage != '-1'">
                 AND veh.registerstatus=#{idleVehStage}
             </if>
-            <if test="idleUseUnitId != null and idleUseUnitId != '0'">
+            <if test="idleUseUnitId != null">
                 AND veh.use_uint_id=#{idleUseUnitId}
             </if>
             <if test="idleAreaId != null">
                 AND veh.sys_division_id=#{idleAreaId}
             </if>
-            <if test="idleVehTypeId != null and idleVehTypeId != '0'">
+            <if test="idleVehTypeId != null">
                 AND veh.veh_type_id=#{idleVehTypeId}
             </if>
             <if test="idleModelNoticeId != null and idleModelNoticeId != '-1'">
@@ -181,20 +181,20 @@
     <!--查询_弹出框_车辆监控情况统计_车辆录入总数（辆）/新增录入车辆数（辆）-->
     <select id="queryVehCountTableForDialog" parameterType="java.util.HashMap" resultType="java.util.HashMap">
         SELECT
-            veh.id AS id,
-            veh.vin AS vin,
-            veh.uuid AS vid,
-            veh.license_plate AS plate,
-            sd.name AS vehStage,
-            date_format(veh.entry_date, '%Y-%m-%d %H:%i:%s')  AS entryDate,
-            date_format(veh.update_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
-            model.veh_model_name AS modelName,
-            model.model_notice_id AS modelNoticeId,
-            area.name AS areaName,
-            area.id AS areaId,
-            vds.vid AS vdsVid
+              veh.id AS id,
+              veh.vin AS vin,
+              veh.uuid AS vid,
+              veh.license_plate AS plate,
+              sd.name AS vehStage,
+              date_format(veh.entry_date, '%Y-%m-%d %H:%i:%s')  AS entryDate,
+              date_format(vds.last_commit_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
+              model.veh_model_name AS modelName,
+              model.model_notice_id AS modelNoticeId,
+              area.name AS areaName,
+              area.id AS areaId,
+              vds.vid AS vdsVid
         FROM
-        veh_dayreport_summary vds
+              veh_dayreport_summary vds
         LEFT JOIN sys_vehicle veh ON vds.vid = veh.uuid
         LEFT JOIN sys_veh_model model ON veh.veh_model_id = model.id
         LEFT JOIN sys_area area ON veh.sys_division_id = area.id
@@ -227,7 +227,7 @@
             veh.license_plate AS plate,
             sd.name AS vehStage,
             date_format(veh.entry_date, '%Y-%m-%d %H:%i:%s')  AS entryDate,
-            date_format(veh.update_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
+            date_format(vds.last_commit_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
             model.veh_model_name AS modelName,
             model.model_notice_id AS modelNoticeId,
             area.name AS areaName,
@@ -260,7 +260,7 @@
             veh.license_plate AS plate,
             sd.name AS vehStage,
             date_format(veh.entry_date, '%Y-%m-%d %H:%i:%s')  AS entryDate,
-            date_format(veh.update_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
+            date_format(vds.last_commit_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
             model.veh_model_name AS modelName,
             model.model_notice_id AS modelNoticeId,
             area.name AS areaName,
@@ -294,7 +294,7 @@
             veh.license_plate AS plate,
             sd.name AS vehStage,
             date_format(veh.entry_date, '%Y-%m-%d %H:%i:%s')  AS entryDate,
-            date_format(veh.update_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
+            date_format(vds.last_commit_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
             model.veh_model_name AS modelName,
             model.model_notice_id AS modelNoticeId,
             area.name AS areaName,
