@@ -181,18 +181,18 @@
     <!--查询_弹出框_车辆监控情况统计_车辆录入总数（辆）/新增录入车辆数（辆）-->
     <select id="queryVehCountTableForDialog" parameterType="java.util.HashMap" resultType="java.util.HashMap">
         SELECT
-            veh.id AS id,
-            veh.vin AS vin,
-            veh.uuid AS vid,
-            veh.license_plate AS plate,
-            sd.name AS vehStage,
-            date_format(veh.entry_date, '%Y-%m-%d %H:%i:%s')  AS entryDate,
-            date_format(veh.update_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
-            model.veh_model_name AS modelName,
-            model.model_notice_id AS modelNoticeId,
-            area.name AS areaName,
-            area.id AS areaId,
-            vds.vid AS vdsVid
+        veh.id AS id,
+        veh.vin AS vin,
+        veh.uuid AS vid,
+        veh.license_plate AS plate,
+        sd.name AS vehStage,
+        date_format(veh.entry_date, '%Y-%m-%d %H:%i:%s')  AS entryDate,
+        date_format(vds.last_commit_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
+        model.veh_model_name AS modelName,
+        model.model_notice_id AS modelNoticeId,
+        area.name AS areaName,
+        area.id AS areaId,
+        vds.vid AS vdsVid
         FROM
         veh_dayreport_summary vds
         LEFT JOIN sys_vehicle veh ON vds.vid = veh.uuid
@@ -227,7 +227,7 @@
             veh.license_plate AS plate,
             sd.name AS vehStage,
             date_format(veh.entry_date, '%Y-%m-%d %H:%i:%s')  AS entryDate,
-            date_format(veh.update_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
+            date_format(vds.last_commit_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
             model.veh_model_name AS modelName,
             model.model_notice_id AS modelNoticeId,
             area.name AS areaName,
@@ -260,7 +260,7 @@
             veh.license_plate AS plate,
             sd.name AS vehStage,
             date_format(veh.entry_date, '%Y-%m-%d %H:%i:%s')  AS entryDate,
-            date_format(veh.update_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
+            date_format(vds.last_commit_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
             model.veh_model_name AS modelName,
             model.model_notice_id AS modelNoticeId,
             area.name AS areaName,
@@ -294,7 +294,7 @@
             veh.license_plate AS plate,
             sd.name AS vehStage,
             date_format(veh.entry_date, '%Y-%m-%d %H:%i:%s')  AS entryDate,
-            date_format(veh.update_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
+            date_format(vds.last_commit_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
             model.veh_model_name AS modelName,
             model.model_notice_id AS modelNoticeId,
             area.name AS areaName,
