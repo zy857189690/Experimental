@@ -17,9 +17,9 @@ public class DayMileageCheck  extends TailBean {
     private String vid;
     private String vin;
     private Date reportDate; //统计日期
-    private Timestamp firstOnlineTime;//当日首次上线时间
+    private String firstOnlineTime;//当日首次上线时间
     private String firstStartMileage;//当日开始里程
-    private Timestamp lastCommitTime;//当日最后通讯时间
+    private String lastCommitTime;//当日最后通讯时间
     private String lastEndMileage;//当日结束里程
     private Double checkDataTotalNum;//核查数据总条数
     private Double invalidNum;//无效数据条数
@@ -148,11 +148,11 @@ public class DayMileageCheck  extends TailBean {
         this.reportDate = reportDate;
     }
 
-    public Timestamp getFirstOnlineTime() {
+    public String getFirstOnlineTime() {
         return firstOnlineTime;
     }
 
-    public void setFirstOnlineTime(Timestamp firstOnlineTime) {
+    public void setFirstOnlineTime(String firstOnlineTime) {
         this.firstOnlineTime = firstOnlineTime;
     }
 
@@ -164,11 +164,11 @@ public class DayMileageCheck  extends TailBean {
         this.firstStartMileage = firstStartMileage;
     }
 
-    public Timestamp getLastCommitTime() {
+    public String getLastCommitTime() {
         return lastCommitTime;
     }
 
-    public void setLastCommitTime(Timestamp lastCommitTime) {
+    public void setLastCommitTime(String lastCommitTime) {
         this.lastCommitTime = lastCommitTime;
     }
 

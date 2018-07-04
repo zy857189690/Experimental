@@ -128,9 +128,9 @@
     <sql id="moreColumns">
         VDMC.ID AS IDS,
         VDMC.REPORT_DATE,
-        VDMC.FIRST_ONLINE_TIME,
+        date_format(VDMC.FIRST_ONLINE_TIME, '%Y-%m-%d %H:%i:%s') as FIRST_ONLINE_TIME,
         VDMC.FIRST_START_MILEAGE ,
-        VDMC.LAST_COMMIT_TIME,
+        date_format(VDMC.LAST_COMMIT_TIME, '%Y-%m-%d %H:%i:%s') as LAST_COMMIT_TIME,
         VDMC.LAST_END_MILEAGE,
         VDMC.CHECK_DATA_TOTAL_NUM,
         VDMC.INVALID_NUM,
