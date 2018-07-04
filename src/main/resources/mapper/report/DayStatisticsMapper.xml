@@ -105,13 +105,13 @@
             <if test="idleVehStage != null and idleVehStage != '-1'">
                 AND veh.registerstatus=#{idleVehStage}
             </if>
-            <if test="idleUseUnitId != null and idleUseUnitId != '0'">
+            <if test="idleUseUnitId != null">
                 AND veh.use_uint_id=#{idleUseUnitId}
             </if>
             <if test="idleAreaId != null">
                 AND veh.sys_division_id=#{idleAreaId}
             </if>
-            <if test="idleVehTypeId != null and idleVehTypeId != '0'">
+            <if test="idleVehTypeId != null">
                 AND veh.veh_type_id=#{idleVehTypeId}
             </if>
             <if test="idleModelNoticeId != null and idleModelNoticeId != '-1'">
