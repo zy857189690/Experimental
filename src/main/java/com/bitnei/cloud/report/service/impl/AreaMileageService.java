@@ -38,7 +38,7 @@ public class AreaMileageService implements IAreaMileageService {
      * @return
      */
     public JSONArray getDrivingArea() {
-        if (redisTemplate.hasKey(AreaMileageService.AREA) || StringUtil.isEmpty(redisTemplate.opsForValue().get(AreaMileageService.AREA))) {
+        //if (redisTemplate.hasKey(AreaMileageService.AREA) || StringUtil.isEmpty(redisTemplate.opsForValue().get(AreaMileageService.AREA))) {
             JSONArray arr = new JSONArray();
             List<Map<String, Object>> province = areaMileageMapper.getProvince();
             int size = province.size();
@@ -58,12 +58,19 @@ public class AreaMileageService implements IAreaMileageService {
                 ob.put("state", "closed");
                 arr.add(ob);
             }
-            redisTemplate.opsForValue().set(AreaMileageService.AREA, arr.toString());
-            return arr;
-        } else {
-            String area = redisTemplate.opsForValue().get(AreaMileageService.AREA);
-            return JSONArray.parseArray(area);
-        }
+       //     redisTemplate.opsForValue().set(AreaMileageService.AREA, arr.toString());
+            JSONArray arr1 = new JSONArray();
+             ob=new JSONObject();
+             ob.put(name,"全部");
+             ob.put(code,"");
+             ob.put("children", arr);
+            arr1.add(ob);
+            return arr1;
+
+     //   } else {
+      //      String area = redisTemplate.opsForValue().get(AreaMileageService.AREA);
+     //       return JSONArray.parseArray(area);
+    //    }
     }
 
     /**
