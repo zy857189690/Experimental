@@ -309,7 +309,7 @@
             return;
         }
         if (null != monitoringTable && undefined != monitoringTable) {
-            $('#monitoringTable').datagrid("load", $("#form_search1").serializeObject());
+          //  $('#monitoringTable').datagrid("load", $("#form_search1").serializeObject());
         } else {
             monitoringTable = $('#monitoringTable').datagrid({
                 url: '${base}/report/operation/dayStatistics/queryMonitoringTable',
@@ -361,7 +361,7 @@
         }
         var data = $("#form_search2").serializeObject();
         if (null != activeTable && undefined != activeTable) {
-            $('#activeTable').datagrid("load", data);
+          //  $('#activeTable').datagrid("load", data);
         } else {
             activeTable = $('#activeTable').datagrid({
                 url: '${base}/report/operation/dayStatistics/queryActiveTable',
@@ -426,7 +426,7 @@
         }
         var data = $("#form_search3").serializeObject();
         if (null != idleTable && undefined != idleTable) {
-            $('#idleTable').datagrid("load", data);
+         //   $('#idleTable').datagrid("load", data);
         } else {
             idleTable = $('#idleTable').datagrid({
                 url: '${base}/report/operation/dayStatistics/queryIdleTable',
@@ -516,7 +516,7 @@
         }
         var data = $("#form_search4").serializeObject()
         if (null != travelTable && undefined != travelTable) {
-            $('#travelTable').datagrid("load", data);
+         //   $('#travelTable').datagrid("load", data);
         } else {
             travelTable = $('#travelTable').datagrid({
                 url: '${base}/report/operation/dayStatistics/queryTravelTable',
@@ -569,7 +569,7 @@
         }
         var data = $("#form_search5").serializeObject();
         if (null != electricityTable && undefined != electricityTable) {
-            $('#electricityTable').datagrid("load", data);
+         //   $('#electricityTable').datagrid("load", data);
         } else {
             electricityTable = $('#electricityTable').datagrid({
                 url: '${base}/report/operation/dayStatistics/queryElectricityTable',

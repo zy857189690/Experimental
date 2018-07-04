@@ -25,7 +25,7 @@
                 <td>截止时间</td><td >报表查询截止某一天的历史数据，而非只显示前一天的数据</td>
             </tr>
             <tr>
-                <td>监控车车辆总数（辆）</td><td>即登录过平台为可监控车辆数</td>
+                <td>监控车辆总数（辆）</td><td>即登录过平台为可监控车辆数</td>
             </tr>
             <tr>
                 <td>本月车辆运营数（辆）</td><td>本月行驶里程数大于500公里</td>
@@ -117,7 +117,7 @@
             {field: 'shiJian', title: '截止时间',  align: 'center'},
             {field: 'yunYing', title: '运营单位',  align: 'center'},
             {field: 'cheLiangMing', title: '车型名称',align: 'center'},
-            {field: 'jianKongChe', title: '监控车车辆总数（辆）',  align: 'center'},
+            {field: 'jianKongChe', title: '监控车辆总数（辆）',  align: 'center'},
             {field: 'cheLiangYunYing', title: '本月车辆运营数（辆）',  align: 'center'},
             {field: 'a', title: '≥3万公里（辆）',  align: 'center',formatter:function(val, row, index){
                 if(val==undefined||val==""){
