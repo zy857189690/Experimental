@@ -75,7 +75,7 @@
         DATE_FORMAT(v_m_c.last_commit_time,'%Y-%m-%d %H:%i:%s') AS lastCommunTime
         FROM
         veh_dayreport_expansion v_e
-        LEFT JOIN sys_vehicle veh ON v_e.vid=veh.uuid
+        INNER JOIN sys_vehicle veh ON v_e.vid=veh.uuid
         LEFT JOIN sys_veh_model s_v_m ON veh.veh_model_id = s_v_m.id
         LEFT JOIN sys_dict s_d ON s_v_m.veh_model_type_id = s_d.id
         LEFT JOIN sys_unit su ON veh.manu_unit_id = su.id
