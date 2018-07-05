@@ -21,6 +21,7 @@
         <if test="beginDate != null and endDate != null">
             AND vds.report_date &gt;= #{beginDate} AND vds.report_date &lt;= #{endDate}
         </if>
+            AND veh.id IS NOT NULL
         GROUP BY vds.report_date DESC
     </select>
 
@@ -42,6 +43,7 @@
         <include refid="Common.userVehiclePermission"/>
             AND vds.report_date &gt;= #{beginDate}
             AND vds.report_date &lt;= #{endDate}
+            AND veh.id IS NOT NULL
         GROUP BY vds.report_date DESC
     </select>
 
@@ -96,6 +98,7 @@
         <include refid="Common.userVehiclePermission"/>
             AND vds.report_date &gt;= #{beginDate}
             AND vds.report_date &lt;= #{endDate}
+            AND veh.id IS NOT NULL
             <if test="idlePlate != null">
                 AND veh.license_plate LIKE '%${idlePlate}%'
             </if>
@@ -136,6 +139,7 @@
             <include refid="Common.userVehiclePermission"/>
             AND rt.report_time &gt;= #{beginDate}
             AND rt.report_time &lt;= #{endDate}
+            AND veh.id IS NOT NULL
             GROUP BY rt.vid
         ) srun WHERE srun.cllc &lt; #{idleMileageValue};
     </select>
@@ -156,6 +160,7 @@
         <include refid="Common.userVehiclePermission"/>
             AND vds.report_date &gt;= #{beginDate}
             AND vds.report_date &lt;= #{endDate}
+            AND veh.id IS NOT NULL
         GROUP BY
             vds.report_date DESC
     </select>
@@ -174,6 +179,7 @@
         <include refid="Common.userVehiclePermission"/>
             AND vdc.report_time &gt;= #{beginDate}
             AND vdc.report_time &lt;= #{endDate}
+            AND veh.id IS NOT NULL
         GROUP BY
             vdc.report_time DESC
     </select>
@@ -209,6 +215,7 @@
                     AND date_format(vds.report_date, '%Y-%m-%d') = #{reportDate} AND vds.append = '1'
                 </when>
             </choose   >
+            AND veh.id IS NOT NULL
             <if test="diaVehStage != null and diaVehStage != '-1'">
                 AND veh.registerstatus=#{diaVehStage}
             </if>
@@ -242,6 +249,7 @@
         <include refid="Common.userVehiclePermission"/>
             AND date_format(vds.report_date, '%Y-%m-%d') = #{reportDate}
             AND vds.last_commit_time &lt; CONCAT(date_format(vds.report_date, '%Y-%m-%d'), ' 00:00:00')
+            AND veh.id IS NOT NULL
             <if test="diaVehStage != null and diaVehStage != '-1'">
                 AND veh.registerstatus=#{diaVehStage}
             </if>
@@ -276,6 +284,7 @@
         <include refid="Common.userVehiclePermission"/>
             AND date_format(vds.report_date, '%Y-%m-%d') = #{reportDate}
             AND vde.daily_active_total_time &gt; 0
+            AND veh.id IS NOT NULL
             <if test="diaVehStage != null and diaVehStage != '-1'">
                 AND veh.registerstatus=#{diaVehStage}
             </if>
@@ -313,6 +322,7 @@
         <include refid="Common.userVehiclePermission"/>
             AND date_format(vds.report_date, '%Y-%m-%d') = #{reportDate}
             AND (vdas.abnormal_num/vdmc.check_data_total_num) &gt; 0.05
+            AND veh.id IS NOT NULL
             <if test="diaVehStage != null and diaVehStage != '-1'">
                 AND veh.registerstatus=#{diaVehStage}
             </if>
@@ -346,6 +356,7 @@
         <include refid="Common.userVehiclePermission"/>
             AND date_format(vdc.report_time, '%Y-%m-%d') = #{reportDate}
             AND vdc.charge_time_sum &gt; 0
+            AND veh.id IS NOT NULL
             <if test="diaVehStage != null and diaVehStage != '-1'">
                 AND veh.registerstatus=#{diaVehStage}
             </if>
