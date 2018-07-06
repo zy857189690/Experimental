@@ -143,11 +143,11 @@
                 }
                 return  compile(val,row,index,500,10000, '0.05~1万公里（辆）');
             }},
-            {field: 'e', title: '＜0,05万公里（辆）',  align: 'center',formatter:function(val, row, index){
+            {field: 'e', title: '＜0.05万公里（辆）',  align: 'center',formatter:function(val, row, index){
                 if(val==undefined||val==""){
                     return "0";
                 }
-                return  compile(val,row,index,0,500,'＜0,05万公里（辆）');
+                return  compile(val,row,index,0,500,'＜0.05万公里（辆）');
             }}
         ]],
         toolbar: "#toolbar",
