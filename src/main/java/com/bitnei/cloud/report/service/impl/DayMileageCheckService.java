@@ -84,6 +84,8 @@ public class DayMileageCheckService  extends BaseService implements IDayMileageC
             Map<String, Object> params = new HashMap();
             params.put("lic", map.get("lic") == null ? null : map.get("lic").toString());
             params.put("vin", map.get("vin") == null ? null : map.get("vin").toString());
+            params.put("reportDateStart", map.get("reportDateStart") == null ?  com.bitnei.cloud.common.DateUtil.getShortNextDay(com.bitnei.cloud.common.DateUtil.getNextDay(new Date())) : map.get("reportDateStart"));
+            params.put("reportDateEnd", map.get("reportDateEnd") == null ? com.bitnei.cloud.common.DateUtil.getShortNextDay(com.bitnei.cloud.common.DateUtil.getNextDay(new Date())) : map.get("reportDateEnd"));
             DayMileageCheck dayMileageCheck = sessionTemplate.selectOne(  mapper+"findInForVinAndLic", params);
             if (dayMileageCheck != null) {
                 sb.append("'" + dayMileageCheck.getIds().toString() + "',");

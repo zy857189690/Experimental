@@ -249,6 +249,12 @@
         <if test="lic!=null and lic!=''">
             AND VEH.LICENSE_PLATE    =  #{lic}
         </if>
+        <if test="reportDateStart!=null and reportDateStart!=''">
+            AND   VDMC.REPORT_DATE &gt;=   #{reportDateStart,jdbcType=VARCHAR}
+        </if>
+        <if test="reportDateEnd!=null and reportDateEnd!=''">
+            AND   VDMC.REPORT_DATE &lt;= #{reportDateEnd,jdbcType=VARCHAR}
+        </if>
         ) VEH
         <include refid="userVehiclePermission"/>
 
