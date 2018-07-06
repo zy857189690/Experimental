@@ -157,7 +157,7 @@
     </div>
 </div>
 
-<div id="report" class="easyui-window" title="列表说明" style="width:853px;height:600px; display: none;" data-options="iconCls:'',modal:true,resizable:false,closed:true">
+<div id="report" class="easyui-window" title="列表说明" style="width:853px;height:100%; display: none;" data-options="iconCls:'',modal:true,resizable:false,closed:true">
     <div class="easyui-layout">
         <table class="easyui-datagrid">
             <thead>
