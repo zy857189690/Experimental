@@ -42,7 +42,7 @@
     </script>
 </head>
 <body class="easyui-layout" fit="true" id="fullid">
-<div id="report" class="easyui-window" title="列表说明" style="width:853px; height:100%; display: none;" data-options="modal:true,closed:true">
+<div id="report" class="easyui-window" title="列表说明" style="width:853px; height:600px; display: none;" data-options="modal:true,closed:true">
     <div class="easyui-layout">
         <table class="easyui-datagrid">
             <thead>
@@ -188,7 +188,6 @@
         <div id="recordTable" name="datagrid" style="width: 100%;height: 100%"></div>
     </div>
 </div>
-
 <div region="center" style="overflow: hidden;width: 100%;">
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
     <@shiro.hasPermission name="/report/anomaly/anomalyVeh/export">
