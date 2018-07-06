@@ -159,6 +159,12 @@
 			<artifactId>data-center</artifactId>
 			<version>1.0.3-20180620-01</version>
 		</dependency>
+		<!--导出zip包-->
+		<dependency>
+			<groupId>net.lingala.zip4j</groupId>
+			<artifactId>zip4j</artifactId>
+			<version>1.3.2</version>
+		</dependency>
 
 		<!-- 热部署start -->
 		<dependency>
