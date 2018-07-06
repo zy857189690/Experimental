@@ -11,13 +11,14 @@
     </style>
 </head>
 
-<div id="report" class="easyui-dialog" title="报表说明" style="width: 853px; height: 500px;display: none"  data-options="modal:true,closed:true">
+<div id="report" class="easyui-dialog" title="报表说明" style="width: 613px; height: 500px;display: none"  data-options="modal:true,closed:true">
     <div class="easyui-layout">
         <table class="easyui-datagrid">
             <thead>
             <tr>
-                <th data-options="field:'code'" style="width: 167px" align="center">名称</th>
-                <th data-options="field:'name'" style="width: 731px" align="center">定义</th>
+                <th data-options="field:'title', width: 200, resizable: true, align: 'left', halign: 'center'">名称</th>
+                <th data-options="field:'definition', width: 400, resizable: true, align: 'left', halign: 'center'">定义</th>
+
             </tr>
             </thead>
             <tbody>
@@ -238,8 +239,8 @@
 
     function openEditWin(url, title) {
         var winid = "pop";
-        var width = 1350;
-        var height = 600;
+        var width = 1230;
+        var height = 620;
         diyWindow(winid, url, title, width, height,false);
     }
 
