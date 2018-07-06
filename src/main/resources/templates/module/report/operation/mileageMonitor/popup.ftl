@@ -25,13 +25,13 @@
 </head>
 <body class="easyui-layout" fit="true" id="fullid">
 
-<div id="reportDialog" class="easyui-dialog" title="报表说明" style="width: 853px; height: 500px;display: none"  data-options="modal:true,closed:true">
+<div id="reportDialog" class="easyui-dialog" title="报表说明" style="width: 955px; height: 500px;display: none"  data-options="modal:true,closed:true">
     <div class="easyui-layout">
         <table class="easyui-datagrid">
             <thead>
             <tr>
-                <th data-options="field:'code'" style="width: 167px" align="center">名称</th>
-                <th data-options="field:'name'" style="width: 731px" align="center">定义</th>
+                <th data-options="field:'title', width: 150, resizable: true, align: 'left', halign: 'center'">名称</th>
+                <th data-options="field:'definition', width: 800, resizable: true, align: 'left', halign: 'center'">定义</th>
             </tr>
             </thead>
             <tbody>
@@ -62,10 +62,10 @@
 
 <div region="center" style="overflow: hidden;width: 100%;">
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
-    <@shiro.hasPermission name="/report/demo1/export">
+    <#--<@shiro.hasPermission name="/report/demo1/export">-->
         <a href="#" onclick="exportDatagrid('${base}/report/operation/mileageMonitor/downloadPopup?query.data1='+'${data1}'+'&query.data2='+'${data2}'+'&query.endTime='+'${endTime}'+'&query.cheLiangMing='+'${cheLiangMing}'+'&query.yunYing='+'${yunYing}','form_search','table')" class="easyui-linkbutton"
            data-options="iconCls:'icon-export'" menu="0">导出</a>
-    </@shiro.hasPermission>
+    <#--</@shiro.hasPermission>-->
 
         <a href="#" onclick="openDailog()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">列表说明&nbsp;&nbsp;</a>
     </div>
@@ -82,7 +82,7 @@
                     </td>
                     <td class="td_input">
 
-                        <input type="text"   class="input-fat input" style="width:168px;"   id="jieDuan" name="query.jieDuan"  autocomplete="off" >
+                        <input type="text"   class="input-fat input" style="width:150px;"   id="jieDuan" name="query.jieDuan"  autocomplete="off" >
                     </td>
 
                     <td class="td_label">
@@ -90,33 +90,33 @@
                     </td>
                     <td class="td_input">
 
-                        <input type="text"class="input-fat input"  style="width:150px;" onkeyup="value=value.replace(/[^\d]/g,'')"   name="query.zongLiCheng"  autocomplete="off" >
+                        <input type="text"class="input-fat input"  style="width:133px;" onkeyup="value=value.replace(/[^\d]/g,'')"   name="query.zongLiCheng"  autocomplete="off" >
 
                     </td>
                     <td class="td_label"  >
                         <label>总有效里程大于(km)：</label>
                     </td>
                     <td class="td_input">
-                        <input type="text"class="input-fat input" style="width:150px;" onkeyup="value=value.replace(/[^\d]/g,'')"   name="query.zongYouXiao"  autocomplete="off" >
+                        <input type="text"class="input-fat input" style="width:133px;" onkeyup="value=value.replace(/[^\d]/g,'')"   name="query.zongYouXiao"  autocomplete="off" >
                     </td>
                     <td class="td_label">
                         <label>总轨迹里程大于(km)：</label>
                     </td>
                     <td class="td_input">
-                        <input type="text"class="input-fat input" style="width:150px;"    onkeyup="value=value.replace(/[^\d]/g,'')"   name="query.zongGuiJi"  autocomplete="off" >
+                        <input type="text"class="input-fat input" style="width:133px;"    onkeyup="value=value.replace(/[^\d]/g,'')"   name="query.zongGuiJi"  autocomplete="off" >
                     </td>
 
                     <td class="td_label">
                         <label>总在线里程大于(km)：</label>
                     </td>
                     <td class="td_input">
-                        <input type="text"class="input-fat input" style="width:150px;"  onkeyup="value=value.replace(/[^\d]/g,'')"  name="query.zongZaiXian"  autocomplete="off" >
+                        <input type="text"class="input-fat input" style="width:133px;"  onkeyup="value=value.replace(/[^\d]/g,'')"  name="query.zongZaiXian"  autocomplete="off" >
                     </td>
                     <td class="td_label">
                         <label>总核算里程大于(km)：</label>
                     </td>
                     <td class="td_input">
-                        <input type="text"class="input-fat input" style="width:150px;"  onkeyup="value=value.replace(/[^\d]/g,'')"  name="query.zongHeSuan"  autocomplete="off" >
+                        <input type="text"class="input-fat input" style="width:133px;"  onkeyup="value=value.replace(/[^\d]/g,'')"  name="query.zongHeSuan"  autocomplete="off" >
                     </td>
 
 
