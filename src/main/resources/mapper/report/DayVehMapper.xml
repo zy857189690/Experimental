@@ -119,7 +119,7 @@
             </foreach>
          </if>
         <if test="vehTypeId != null and vehTypeId != '0'.toString() ">
-            AND veh.veh_type_id = #{vehTypeId}
+            AND s_v_m.veh_model_type_id = #{vehTypeId}
         </if>
         <if test="vehModelName != null and vehModelName != '-1'">
             AND s_v_m.id = #{vehModelName}
