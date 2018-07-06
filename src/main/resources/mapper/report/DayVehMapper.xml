@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitnei.cloud.report.mapper.DayVehMapper">
     <!--<cache type="com.bitnei.cloud.common.cache.MybatisRedisCache" eviction="LRU" flushInterval="6000000" size="1024" readOnly="false"/>-->
-    <resultMap id="dayVehInfo" type="com.bitnei.cloud.report.domain.DayVehInfo" autoMapping="true">
-    </resultMap>
+    <!--<resultMap id="dayVehInfo" type="com.bitnei.cloud.report.domain.DayVehInfo" autoMapping="true">-->
+    <!--</resultMap>-->
 
-    <select id="pagerModel"  resultMap="dayVehInfo" parameterType="java.util.HashMap">
+    <select id="pagerModel"  resultType="java.util.HashMap" parameterType="java.util.HashMap">
         SELECT
         <!--DATE_FORMAT(smm.report_date, '%Y-%m-%d') AS reportDate,
         veh.license_plate AS licensePlate,
@@ -46,7 +46,7 @@
         v_r.run_km_max AS runKmMax,
         v_r.run_speed_max AS runSpeedMax,
         v_r.run_speed_avg AS runSpeedAvg-->
-        DATE_FORMAT(smm.report_date, '%Y-%m-%d') AS reportDate,
+        DATE_FORMAT(v_e.report_date, '%Y-%m-%d') AS reportDate,
         veh.license_plate AS licensePlate,
         veh.vin AS vin,
         s_d. NAME AS vehTypeId,
@@ -74,23 +74,22 @@
         v_r.run_speed_avg AS runSpeedAvg,
         DATE_FORMAT(v_m_c.last_commit_time,'%Y-%m-%d %H:%i:%s') AS lastCommunTime
         FROM
-        veh_dayreport_summary smm
-        LEFT JOIN sys_vehicle veh ON smm.vid=veh.uuid
+        veh_dayreport_expansion v_e
+        INNER JOIN sys_vehicle veh ON v_e.vid=veh.uuid
         LEFT JOIN sys_veh_model s_v_m ON veh.veh_model_id = s_v_m.id
         LEFT JOIN sys_dict s_d ON s_v_m.veh_model_type_id = s_d.id
         LEFT JOIN sys_unit su ON veh.manu_unit_id = su.id
         LEFT JOIN sys_unit s_u ON veh.use_uint_id = s_u.id
         LEFT JOIN sys_area s_a ON veh.sys_division_id = s_a.id
         LEFT JOIN sys_term_model_unit stmu ON veh.term_id = stmu.id
-        LEFT JOIN veh_dayreport_expansion v_e ON (smm.vid = v_e.vid AND date_format(smm.report_date, '%Y-%m-%d') = date_format(v_e.report_date, '%Y-%m-%d'))
-        LEFT JOIN veh_dayreport_mileage_check v_m_c ON (smm.vid = v_m_c.vid AND date_format(smm.report_date, '%Y-%m-%d') = date_format(v_m_c.report_date, '%Y-%m-%d'))
-        LEFT JOIN veh_dayreport_chargestate v_c ON (smm.vid = v_c.vid AND date_format(smm.report_date, '%Y-%m-%d') = date_format(v_c.report_time, '%Y-%m-%d'))
-        LEFT JOIN veh_dayreport_runstate v_r ON (smm.vid = v_r.vid AND date_format(smm.report_date, '%Y-%m-%d') = date_format(v_r.report_time, '%Y-%m-%d'))
+        LEFT JOIN veh_dayreport_mileage_check v_m_c ON (v_e.vid = v_m_c.vid AND date_format(v_e.report_date, '%Y-%m-%d') = date_format(v_m_c.report_date, '%Y-%m-%d'))
+        LEFT JOIN veh_dayreport_chargestate v_c ON (v_e.vid = v_c.vid AND date_format(v_e.report_date, '%Y-%m-%d') = date_format(v_c.report_time, '%Y-%m-%d'))
+        LEFT JOIN veh_dayreport_runstate v_r ON (v_e.vid = v_r.vid AND date_format(v_e.report_date, '%Y-%m-%d') = date_format(v_r.report_time, '%Y-%m-%d'))
         <!-- GROUP BY v_e.report_date,veh.license_plate -->
         <include refid="Common.userVehiclePermission"/>
         <if test="startTime != null and endTime != null">
-            AND smm.report_date <![CDATA[>=]]> #{startTime}
-            AND smm.report_date <![CDATA[<=]]> #{endTime}
+            AND v_e.report_date <![CDATA[>=]]> #{startTime}
+            AND v_e.report_date <![CDATA[<=]]> #{endTime}
         </if>
         <!--<if test="startTime = null and endTime = null or startTime = '' and endTime = ''">-->
             <!--AND v_e.report_date = '2018-03-13'-->
@@ -120,7 +119,7 @@
             </foreach>
          </if>
         <if test="vehTypeId != null and vehTypeId != '0'.toString() ">
-            AND veh.veh_type_id = #{vehTypeId}
+            AND s_v_m.veh_model_type_id = #{vehTypeId}
         </if>
         <if test="vehModelName != null and vehModelName != '-1'">
             AND s_v_m.id = #{vehModelName}
@@ -132,7 +131,7 @@
             AND s_a.id = #{sysDivisionId}
         </if>
         <!--GROUP BY new.reportDate,new.licensePlate-->
-        ORDER BY smm.report_date,smm.vin DESC
+        ORDER BY v_e.report_date,v_e.vin DESC
     </select>
 
     <!--查询车辆种类下拉列表-->

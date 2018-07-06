@@ -168,8 +168,9 @@
 
 <div id="exceptionRecord" class="easyui-window" title="车速异常记录详情" style="width:853px;height:550px" data-options="modal:true,closed:true">
     <div style="width: 90%; height: 30px; margin-top: 20px; margin-left: 10px">
-        <div style="height: 100%; width: 150px; float: left;"><label>VIN：</label><label id="vin"></label></div>
-        <div style="height: 100%; width: 150px; float: left; margin-left: 50px;"><label>车牌号：</label><label id="licensePlate"></label></div>
+        <div style="height: 100%;  float: left;"><label>VIN：</label><label id="vin"></label></div>
+        <div style="height: 100%;  float: left; margin-left: 100px;"><label>车牌号：</label><label id="licensePlate"></label></div>
+        <div style="height: 100%;  float: left;margin-left: 100px;"><label>车辆公告型号：</label><label id="modelNoticeId"></label></div>
         <input type="hidden" id="vid" name="vid" value="" />
         <#--<label>VIN:</label><label id="vin"></label><label>车牌号:</label><label id="licensePlate"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>车辆公告型号:</label><label id="modelNoticeId"></label></div>-->
     </div>
@@ -615,16 +616,16 @@
             titleName = "SOC异常记录详情";
         }
 
-        if (modelNoticeId == null || modelNoticeId == undefined) {
+        if (modelNoticeId == null || modelNoticeId == undefined||modelNoticeId=='undefined') {
             modelNoticeId = "";
         }
-        if (vin == null || vin == undefined) {
+        if (vin == null || vin == undefined||vin=='undefined') {
             vin = "";
         }
-        if (vid == null || vid == undefined) {
+        if (vid == null || vid == undefined||vid=='undefined') {
             vid = "";
         }
-        if (licensePlate == null || licensePlate == undefined) {
+        if (licensePlate == null || licensePlate == undefined||licensePlate=='undefined') {
             licensePlate = "";
         }
 

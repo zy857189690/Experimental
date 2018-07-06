@@ -21,6 +21,7 @@
         <if test="beginDate != null and endDate != null">
             AND vds.report_date &gt;= #{beginDate} AND vds.report_date &lt;= #{endDate}
         </if>
+            AND veh.id IS NOT NULL
         GROUP BY vds.report_date DESC
     </select>
 
@@ -42,6 +43,7 @@
         <include refid="Common.userVehiclePermission"/>
             AND vds.report_date &gt;= #{beginDate}
             AND vds.report_date &lt;= #{endDate}
+            AND veh.id IS NOT NULL
         GROUP BY vds.report_date DESC
     </select>
 
@@ -96,6 +98,7 @@
         <include refid="Common.userVehiclePermission"/>
             AND vds.report_date &gt;= #{beginDate}
             AND vds.report_date &lt;= #{endDate}
+            AND veh.id IS NOT NULL
             <if test="idlePlate != null">
                 AND veh.license_plate LIKE '%${idlePlate}%'
             </if>
@@ -105,23 +108,24 @@
             <if test="idleVehStage != null and idleVehStage != '-1'">
                 AND veh.registerstatus=#{idleVehStage}
             </if>
-            <if test="idleUseUnitId != null and idleUseUnitId != '0'">
+            <if test="idleUseUnitId != null">
                 AND veh.use_uint_id=#{idleUseUnitId}
             </if>
             <if test="idleAreaId != null">
                 AND veh.sys_division_id=#{idleAreaId}
             </if>
-            <if test="idleVehTypeId != null and idleVehTypeId != '0'">
+            <if test="idleVehTypeId != null">
                 AND veh.veh_type_id=#{idleVehTypeId}
             </if>
             <if test="idleModelNoticeId != null and idleModelNoticeId != '-1'">
                 AND model.id=#{idleModelNoticeId}
             </if>
-            ORDER BY vds.report_date, veh.entry_date DESC ) idle
+            ) idle
         GROUP BY idle.vid HAVING sum(idle.run_km) &lt; #{idleMileageValue}
         <if test="idleMileage != null">
             AND sum(idle.run_km) &gt; #{idleMileage}
         </if>
+        ORDER BY idle.entry_date DESC
     </select>
 
     <!--闲置车辆统计条件设置查询-->
@@ -136,6 +140,7 @@
             <include refid="Common.userVehiclePermission"/>
             AND rt.report_time &gt;= #{beginDate}
             AND rt.report_time &lt;= #{endDate}
+            AND veh.id IS NOT NULL
             GROUP BY rt.vid
         ) srun WHERE srun.cllc &lt; #{idleMileageValue};
     </select>
@@ -156,6 +161,7 @@
         <include refid="Common.userVehiclePermission"/>
             AND vds.report_date &gt;= #{beginDate}
             AND vds.report_date &lt;= #{endDate}
+            AND veh.id IS NOT NULL
         GROUP BY
             vds.report_date DESC
     </select>
@@ -174,6 +180,7 @@
         <include refid="Common.userVehiclePermission"/>
             AND vdc.report_time &gt;= #{beginDate}
             AND vdc.report_time &lt;= #{endDate}
+            AND veh.id IS NOT NULL
         GROUP BY
             vdc.report_time DESC
     </select>
@@ -181,20 +188,20 @@
     <!--查询_弹出框_车辆监控情况统计_车辆录入总数（辆）/新增录入车辆数（辆）-->
     <select id="queryVehCountTableForDialog" parameterType="java.util.HashMap" resultType="java.util.HashMap">
         SELECT
-            veh.id AS id,
-            veh.vin AS vin,
-            veh.uuid AS vid,
-            veh.license_plate AS plate,
-            sd.name AS vehStage,
-            date_format(veh.entry_date, '%Y-%m-%d %H:%i:%s')  AS entryDate,
-            date_format(veh.update_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
-            model.veh_model_name AS modelName,
-            model.model_notice_id AS modelNoticeId,
-            area.name AS areaName,
-            area.id AS areaId,
-            vds.vid AS vdsVid
+              veh.id AS id,
+              veh.vin AS vin,
+              veh.uuid AS vid,
+              veh.license_plate AS plate,
+              sd.name AS vehStage,
+              date_format(veh.entry_date, '%Y-%m-%d %H:%i:%s')  AS entryDate,
+              date_format(vds.last_commit_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
+              model.veh_model_name AS modelName,
+              model.model_notice_id AS modelNoticeId,
+              area.name AS areaName,
+              area.id AS areaId,
+              vds.vid AS vdsVid
         FROM
-        veh_dayreport_summary vds
+              veh_dayreport_summary vds
         LEFT JOIN sys_vehicle veh ON vds.vid = veh.uuid
         LEFT JOIN sys_veh_model model ON veh.veh_model_id = model.id
         LEFT JOIN sys_area area ON veh.sys_division_id = area.id
@@ -209,6 +216,7 @@
                     AND date_format(vds.report_date, '%Y-%m-%d') = #{reportDate} AND vds.append = '1'
                 </when>
             </choose   >
+            AND veh.id IS NOT NULL
             <if test="diaVehStage != null and diaVehStage != '-1'">
                 AND veh.registerstatus=#{diaVehStage}
             </if>
@@ -227,7 +235,7 @@
             veh.license_plate AS plate,
             sd.name AS vehStage,
             date_format(veh.entry_date, '%Y-%m-%d %H:%i:%s')  AS entryDate,
-            date_format(veh.update_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
+            date_format(vds.last_commit_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
             model.veh_model_name AS modelName,
             model.model_notice_id AS modelNoticeId,
             area.name AS areaName,
@@ -242,6 +250,7 @@
         <include refid="Common.userVehiclePermission"/>
             AND date_format(vds.report_date, '%Y-%m-%d') = #{reportDate}
             AND vds.last_commit_time &lt; CONCAT(date_format(vds.report_date, '%Y-%m-%d'), ' 00:00:00')
+            AND veh.id IS NOT NULL
             <if test="diaVehStage != null and diaVehStage != '-1'">
                 AND veh.registerstatus=#{diaVehStage}
             </if>
@@ -260,7 +269,7 @@
             veh.license_plate AS plate,
             sd.name AS vehStage,
             date_format(veh.entry_date, '%Y-%m-%d %H:%i:%s')  AS entryDate,
-            date_format(veh.update_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
+            date_format(vds.last_commit_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
             model.veh_model_name AS modelName,
             model.model_notice_id AS modelNoticeId,
             area.name AS areaName,
@@ -276,6 +285,7 @@
         <include refid="Common.userVehiclePermission"/>
             AND date_format(vds.report_date, '%Y-%m-%d') = #{reportDate}
             AND vde.daily_active_total_time &gt; 0
+            AND veh.id IS NOT NULL
             <if test="diaVehStage != null and diaVehStage != '-1'">
                 AND veh.registerstatus=#{diaVehStage}
             </if>
@@ -294,7 +304,7 @@
             veh.license_plate AS plate,
             sd.name AS vehStage,
             date_format(veh.entry_date, '%Y-%m-%d %H:%i:%s')  AS entryDate,
-            date_format(veh.update_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
+            date_format(vds.last_commit_time, '%Y-%m-%d %H:%i:%s') AS updateTime,
             model.veh_model_name AS modelName,
             model.model_notice_id AS modelNoticeId,
             area.name AS areaName,
@@ -313,6 +323,7 @@
         <include refid="Common.userVehiclePermission"/>
             AND date_format(vds.report_date, '%Y-%m-%d') = #{reportDate}
             AND (vdas.abnormal_num/vdmc.check_data_total_num) &gt; 0.05
+            AND veh.id IS NOT NULL
             <if test="diaVehStage != null and diaVehStage != '-1'">
                 AND veh.registerstatus=#{diaVehStage}
             </if>
@@ -346,6 +357,7 @@
         <include refid="Common.userVehiclePermission"/>
             AND date_format(vdc.report_time, '%Y-%m-%d') = #{reportDate}
             AND vdc.charge_time_sum &gt; 0
+            AND veh.id IS NOT NULL
             <if test="diaVehStage != null and diaVehStage != '-1'">
                 AND veh.registerstatus=#{diaVehStage}
             </if>

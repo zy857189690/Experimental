@@ -189,10 +189,10 @@
         <a href="#" onclick="del_item()" class="easyui-linkbutton"
            data-options="iconCls:'icon-remove'" >删除</a>
         </@shiro.hasPermission>-->
-        <@shiro.hasPermission name="/report/demo1/export">
-            <a href="#" onclick="gridList()" class="easyui-linkbutton"
+        <#--<@shiro.hasPermission name="/report/operation/dayMileageCheck/export">-->
+           <a href="#" onclick="gridList()" class="easyui-linkbutton"
                data-options="iconCls:'icon-export'" menu="0">导出</a>
-        </@shiro.hasPermission>
+        <#--</@shiro.hasPermission>-->
            <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-left: 5px;margin-right: 5px;  margin-top:5px;margin-right: 100px">列表说明</a>
     </div>
     <div id="table" name="datagrid" style="width: 100%; height: 100%;"></div>
@@ -347,23 +347,9 @@
         ]],
         columns: [[
             {field: 'reportDate', title: '统计日期',align:'center',halign:'center'},
-            {field: 'firstOnlineTime', title: '当日首次上线时间',align:'center',halign:'center', formatter: function (value, row, index) {
-                var  tinesp = "";
-                if(value!=null && value!=""){
-                    tinesp = timestampToTime(value);
-                }
-
-                return tinesp;
-            }},
+            {field: 'firstOnlineTime', title: '当日首次上线时间',align:'center',halign:'center'},
             {field: 'firstStartMileage', title: '当日开始里程(KM)',align:'center',halign:'center'},
-            {field: 'lastCommitTime', title: '当日最后通讯时间',align:'center',halign:'center', formatter: function (value, row, index) {
-            var  tinesp = "";
-            if(value!=null && value!=""){
-                tinesp = timestampToTime(value);
-            }
-
-                return tinesp;
-            }},
+            {field: 'lastCommitTime', title: '当日最后通讯时间',align:'center',halign:'center'},
             {field: 'lastEndMileage', title: '当日结束里程(KM)',align:'center',halign:'center'},
             {field: 'checkDataTotalNum', title: '核查数据总条数(条)',align:'center',halign:'center'},
             /*{field: 'invalidNum', title: '含无效数据条数(条)',align:'center', width: '160'},
@@ -375,10 +361,10 @@
             {field: 'dayOnlineMileage', title: '当日上线里程(KM)',align:'center',halign:'center'},
             {field: 'deductJumpMileage', title: '总跳变扣除里程(KM)',align:'center',halign:'center'},
             {field: 'deductCurrentMileage', title: '总连续电流扣除里程(KM)',align:'center',halign:'center'},
-            {field: 'dayVaildMileage', title: '当日有效里程(KM)',align:'center',halign:'center'},
+            {field: 'dayValidMileage', title: '当日有效里程(KM)',align:'center',halign:'center'},
             {field: 'dayGpsMileage', title: '当日轨迹里程(KM)',align:'center',halign:'center'},
-            {field: 'vaildGpsDeviation', title: '有效里程和轨迹里程相对误差（百分比）',align:'center',halign:'center'},
-            {field: 'onlineVaildDeviation', title: '上线里程和有效里程相对误差（百分比）',align:'center',halign:'center'},
+            {field: 'validGpsDeviation', title: '有效里程和轨迹里程相对误差（百分比）',align:'center',halign:'center'},
+            {field: 'onlineValidDeviation', title: '上线里程和有效里程相对误差（百分比）',align:'center',halign:'center'},
             {field: 'dayCheckMileage', title: '单日核算里程(KM)',align:'center',halign:'center'},
             {field: 'veharea', title: '上牌区域',align:'center',halign:'center'},
             {field: 'unit', title: '运营单位',align:'center',halign:'center'},

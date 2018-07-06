@@ -17,21 +17,21 @@ public class DayMileageCheck  extends TailBean {
     private String vid;
     private String vin;
     private Date reportDate; //统计日期
-    private Timestamp firstOnlineTime;//当日首次上线时间
-    private Double firstStartMileage;//当日开始里程
-    private Timestamp lastCommitTime;//当日最后通讯时间
-    private Double lastEndMileage;//当日结束里程
+    private String firstOnlineTime;//当日首次上线时间
+    private String firstStartMileage;//当日开始里程
+    private String lastCommitTime;//当日最后通讯时间
+    private String lastEndMileage;//当日结束里程
     private Double checkDataTotalNum;//核查数据总条数
     private Double invalidNum;//无效数据条数
     private Double abnormalNum;//异常数据条数
-    private Double dayOnlineMileage;//当日上线里程
-    private Double deductJumpMileage;//总跳变扣除里程
-    private Double deductCurrentMileage;//总连续电流扣除里程
-    private Double dayVaildMileage;//当日有效里程
-    private Double dayGpsMileage;//当日轨迹里程
-    private Double vaildGpsDeviation;//有效里程和轨迹里程相对误差
-    private Double onlineVaildDeviation;//上线里程和有效里程相对误差
-    private Double dayCheckMileage;//单日核算里程
+    private String dayOnlineMileage;//当日上线里程
+    private String deductJumpMileage;//总跳变扣除里程
+    private String deductCurrentMileage;//总连续电流扣除里程
+    private String dayValidMileage;//当日有效里程
+    private String dayGpsMileage;//当日轨迹里程
+    private String validGpsDeviation;//有效里程和轨迹里程相对误差
+    private String onlineValidDeviation;//上线里程和有效里程相对误差
+    private String dayCheckMileage;//单日核算里程
     
     
     private String  maker;
@@ -148,35 +148,35 @@ public class DayMileageCheck  extends TailBean {
         this.reportDate = reportDate;
     }
 
-    public Timestamp getFirstOnlineTime() {
+    public String getFirstOnlineTime() {
         return firstOnlineTime;
     }
 
-    public void setFirstOnlineTime(Timestamp firstOnlineTime) {
+    public void setFirstOnlineTime(String firstOnlineTime) {
         this.firstOnlineTime = firstOnlineTime;
     }
 
-    public Double getFirstStartMileage() {
+    public String getFirstStartMileage() {
         return firstStartMileage;
     }
 
-    public void setFirstStartMileage(Double firstStartMileage) {
+    public void setFirstStartMileage(String firstStartMileage) {
         this.firstStartMileage = firstStartMileage;
     }
 
-    public Timestamp getLastCommitTime() {
+    public String getLastCommitTime() {
         return lastCommitTime;
     }
 
-    public void setLastCommitTime(Timestamp lastCommitTime) {
+    public void setLastCommitTime(String lastCommitTime) {
         this.lastCommitTime = lastCommitTime;
     }
 
-    public Double getLastEndMileage() {
+    public String getLastEndMileage() {
         return lastEndMileage;
     }
 
-    public void setLastEndMileage(Double lastEndMileage) {
+    public void setLastEndMileage(String lastEndMileage) {
         this.lastEndMileage = lastEndMileage;
     }
 
@@ -204,67 +204,67 @@ public class DayMileageCheck  extends TailBean {
         this.abnormalNum = abnormalNum;
     }
 
-    public Double getDayOnlineMileage() {
+    public String getDayOnlineMileage() {
         return dayOnlineMileage;
     }
 
-    public void setDayOnlineMileage(Double dayOnlineMileage) {
+    public void setDayOnlineMileage(String dayOnlineMileage) {
         this.dayOnlineMileage = dayOnlineMileage;
     }
 
-    public Double getDeductJumpMileage() {
+    public String getDeductJumpMileage() {
         return deductJumpMileage;
     }
 
-    public void setDeductJumpMileage(Double deductJumpMileage) {
+    public void setDeductJumpMileage(String deductJumpMileage) {
         this.deductJumpMileage = deductJumpMileage;
     }
 
-    public Double getDeductCurrentMileage() {
+    public String getDeductCurrentMileage() {
         return deductCurrentMileage;
     }
 
-    public void setDeductCurrentMileage(Double deductCurrentMileage) {
+    public void setDeductCurrentMileage(String deductCurrentMileage) {
         this.deductCurrentMileage = deductCurrentMileage;
     }
 
-    public Double getDayVaildMileage() {
-        return dayVaildMileage;
+    public String getDayValidMileage() {
+        return dayValidMileage;
     }
 
-    public void setDayVaildMileage(Double dayVaildMileage) {
-        this.dayVaildMileage = dayVaildMileage;
+    public void setDayValidMileage(String dayValidMileage) {
+        this.dayValidMileage = dayValidMileage;
     }
 
-    public Double getDayGpsMileage() {
+    public String getDayGpsMileage() {
         return dayGpsMileage;
     }
 
-    public void setDayGpsMileage(Double dayGpsMileage) {
+    public void setDayGpsMileage(String dayGpsMileage) {
         this.dayGpsMileage = dayGpsMileage;
     }
 
-    public Double getVaildGpsDeviation() {
-        return vaildGpsDeviation;
+    public String getValidGpsDeviation() {
+        return validGpsDeviation;
     }
 
-    public void setVaildGpsDeviation(Double vaildGpsDeviation) {
-        this.vaildGpsDeviation = vaildGpsDeviation;
+    public void setValidGpsDeviation(String validGpsDeviation) {
+        this.validGpsDeviation = validGpsDeviation;
     }
 
-    public Double getOnlineVaildDeviation() {
-        return onlineVaildDeviation;
+    public String getOnlineValidDeviation() {
+        return onlineValidDeviation;
     }
 
-    public void setOnlineVaildDeviation(Double onlineVaildDeviation) {
-        this.onlineVaildDeviation = onlineVaildDeviation;
+    public void setOnlineValidDeviation(String onlineValidDeviation) {
+        this.onlineValidDeviation = onlineValidDeviation;
     }
 
-    public Double getDayCheckMileage() {
+    public String getDayCheckMileage() {
         return dayCheckMileage;
     }
 
-    public void setDayCheckMileage(Double dayCheckMileage) {
+    public void setDayCheckMileage(String dayCheckMileage) {
         this.dayCheckMileage = dayCheckMileage;
     }
 }

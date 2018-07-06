@@ -1,4 +1,3 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,13 +10,14 @@
     </style>
 </head>
 
-<div id="report" class="easyui-dialog" title="报表说明" style="width: 853px; height: 500px;display: none"  data-options="modal:true,closed:true">
+<div id="report" class="easyui-dialog" title="报表说明" style="width: 613px; height: 500px;display: none"  data-options="modal:true,closed:true">
     <div class="easyui-layout">
         <table class="easyui-datagrid">
             <thead>
             <tr>
-                <th data-options="field:'code'" style="width: 167px" align="center">名称</th>
-                <th data-options="field:'name'" style="width: 731px" align="center">定义</th>
+                <th data-options="field:'title', width: 200, resizable: true, align: 'left', halign: 'center'">名称</th>
+                <th data-options="field:'definition', width: 400, resizable: true, align: 'left', halign: 'center'">定义</th>
+
             </tr>
             </thead>
             <tbody>
@@ -25,7 +25,7 @@
                 <td>截止时间</td><td >报表查询截止某一天的历史数据，而非只显示前一天的数据</td>
             </tr>
             <tr>
-                <td>监控车车辆总数（辆）</td><td>即登录过平台为可监控车辆数</td>
+                <td>监控车辆总数（辆）</td><td>即登录过平台为可监控车辆数</td>
             </tr>
             <tr>
                 <td>本月车辆运营数（辆）</td><td>本月行驶里程数大于500公里</td>
@@ -43,7 +43,7 @@
                 <td>0.05~1万公里（辆）</td><td>车辆总里程500-1万公里</td>
             </tr>
             <tr>
-                <td>＜0,05万公里（辆）</td><td>车辆总里程小于500公里</td>
+                <td>＜0.05万公里（辆）</td><td>车辆总里程小于500公里</td>
             </tr>
 
             </tbody>
@@ -55,10 +55,10 @@
 <body class="easyui-layout" fit="true" id="fullid">
 <div region="center" style="overflow: hidden;width: 100%;">
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
-    <@shiro.hasPermission name="/report/demo1/export">
+    <#--<@shiro.hasPermission name="/report/operation/mileageMonitor/export">-->
         <a href="#" onclick="exportDatagrid('${base}/report/operation/mileageMonitor/downloadMileageMonthly','form_search','table')" class="easyui-linkbutton"
            data-options="iconCls:'icon-export'" menu="0">导出</a>
-    </@shiro.hasPermission>
+    <#--</@shiro.hasPermission>-->
         <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">列表说明&nbsp;&nbsp;</a>
     </div>
     <div id="table" name="datagrid" style="width: 100%; height: 100%;"></div>
@@ -117,7 +117,7 @@
             {field: 'shiJian', title: '截止时间',  align: 'center'},
             {field: 'yunYing', title: '运营单位',  align: 'center'},
             {field: 'cheLiangMing', title: '车型名称',align: 'center'},
-            {field: 'jianKongChe', title: '监控车车辆总数（辆）',  align: 'center'},
+            {field: 'jianKongChe', title: '监控车辆总数（辆）',  align: 'center'},
             {field: 'cheLiangYunYing', title: '本月车辆运营数（辆）',  align: 'center'},
             {field: 'a', title: '≥3万公里（辆）',  align: 'center',formatter:function(val, row, index){
                 if(val==undefined||val==""){
@@ -143,11 +143,11 @@
                 }
                 return  compile(val,row,index,500,10000, '0.05~1万公里（辆）');
             }},
-            {field: 'e', title: '＜0,05万公里（辆）',  align: 'center',formatter:function(val, row, index){
+            {field: 'e', title: '＜0.05万公里（辆）',  align: 'center',formatter:function(val, row, index){
                 if(val==undefined||val==""){
                     return "0";
                 }
-                return  compile(val,row,index,0,500,'＜0,05万公里（辆）');
+                return  compile(val,row,index,0,500,'＜0.05万公里（辆）');
             }}
         ]],
         toolbar: "#toolbar",
@@ -238,8 +238,8 @@
 
     function openEditWin(url, title) {
         var winid = "pop";
-        var width = 1350;
-        var height = 600;
+        var width = 1230;
+        var height = 620;
         diyWindow(winid, url, title, width, height,false);
     }
 

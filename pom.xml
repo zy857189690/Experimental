@@ -88,7 +88,8 @@
 			<artifactId>evsmc-module</artifactId>
 			<!--<version>1.0.1-build20180416-01</version>-->
 			<!--<version>1.0.2-20180607-01</version>-->
-			<version>1.0.3-201806010-01</version>
+			<!--<version>1.0.3-201806010-01</version>-->
+			<version>1.0.6-20180704-01</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 		<dependency>
@@ -157,6 +158,12 @@
 			<groupId>com.bitnei.cloud</groupId>
 			<artifactId>data-center</artifactId>
 			<version>1.0.3-20180620-01</version>
+		</dependency>
+		<!--导出zip包-->
+		<dependency>
+			<groupId>net.lingala.zip4j</groupId>
+			<artifactId>zip4j</artifactId>
+			<version>1.3.2</version>
 		</dependency>
 
 		<!-- 热部署start -->

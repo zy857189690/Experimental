@@ -280,20 +280,30 @@
             onSelect: function(title, index) {
                 if (index == 0) {
                     currentTabPageId = "monitoring";
-                    loadMonitoringTable();
+                    if (null == monitoringTable || undefined == monitoringTable) {
+                        loadMonitoringTable();
+                    }
                 } else if (index == 1) {
                     currentTabPageId = "active";
-                    loadActiveTable();
+                    if (null == activeTable || undefined == activeTable) {
+                        loadActiveTable();
+                    }
                 } else if (index == 2) {
                     //loadIdleTable();
                     currentTabPageId = "idle";
-                    searchIdleByMileageValue();
+                    if (null == idleTable || undefined == idleTable) {
+                        searchIdleByMileageValue();
+                    }
                 } else if (index == 3) {
                     currentTabPageId = "travel";
-                    loadTravelTable();
+                    if (null == travelTable || undefined == travelTable) {
+                        loadTravelTable();
+                    }
                 } else if (index == 4) {
                     currentTabPageId = "electricity";
-                    loadElectricityTable();
+                    if (null == electricityTable || undefined == electricityTable) {
+                        loadElectricityTable();
+                    }
                 }
             }
         });
@@ -729,7 +739,7 @@
             $("#" + tabId + "Div #beginDate").datebox('setValue', defaultBeginDate);
             $("#" + tabId + "Div #endDate").datebox('setValue', defaultEndDate);
         }
-//        loadTable(tabId);
+       loadTable(tabId);
     }
 
     /**
