@@ -501,7 +501,7 @@
 
     /*模板下载*/
     function downFile() {
-        var downUrl = "${base}/report/operation/dayMileageCheck/downLooadModel?moduleName=model&fileName=templateQuery.xlsx";
+        var downUrl = "${base}/report/operation/dayMileageCheck/downLooadModel?moduleName=model&fileName=templateQuery.xls";
         window.open(downUrl);
     }
 
