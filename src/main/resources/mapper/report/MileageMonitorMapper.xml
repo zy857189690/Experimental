@@ -6,9 +6,6 @@
 
     <select id="queryPopup" resultType="java.util.HashMap" parameterType="java.util.HashMap">
         select
-        <if test="s != null ">
-             '${s}' as  fanWei,
-        </if>
         veh.vin as VIN ,
         veh.license_plate as chePai,
         b.veh_model_name as cheLiangMing,
