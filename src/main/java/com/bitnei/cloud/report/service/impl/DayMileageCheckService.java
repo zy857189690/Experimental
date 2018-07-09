@@ -76,20 +76,26 @@ public class DayMileageCheckService  extends BaseService implements IDayMileageC
     private String getVehicId() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         List<Map> lisVin = (List<Map>) MemCacheManager.getInstance().get(request.getSession().getId() + "InstantVeh");
+        DataGridOptions options = ServletUtil.getDataLayOptions();
         StringBuffer sb = new StringBuffer();
         if (lisVin == null) {
             return "";
         }
         for (int i = 0; i < lisVin.size(); i++) {
             Map map = lisVin.get(i);
+            map.put("reportDateStart",options.getParams().get("reportDateStart"));
+            map.put("reportDateEnd",options.getParams().get("reportDateEnd"));
             Map<String, Object> params = new HashMap();
             params.put("lic", map.get("lic") == null ? null : map.get("lic").toString());
             params.put("vin", map.get("vin") == null ? null : map.get("vin").toString());
             params.put("reportDateStart", map.get("reportDateStart") == null ?  com.bitnei.cloud.common.DateUtil.getShortNextDay(com.bitnei.cloud.common.DateUtil.getNextDay(new Date())) : map.get("reportDateStart"));
             params.put("reportDateEnd", map.get("reportDateEnd") == null ? com.bitnei.cloud.common.DateUtil.getShortNextDay(com.bitnei.cloud.common.DateUtil.getNextDay(new Date())) : map.get("reportDateEnd"));
-            DayMileageCheck dayMileageCheck = sessionTemplate.selectOne(  mapper+"findInForVinAndLic", params);
-            if (dayMileageCheck != null) {
-                sb.append("'" + dayMileageCheck.getIds().toString() + "',");
+            //DayMileageCheck dayMileageCheck = sessionTemplate.selectOne(  mapper+"findInForVinAndLic", params);
+            List<DayMileageCheck>  list =   sessionTemplate.selectList(mapper + "findInForVinAndLic", params);
+            for (DayMileageCheck dayMileageCheck :list){
+                if (dayMileageCheck != null) {
+                    sb.append("'" + dayMileageCheck.getIds().toString() + "',");
+                }
             }
         }
         String splitNull = "(" + sb.toString() + "'')";
