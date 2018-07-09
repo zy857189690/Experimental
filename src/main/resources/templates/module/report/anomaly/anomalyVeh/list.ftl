@@ -42,7 +42,7 @@
     </script>
 </head>
 <body class="easyui-layout" fit="true" id="fullid">
-<div id="report" class="easyui-window" title="列表说明" style="width:853px; height:600px; display: none;" data-options="modal:true,closed:true">
+<div id="report" class="easyui-window" title="列表说明" style="width:853px; height:530px; display: none;" data-options="modal:true,closed:true">
     <div class="easyui-layout">
         <table class="easyui-datagrid">
             <thead>
