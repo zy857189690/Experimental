@@ -303,10 +303,7 @@ public class MileageMonitorService   implements IMileageMonitorService {
         map= PublicDealUtil.bulidUserForParams(map);
         List lists = mileageMonitorMapper.queryPopup(map);
 
-        if(lists!=null&&lists.size()>0){
-            Map<String,Object> o=( Map<String,Object> ) lists.get(0);
-            o.put("fanWei",s);
-        }
+
         DataLoader.loadNames(lists);
         DataLoader.loadDictNames(lists);
 
