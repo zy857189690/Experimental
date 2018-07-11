@@ -347,7 +347,7 @@
             model.model_notice_id AS modelNoticeId,
             area.name AS areaName,
             area.id AS areaId,
-            vds.vid AS vdsVid
+            vdc.vid AS vdcVid
         FROM
             veh_dayreport_chargestate vdc
         LEFT JOIN sys_vehicle veh ON vdc.vid = veh.uuid
