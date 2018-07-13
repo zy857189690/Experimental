@@ -84,6 +84,7 @@ public class PublicDealUtil {
             param.put("isLeader", map.get("roleType"));
             param.put("areaPath", map.get("areaPath"));
             param.put("userUnitPath", map.get("unitPath"));
+            param.put("unitTypeCode", map.get("unitTypeCode"));
         }
         return param;
     }
