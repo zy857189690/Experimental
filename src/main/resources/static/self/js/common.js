@@ -129,31 +129,62 @@ function resetDatagrid(formId, gridId) {
  * @param formId
  * @param gridId
  */
-function exportDatagrid(url, formId, gridId) {
-    if (formId == undefined || formId == null) {
+function exportDatagrid(url,formId,gridId){
+
+    if(formId==undefined || formId==null){
         formId = "form_search";
     }
     var myUrl = url;
-    var searchParames = $('#' + formId).serializeObject();
-    var rows = $("#" + gridId).datagrid("getSelections");
+    var searchParames = $('#'+formId).serializeObject();
+
+
+    var rows = $("#"+gridId).datagrid("getSelections");
     if (rows != null && rows.length != 0) {
         var ids = "";
-        for (var i = 0; i < rows.length; i++) {
+        for(var i=0;i<rows.length;i++){
             ids += rows[i].id;
-            if (i != (rows.length - 1))
+            if(i!=(rows.length-1))
                 ids += ","
         }
+
     }
     searchParames['query.ids'] = ids;
-    myUrl += '?exportId=' + new Date().getTime();
-    for (var key in searchParames) {
+
+    myUrl += '?exportId='+new Date().getTime();
+    for(var key in searchParames){
         var value = searchParames[key];
-        if (value != "") {
-            myUrl += ("&" + key + "=" + value);
+        if(value!=""){
+            myUrl += ("&"+key+"="+value);
         }
     }
-    window.open(myUrl, '_blank');
+
+    var cookieName = "fileDownload";
+    var win;
+    $.fileDownload(myUrl,{
+
+        prepareCallback:function(url){
+            setCookie(cookieName, "", -1);
+            win = $.messager.progress({
+                title:'数据导出',
+                msg:'数据导出处理中，请耐心等待...'
+            });
+
+        },
+        successCallback:function(url){
+            setCookie(cookieName, "", -1);
+            $.messager.progress('close');
+            $.messager.alert('数据导出','文件导出成功!');
+        },
+        failCallback: function (html, url) {
+            setCookie(cookieName, "", -1);
+            $.messager.progress('close');
+            $.messager.alert('数据导出','文件导出成功!','error');
+        }
+    });
+
+    //window.open(myUrl,'_blank');
 }
+
 
 /**
  * 格式化日期

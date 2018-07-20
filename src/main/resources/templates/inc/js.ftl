@@ -38,6 +38,7 @@
 
 
 <script type="text/javascript" src="${cdn}/lib/jquery/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" charset="utf8" src="${base}/lib/jquery.fileDownload.js"></script>
 <script type="text/javascript" src="${cdn}/lib/layer/layer.js"></script>
 <script type="text/javascript" src="${cdn}/lib/jqueryvalidate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="${cdn}/lib/jqueryvalidate/messages_zh.min2.js"></script>
