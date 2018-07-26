@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.RequestContext;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +41,8 @@ public class AnomalyVehService extends BaseService implements IAnomalyVehService
 
 	@Autowired
 	private IDataCenterService dataCenterService;
+	@Autowired
+	private HttpServletResponse response;
 
 	@Override
 	public PagerModel pageQuery() {
@@ -68,6 +71,15 @@ public class AnomalyVehService extends BaseService implements IAnomalyVehService
 			map.putAll(tempMap);
 		}
 		List list = findBySqlId("pagerModel", map);
+		if(list==null||list.size()==0){
+			try {
+				response.setContentType("text/html;charset=UTF-8");
+				response.getWriter().print("[下载数据不能为空]");
+			}catch(Exception e){
+
+			}
+			return ;
+		}
 		DataLoader.loadNames(list);
 		DataLoader.loadDictNames(list);
 

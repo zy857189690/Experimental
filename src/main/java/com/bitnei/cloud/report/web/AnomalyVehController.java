@@ -85,6 +85,7 @@ public class AnomalyVehController {
      * @return
      */
     @GetMapping(value = "/export")
+    @ResponseBody
     @RequiresPermissions(URL_EXPORT)
     public void export(){
         anomalyVehService.export();

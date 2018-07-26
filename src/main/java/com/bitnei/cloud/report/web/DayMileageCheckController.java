@@ -151,6 +151,7 @@ public class DayMileageCheckController {
      * @return
      */
     @GetMapping(value = "/export")
+    @ResponseBody
     public void export(){
 
         dayMileageCheckService.export();

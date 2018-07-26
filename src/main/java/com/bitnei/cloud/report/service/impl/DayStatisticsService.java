@@ -11,10 +11,12 @@ import com.bitnei.cloud.service.impl.BaseService;
 import com.bitnei.commons.bean.WebUser;
 import com.bitnei.commons.datatables.DataGridOptions;
 import com.bitnei.commons.datatables.PagerModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.support.RequestContext;
 
+import javax.servlet.http.HttpServletResponse;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +28,8 @@ import java.util.Map;
 @Service
 @Mybatis(namespace = "com.bitnei.cloud.report.mapper.DayStatisticsMapper")
 public class DayStatisticsService extends BaseService implements IDayStatisticsService {
-
+    @Autowired
+    private HttpServletResponse response;
     /**
      * 车辆监控情况统计
      *
@@ -165,6 +168,15 @@ public class DayStatisticsService extends BaseService implements IDayStatisticsS
             }
         }
         List<Map<String, Object>> list = findBySqlId(funcName, params);
+        if(list==null||list.size()==0){
+            try {
+                response.setContentType("text/html;charset=UTF-8");
+                response.getWriter().print("[下载数据不能为空]");
+            }catch(Exception e){
+
+            }
+            return ;
+        }
         String srcBase = RequestContext.class.getResource("/templates/").getFile();
         String srcFile = srcBase + "module/report/operation/dayStatistics/" + excelName + ".xls";
         ExcelData ed = new ExcelData();

@@ -17,6 +17,7 @@ import com.bitnei.cloud.service.impl.BaseService;
 import com.bitnei.commons.datatables.DataGridOptions;
 import com.bitnei.commons.datatables.PagerModel;
 import com.github.pagehelper.PageRowBounds;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -28,6 +29,7 @@ import com.bitnei.cloud.common.bean.AppBean;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -35,6 +37,8 @@ import java.util.*;
 @Service
 @Mybatis(namespace = "com.bitnei.cloud.report.mapper.DayVehMapper")
 public class DayVehService extends BaseService implements IDayVehService {
+    @Autowired
+    private HttpServletResponse response;
     @Override
     public String queryVehTypeList() {
         List<Map<String, Object>> list = findBySqlId("queryVehTypeList", null);
@@ -160,6 +164,15 @@ public class DayVehService extends BaseService implements IDayVehService {
     public void export() {
 
         List<Map<String, Object>> list = findBySqlId("pagerModel",PublicDealUtil.bulidUserForParams(ServletUtil.getQueryParams()));
+        if(list==null||list.size()==0){
+            try {
+                response.setContentType("text/html;charset=UTF-8");
+                response.getWriter().print("[下载数据不能为空]");
+            }catch(Exception e){
+
+            }
+            return ;
+        }
         DataLoader.loadNames(list);
         DataLoader.loadDictNames(list);
 
@@ -272,6 +285,15 @@ public class DayVehService extends BaseService implements IDayVehService {
         //List<Map> listMap = pm.getRows();
         //list.addAll(listMap);
         //this.cyclicData(list);
+        if(list==null||list.size()==0){
+            try {
+                response.setContentType("text/html;charset=UTF-8");
+                response.getWriter().print("[下载数据不能为空]");
+            }catch(Exception e){
+
+            }
+            return ;
+        }
         DataLoader.loadNames(list);
         DataLoader.loadDictNames(list);
 

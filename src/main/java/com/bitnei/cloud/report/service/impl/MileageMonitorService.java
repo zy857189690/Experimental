@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.RequestContext;
 
+import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -26,6 +27,8 @@ public class MileageMonitorService   implements IMileageMonitorService {
     private MileageMonitorMapper mileageMonitorMapper;
     @Autowired
     private AreaMileageService  areaMileageService;
+    @Autowired
+    private HttpServletResponse response;
 
     /**
      * 查询里程分布
@@ -173,6 +176,15 @@ public class MileageMonitorService   implements IMileageMonitorService {
             }else{
                 lists=new ArrayList<Map<String,Object>>();
             }
+            if(lists.size()==0){
+                try {
+                    response.setContentType("text/html;charset=UTF-8");
+                    response.getWriter().print("[下载数据不能为空]");
+                }catch(Exception e){
+
+                }
+                 return ;
+            }
         DataLoader.loadNames(lists);
         DataLoader.loadDictNames(lists);
         String srcBase = RequestContext.class.getResource("/templates/").getFile();
@@ -302,7 +314,15 @@ public class MileageMonitorService   implements IMileageMonitorService {
         map.put("s",s);
         map= PublicDealUtil.bulidUserForParams(map);
         List lists = mileageMonitorMapper.queryPopup(map);
+        if(lists==null||lists.size()==0){
+            try {
+                response.setContentType("text/html;charset=UTF-8");
+                response.getWriter().print("[下载数据不能为空]");
+            }catch(Exception e){
 
+            }
+            return ;
+        }
 
         DataLoader.loadNames(lists);
         DataLoader.loadDictNames(lists);

@@ -81,6 +81,7 @@ public class VehHistoryController {
      * @return
      */
     @GetMapping(value = "/export")
+    @ResponseBody
     @RequiresPermissions(URL_EXPORT)
     public void export(){
         vehHistoryService.export();
@@ -123,6 +124,7 @@ public class VehHistoryController {
      * @return
      */
     @PostMapping(value = "/importExport")
+    @ResponseBody
     @RequiresPermissions(URL_EXPORT)
     public void importExport(MultipartFile file, String identity) throws Exception {
         vehHistoryService.importExport(file,identity);

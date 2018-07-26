@@ -149,6 +149,7 @@ public class DayStatisticsController {
      * 导出
      */
     @GetMapping(value = "/export")
+    @ResponseBody
     public void export() {
         dayStatisticsService.export();
     }

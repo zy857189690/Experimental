@@ -180,6 +180,7 @@ function exportDatagrid(url,formId,gridId){
 
         },
         successCallback:function(url){
+
             setCookie(cookieName, "", -1);
             $.messager.progress('close');
             $.messager.alert('数据导出','文件导出成功!');
@@ -187,7 +188,17 @@ function exportDatagrid(url,formId,gridId){
         failCallback: function (html, url) {
             setCookie(cookieName, "", -1);
             $.messager.progress('close');
-            $.messager.alert('数据导出','文件导出成功!','error');
+            var begin=html.indexOf("[");
+            var end=html.indexOf("]");
+
+            if(begin!=-1&&end!=-1){
+
+                $.messager.alert('数据导出', html.substring(begin+1,end),'error');
+            }else{
+                $.messager.alert('数据导出','数据导出错误!','error');
+            }
+
+
         }
     });
 

@@ -81,7 +81,7 @@ public class MileageMonitorController {
      * @return
      */
     @RequestMapping("downloadMileageMonthly")
-    @ResponseBody
+    @RequiresPermissions(URL_EXPORT)
     public void downloadMileageMonthly(HttpServletRequest request){
         Map<String, Object> params = ControlUtil.getParams(request);
           mileageMonitorService.downloadMileageMonthly(params);
@@ -96,7 +96,6 @@ public class MileageMonitorController {
      * @return
      */
     @RequestMapping("popup")
-
     public String popup(
             @RequestParam("data1") String data1,
             @RequestParam("data2") String data2,
@@ -135,6 +134,7 @@ public class MileageMonitorController {
      */
     @RequestMapping("downloadPopup")
     @ResponseBody
+    @RequiresPermissions(URL_EXPORT)
     public void downloadPopup(HttpServletRequest request){
 
         Map<String, Object> params = ControlUtil.getParams(request);

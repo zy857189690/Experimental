@@ -15,12 +15,14 @@ import com.bitnei.cloud.service.impl.BaseService;
 import com.bitnei.commons.datatables.DataGridOptions;
 import com.bitnei.commons.datatables.PagerModel;
 import com.github.pagehelper.PageRowBounds;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.support.RequestContext;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +35,8 @@ import java.util.Map;
 @Mybatis(namespace = "com.bitnei.cloud.report.mapper.DayMileageCheckMapper" )
 public class DayMileageCheckService  extends BaseService implements IDayMileageCheckService {
     private final String mapper = "com.bitnei.cloud.report.mapper.DayMileageCheckMapper.";
+    @Autowired
+    private HttpServletResponse response;
     @Override
     public PagerModel pageQuery() {
 
@@ -144,6 +148,15 @@ public class DayMileageCheckService  extends BaseService implements IDayMileageC
             list = sessionTemplate.selectList(mapper+"pagerModelForId", mapParams);
         }
 
+        if(list==null||list.size()==0){
+            try {
+                response.setContentType("text/html;charset=UTF-8");
+                response.getWriter().print("[下载数据不能为空]");
+            }catch(Exception e){
+
+            }
+            return ;
+        }
         DataLoader.loadNames(list);
         DataLoader.loadDictNames(list);
 

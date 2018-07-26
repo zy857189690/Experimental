@@ -110,6 +110,7 @@ public class AreaMileageController {
      */
     @RequestMapping("downloadAreaMonthly")
     @ResponseBody
+    @RequiresPermissions(URL_EXPORT)
     public void downloadAreaMonthly(HttpServletRequest request) throws Exception {
         Map<String, Object> params = ControlUtil.getParams(request);
         areaMileageService.downloadAreaMonthly(params);

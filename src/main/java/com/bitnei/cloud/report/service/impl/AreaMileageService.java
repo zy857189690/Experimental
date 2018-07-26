@@ -18,6 +18,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.RequestContext;
 
+import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -29,6 +30,8 @@ public class AreaMileageService implements IAreaMileageService {
     private AreaMileageMapper areaMileageMapper;
     @Autowired
     private StringRedisTemplate redisTemplate;
+    @Autowired
+    private HttpServletResponse response;
 
     public final static String AREA = "REDIS_AREA";
 
@@ -239,6 +242,15 @@ public class AreaMileageService implements IAreaMileageService {
         }
         map = PublicDealUtil.bulidUserForParams(map);
         List lists = areaMileageMapper.queryAreaMonthly(map);
+        if(lists==null||lists.size()==0){
+            try {
+                response.setContentType("text/html;charset=UTF-8");
+                response.getWriter().print("[下载数据不能为空]");
+            }catch(Exception e){
+
+            }
+            return ;
+        }
         DataLoader.loadNames(lists);
         DataLoader.loadDictNames(lists);
         String srcBase = RequestContext.class.getResource("/templates/").getFile();

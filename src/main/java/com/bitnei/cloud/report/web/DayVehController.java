@@ -185,6 +185,7 @@ public class DayVehController {
      * @return
      */
     @GetMapping(value = "/export")
+    @ResponseBody
     @RequiresPermissions(URL_EXPORT)
     public void export(){
 
@@ -197,6 +198,7 @@ public class DayVehController {
      * @return
      */
     @PostMapping(value = "/importExport")
+    @ResponseBody
     @RequiresPermissions(URL_EXPORT)
     public void importExport(MultipartFile file, String identity) throws Exception {
         dayVehService.importExport(file,identity);
