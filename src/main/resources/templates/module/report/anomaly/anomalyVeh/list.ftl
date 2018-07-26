@@ -176,9 +176,11 @@
     </div>
     <div><input type="text" style="display: none" id="typeId"/></div>
     <div style="margin-bottom: 5px;">
+     <@shiro.hasPermission name="/report/anomaly/anomalyVeh/exceptionExport">
         <a href="#" onclick="exceptionExport()" class="easyui-linkbutton" data-options="iconCls:'icon-export'" style="margin-left: 10px; width: 65px;">
             导出
         </a>
+     </@shiro.hasPermission>
         <a href="#" id="reportExplan" onclick="reportExplan()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 20px">列表说明</a>
     </div>
     <div style="width: auto;height: 415px;">
