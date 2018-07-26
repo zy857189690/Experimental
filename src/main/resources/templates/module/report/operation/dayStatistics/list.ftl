@@ -42,9 +42,11 @@
             </div>
             <div region="center" style="overflow: hidden; width: 100%; height: calc(100vh - 80px);">
                 <div id="monitoringToolbar" class="cg-moreBox" style="padding:5px">
+                    <@shiro.hasPermission name="/report/operation/dayStatistics/export">
                     <a href="#" onclick="exportDatagrid('${base}/report/operation/dayStatistics/export','form_search1', 'monitoringTable')" class="easyui-linkbutton" data-options="iconCls:'icon-export'">
                         导出
                     </a>
+                    </@shiro.hasPermission>
                     <a href="#" onclick="openExplainDialog('monitoring')" style="float: right; margin-right: 120px; margin-top: 5px;">列表说明</a>
                 </div>
                 <div id="monitoringTable" name="monitoringTable" style="width: 100%; height: 100%"></div>
@@ -69,9 +71,11 @@
             </div>
             <div region="center" style="overflow: hidden; width: 100%;height: calc(100vh - 80px);">
                 <div id="activeToolbar" class="cg-moreBox" style="padding:5px">
+                <@shiro.hasPermission name="/report/operation/dayStatistics/export">
                     <a href="#" onclick="exportDatagrid('${base}/report/operation/dayStatistics/export','form_search2', 'activeTable')" class="easyui-linkbutton" data-options="iconCls:'icon-export'">
                         导出
                     </a>
+                </@shiro.hasPermission>
                     <a href="#" onclick="openExplainDialog('active')" style="float: right; margin-right: 120px; margin-top: 5px;">列表说明</a>
                 </div>
                 <div id="activeTable" name="activeTable" style="width: 100%;height: 100%"></div>
@@ -164,9 +168,11 @@
             </div>
             <div region="center" style="overflow: hidden; width: 100%;height: calc(100vh - 204px);">
                 <div id="idleToolbar" class="cg-moreBox" style="padding:5px">
+                <@shiro.hasPermission name="/report/operation/dayStatistics/export">
                     <a href="#" onclick="exportDatagrid('${base}/report/operation/dayStatistics/export','form_search3', 'idleTable')" class="easyui-linkbutton" data-options="iconCls:'icon-export'">
                         导出
                     </a>
+                </@shiro.hasPermission>
                     <a href="#" onclick="openExplainDialog('idle')" style="float: right; margin-right: 120px; margin-top: 5px;">列表说明</a>
                 </div>
                 <div id="idleTable" name="idleTable" style="width: 100%;height: 100%"></div>
@@ -191,9 +197,11 @@
             </div>
             <div region="center" style="overflow: hidden; width: 100%;height: calc(100vh - 80px);">
                 <div id="travelToolbar" class="cg-moreBox" style="padding:5px">
+                    <@shiro.hasPermission name="/report/operation/dayStatistics/export">
                     <a href="#" onclick="exportDatagrid('${base}/report/operation/dayStatistics/export','form_search4', 'travelTable')" class="easyui-linkbutton" data-options="iconCls:'icon-export'">
                         导出
                     </a>
+                    </@shiro.hasPermission>
                     <a href="#" onclick="openExplainDialog('travel')" style="float: right; margin-right: 120px; margin-top: 5px;">列表说明</a>
                 </div>
                 <div id="travelTable" name="travelTable" style="width: 100%;height: 100%"></div>
@@ -218,9 +226,11 @@
             </div>
             <div region="center" style="overflow: hidden; width: 100%;height: calc(100vh - 80px);">
                 <div id="electricityToolbar" class="cg-moreBox" style="padding:5px">
+                    <@shiro.hasPermission name="/report/operation/dayStatistics/export">
                     <a href="#" onclick="exportDatagrid('${base}/report/operation/dayStatistics/export','form_search5', 'electricityTable')" class="easyui-linkbutton" data-options="iconCls:'icon-export'">
                         导出
                     </a>
+                    </@shiro.hasPermission>
                     <a href="#" onclick="openExplainDialog('electricity')" style="float: right; margin-right: 120px; margin-top: 5px;">列表说明</a>
                 </div>
                 <div id="electricityTable" name="electricityTable" style="width: 100%;height: 100%"></div>
@@ -252,9 +262,11 @@
         </div>
         <div class="easyui-panel" title="" style="height:380px;">
             <div id="vehListDialgToolbar" class="cg-moreBox" style="padding:5px">
+            <@shiro.hasPermission name="/report/operation/dayStatistics/export">
                 <a href="#" onclick="exportDatagrid('${base}/report/operation/dayStatistics/export','vehListDialogForm', 'diaSearchTable')" class="easyui-linkbutton" data-options="iconCls:'icon-export'" style="margin-left: 10px;">
                     导出
                 </a>
+            </@shiro.hasPermission>
             </div>
             <div id="diaSearchTable" name="diaSearchTable" style="width: 100%;height: 100%"></div>
         </div>

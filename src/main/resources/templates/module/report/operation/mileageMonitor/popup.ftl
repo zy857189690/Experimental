@@ -62,10 +62,10 @@
 
 <div region="center" style="overflow: hidden;width: 100%;">
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
-    <#--<@shiro.hasPermission name="/report/demo1/export">-->
+    <@shiro.hasPermission name="/report/operation/mileageMonitor/export">
         <a href="#" onclick="exportDatagrid('${base}/report/operation/mileageMonitor/downloadPopup?query.data1='+'${data1}'+'&query.data2='+'${data2}'+'&query.endTime='+'${endTime}'+'&query.cheLiangMing='+'${cheLiangMing}'+'&query.yunYing='+'${yunYing}','form_search','table')" class="easyui-linkbutton"
            data-options="iconCls:'icon-export'" menu="0">导出</a>
-    <#--</@shiro.hasPermission>-->
+    </@shiro.hasPermission>
 
         <a href="#" onclick="openDailog()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">列表说明&nbsp;&nbsp;</a>
     </div>

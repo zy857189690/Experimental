@@ -189,10 +189,10 @@
         <a href="#" onclick="del_item()" class="easyui-linkbutton"
            data-options="iconCls:'icon-remove'" >删除</a>
         </@shiro.hasPermission>-->
-        <#--<@shiro.hasPermission name="/report/operation/dayMileageCheck/export">-->
+        <@shiro.hasPermission name="/report/operation/dayMileageCheck/export">
            <a href="#" onclick="gridList()" class="easyui-linkbutton"
                data-options="iconCls:'icon-export'" menu="0">导出</a>
-        <#--</@shiro.hasPermission>-->
+        </@shiro.hasPermission>
            <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-left: 5px;margin-right: 5px;  margin-top:5px;margin-right: 100px">列表说明</a>
     </div>
     <div id="table" name="datagrid" style="width: 100%; height: 100%;"></div>
