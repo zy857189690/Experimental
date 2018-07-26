@@ -278,7 +278,7 @@
         FROM
             veh_dayreport_summary vds
         LEFT JOIN veh_dayreport_expansion vde ON (date_format(vds.report_date, '%Y-%m-%d') = date_format(vde.report_date, '%Y-%m-%d') AND vds.vid=vde.vid)
-        LEFT JOIN sys_vehicle veh ON vde.vin = veh.vin
+        LEFT JOIN sys_vehicle veh ON vde.vid = veh.uuid
         LEFT JOIN sys_veh_model model ON veh.veh_model_id = model.id
         LEFT JOIN sys_area area ON veh.sys_division_id = area.id
         LEFT JOIN sys_dict sd ON veh.registerstatus=sd.val AND sd.type='500'
@@ -313,7 +313,7 @@
         FROM
             veh_dayreport_summary vds
         LEFT JOIN veh_dayreport_expansion vde ON (date_format(vds.report_date, '%Y-%m-%d') = date_format(vde.report_date, '%Y-%m-%d') AND vds.vid=vde.vid)
-        LEFT JOIN sys_vehicle veh ON vde.vin = veh.vin
+        LEFT JOIN sys_vehicle veh ON vde.vid = veh.uuid
         LEFT JOIN sys_veh_model model ON veh.veh_model_id = model.id
         LEFT JOIN sys_area area ON veh.sys_division_id = area.id
         LEFT JOIN sys_dict sd ON (veh.registerstatus=sd.val AND sd.type='500')

@@ -53,7 +53,7 @@
         GROUP BY
         vda.vin
         ) vdas
-        LEFT JOIN sys_vehicle veh ON veh.vin = vdas.vin
+        LEFT JOIN sys_vehicle veh ON veh.uuid = vdas.vid
         LEFT JOIN sys_veh_model svm ON veh.veh_model_id = svm.id
         LEFT JOIN sys_dict sd ON svm.veh_model_type_id = sd.id AND sd.type = 2
         LEFT JOIN sys_term_model_unit stmu ON veh.term_id = stmu.id
