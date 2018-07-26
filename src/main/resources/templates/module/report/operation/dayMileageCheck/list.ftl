@@ -276,19 +276,19 @@
                         <label>当日有效里程大于(km):</label>
                     </td>
                     <td class="td_input">
-                        <input type="text" class="input-fat input" id="dayVaildMileage" name="query.dayVaildMileage" style="width:100px;position: relative;left: 50px;">
+                        <input type="text" class="input-fat input" id="dayVaildMileage" name="query.dayVaildMileage" style="width:150px;">
                     </td>
                     <td class="td_label" style="text-align: right;">
                         <label>当日轨迹里程大于(km):</label>
                     </td>
                     <td class="td_input">
-                        <input type="text" class="input-fat input" id="dayGpsMileage" name="query.dayGpsMileage" style="width:100px;position: relative;left: 50px;">
+                        <input type="text" class="input-fat input" id="dayGpsMileage" name="query.dayGpsMileage" style="width:150px;">
                     </td>
                     <td class="td_label" style="text-align: right;">
                         <label>当日在线里程大于(km):</label>
                     </td>
                     <td class="td_input">
-                        <input type="text" class="input-fat input" id="dayOnlineMileage" name="query.dayOnlineMileage" style="width:100px;position: relative;left: 50px;">
+                        <input type="text" class="input-fat input" id="dayOnlineMileage" name="query.dayOnlineMileage" style="width:150px;">
                     </td>
                     <td class="td_label" style="width:388px ">
                     </td>
