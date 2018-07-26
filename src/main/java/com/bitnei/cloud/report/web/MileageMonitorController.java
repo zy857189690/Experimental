@@ -81,10 +81,12 @@ public class MileageMonitorController {
      * @return
      */
     @RequestMapping("downloadMileageMonthly")
+    @ResponseBody
     @RequiresPermissions(URL_EXPORT)
     public void downloadMileageMonthly(HttpServletRequest request){
         Map<String, Object> params = ControlUtil.getParams(request);
-          mileageMonitorService.downloadMileageMonthly(params);
+        mileageMonitorService.downloadMileageMonthly(params);
+        return ;
 
     }
 
