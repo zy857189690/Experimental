@@ -166,7 +166,7 @@
     </div>
 </div>
 
-<div id="exceptionRecord" class="easyui-window" title="车速异常记录详情" style="width:853px;height:550px" data-options="modal:true,closed:true">
+<div id="exceptionRecord" class="easyui-window"  style="width:853px;height:550px" data-options="modal:true,closed:true">
     <div style="width: 90%; height: 30px; margin-top: 20px; margin-left: 10px">
         <div style="height: 100%;  float: left;"><label>VIN：</label><label id="vin"></label></div>
         <div style="height: 100%;  float: left; margin-left: 100px;"><label>车牌号：</label><label id="licensePlate"></label></div>
@@ -636,7 +636,7 @@
         $("#vid").text(vid);
         $("#modelNoticeId").text(modelNoticeId);
         $("#typeId").val(type);
-        $("#exceptionRecord").attr("title",titleName)
+        $(".panel-title").html(titleName);
         $("#exceptionRecord").window("open");
 
         //开始时间、结束时间
