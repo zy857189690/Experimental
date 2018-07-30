@@ -88,7 +88,7 @@ public class CommonDataTypeRetrun {
 			for (Object object : list) {
 				Map<String, String> mapTemp = (Map<String, String>) object;
 				Object mapObject = mapTemp.get("lngLat");
-				if (mapObject != null) {
+				if (mapObject != null&&!mapObject.equals("")) {
 					String[] arrays = String.valueOf(mapObject).split(",");
 					//处理位置问题
 					String lng = arrays[0];

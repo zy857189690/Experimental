@@ -156,7 +156,7 @@
         (case when  a.last_end_mileage>=10000 and  a.last_end_mileage<20000 then 1 else 0  end ) as c,
         (case when  a.last_end_mileage>=500 and  a.last_end_mileage<10000 then 1 else 0  end ) as d,
         (case when  a.last_end_mileage is null  or a.last_end_mileage<500    then 1 else 0  end ) as e,
-        (case when  (a.last_end_mileage-b.last_end_mileage)>500 then 1 else 0 end ) as f
+        (case when  (a.last_end_mileage-( case when  b.last_end_mileage is null then 0 else b.last_end_mileage end ))>500 then 1 else 0 end ) as f
         ]]>
         from veh_dayreport_summary a
         left join veh_dayreport_summary b on a.vid=b.vid  and b.report_date='${date2}'
