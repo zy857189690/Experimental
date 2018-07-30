@@ -169,7 +169,7 @@
             and b.veh_model_name like #{cheLiangMing}
         </if>
         <if test="yunYing != null ">
-            and  c.name like #{yunYing}
+            and  c.path like #{yunYing}
         </if>
         group by veh.use_uint_id, veh.veh_model_id
         order by c.name desc ,b.veh_model_name desc  ,a desc ,b desc ,c desc ,d desc , e desc
@@ -206,7 +206,7 @@
             and b.veh_model_name like #{cheLiangMing}
         </if>
         <if test="yunYing != null ">
-            and  c.name like #{yunYing}
+            and  c.path like #{yunYing}
         </if>
         group by veh.use_uint_id, veh.veh_model_id
 
