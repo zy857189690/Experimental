@@ -163,8 +163,8 @@ public class AnomalyVehService extends BaseService implements IAnomalyVehService
 			list = CommonDataTypeRetrun.cyclicData(list, type);
 		} else {
 			if (!StringUtil.isEmpty(vid) && !StringUtil.isEmpty(type) && !StringUtil.isEmpty(startTime) && !StringUtil.isEmpty(endTime)) {
-				startTime = com.bitnei.cloud.common.DateUtil.formatTime(com.bitnei.cloud.common.DateUtil.strToDate_ex_full(startTime), com.bitnei.cloud.common.DateUtil.DATA_FORMAT);
-				endTime = com.bitnei.cloud.common.DateUtil.formatTime(com.bitnei.cloud.common.DateUtil.strToDate_ex_full(endTime), com.bitnei.cloud.common.DateUtil.DATA_FORMAT);
+				startTime = com.bitnei.cloud.common.DateUtil.formatTime(com.bitnei.cloud.common.DateUtil.strToDate_ex_full(startTime+"00:00:00"), com.bitnei.cloud.common.DateUtil.DATA_FORMAT);
+				endTime = com.bitnei.cloud.common.DateUtil.formatTime(com.bitnei.cloud.common.DateUtil.strToDate_ex_full(endTime+"23:59:59"), com.bitnei.cloud.common.DateUtil.DATA_FORMAT);
 				List<AbnormalDetail> lists = dataCenterService.findAbnormalDetail(vid, type,startTime, endTime, true);
 				list = CommonDataTypeRetrun.cyclicData(lists, type);
 			}

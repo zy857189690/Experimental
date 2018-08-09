@@ -222,13 +222,13 @@
                         <label>查询日期:</label>
                     </td>
                     <td class="td_input">
-                        <input type="text" id="startTime" class="easyui-datetimebox" value="${(startTime)!}" style="width: height: 26px;width:170px;" name="query.startTime" autocomplete="off">
+                        <input type="text" id="startTime" class="easyui-datebox" value="${(startTime)!}" style="width: height: 26px;width:170px;" name="query.startTime" autocomplete="off">
                     </td>
                     <td class="td_label" style="text-align: center">
-                        <label>至:</label>
+                        <label>至</label>
                     </td>
                     <td class="td_input">
-                        <input type="text" id="endTime" class="easyui-datetimebox" value="${(endTime)!}" style="width: height: 26px;width:170px;" name="query.endTime" autocomplete="off">
+                        <input type="text" id="endTime" class="easyui-datebox" value="${(endTime)!}" style="width: height: 26px;width:170px;" name="query.endTime" autocomplete="off">
                     </td>
                     <td class="td_label" style="text-align: right">
                         <label>运营单位:</label>
@@ -315,48 +315,48 @@
             {field: 'firstReg', title: '激活时间',align:'center',hlign:'center',sortable: false},
             {field: 'saleTime', title: '销售日期',align:'center',hlign:'center',sortable: false},
             {field: 'iccid', title: 'ICCID',align:'center',hlign:'center',sortable: false},
-            {field: 'reportDate', title: '最近异常时间',align:'center',hlign:'center',sortable: false},
+            {field: 'reportDate', title: '报表时间',align:'center',hlign:'center',sortable: false},
             {field: 'speedNumber', title: '车速异常（条）',align:'center',hlign:'center',sortable: false,formatter:function(value,row,index){
                     if (value == null || value == undefined){
                             value = 0;
                         }
-                        return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',1,\''+row.vid+'\')">'+value+'</a>'
+                        return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',1,\''+row.vid+'\',\''+row.reportDate+'\')">'+value+'</a>'
                     }},
             {field: 'mileageNumber', title: '里程异常（条）',align:'center',hlign:'center',sortable: false,formatter:function(value,row,index){
                     if (value == null || value == undefined){
                             value = 0;
                         }
-                        return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',2,\''+row.vid+'\')">'+value+'</a>'
+                        return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',2,\''+row.vid+'\',\''+row.reportDate+'\')">'+value+'</a>'
                     }},
             {field: 'lngLatNumber', title: '经纬度异常（条）',align:'center',hlign:'center',sortable: false,formatter:function(value,row,index){
                     if (value == null || value == undefined){
                             value = 0;
                         }
-                        return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',3,\''+row.vid+'\')">'+value+'</a>'
+                        return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',3,\''+row.vid+'\',\''+row.reportDate+'\')">'+value+'</a>'
                     }},
             {field: 'timeNumber', title: '时间异常（条）',align:'center',hlign:'center',sortable: false,formatter:function(value,row,index){
                     if (value == null || value == undefined){
                             value = 0;
                         }
-                        return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',4,\''+row.vid+'\')">'+value+'</a>'
+                        return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',4,\''+row.vid+'\',\''+row.reportDate+'\')">'+value+'</a>'
                     }},
             {field: 'voltageNumber', title: '总电压异常（条）',align:'center',hlign:'center',sortable: false,formatter:function(value,row,index){
                     if (value == null || value == undefined){
                             value = 0;
                         }
-                        return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',5,\''+row.vid+'\')">'+value+'</a>'
+                        return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',5,\''+row.vid+'\',\''+row.reportDate+'\')">'+value+'</a>'
                     }},
             {field: 'electricNumber', title: '总电流异常（条）',align:'center',hlign:'center',sortable: false,formatter:function(value,row,index){
                     if (value == null || value == undefined){
                           value = 0;
                       }
-                      return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',6,\''+row.vid+'\')">'+value+'</a>'
+                      return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',6,\''+row.vid+'\',\''+row.reportDate+'\')">'+value+'</a>'
                   }},
             {field: 'socNumber', title: 'SOC异常（条）',align:'center',hlign:'center',sortable: false,formatter:function(value,row,index){
                     if (value == null || value == undefined){
                             value = 0;
                         }
-                        return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',7,\''+row.vid+'\')">'+value+'</a>'
+                        return '<a href="#" onclick="speedClick(\''+row.vin+'\',\''+row.licensePlate+'\',\''+row.modelNoticeId+'\',7,\''+row.vid+'\',\''+row.reportDate+'\')">'+value+'</a>'
                     }},
         ]],
         toolbar: "#toolbar",
@@ -598,7 +598,7 @@
     });
 
     //弹出框事件
-    function speedClick(vin,licensePlate,modelNoticeId,type,vid){
+    function speedClick(vin,licensePlate,modelNoticeId,type,vid,time){
 
         //1：速度，2：里程，3：经纬度，4：时间，5：电压，6：电流，7： soc
         var titleName = "异常记录详情";
@@ -640,9 +640,10 @@
         $("#exceptionRecord").window("open");
 
         //开始时间、结束时间
-        var endTime = $('#endTime').datetimebox("getValue");
-        var startTime = $('#startTime').datetimebox("getValue");
-
+        //var endTime = $('#endTime').datetimebox("getValue");
+        //var startTime = $('#startTime').datetimebox("getValue");
+        var endTime= time;
+        var startTime= time;
         //测试数据
 //        vid = '0a4a76a0-62d7-4764-b1ac-447763919981';
 //        type = "2";
