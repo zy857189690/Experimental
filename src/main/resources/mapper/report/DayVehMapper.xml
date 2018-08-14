@@ -87,6 +87,7 @@
         LEFT JOIN veh_dayreport_runstate v_r ON (v_e.vid = v_r.vid AND date_format(v_e.report_date, '%Y-%m-%d') = date_format(v_r.report_time, '%Y-%m-%d'))
         <!-- GROUP BY v_e.report_date,veh.license_plate -->
         <include refid="Common.userVehiclePermission"/>
+            AND v_e.daily_active_total_time<![CDATA[>]]>0
         <if test="startTime != null and endTime != null">
             AND v_e.report_date <![CDATA[>=]]> #{startTime}
             AND v_e.report_date <![CDATA[<=]]> #{endTime}
