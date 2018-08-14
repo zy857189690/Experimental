@@ -2,75 +2,162 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitnei.cloud.report.mapper.AnomalyVehMapper">
 
+    <!--<select id="pagerModel" resultType="java.util.HashMap" parameterType="java.util.HashMap">-->
+        <!--SELECT-->
+        <!--vdas.vin,-->
+        <!--vdas.vid,-->
+        <!--veh.license_plate as licensePlate,-->
+        <!--sd.name AS vehTypeName,-->
+        <!--svm.veh_model_name AS vehModelName,-->
+        <!--svm.model_notice_id AS modelNoticeId,-->
+        <!--stmu.term_part_firmware_number AS termPartFirmwareNumber,-->
+        <!--stmu.term_bar_code AS termBarCode,-->
+        <!--stmu.serial_number AS serialNumber,-->
+        <!--smu.name AS manuUnitName,-->
+        <!--sun.name AS useUnitName,-->
+        <!--area.name AS areaName,-->
+        <!--DATE_FORMAT(veh.first_reg,'%Y-%m-%d %H:%i:%s') AS firstReg,-->
+        <!--veh.sale_time AS saleTime,-->
+        <!--stmu.iccid,-->
+        <!--DATE_FORMAT(if(vdas.typeFlag != 4, vdas.reportDate ,vter.serverTime),'%Y-%m-%d') as reportDate,-->
+        <!--vdas.speedNumber,-->
+        <!--vdas.mileageNumber,-->
+        <!--vdas.lngLatNumber,-->
+        <!--vter.timeNumber,-->
+        <!--vdas.voltageNumber,-->
+        <!--vdas.electricNumber,-->
+        <!--vdas.socNumber,-->
+        <!--vdas.typeFlag-->
+        <!--FROM-->
+        <!--(-->
+        <!--SELECT-->
+        <!--vda.vin,-->
+        <!--vda.vid,-->
+        <!--vda.type as typeFlag,-->
+        <!--vda.report_date as reportDate,-->
+        <!--sum( IF ( vda.type = 1, vda.abnormal_num, 0 ) ) AS speedNumber,-->
+        <!--sum( IF ( vda.type = 2, vda.abnormal_num, 0 ) ) AS mileageNumber,-->
+        <!--sum( IF ( vda.type = 3, vda.abnormal_num, 0 ) ) AS lngLatNumber,-->
+        <!--sum( IF ( vda.type = 5, vda.abnormal_num, 0 ) ) AS voltageNumber,-->
+        <!--sum( IF ( vda.type = 6, vda.abnormal_num, 0 ) ) AS electricNumber,-->
+        <!--sum( IF ( vda.type = 7, vda.abnormal_num, 0 ) ) AS socNumber-->
+        <!--FROM-->
+        <!--(-->
+        <!--SELECT vd.* FROM veh_dayreport_abnormal_situation vd-->
+        <!--WHERE 1 = 1-->
+        <!--<if test="startTime != null and endTime != null">-->
+            <!--AND UNIX_TIMESTAMP(vd.report_date) >= UNIX_TIMESTAMP(#{startTime})-->
+            <!--AND UNIX_TIMESTAMP(#{endTime}) >= UNIX_TIMESTAMP(vd.report_date)-->
+        <!--</if>-->
+        <!--) vda-->
+        <!--GROUP BY-->
+        <!--vda.vid,vda.report_date-->
+        <!--) vdas-->
+        <!--LEFT JOIN sys_vehicle veh ON veh.uuid = vdas.vid-->
+        <!--LEFT JOIN sys_veh_model svm ON veh.veh_model_id = svm.id-->
+        <!--LEFT JOIN sys_dict sd ON svm.veh_model_type_id = sd.id AND sd.type = 2-->
+        <!--LEFT JOIN sys_term_model_unit stmu ON veh.term_id = stmu.id-->
+        <!--LEFT JOIN sys_unit smu ON veh.manu_unit_id = smu.id-->
+        <!--LEFT JOIN sys_unit sun ON veh.use_uint_id = sun.id-->
+        <!--LEFT JOIN sys_area area ON area.id = veh.sys_division_id-->
+        <!--LEFT JOIN-->
+        <!--(-->
+        <!--select count(1) as timeNumber,server_time as serverTime,vin,vid from veh_time_exception_record-->
+        <!--WHERE 1 = 1-->
+        <!--<if test="startTime != null and endTime != null">-->
+            <!--AND UNIX_TIMESTAMP(server_time) >= UNIX_TIMESTAMP(#{startTime})-->
+            <!--AND UNIX_TIMESTAMP(#{endTime}) >= UNIX_TIMESTAMP(server_time)-->
+        <!--</if>-->
+        <!--group by vid,server_time-->
+        <!--) vter ON veh.uuid = vter.vid and  vter.serverTime=vdas.reportDate-->
+        <!--<include refid="Common.userVehiclePermission"/>-->
+        <!--<if test="useUnitName != null and useUnitName != '0'.toString()">-->
+            <!--AND veh.use_uint_id = #{useUnitName}-->
+        <!--</if>-->
+        <!--<if test="licensePlate != null and identity == null ">-->
+            <!--AND veh.license_plate like CONCAT('%',#{licensePlate},'%')-->
+        <!--</if>-->
+        <!--<if test="vin != null and identity == null ">-->
+            <!--AND veh.vin like CONCAT('%',#{vin},'%')-->
+        <!--</if>-->
+        <!--<if test="vehTypeName != null and vehTypeName != '0'.toString() ">-->
+            <!--AND svm.veh_model_type_id = #{vehTypeName}-->
+        <!--</if>-->
+        <!--<if test="vehModelName != null and vehModelName != '-1'">-->
+            <!--AND veh.veh_model_id = #{vehModelName}-->
+        <!--</if>-->
+        <!--<if test="vehStage != null and vehStage != '-1'.toString()">-->
+            <!--AND veh.registerstatus = #{vehStage}-->
+        <!--</if>-->
+        <!--<if test="areaName != null and areaName != '0'.toString()">-->
+            <!--AND veh.sys_division_id = #{areaName}-->
+        <!--</if>-->
+        <!--<if test="vinList != null and identity == 'importType'">-->
+            <!--AND veh.vin IN-->
+            <!--<foreach collection="vinList" index="index" item="item" open="(" separator="," close=")">-->
+                <!--#{item}-->
+            <!--</foreach>-->
+        <!--</if>-->
+        <!--<if test="licensePlateList != null and vinList != null and identity == 'importType'">-->
+            <!--OR-->
+        <!--</if>-->
+        <!--<if test="licensePlateList != null and vinList == null and identity == 'importType'">-->
+            <!--AND-->
+        <!--</if>-->
+        <!--<if test="licensePlateList != null and identity == 'importType'">-->
+            <!--veh.license_plate IN-->
+            <!--<foreach collection="licensePlateList" index="index" item="item" open="(" separator="," close=")">-->
+                <!--#{item}-->
+            <!--</foreach>-->
+        <!--</if>-->
+        <!--/*GROUP BY veh.vin*/-->
+        <!--ORDER BY vdas.reportDate DESC,veh.license_plate,veh.vin-->
+    <!--</select>-->
+
     <select id="pagerModel" resultType="java.util.HashMap" parameterType="java.util.HashMap">
         SELECT
-        vdas.vin,
-        vdas.vid,
-        veh.license_plate as licensePlate,
-        sd.name AS vehTypeName,
-        svm.veh_model_name AS vehModelName,
-        svm.model_notice_id AS modelNoticeId,
-        stmu.term_part_firmware_number AS termPartFirmwareNumber,
-        stmu.term_bar_code AS termBarCode,
-        stmu.serial_number AS serialNumber,
-        smu.name AS manuUnitName,
-        sun.name AS useUnitName,
-        area.name AS areaName,
-        DATE_FORMAT(veh.first_reg,'%Y-%m-%d %H:%i:%s') AS firstReg,
-        veh.sale_time AS saleTime,
-        stmu.iccid,
-        DATE_FORMAT(if(vdas.typeFlag != 4, vdas.reportDate ,vter.serverTime),'%Y-%m-%d') as reportDate,
-        vdas.speedNumber,
-        vdas.mileageNumber,
-        vdas.lngLatNumber,
-        vter.timeNumber,
-        vdas.voltageNumber,
-        vdas.electricNumber,
-        vdas.socNumber,
-        vdas.typeFlag
+            vda.vin,
+            vda.vid,
+            veh.license_plate AS licensePlate,
+            sd.NAME AS vehTypeName,
+            svm.veh_model_name AS vehModelName,
+            svm.model_notice_id AS modelNoticeId,
+            stmu.term_part_firmware_number AS termPartFirmwareNumber,
+            stmu.term_bar_code AS termBarCode,
+            stmu.serial_number AS serialNumber,
+            smu.NAME AS manuUnitName,
+            sun.NAME AS useUnitName,
+            area.NAME AS areaName,
+            DATE_FORMAT(veh.first_reg, '%Y-%m-%d %H:%i:%s') AS firstReg,
+            veh.sale_time AS saleTime,
+            stmu.iccid,
+            -- DATE_FORMAT(IF (vda.type != 4, vda.report_date, vter.serverTime), '%Y-%m-%d') AS reportDate,
+            vter.timeNumber,
+            vda.type AS typeFlag,
+            vda.report_date AS reportDate,
+            sum(IF (vda.type = 1, vda.abnormal_num, 0)) AS speedNumber,
+            sum(IF (vda.type = 2, vda.abnormal_num, 0)) AS mileageNumber,
+            sum(IF (vda.type = 3, vda.abnormal_num, 0)) AS lngLatNumber,
+            sum(IF (vda.type = 5, vda.abnormal_num, 0)) AS voltageNumber,
+            sum(IF (vda.type = 6, vda.abnormal_num, 0)) AS electricNumber,
+            sum(IF (vda.type = 7, vda.abnormal_num, 0)) AS socNumber
         FROM
-        (
-        SELECT
-        vda.vin,
-        vda.vid,
-        vda.type as typeFlag,
-        vda.report_date as reportDate,
-        sum( IF ( vda.type = 1, vda.abnormal_num, 0 ) ) AS speedNumber,
-        sum( IF ( vda.type = 2, vda.abnormal_num, 0 ) ) AS mileageNumber,
-        sum( IF ( vda.type = 3, vda.abnormal_num, 0 ) ) AS lngLatNumber,
-        sum( IF ( vda.type = 5, vda.abnormal_num, 0 ) ) AS voltageNumber,
-        sum( IF ( vda.type = 6, vda.abnormal_num, 0 ) ) AS electricNumber,
-        sum( IF ( vda.type = 7, vda.abnormal_num, 0 ) ) AS socNumber
-        FROM
-        (
-        SELECT vd.* FROM veh_dayreport_abnormal_situation vd
-        WHERE 1 = 1
-        <if test="startTime != null and endTime != null">
-            AND UNIX_TIMESTAMP(vd.report_date) >= UNIX_TIMESTAMP(#{startTime})
-            AND UNIX_TIMESTAMP(#{endTime}) >= UNIX_TIMESTAMP(vd.report_date)
-        </if>
-        ) vda
-        GROUP BY
-        vda.vid,vda.report_date
-        ) vdas
-        LEFT JOIN sys_vehicle veh ON veh.uuid = vdas.vid
+            veh_dayreport_abnormal_situation vda
+        LEFT JOIN sys_vehicle veh ON veh.uuid = vda.vid
         LEFT JOIN sys_veh_model svm ON veh.veh_model_id = svm.id
-        LEFT JOIN sys_dict sd ON svm.veh_model_type_id = sd.id AND sd.type = 2
+        LEFT JOIN sys_dict sd ON (svm.veh_model_type_id = sd.id AND sd.type = 2)
         LEFT JOIN sys_term_model_unit stmu ON veh.term_id = stmu.id
         LEFT JOIN sys_unit smu ON veh.manu_unit_id = smu.id
         LEFT JOIN sys_unit sun ON veh.use_uint_id = sun.id
         LEFT JOIN sys_area area ON area.id = veh.sys_division_id
-        LEFT JOIN
-        (
-        select count(1) as timeNumber,server_time as serverTime,vin,vid from veh_time_exception_record
-        WHERE 1 = 1
-        <if test="startTime != null and endTime != null">
+        LEFT JOIN (
+            SELECT count(1) AS timeNumber, server_time AS serverTime, vin, vid FROM veh_time_exception_record WHERE 1 = 1
             AND UNIX_TIMESTAMP(server_time) >= UNIX_TIMESTAMP(#{startTime})
             AND UNIX_TIMESTAMP(#{endTime}) >= UNIX_TIMESTAMP(server_time)
-        </if>
-        group by vid,server_time
-        ) vter ON veh.uuid = vter.vid and  vter.serverTime=vdas.reportDate
+            GROUP BY vid, server_time
+        ) vter ON (veh.uuid = vter.vid AND vter.serverTime = vda.report_date)
         <include refid="Common.userVehiclePermission"/>
+        AND veh.uuid IS NOT NULL
         <if test="useUnitName != null and useUnitName != '0'.toString()">
             AND veh.use_uint_id = #{useUnitName}
         </if>
@@ -110,8 +197,11 @@
                 #{item}
             </foreach>
         </if>
+        AND UNIX_TIMESTAMP(vda.report_date) >= UNIX_TIMESTAMP(#{startTime})
+        AND UNIX_TIMESTAMP(#{endTime}) >= UNIX_TIMESTAMP(vda.report_date)
+        GROUP BY vda.report_date, vda.vid
         /*GROUP BY veh.vin*/
-        ORDER BY vdas.reportDate DESC,veh.license_plate,veh.vin
+        ORDER BY vda.report_date DESC,veh.license_plate, veh.vin
     </select>
 
     <select id="pageQueryTimeException" resultType="java.util.HashMap" parameterType="java.util.HashMap">

@@ -315,7 +315,7 @@
             {field: 'firstReg', title: '激活时间',align:'center',hlign:'center',sortable: false},
             {field: 'saleTime', title: '销售日期',align:'center',hlign:'center',sortable: false},
             {field: 'iccid', title: 'ICCID',align:'center',hlign:'center',sortable: false},
-            {field: 'reportDate', title: '报表时间',align:'center',hlign:'center',sortable: false},
+            {field: 'reportDate', title: '报表日期',align:'center',hlign:'center',sortable: false},
             {field: 'speedNumber', title: '车速异常（条）',align:'center',hlign:'center',sortable: false,formatter:function(value,row,index){
                     if (value == null || value == undefined){
                             value = 0;

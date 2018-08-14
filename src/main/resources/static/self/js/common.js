@@ -139,14 +139,11 @@ function setCookie(cname, cvalue, exdays) {
  * @param gridId
  */
 function exportDatagrid(url,formId,gridId){
-
     if(formId==undefined || formId==null){
         formId = "form_search";
     }
     var myUrl = url;
     var searchParames = $('#'+formId).serializeObject();
-
-
     var rows = $("#"+gridId).datagrid("getSelections");
     if (rows != null && rows.length != 0) {
         var ids = "";
@@ -158,7 +155,6 @@ function exportDatagrid(url,formId,gridId){
 
     }
     searchParames['query.ids'] = ids;
-
     myUrl += '?exportId='+new Date().getTime();
     for(var key in searchParames){
         var value = searchParames[key];
@@ -166,42 +162,36 @@ function exportDatagrid(url,formId,gridId){
             myUrl += ("&"+key+"="+value);
         }
     }
-
     var cookieName = "fileDownload";
     var win;
     $.fileDownload(myUrl,{
-
         prepareCallback:function(url){
             setCookie(cookieName, "", -1);
-            win = $.messager.progress({
-                title:'数据导出',
-                msg:'数据导出处理中，请耐心等待...'
-            });
-
+            //win = $.messager.progress({
+            //    title:'数据导出',
+            //    msg:'数据导出处理中，请耐心等待...'
+            //});
+            win = layer.load("1");
         },
         successCallback:function(url){
-
             setCookie(cookieName, "", -1);
-            $.messager.progress('close');
-            $.messager.alert('数据导出','文件导出成功!');
+            //$.messager.progress('close');
+            layer.close(win);
+            //$.messager.alert('数据导出','文件导出成功!');
         },
         failCallback: function (html, url) {
             setCookie(cookieName, "", -1);
-            $.messager.progress('close');
+            //$.messager.progress('close');
+            layer.close(win);
             var begin=html.indexOf("[");
             var end=html.indexOf("]");
-
             if(begin!=-1&&end!=-1){
-
                 $.messager.alert('数据导出', html.substring(begin+1,end),'error');
             }else{
                 $.messager.alert('数据导出','数据导出错误!','error');
             }
-
-
         }
     });
-
     //window.open(myUrl,'_blank');
 }
 
