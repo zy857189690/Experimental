@@ -280,12 +280,12 @@
         sortOrder: "desc",
         queryParams: queryParams,
         frozenColumns:[[
-            {field:'number',title:'序号',align:'center',halign:'center',
-                formatter:function(value,row,index){
-                    if(value == null){
-                        return index+1;
-                    }
-                }},
+//            {field:'number',title:'序号',align:'center',halign:'center',
+//                formatter:function(value,row,index){
+//                    if(value == null){
+//                        return index+1;
+//                    }
+//                }},
             {field:'reportDate',title:'日期',align:'center',halign:'center'},
             {field:'licensePlate',title:'车牌号',align:'center',halign:'center'},
             {field:'vin',title:'VIN',align:'center',halign:'center'},
@@ -361,8 +361,8 @@
         ]],
         toolbar:"#toolbar",
         pagination:true,
-        nowrap:true
-        // rownumbers: true
+        nowrap:true,
+        rownumbers: true
     });
 
     toolbar2Menu("table");
