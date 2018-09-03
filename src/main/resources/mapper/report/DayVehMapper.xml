@@ -74,7 +74,15 @@
         v_r.run_speed_avg AS runSpeedAvg,
         DATE_FORMAT(v_m_c.last_commit_time,'%Y-%m-%d %H:%i:%s') AS lastCommunTime
         FROM
-        veh_dayreport_expansion v_e
+        (
+        select * from veh_dayreport_expansion ve
+        <if test="startTime != null and endTime != null">
+        where
+        ve.report_date <![CDATA[>=]]> #{startTime}
+        AND ve.report_date <![CDATA[<=]]> #{endTime}
+        AND ve.daily_active_total_time<![CDATA[>]]>0
+        </if>
+        ) v_e
         INNER JOIN sys_vehicle veh ON v_e.vid=veh.uuid
         LEFT JOIN sys_veh_model s_v_m ON veh.veh_model_id = s_v_m.id
         LEFT JOIN sys_dict s_d ON s_v_m.veh_model_type_id = s_d.id
@@ -82,19 +90,43 @@
         LEFT JOIN sys_unit s_u ON veh.use_uint_id = s_u.id
         LEFT JOIN sys_area s_a ON veh.sys_division_id = s_a.id
         LEFT JOIN sys_term_model_unit stmu ON veh.term_id = stmu.id
-        LEFT JOIN veh_dayreport_mileage_check v_m_c ON (v_e.vid = v_m_c.vid AND date_format(v_e.report_date, '%Y-%m-%d') = date_format(v_m_c.report_date, '%Y-%m-%d'))
-        LEFT JOIN veh_dayreport_chargestate v_c ON (v_e.vid = v_c.vid AND date_format(v_e.report_date, '%Y-%m-%d') = date_format(v_c.report_time, '%Y-%m-%d'))
-        LEFT JOIN veh_dayreport_runstate v_r ON (v_e.vid = v_r.vid AND date_format(v_e.report_date, '%Y-%m-%d') = date_format(v_r.report_time, '%Y-%m-%d'))
-        <!-- GROUP BY v_e.report_date,veh.license_plate -->
-        <include refid="Common.userVehiclePermission"/>
-            AND v_e.daily_active_total_time<![CDATA[>]]>0
-        <if test="startTime != null and endTime != null">
-            AND v_e.report_date <![CDATA[>=]]> #{startTime}
-            AND v_e.report_date <![CDATA[<=]]> #{endTime}
+        LEFT JOIN (
+        SELECT
+        *
+        FROM
+        veh_dayreport_mileage_check vmc
+       <if test="startTime != null and endTime != null">
+        WHERE
+        vmc.report_date <![CDATA[>=]]> #{startTime}
+        AND vmc.report_date <![CDATA[<=]]> #{endTime}
         </if>
-        <!--<if test="startTime = null and endTime = null or startTime = '' and endTime = ''">-->
-            <!--AND v_e.report_date = '2018-03-13'-->
-        <!--</if>-->
+        ) v_m_c ON (v_e.vid = v_m_c.vid AND date_format(v_e.report_date, '%Y-%m-%d') = date_format(v_m_c.report_date, '%Y-%m-%d'))
+        LEFT JOIN (
+
+        SELECT
+        *
+        FROM
+        veh_dayreport_chargestate vc
+        <if test="startTime != null and endTime != null">
+        WHERE
+        vc.report_time <![CDATA[>=]]> #{startTime}
+        AND vc.report_time <![CDATA[<=]]> #{endTime}
+        </if>
+        ) v_c ON (v_e.vid = v_c.vid AND date_format(v_e.report_date, '%Y-%m-%d') = date_format(v_c.report_time, '%Y-%m-%d'))
+        LEFT JOIN (
+        SELECT
+        *
+        FROM
+        veh_dayreport_runstate vr
+        <if test="startTime != null and endTime != null">
+        WHERE
+        date_format(vr.report_time, '%Y-%m-%d') <![CDATA[>=]]> #{startTime}
+        AND date_format(vr.report_time, '%Y-%m-%d') <![CDATA[<=]]> #{endTime}
+        </if>
+        ) v_r ON (v_e.vid = v_r.vid AND date_format(v_e.report_date, '%Y-%m-%d') = date_format(v_r.report_time, '%Y-%m-%d'))
+
+        <include refid="Common.userVehiclePermission"/>
+
         <if test="licensePlate != null and identity == null">
             AND veh.license_plate  LIKE concat(concat('%',#{licensePlate}),'%')
         </if>
@@ -131,7 +163,7 @@
         <if test="sysDivisionId != null and sysDivisionId != '0'.toString() ">
             AND s_a.id = #{sysDivisionId}
         </if>
-        <!--GROUP BY new.reportDate,new.licensePlate-->
+
         ORDER BY v_e.report_date,v_e.vin DESC
     </select>
 
