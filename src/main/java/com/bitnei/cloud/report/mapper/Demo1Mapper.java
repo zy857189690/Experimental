@@ -1,6 +1,11 @@
 package com.bitnei.cloud.report.mapper;
 
 
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
 * <p>
 * ----------------------------------------------------------------------------- <br>
@@ -33,5 +38,7 @@ package com.bitnei.cloud.report.mapper;
 * @author chenpeng
 * @since JDK1.8
 */
+@Mapper
 public interface Demo1Mapper {
+  int  insert(Map<String,String> map);
 }

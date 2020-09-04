@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitnei.cloud.report.mapper.ExperimentalStageMapper">
+    <resultMap id="tailResults" type="com.bitnei.cloud.report.domain.ExperimentalStage" autoMapping="true">
+        <association property="tails" javaType="java.util.HashMap">
+        </association>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="baseColumns">
+        d.*
+    </sql>
+    <sql id="moreColumns">
+        d.*
+    </sql>
+
+    <!-- 查询所有的结果 -->
+    <select id="all" resultType="com.bitnei.cloud.report.domain.Demo1">
+        select
+        <include refid="baseColumns"/>
+        from
+        hole d
+    </select>
+
+    <!-- 根据id查询 -->
+    <select id="findById" resultType="com.bitnei.cloud.report.domain.Demo1"  parameterType="java.lang.String">
+        select
+        *
+        from
+        hole d
+        where
+        d.id=#{id}
+    </select>
+<select id="findByCode" resultType="com.bitnei.cloud.report.domain.Demo1" parameterType="java.util.HashMap">
+        select
+        *
+        from
+        hole d
+        where
+        d.code=#{code}
+</select>
+
+    <!-- 增加 -->
+    <insert id="insert" parameterType="java.util.HashMap">
+        insert into
+        hole (id,code,name,create_time,create_by,h_no01,h_no02,h_no03,h_no04,h_no05,h_no06,h_no07,h_no08,h_no09,h_no10,h_no11,h_no12,h_no13,h_no14,h_no15,h_no16,h_no17,h_no18,h_no19,h_no20,h_no21,h_no22,h_no23,h_no24,h_no25,h_no26,h_no27,h_no28,h_no29,h_no30,h_no31,h_no32,h_no33,h_no34,h_no35,h_no36,h_no37,h_no38,h_no39,h_no40,h_no41,h_no42,h_no43,h_no44,h_no45,h_no46,h_no47,h_no48,h_no49,h_no50,h_no51,h_no52,h_no53,h_no54,h_no55,h_no56,h_no57,h_no58,h_no59,h_no60,h_no61,h_no62,h_no63,h_no64,h_no65,h_no66,h_no67,h_no68,h_no69,h_no70,h_no71,h_no72,h_no73,h_no74,h_no75,h_no76,h_no77,h_no78,h_no79,h_no80,h_no81,h_no82,h_no83,h_no84,h_no85,h_no86,h_no87,h_no88,h_no89,h_no90,h_no91,h_no92,h_no93,h_no94,h_no95,h_no96)
+        values
+        (#{id},#{code},#{name},#{createTime},#{createBy},#{hno01},#{hno02},#{hno03},#{hno04},#{hno05},#{hno06},#{hno07},#{hno08},#{hno09},#{hno10},#{hno11},#{hno12},#{hno13},#{hno14},#{hno15},#{hno16},#{hno17},#{hno18},#{hno19},#{hno20},#{hno21},#{hno22},#{hno23},#{hno24},#{hno25},#{hno26},#{hno27},#{hno28},#{hno29},#{hno30},#{hno31},#{hno32},#{hno33},#{hno34},#{hno35},#{hno36},#{hno37},#{hno38},#{hno39},#{hno40},#{hno41},#{hno42},#{hno43},#{hno44},#{hno45},#{hno46},#{hno47},#{hno48},#{hno49},#{hno50},#{hno51},#{hno52},#{hno53},#{hno54},#{hno55},#{hno56},#{hno57},#{hno58},#{hno59},#{hno60},#{hno61},#{hno62},#{hno63},#{hno64},#{hno65},#{hno66},#{hno67},#{hno68},#{hno69},#{hno70},#{hno71},#{hno72},#{hno73},#{hno74},#{hno75},#{hno76},#{hno77},#{hno78},#{hno79},#{hno80},#{hno81},#{hno82},#{hno83},#{hno84},#{hno85},#{hno86},#{hno87},#{hno88},#{hno89},#{hno90},#{hno91},#{hno92},#{hno93},#{hno94},#{hno95},#{hno96})
+    </insert>
+    <!-- 更新 -->
+    <update id="update" parameterType="java.util.HashMap">
+        update hole set
+        code=#{code},name=#{name},update_time=#{updateTime},update_by=#{updateBy},h_no01=#{hno01},h_no02=#{hno02},h_no03=#{hno03},h_no04=#{hno04},h_no05=#{hno05},h_no06=#{hno06},h_no07=#{hno07},h_no08=#{hno08},h_no09=#{hno09},h_no10=#{hno10},h_no11=#{hno11},h_no12=#{hno12},h_no13=#{hno13},h_no14=#{hno14},h_no15=#{hno15},h_no16=#{hno16},h_no17=#{hno17},h_no18=#{hno18},h_no19=#{hno19},h_no20=#{hno20},h_no21=#{hno21},h_no22=#{hno22},h_no23=#{hno23},h_no24=#{hno24},h_no25=#{hno25},h_no26=#{hno26},h_no27=#{hno27},h_no28=#{hno28},h_no29=#{hno29},h_no30=#{hno30},h_no31=#{hno31},h_no32=#{hno32},h_no33=#{hno33},h_no34=#{hno34},h_no35=#{hno35},h_no36=#{hno36},h_no37=#{hno37},h_no38=#{hno38},h_no39=#{hno39},h_no40=#{hno40},h_no41=#{hno41},h_no42=#{hno42},h_no43=#{hno43},h_no44=#{hno44},h_no45=#{hno45},h_no46=#{hno46},h_no47=#{hno47},h_no48=#{hno48},h_no49=#{hno49},h_no50=#{hno50},h_no51=#{hno51},h_no52=#{hno52},h_no53=#{hno53},h_no54=#{hno54},h_no55=#{hno55},h_no56=#{hno56},h_no57=#{hno57},h_no58=#{hno58},h_no59=#{hno59},h_no60=#{hno60},h_no61=#{hno61},h_no62=#{hno62},h_no63=#{hno63},h_no64=#{hno64},h_no65=#{hno65},h_no66=#{hno66},h_no67=#{hno67},h_no68=#{hno68},h_no69=#{hno69},h_no70=#{hno70},h_no71=#{hno71},h_no72=#{hno72},h_no73=#{hno73},h_no74=#{hno74},h_no75=#{hno75},h_no76=#{hno76},h_no77=#{hno77},h_no78=#{hno78},h_no79=#{hno79},h_no80=#{hno80},h_no81=#{hno81},h_no82=#{hno82},h_no83=#{hno83},h_no84=#{hno84},h_no85=#{hno85},h_no86=#{hno86},h_no87=#{hno87},h_no88=#{hno88},h_no89=#{hno89},h_no90=#{hno90},h_no91=#{hno91},h_no92=#{hno92},h_no93=#{hno93},h_no94=#{hno94},h_no95=#{hno95},h_no96=#{hno96}
+        <where>
+            id = #{id}
+
+        </where>
+
+    </update>
+
+
+    <!-- 删除 -->
+    <delete id="delete" parameterType="java.lang.String">
+        delete from
+        hole
+        where
+        id = #{value}
+    </delete>
+
+    <!-- 分页查询 -->
+    <select id="pagerModel" resultType="com.bitnei.cloud.report.domain.Demo1" parameterType="java.util.HashMap">
+        select
+        *
+        from
+        hole d
+        where
+        1=1
+        <if test="code != null">
+        and d.code like CONCAT('%', #{code}, '%')
+        </if>
+
+    </select>
+</mapper>

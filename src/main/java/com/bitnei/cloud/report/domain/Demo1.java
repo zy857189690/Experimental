@@ -1,7 +1,9 @@
 package com.bitnei.cloud.report.domain;
 
-import com.bitnei.cloud.common.annotation.*;
-import com.bitnei.cloud.common.bean.TailBean;
+import jdk.nashorn.internal.objects.annotations.Getter;
+import jdk.nashorn.internal.objects.annotations.Setter;
+import lombok.Data;
+
 import java.lang.String;
 import java.lang.Integer;
 
@@ -37,16 +39,16 @@ import java.lang.Integer;
 * @author chenpeng
 * @since JDK1.8
 */
-public class Demo1 extends TailBean {
+@Data
+public class Demo1  {
 
     /** 主键  **/
     private String id;
     /** 名称 **/
     private String name;
     /** 字典值 **/
-    private Integer dictField;
-    /** 名称值 **/
-    private String nameField;
+    private String code;
+
     /** 创建时间 **/
     private String createTime;
     /** 创建人 **/
@@ -56,63 +58,200 @@ public class Demo1 extends TailBean {
     /** 更新人 **/
     private String updateBy;
 
-    public String getId() {
-        return id;
-    }
+    /** 主键 **/
+    private String hno01;
+    /** 主键 **/
+    private String hno02;
+    /** 主键 **/
+    private String hno03;
+    /** 主键 **/
+    private String hno04;
+    /** 主键 **/
+    private String hno05;
+    /** 主键 **/
+    private String hno06;
+    /** 主键 **/
+    private String hno07;
+    /** 主键 **/
+    private String hno08;
+    /** 主键 **/
+    private String hno09;
+    /** 主键 **/
+    private String hno10;
+    /** 主键 **/
+    private String hno11;
+    /** 主键 **/
+    private String hno12;
+    /** 主键 **/
+    private String hno13;
+    /** 主键 **/
+    private String hno14;
+    /** 主键 **/
+    private String hno15;
+    /** 主键 **/
+    private String hno16;
+    /** 主键 **/
+    private String hno17;
+    /** 主键 **/
+    private String hno18;
+    /** 主键 **/
+    private String hno19;
+    /** 主键 **/
+    private String hno20;
+    /** 主键 **/
+    private String hno21;
+    /** 主键 **/
+    private String hno22;
+    /** 主键 **/
+    private String hno23;
+    /** 主键 **/
+    private String hno24;
+    /** 主键 **/
+    private String hno25;
+    /** 主键 **/
+    private String hno26;
+    /** 主键 **/
+    private String hno27;
+    /** 主键 **/
+    private String hno28;
+    /** 主键 **/
+    private String hno29;
+    /** 主键 **/
+    private String hno30;
+    /** 主键 **/
+    private String hno31;
+    /** 主键 **/
+    private String hno32;
+    /** 主键 **/
+    private String hno33;
+    /** 主键 **/
+    private String hno34;
+    /** 主键 **/
+    private String hno35;
+    /** 主键 **/
+    private String hno36;
+    /** 主键 **/
+    private String hno37;
+    /** 主键 **/
+    private String hno38;
+    /** 主键 **/
+    private String hno39;
+    /** 主键 **/
+    private String hno40;
+    /** 主键 **/
+    private String hno41;
+    /** 主键 **/
+    private String hno42;
+    /** 主键 **/
+    private String hno43;
+    /** 主键 **/
+    private String hno44;
+    /** 主键 **/
+    private String hno45;
+    /** 主键 **/
+    private String hno46;
+    /** 主键 **/
+    private String hno47;
+    /** 主键 **/
+    private String hno48;
+    /** 主键 **/
+    private String hno49;
+    /** 主键 **/
+    private String hno50;
+    /** 主键 **/
+    private String hno51;
+    /** 主键 **/
+    private String hno52;
+    /** 主键 **/
+    private String hno53;
+    /** 主键 **/
+    private String hno54;
+    /** 主键 **/
+    private String hno55;
+    /** 主键 **/
+    private String hno56;
+    /** 主键 **/
+    private String hno57;
+    /** 主键 **/
+    private String hno58;
+    /** 主键 **/
+    private String hno59;
+    /** 主键 **/
+    private String hno60;
+    /** 主键 **/
+    private String hno61;
+    /** 主键 **/
+    private String hno62;
+    /** 主键 **/
+    private String hno63;
+    /** 主键 **/
+    private String hno64;
+    /** 主键 **/
+    private String hno65;
+    /** 主键 **/
+    private String hno66;
+    /** 主键 **/
+    private String hno67;
+    /** 主键 **/
+    private String hno68;
+    /** 主键 **/
+    private String hno69;
+    /** 主键 **/
+    private String hno70;
+    /** 主键 **/
+    private String hno71;
+    /** 主键 **/
+    private String hno72;
+    /** 主键 **/
+    private String hno73;
+    /** 主键 **/
+    private String hno74;
+    /** 主键 **/
+    private String hno75;
+    /** 主键 **/
+    private String hno76;
+    /** 主键 **/
+    private String hno77;
+    /** 主键 **/
+    private String hno78;
+    /** 主键 **/
+    private String hno79;
+    /** 主键 **/
+    private String hno80;
+    /** 主键 **/
+    private String hno81;
+    /** 主键 **/
+    private String hno82;
+    /** 主键 **/
+    private String hno83;
+    /** 主键 **/
+    private String hno84;
+    /** 主键 **/
+    private String hno85;
+    /** 主键 **/
+    private String hno86;
+    /** 主键 **/
+    private String hno87;
+    /** 主键 **/
+    private String hno88;
+    /** 主键 **/
+    private String hno89;
+    /** 主键 **/
+    private String hno90;
+    /** 主键 **/
+    private String hno91;
+    /** 主键 **/
+    private String hno92;
+    /** 主键 **/
+    private String hno93;
+    /** 主键 **/
+    private String hno94;
+    /** 主键 **/
+    private String hno95;
+    /** 主键 **/
+    private String hno96;
 
-    public void setId(String id) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-    @DictName(code = "REPORT_DEMO1_DICT_FIELD")
-    public Integer getDictField() {
-        return dictField;
-    }
 
-    public void setDictField(Integer dictField) {
-        this.dictField = dictField;
-    }
-    @LinkName(table = "base_role")
-    public String getNameField() {
-        return nameField;
-    }
-
-    public void setNameField(String nameField) {
-        this.nameField = nameField;
-    }
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
-    }
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
 
 }

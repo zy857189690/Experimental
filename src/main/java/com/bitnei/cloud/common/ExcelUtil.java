@@ -1,7 +1,7 @@
 package com.bitnei.cloud.common;
 
-import com.bitnei.cloud.common.util.DateUtil;
-import org.apache.commons.collections.map.HashedMap;
+import com.alibaba.fastjson.JSON;
+import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.Row;
@@ -287,6 +287,45 @@ public class ExcelUtil {
         return obj;
     }
 
+    public static List<Map> getVehicleInformation(MultipartFile mf) throws Exception {
+        String path = saveFile(mf, "default");
+        String fileName = mf.getOriginalFilename();
+        //数组
+        int[] titleArray = {1, 1};
+        File flie = new File(path);
+        List<Map> lisVin = new ArrayList<Map>();
+        //读取Ex查询结果
+        List<Object[]> list = ParseExcel(flie, fileName, titleArray);
+        String s = JSON.toJSONString(list);
+        for (int i = 1; i < list.size(); i++) {
+            Object[] objects = list.get(i);
+            Map map = new HashedMap();
+            if (objects[1] != null && objects[0] != null) {
+                map.put("lic", objects[1].toString());
+                map.put("vin", objects[0].toString());
+            } else if (objects[0] != null) {
+                if (StringUtil.isChinese(objects[0].toString())) {
+                    map.put("lic", objects[1].toString());
+                    map.put("vin", objects[0] == null ? null : objects[0].toString());
+                } else {
+                    map.put("lic", objects[1] == null ? null : objects[1].toString());
+                    map.put("vin", objects[0].toString());
+                }
+            } else if (objects[1] != null) {
+                if (StringUtil.isChinese(objects[1].toString())) {
+                    map.put("lic", objects[1].toString());
+                    map.put("vin", objects[0] == null ? null : objects[0].toString());
+                } else {
+                    map.put("lic", objects[1] == null ? null : objects[1].toString());
+                    map.put("vin", objects[0] == null ? null : objects[0].toString());
+                }
+            }
+            if (map.size() != 0) {
+                lisVin.add(map);
+            }
+        }
+        return lisVin;
+    }
     /**
      * 获取cell单元格数据2003
      *
@@ -816,7 +855,7 @@ public class ExcelUtil {
  *
  * 获取车辆Excel信息
  */
-    public static List<Map> getVehicleInformation(MultipartFile mf) throws Exception {
+   /* public static List<Map> getVehicleInformation(MultipartFile mf) throws Exception {
         String path = saveFile(mf, "default");
         String fileName = mf.getOriginalFilename();
         //数组
@@ -853,7 +892,7 @@ public class ExcelUtil {
             }
         }
         return lisVin;
-    }
+    }*/
 
 
 //	  public static void main(String[] args) throws IOException {

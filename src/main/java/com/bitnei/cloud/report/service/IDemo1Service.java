@@ -1,8 +1,10 @@
 package com.bitnei.cloud.report.service;
 
+import com.bitnei.cloud.common.JsonModel;
 import com.bitnei.cloud.report.domain.Demo1;
 import com.bitnei.cloud.service.IBaseService;
 import com.bitnei.commons.datatables.PagerModel;
+import org.springframework.web.multipart.MultipartFile;
 
 
 /**
@@ -56,4 +58,7 @@ public interface IDemo1Service extends IBaseService {
     */
     void export();
 
+    JsonModel saveSubmit(Demo1 demo1 );
+
+    JsonModel importHoles(String name, String code, MultipartFile file) throws Exception;
 }

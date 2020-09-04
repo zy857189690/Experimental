@@ -1,0 +1,849 @@
+/* 合并文件时必须删除  结束*/
+
+html body {
+    min-width: 1230px;
+    font-size: 16px;
+    background-color: #fff;
+    color: #333;
+}
+body .f1 {
+    border: none;
+    border-color: #333;
+}
+
+.main {
+    width: 97.7083%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.query-bar-fl {
+    float: left;
+}
+body .query-bar {
+    border-bottom: none;
+    width: 100%;
+    /*height: 80px;*/
+    margin-bottom: 0;
+    /*line-height: 80px;*/
+}
+
+
+.query-type {
+    height: 24px;
+    padding: 0 4px;
+    background-color: rgb(14, 99, 66);
+    vertical-align: middle;
+    border: 1px solid #D1D1D1;
+    border-radius: 2px;
+    font-size: 12px;
+    /*color: #fff;*/
+}
+.query-type option {
+    background-color: #333;
+}
+
+body .query-type-value {
+    height: 28px;
+    text-indent: 5px;
+    background: rgba(0,0,0,0);
+    border-radius: 3px;
+    outline: medium;
+    border: 1px #27A7FB solid;
+    box-sizing: border-box;
+    color: #333;
+}
+
+.query-time {
+    width: 25%;
+    margin-left: 2%;
+    font-size: 16px;
+}
+.w-1366 .query-time {
+    width: 40%;
+}
+.query-time-text {
+    vertical-align: middle;
+    letter-spacing: 1px;
+}
+
+.laydate-icon {
+    width: 40%;
+}
+
+.change-day {
+    width: 20%;
+}
+
+
+/* 日期插件覆盖默认样式  开始 */
+
+.laydate-icon,
+.laydate-icon-default,
+.laydate-icon-danlan,
+.laydate-icon-dahong,
+.laydate-icon-molv {
+    height: 34px;
+    text-indent: 5px;
+    border-radius: 3px;
+    outline: medium;
+    border: 1px #ccc solid;
+    box-sizing: border-box;
+}
+
+
+/* 日期插件覆盖默认样式  结束 */
+
+
+
+.query-btn-box {
+    margin-right: 40px;
+}
+
+
+/* 页面内容 */
+
+.main-content {
+    width: 100%;
+    height: calc(100vh - 130px);
+}
+/*.w-1366 .main-content {*/
+    /*height: 510px;*/
+/*}*/
+.content-map {
+    float: left;
+    width: 71%;
+    height: 100%;
+    /*background: rgba(46,133,235,0.48);*/
+    /*border: 1px solid rgba(86,192,248,0.51);*/
+    box-shadow: 0 0 16px 0 #ccc;
+    text-align: center;
+    overflow: hidden;
+}
+
+.content-right {
+    position: relative;
+    background:#ffffff;
+    float: right;
+    width: 28%;
+    border: 1px rgb(239, 239, 239) solid;
+}
+
+
+/* 页面右侧图标 仪表盘  */
+
+.dashboard {
+    width: 100%;
+    height: auto;
+}
+
+.gauge,
+.speed {
+    width: 35%;
+    height: 200px;
+    box-sizing: border-box;
+    position: relative;
+}
+.w-1366 .gauge, .w-1366 .speed {
+    height: 170px;
+}
+.details-mid {
+    width: 30%;
+}
+
+.gauge,
+.details-mid {
+    float: left
+}
+
+.chart-gauge,
+.chart-speed {
+    width: 100%;
+    height: 200px;
+}
+.w-1366 .chart-gauge,
+.w-1366 .chart-speed {
+    height: 200px;
+}
+.speed {
+    float: right;
+}
+
+
+.chart-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 400;
+    position: absolute;
+    left: 50%;
+    top: 16%;
+    width: 50px;
+    height: 50px;
+    margin-left: -25px;
+    margin-top: -25px;
+    letter-spacing: 2px;
+}
+.w-1366 .chart-title{
+    top: 8%;
+}
+.w-1366 .car-type{
+    height: 54px;
+    margin-bottom: .5rem;
+}
+.w-1366 .details-top{
+    height: 66px;
+}
+.w-1366 .details-top span {
+    font-size: 26px;
+    height: 63px;
+}
+.details-top span {
+    height: 80px;
+    float: left;
+    font-size: 30px;
+    line-height: 80px;
+}
+.details-left,
+.details-right {
+    width: 25%;
+}
+.details-battery {
+    width: 50%;
+}
+.svg-battery {
+    transform: scale(.9) translateX(20%);
+}
+.w-1366 .svg-battery {
+    transform: scale(.8) translateX(10%);
+}
+.car-type {
+    display: block;
+    width: 100%;
+    height: 80px;
+    background: url('../imgs/chuzu.png') no-repeat center;
+    background-size: contain;
+    margin-bottom: 1em;
+}
+.details-content {
+    position: relative;
+    top: -10px;
+    display: flex;
+}
+.details-item {
+    text-align: left;
+    flex: 1;
+    padding-left: 1em;
+    margin-bottom: 6px;
+}
+.details-item span {
+    width: 5em;
+    display: inline-block;
+    margin-right: 1em;
+    text-align: right;
+    line-height: 30px;
+    font-weight: 500;
+    font-size:12px;
+}
+
+.w-1366 .details-item span {
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.details-left {
+    text-align: left;
+}
+
+.details-right {
+    text-align: right;
+}
+
+.details-item span:nth-child(even) {
+    width: 46% !important;
+    background-color: rgba(0,0,0,0);
+    border: solid 1px #a7c5e0;
+    text-align: center;
+    color: #333;
+}
+
+
+/* 仪表盘底部图表  */
+
+.small-chart-left {
+    float: left;
+    width: 50%;
+    height: 100%;
+    text-align: center;
+}
+
+.w-1366 .small-chart-left p,
+.w-1366 .small-chart-right p {
+    font-size: 12px;
+}
+
+.w-1680 .small-chart-left p,
+.w-1680 .small-chart-right p {
+    font-size: 14px;
+}
+
+.small-chart-right {
+    float: right;
+    width: 50%;
+    height: 100%;
+    text-align: center;
+}
+
+.dashboard-bottom {
+    margin-top: 1em;
+}
+.w-1366 .dashboard-bottom {
+    margin: 0em;
+}
+.soc,
+.current {
+    width: 50%;
+    float: right;
+}
+
+.temp,
+.voltage {
+    width: 50%;
+    float: left;
+}
+
+.soc,
+.current {
+    float: right;
+    width: 50%;
+}
+
+.temp-chart,
+.soc-chart,
+.current-chart,
+.voltage-chart {
+    width: 100%;
+    height: 90px;
+    margin-top: 10px;
+    line-height: 90px;
+    letter-spacing: 1px;
+    color: #70a3cf;
+    font-weight: 800;
+}
+
+.w-1366 .temp-chart,
+.w-1366 .soc-chart,
+.w-1366 .current-chart,
+.w-1366 .voltage-chart {
+    height: 74px;
+    line-height: 74px;
+    font-size: 14px;
+}
+
+.temp-chart {
+    background: url(../imgs/wendu.png) no-repeat 40% center;
+    background-size: contain;
+    text-indent: 60px;
+}
+
+.soc-chart {
+    background: url(../imgs/hedian.png) no-repeat 60% center;
+    background-size: contain;
+    text-indent: -30px;
+}
+
+.voltage-chart {
+    background: url(../imgs/dianya.png) no-repeat 40% center;
+    background-size: contain;
+    text-indent: 40px;
+}
+
+.current-chart {
+    background: url(../imgs/dianliu.png) no-repeat 60% center;
+    background-size: contain;
+    text-indent: -30px;
+}
+
+.small-chart-icon {
+    font-size: 20px;
+}
+
+
+/* 仪表盘底部图表  结束*/
+
+
+/* 右下角的图表区域 */
+
+.details-menu {
+    width: 100%;
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid rgba(0, 136, 252, .5);
+}
+.w-1366 .details-menu {
+    height: 34px;
+    line-height: 34px;
+}
+.details-menu li {
+    width: 28%;
+    float: left;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 14px;
+    color: 333;
+    cursor: pointer;
+}
+.details-menu li.meunlong {
+    width: 38%;
+}
+
+.details-box {
+    position: relative;
+}
+.details-box-content {
+    width: 100%;
+    height: 260px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    visibility: hidden;
+}
+.w-1366 .details-box-content {
+    height: 204px;
+}
+.details-box-content:first-child {
+    visibility: visible
+}
+.chart1,
+.chart2,
+.chart3 {
+    width: 100%;
+    height: 100%;
+}
+
+.tab_header {
+    height: 40px;
+    line-height: 40px;
+    cursor: default;
+    /*margin: 4% 0px 0px 23%;*/
+    width: 164px;
+    margin: 4% auto 0;
+}
+.tab_btn {
+    float: left;
+    width: 80px;
+    /*border-left: 1px solid #ffffff;*/
+    font-size: 14px;
+    background: #0068c7;
+    margin-bottom: -1px;
+    margin-right: 2px;
+    color: rgba(255,255,255,.8);
+}
+.tab_btn.on {
+    background: #0088fc;
+    color: #ffffff;
+    font-weight: 600;
+}
+.tab_btn:first-child {
+    border-left: none;
+}
+.tab_box {
+    display: none;
+}
+.tab_box.active {
+    display: block;
+    color: #333;
+}
+.tab_box.active p {
+    color: #fff;
+}
+.dashboard-bm-4 {
+    position: relative;
+    width: 50%;
+    height: 44px;
+}
+.dashboard-bm-4-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 43px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    background-color: rgba(0,0,0,0);
+}
+.dashboard-bm-4:nth-child(1) .dashboard-bm-4-box{
+    border-right: solid 1px #fff;
+    border-bottom: solid 1px #fff;
+}
+.dashboard-bm-4:nth-child(2) .dashboard-bm-4-box{
+    border-bottom: solid 1px #fff;
+}
+.dashboard-top {
+    position: relative;
+    top: -10px;
+}
+.dashboard-bm-4:nth-child(3) .dashboard-bm-4-box{
+    border-right: solid 1px #fff;
+}
+body .item-unit {
+    color: #333;
+}
+.dashboard-bm-4-num {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    line-height: 20px;
+    text-align: center;
+}
+.dashboard-bm-4-name {
+    background: rgba(24, 83, 165, .4);
+    padding-top: 2px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    line-height: 36px;
+}
+.dashboard-bm-4-name p {
+    font-weight: 100;
+}
+.dashboard-bm-4-name.name2 {
+    line-height: 18px;
+}
+.container-left-carList01-content {
+    padding-left: 14px;
+}
+.hcheck  {
+    margin-top: 2px;
+}
+.container-left-carList01-li {
+    margin-bottom: 6px;
+    position: relative;
+}
+.warn-info {
+    position: absolute;
+    top: 0;
+    right: -250px;
+    color: #00bbee;
+}
+.warn-info:active {
+    color: #00C1B3;
+}
+.w-1366 .fence_h {
+    max-height: 529px;
+    overflow-y: auto;
+}
+.fence_h {
+    max-height: 710px;
+    overflow-y: auto;
+}
+.container-left-carList01-ul {
+    font-size: 14px;
+    height: auto;
+    border-bottom: 1px solid #ccc;
+}
+.warn_box {
+    text-align: left;
+    margin: 0 10px;
+}
+.warn_box_num {
+    width: 2em;
+}
+.warn_box_list {
+    margin-top: 10px;
+}
+.warn_box_li {
+    margin-bottom: 10px;
+}
+.warn_box {
+    padding-top: 10px;
+}
+.path-Box {
+    position: absolute;
+    top: 22px;
+    left: 25px;
+    width: 330px;
+    border-style: solid;
+    border-width: 1px;
+    background:#1984C9;
+    border-image-slice: 1;
+    overflow: hidden;
+    color: #fff;
+}
+.main-content {
+    position: relative;
+}
+.path-Box {
+    text-align: left;
+}
+.path-Box-header {
+    position: relative;
+    bottom: -1px;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 20px;
+    border-bottom: 1px solid #fff;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 500;
+}
+.path-Box-body {
+    display: none;
+    height: 210px;
+    margin: 0 16px;
+    overflow-y: auto;
+}
+.path-Box-info {
+    margin-bottom: 10px;
+    margin-left: 4px;
+    font-size: 12px;
+    color: #fff;
+
+}
+.path-Box-list li {
+    line-height: 24px;
+}
+.path-Box input {
+    vertical-align: middle;
+}
+.progress-Box {
+    position: absolute;
+    bottom: 3%;
+    left: 50%;
+    margin-left: -270px;
+    width: 500px;
+    height: 88px;
+    padding: 6px 40px;
+    background: rgba(24, 83, 121, .94);
+
+}
+.progress-Box-top {
+    height: 24px;
+    line-height: 24px;
+}
+.progress-Box-top {
+    color: #fff;
+}
+.progress-btns {
+    margin-right: 100px;
+}
+.progress-Box-bottom {
+    color: #fff;
+}
+.progress-Box-line {
+    margin-top: 14px;
+    position: relative;
+    height: 2px;
+    background: #cfcfcf;
+}
+.progress-Box-on {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background: #00E8D7;
+    -webkit-box-shadow: 0 0 20px #fff;
+    -moz-box-shadow: 0 0 20px #fff;
+    box-shadow: 0 0 20px #fff;
+}
+/*.progress-prev {
+    background: url("../images/last-btn copy 2.png") no-repeat center;
+}*/
+
+/*.progress-play {
+    background: url("../images/play-circle-o - anticon.png") no-repeat center;
+}*/
+
+/*.progress-stop {
+    background: url("../images/stop.png") no-repeat center;
+}*/
+/*.progress-next {
+    background: url("../images/next-btn copy 2.png") no-repeat center;
+}*/
+.progress-prev {
+    background: url("../images/return.png") no-repeat center;
+}
+.progress-play {
+    background: url("../images/play_fill_h.png") no-repeat center;
+}
+.progress-parse {
+    background: url("../images/suspend_h.png") no-repeat center;
+}
+/*.progress-stop {
+    background: url("../images/stopblack.png") no-repeat center;
+}*/
+
+.progress-next {
+    background: url("../images/enter_h.png") no-repeat center;
+}
+
+.progress-prev:hover {
+    background: url("../images/return_h.png") no-repeat center;
+    /*border-bottom:1px solid #1d74e9;*/
+    -webkit-background-size: contain;
+    background-size:contain;
+}
+.progress-play:hover {
+    background: url("../images/play_fill.png") no-repeat center;
+    /*border-bottom:1px solid #1d74e9;*/
+    -webkit-background-size: contain;
+    background-size:contain;
+}
+.progress-parse:hover {
+    background: url("../images/suspend.png") no-repeat center;
+    /*border-bottom:1px solid #1d74e9;*/
+    -webkit-background-size: contain;
+    background-size:contain;
+}
+/*.progress-stop:hover {
+    background: url("../images/stop copy 2.png") no-repeat center;
+    -webkit-background-size: contain;
+    background-size:contain;
+}*/
+.progress-next:hover {
+    background: url("../images/enter.png") no-repeat center;
+    -webkit-background-size: contain;
+    background-size:contain;
+}
+
+.progress-btns a {
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    vertical-align: middle;
+    margin: 0 16px;
+    font-size: 20px;
+    -webkit-background-size: contain;
+    background-size:contain;
+}
+.progress-btns .progress-prev,.progress-btns .progress-next {
+    width: 22px;
+    height: 22px;
+}
+.progress-on-time {
+    position: absolute;
+    top: 16px;
+    left: -16px;
+}
+.progress-end-time {
+    position: absolute;
+    top: 16px;
+    left: 484px;
+}
+.progress-start-time {
+    position: absolute;
+    top: 16px;
+    left: -16px;
+}
+.progress-on-btn {
+    position: absolute;
+    top: -6px;
+    left: -7px;
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.progress-on-btn:hover {
+    -webkit-box-shadow: 0 0 5px #00E8D7;
+    -moz-box-shadow: 0 0 5px #00E8D7;
+    box-shadow: 0 0 5px #00E8D7;
+}
+.progress-speed {
+    position: relative;
+    padding-right: 10px;
+  /*  background: url("../images/corner.png") no-repeat right center;*/
+    background: url("../images/cornerblack.png") no-repeat right center;
+    cursor: default;
+}
+.progress-speed-list {
+    display: none;
+    position: absolute;
+    padding: 4px 8px;
+    left: -8px;
+    width: 100%;
+    bottom: 40px;
+    line-height: 20px;
+    background: rgba(0,0,0,.8);
+}
+.progress-speed-list li.on {
+    color: #00C1B3;
+}
+.path-Box-hide {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+    color: #fff;
+}
+.path-Box-hide:hover {
+    color: #00C1B3;
+}
+.path-Box-hide.show {
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+body .laydate-icon {
+    background-color: rgba(0,0,0,0);
+    border: 1px solid #27A7FB;
+    border-radius: 2px;
+    font-size: 12px;
+    color: #333;
+}
+body .libackground {
+    background: #33CCFF;
+}
+body.w-1366 .content-right {
+    height: calc(100vh - 130px);
+}
+html body .content-right {
+    width: 28%;
+    height: calc(100vh - 130px);
+    background: #fff !important;
+    /*border: 1px solid rgba(86,192,248,0.51);*/
+    box-shadow: 0 0 16px #ccc;
+    color: #333;
+}
+body .menu-active {
+    background: none;
+    color: #333;
+    font-size: 14px;
+    border-bottom: 2px solid #0088fc;
+    border-radius: 0;
+}
+.i-setting {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 70%;
+    height: 70%;
+    background: url("../images/list.png") no-repeat center;
+    background-size: contain;
+}
+body .container-left-hBtn {
+    position: relative;
+    border-image-slice: 1;
+}
+.container-left-shBtn .icon-left_back {
+    height: 100%;
+    line-height: 16px;
+    text-align: left;
+    text-indent: 2em;
+}

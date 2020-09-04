@@ -1,0 +1,79 @@
+html, body, h1, h2, h3, h4, h5, h6, div, dl, dt, dd, ul, ol, li, p, blockquote, pre, hr, figure, table, caption, th, td, form, fieldset, legend, input, button, textarea, menu {
+  margin: 0;
+  padding: 0
+}
+
+html, body, fieldset, img, iframe, abbr {
+  border: 0
+}
+
+i, em {
+  font-style: normal;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+li {
+  list-style: none
+}
+
+img {
+  vertical-align: top;
+}
+
+input, textarea, select {
+  outline: none;
+}
+
+textarea {
+  overflow: auto;
+  resize: none;
+}
+
+a, button {
+  cursor: pointer
+}
+
+h1, h2, h3, h4, h5, h6, em, strong, b {
+  font-weight: normal
+}
+
+a, a:hover {
+  text-decoration: none
+}
+
+body {
+  font-family: "PingFang-SC-Regular", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.clearFix:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.clearfix:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.logohere {
+  vertical-align: middle;
+  margin-right: 10px;
+}
+.wtm-cnT {
+  display: inline-block;
+  vertical-align: middle;
+}

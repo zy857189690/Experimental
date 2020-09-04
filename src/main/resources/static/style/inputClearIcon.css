@@ -1,0 +1,10 @@
+.input {
+    /*padding: 5px; margin: 0; border: 1px solid #beceeb;*/
+}
+.clear { display: none; width: 16px; height: 16px; margin: 6px 0 0 -22px; background-color: white; padding-left: 5px;}
+.input::-ms-clear { display: none; }
+.input:valid + .clear { display: inline; }
+.input-fat{
+    height: 26px;
+    width: 178px;
+}

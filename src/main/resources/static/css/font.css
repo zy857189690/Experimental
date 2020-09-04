@@ -1,0 +1,282 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?3wqu6u');
+  src:  url('fonts/icomoon.eot?3wqu6u#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?3wqu6u') format('truetype'),
+    url('fonts/icomoon.woff?3wqu6u') format('woff'),
+    url('fonts/icomoon.svg?3wqu6u#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-bigcheck:before {
+  content: "\e900";
+  color: #5fa8e6;
+}
+.icon-blueleft:before {
+  content: "\e901";
+  color: #5fa8e6;
+}
+.icon-blueright:before {
+  content: "\e902";
+  color: #5fa8e6;
+}
+.icon-bubble:before {
+  content: "\e903";
+}
+.icon-carbar:before {
+  content: "\e904";
+  color: #ddd;
+}
+.icon-carcontrast:before {
+  content: "\e905";
+}
+.icon-carpanel:before {
+  content: "\e906";
+}
+.icon-chuzu .path1:before {
+  content: "\e907";
+  color: rgb(102, 94, 32);
+}
+.icon-chuzu .path2:before {
+  content: "\e908";
+  margin-left: -2.0283203125em;
+  color: rgb(130, 124, 78);
+}
+.icon-chuzu .path3:before {
+  content: "\e909";
+  margin-left: -2.0283203125em;
+  color: rgb(102, 94, 32);
+}
+.icon-chuzu .path4:before {
+  content: "\e90a";
+  margin-left: -2.0283203125em;
+  color: rgb(191, 178, 60);
+}
+.icon-chuzu .path5:before {
+  content: "\e90b";
+  margin-left: -2.0283203125em;
+  color: rgb(130, 124, 78);
+}
+.icon-chuzu .path6:before {
+  content: "\e90c";
+  margin-left: -2.0283203125em;
+  color: rgb(130, 124, 78);
+}
+.icon-close:before {
+  content: "\e90d";
+}
+.icon-collect .path1:before {
+  content: "\e90e";
+}
+.icon-collect .path2:before {
+  content: "\e90f";
+  margin-left: -1em;
+}
+.icon-compare .path1:before {
+  content: "\e910";
+}
+.icon-compare .path2:before {
+  content: "\e911";
+  margin-left: -1em;
+}
+.icon-compare .path3:before {
+  content: "\e912";
+  margin-left: -1em;
+}
+.icon-current:before {
+  content: "\e913";
+  color: #6ca1ce;
+}
+.icon-drag:before {
+  content: "\e914";
+}
+.icon-elec-fence:before {
+  content: "\e915";
+}
+.icon-gettogether:before {
+  content: "\e916";
+}
+.icon-gongjiao .path1:before {
+  content: "\e917";
+  color: rgb(153, 92, 51);
+}
+.icon-gongjiao .path2:before {
+  content: "\e918";
+  margin-left: -1.5712890625em;
+  color: rgb(91, 55, 31);
+}
+.icon-gongjiao .path3:before {
+  content: "\e919";
+  margin-left: -1.5712890625em;
+  color: rgb(91, 55, 31);
+}
+.icon-grayleft:before {
+  content: "\e91a";
+  color: #ccc;
+}
+.icon-grayright:before {
+  content: "\e91b";
+  color: #ccc;
+}
+.icon-left_back:before {
+  content: "\e91c";
+}
+.icon-maptool:before {
+  content: "\e91d";
+}
+.icon-measurearea:before {
+  content: "\e91e";
+}
+.icon-measuredistance:before {
+  content: "\e91f";
+}
+.icon-menubar:before {
+  content: "\e920";
+  color: #ddd;
+}
+.icon-more:before {
+  content: "\e921";
+  color: #b8d0d8;
+}
+.icon-pathway:before {
+  content: "\e922";
+}
+.icon-printscreen:before {
+  content: "\e923";
+}
+.icon-pushdown:before {
+  content: "\e924";
+  color: #aaa;
+}
+.icon-refresh:before {
+  content: "\e925";
+}
+.icon-right_back:before {
+  content: "\e926";
+}
+.icon-screenout:before {
+  content: "\e927";
+}
+.icon-search:before {
+  content: "\e928";
+}
+.icon-selfcenter:before {
+  content: "\e929";
+}
+.icon-setting:before {
+  content: "\e92a";
+}
+.icon-shangyong .path1:before {
+  content: "\e92b";
+  color: rgb(50, 70, 86);
+}
+.icon-shangyong .path2:before {
+  content: "\e92c";
+  margin-left: -2.455078125em;
+  color: rgb(50, 70, 86);
+}
+.icon-shangyong .path3:before {
+  content: "\e92d";
+  margin-left: -2.455078125em;
+  color: rgb(88, 122, 153);
+}
+.icon-shangyong .path4:before {
+  content: "\e92e";
+  margin-left: -2.455078125em;
+  color: rgb(88, 122, 153);
+}
+.icon-shangyong .path5:before {
+  content: "\e92f";
+  margin-left: -2.455078125em;
+  color: rgb(88, 122, 153);
+}
+.icon-shengyong .path1:before {
+  content: "\e930";
+  color: rgb(119, 170, 137);
+}
+.icon-shengyong .path2:before {
+  content: "\e931";
+  margin-left: -2.181640625em;
+  color: rgb(69, 96, 78);
+}
+.icon-shengyong .path3:before {
+  content: "\e932";
+  margin-left: -2.181640625em;
+  color: rgb(69, 96, 78);
+}
+.icon-smallcheck:before {
+  content: "\e933";
+  color: #fff;
+}
+.icon-soc:before {
+  content: "\e934";
+  color: #6ca1ce;
+}
+.icon-temperature:before {
+  content: "\e935";
+  color: #6ca1ce;
+}
+.icon-trouble:before {
+  content: "\e936";
+}
+.icon-turnleft:before {
+  content: "\e937";
+}
+.icon-turnright:before {
+  content: "\e938";
+}
+.icon-upup:before {
+  content: "\e939";
+  color: #000;
+}
+.icon-voltage:before {
+  content: "\e93a";
+  color: #6ca1ce;
+}
+.icon-warn:before {
+  content: "\e93b";
+}
+.icon-zhanzhuanqiehuan:before {
+  content: "\e93c";
+}
+.icon-zhuanyong .path1:before {
+  content: "\e93d";
+  color: rgb(89, 102, 42);
+}
+.icon-zhuanyong .path2:before {
+  content: "\e93e";
+  margin-left: -1.7470703125em;
+  color: rgb(116, 124, 82);
+}
+.icon-zhuanyong .path3:before {
+  content: "\e93f";
+  margin-left: -1.7470703125em;
+  color: rgb(89, 102, 42);
+}
+.icon-zhuanyong .path4:before {
+  content: "\e940";
+  margin-left: -1.7470703125em;
+  color: rgb(173, 188, 119);
+}
+.icon-zoomin:before {
+  content: "\e941";
+}
+.icon-zoomout:before {
+  content: "\e942";
+}

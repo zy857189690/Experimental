@@ -1,23 +1,27 @@
+/*
 package com.bitnei.cloud.common;
 
-import com.bitnei.cloud.data.bean.AbnormalDetail;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+*/
 /**
  * @author: fanglidong
  * @date: 2018/6/7
- */
+ *//*
+
 public class CommonDataTypeRetrun {
 
-	/**
+	*/
+/**
 	 * 充放电状态标识转换为明细说明方法
 	 * @param chargeDischargeState
 	 * @return
-	 */
+	 *//*
+
 	public static String findChargeDischargeState(String chargeDischargeState) {
 		String name;
 		switch (chargeDischargeState){
@@ -45,11 +49,13 @@ public class CommonDataTypeRetrun {
 		return name;
 	}
 
-	/**
+	*/
+/**
 	 * 车辆状态标识转换成车辆状态名称
 	 * @param vehState
 	 * @return
-	 */
+	 *//*
+
 	public static String findVehStateName(String vehState) {
 		String name;
 		switch (vehState) {
@@ -75,12 +81,14 @@ public class CommonDataTypeRetrun {
 	}
 
 
-	/**
+	*/
+/**
 	 * 循环返回数据中的数据，处理位置/充电状态信息
 	 * @param list
 	 * @param type
 	 * @return
-	 */
+	 *//*
+
 	public static List cyclicData(List list, String type){
 		List newList = new ArrayList<>();
 		//type--4 为时间异常详细，其他异常类型取值Hbase中
@@ -113,11 +121,13 @@ public class CommonDataTypeRetrun {
 		return newList;
 	}
 
-	/**
+	*/
+/**
 	 * 返回异常Excel Title 名
 	 * @param type
 	 * @return
-	 */
+	 *//*
+
 	public static String returnTitle(String type){
 		String name;
 		//1：速度，2：里程，3：经纬度，4：时间，5：电压，6：电流，7： soc
@@ -148,4 +158,4 @@ public class CommonDataTypeRetrun {
 		}
 		return name;
 	}
-}
+}*/

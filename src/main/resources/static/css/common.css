@@ -1,0 +1,311 @@
+/* header */
+header {
+    height: 70px;
+    background: #2f3c4c;
+    color: #fff; }
+
+/* 主标题与logo*/
+h1 {
+    margin-left: 20px;
+    line-height: 70px;
+    font-size: 24px; }
+h1 .logo {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    margin-right: 8px; }
+
+/* header切割线 */
+.header-vertical-line {
+    float: left;
+    width: 0;
+    height: 36px;
+    margin-top: 16px;
+    margin-left: -1px;
+    border-left: 1px dashed #0086b3; }
+
+/* 地图工具 */
+.header-map-btn {
+    position: relative;
+    float: left;
+    margin-top: 16px;
+    margin-right: 15px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #ccc;
+    -webkit-transition: 0.2s all ease;
+    -moz-transition: 0.2s all ease;
+    -ms-transition: 0.2s all ease;
+    -o-transition: 0.2s all ease;
+    transition: 0.2s all ease; }
+.header-map-btn:hover {
+    color: #0086b3; }
+.header-map-btn:hover i:before {
+    color: #0086b3; }
+
+.header-map-checkBox {
+    margin-top: 12px; }
+
+.header-map-warnNum {
+    position: absolute;
+    top: 0;
+    right: -2px;
+    min-width: 8px;
+    padding: 0 4px;
+    height: 16px;
+    line-height: 16px;
+    color: #fff;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    background: red; }
+
+.header-map-font {
+    margin-top: 4px;
+    font-size: 12px; }
+
+.header-map-icon i:before {
+    -webkit-transition: 0.2s all ease;
+    -moz-transition: 0.2s all ease;
+    -ms-transition: 0.2s all ease;
+    -o-transition: 0.2s all ease;
+    transition: 0.2s all ease;
+    font-size: 24px;
+    color: #ccc; }
+
+.header-map-toollist,.header-map-personal {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50px;
+    width: 80px;
+    padding: 10px;
+    text-align: left;
+    background: #fff;
+    margin-left: -40px;
+    font-size: 14px;
+    line-height: 22px;
+    cursor: default;
+    color: #000; }
+.header-map-toollist span {
+    margin-right: 6px;
+    width: 18px;
+    display: inline-block; }
+
+.header-map-opentool,.header-open-personal {
+    padding-bottom: 10px; }
+
+.header-map-tool:hover {
+    color: #0086b3; }
+
+.h_msgMask {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.3);
+    text-align: left;
+    z-index: 100000;
+    color: #000;
+}
+.h_msg_box {
+    width: 325px;
+    height: 210px;
+    /* padding: 10px; */
+    margin: 20% auto 0;
+    background: #fff;
+    color: #333;
+}
+.h_msg_content {
+    font-size: 14px;
+    text-indent: 2em;
+    padding: 30px 10px;
+}
+.h_msg_sure {
+    text-align: right;
+}
+.h_msg_sure_btn,.h_msg_no_btn {
+    display: inline-block;
+    margin-right: 4px;
+    padding: 6px 14px;
+    background: #1D74E9;
+    border-radius: 4px 4px 4px 4px;
+    border: solid 0px rgba(0, 71, 133, 1);
+    color: #fff;
+    line-height: 18px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+.h_msg_sure_btn:hover,.h_msg_no_btn:hover {
+    background: #599af1;
+}
+.h_msg_btnBox {
+    margin: 10px auto 0;
+    display: flex;
+    justify-content: space-around;
+}
+/* 新样式 */
+/* header */
+header {
+    position: relative;
+    height: 72px;
+    background: url("../images/pic-bg.png") no-repeat center;
+    background-size: cover;
+    z-index: 1;
+    color: #fff; }
+.header-leftBg {
+    position: absolute;
+    width: 460px;
+    height: 54px;
+    top: 6px;
+    left: 50%;
+    margin-left: -666px;
+    background: url("../images/left-dsn.png") no-repeat center;
+    background-size: cover;
+}
+.header-rightBg {
+    position: absolute;
+    width: 428px;
+    height: 54px;
+    top: 6px;
+    right: 50%;
+    margin-right: -634px;
+    background: url("../images/right-dsn.png") no-repeat center;
+    background-size: cover;
+}
+.header-map-icon01 {
+    height: 35px;
+}
+/* 主标题与logo*/
+h1 {
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    width: 208px;
+    height: 63px;
+    margin-left: -104px;
+    background: url("../images/letters.png") no-repeat center;
+    background-size: cover;
+    z-index: 3; }
+h1.h1bg01 {
+    background: url("../images/letters1.png") no-repeat center;
+    background-size: cover;
+}
+h1.h1bg02 {
+    background: url("../images/letters2.png") no-repeat center;
+    background-size: cover;
+}
+h1.h1bg03{
+    background: url("../images/letters3.png") no-repeat center;
+    background-size: cover;
+}
+h1.h1bg04 {
+    background: url("../images/letters4.png") no-repeat center;
+    background-size: cover;
+}
+.h1_main {
+    background-image: linear-gradient(0deg,
+    #fff 0%,
+    #b9b9b9 50%,
+    #fff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 38px;
+    line-height: 42px;
+    margin-top: 10px;
+    font-weight: 600;
+    /*-webkit-text-stroke: 1.0px #000000;*/
+}
+.h1_sub {
+    font-size: 12px;
+    line-height: 12px;
+    letter-spacing: 16px;
+    text-indent: 16px;
+}
+h1 .logo {
+    width: 30px;
+    height: 30px;
+    vertical-align: top;
+    margin: 5px 2px 0 2px;
+}
+.header-map-btn {
+    margin-top: 10px;
+    position: relative;
+    float: left;
+    margin-right: 15px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #ccc;
+    -webkit-transition: 0.2s all ease;
+    -moz-transition: 0.2s all ease;
+    -ms-transition: 0.2s all ease;
+    -o-transition: 0.2s all ease;
+    transition: 0.2s all ease; }
+
+.header-map-tool:hover {
+    color: #0086b3; }
+.header-map-btn {
+    color: #fff;
+    margin-right: 30px;
+}
+.header-map-font {
+    margin-top: 2px;
+    font-size: 12px; }
+
+.header-map-font.on {
+    color: #00bbee;
+}
+.sui-form .bg_buttons {
+    position: absolute;
+    top: 6px;
+    right: 60px;
+}
+
+.wtm-header {
+    height: 72px;
+    position: relative;
+    background-color: #1d74e9;
+}
+.wtm-h1 {
+    position: absolute;
+    top: 0;
+    left: 30px;
+    color:#fff;
+}
+.jl-h1 {
+    position: absolute;
+    top: 0;
+    left: 30px;
+    color:#fff;
+    padding-left: 40px;
+    background: url("../../images/logojl.png") no-repeat left center;
+}
+.wtm-cnT {
+    font-size: 22px;
+    letter-spacing: 3px;
+    /*font-size: 18px;*/
+    line-height: 72px;
+}
+::-webkit-scrollbar{width:14px;}
+::-webkit-scrollbar-track{background-color: #2978b3;}
+::-webkit-scrollbar-thumb{background-color: #00aff0;}
+::-webkit-scrollbar-thumb:hover {background-color: #48b2f0
+}
+::-webkit-scrollbar-thumb:active {background-color:#00aff0}
+
+body .laydate_box {
+    color: #333;
+}
+
+
+/*
+弹窗样式调整 fuchenran   0605*/
+.h_msg_title{
+    height: 45px;
+    background: #5898ee;
+    color: #fff;
+    line-height: 45px;
+    padding-left: 27px;
+}

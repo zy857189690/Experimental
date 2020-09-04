@@ -1,0 +1,89 @@
+/* 顶部自定义checkbox */
+.icheck {
+  position: relative;
+}
+.icheck input[type=checkbox] {
+  opacity: 0;
+  position: absolute;
+}
+.icheck .icheck-box {
+  position: relative;
+  margin: 0 auto;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #242f39;
+  background: #26313a;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.icheck:hover .icheck-box-true {
+  opacity: .4;
+}
+.icheck.checked:hover .icheck-box-true {
+  opacity: 1;
+}
+.icheck-box-true {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 16px;
+  height: 16px;
+  margin: auto;
+  background: url("../imgs/bigcheck.png") no-repeat center;
+  -webkit-background-size: contain;
+  background-size: contain;
+  opacity: 0;
+}
+.checked .icheck-box-true {
+  opacity: 1;
+}
+
+/* 左侧自定义checkbox */
+
+.hcheck-box {
+  position: relative;
+  display: inline-block;
+  margin-bottom: -2px;
+  width: 12px;
+  height: 12px;
+  border: 1px solid #ccc;
+}
+
+.hcheck-box .icheck-box-true {
+  width: 10px;
+  height: 10px;
+  opacity: 0;
+  background: url("../imgs/smallcheck.png") no-repeat center;
+}
+
+.icheck.hcheck:hover .hcheck-box {
+  border: 1px solid #0086b3;
+}
+.hcheck.checked .hcheck-box {
+  border: 1px solid #0086b3;
+  background: #0086b3;
+}
+.icheck.hcheck .icheck-box-true {
+  opacity: 1;
+}
+/* 自定义多选框 */
+.iselect{
+  background: url('../imgs/pushdown.png') 58px center no-repeat;
+  overflow: hidden;
+  border: solid 1px #ccc;
+  /*border-radius: 5px;*/
+}
+.iselect select{
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  appearance:none;
+  background:transparent;
+  border:none;
+  padding-left:4px;
+  width: 100%;
+  height:100%;
+  outline: none;
+}

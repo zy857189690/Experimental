@@ -1,0 +1,86 @@
+body {
+    height: 100vh;
+    background: url("../images/guide_bg.png") no-repeat center 60px;
+    background-size: cover;
+}
+.guide_container {
+    width: 80%;
+    height: 80%;
+    margin: 20px auto 0;
+}
+.guide_main {
+    width: 100%;
+    height: 100%;
+}
+.h1bgl01 {
+    background: url("../imgs/letters1.png") no-repeat center;
+    background-size: contain;
+}
+.h1bgl02 {
+    background: url("../imgs/letters2.png") no-repeat center;
+    background-size: contain;
+}
+.h1bgl03 {
+    background: url("../imgs/letters3.png") no-repeat center;
+    background-size: contain;
+}
+.h1bgl04 {
+    background: url("../imgs/letters4.png") no-repeat center;
+    background-size: contain;
+}
+.h1bgl05 {
+    background: url("../imgs/letters5.png") no-repeat center;
+    background-size: contain;
+}
+.h1bgl06 {
+    background: url("../imgs/letters6.png") no-repeat center;
+    background-size: contain;
+}
+.h1bgl07 {
+    background: url("../imgs/letters7.png") no-repeat center;
+    background-size: contain;
+}
+.h1bgl08 {
+    background: url("../imgs/letters8.png") no-repeat center;
+    background-size: contain;
+}
+.h1bgl09 {
+    background: url("../imgs/letters9.png") no-repeat center;
+    background-size: contain;
+}
+.guide_afterSale {
+    background: url("../imgs/shouhoufuwu.png") no-repeat center;
+    background-size: contain;
+}
+.guide_carsRecord {
+    background: url("../imgs/cheliangdnagan.png") no-repeat center;
+    background-size: contain;
+}
+.guide_component {
+    background: url("../imgs/lingpeijianguanli.png") no-repeat center;
+    background-size: contain;
+}
+.guide_monitoring {
+    background: url("../imgs/yuanchengjiankong.png") no-repeat center;
+    background-size: contain;
+}
+.guide_openApi {
+    background: url("../imgs/kaifangapi.png") no-repeat center;
+    background-size: contain;
+}
+.guide_safeMonitor {
+    background: url("../imgs/anquanjiance.png") no-repeat center;
+    background-size: contain;
+}
+.guide_setting {
+    background: url("../imgs/xitongshezhi.png") no-repeat center;
+    background-size: contain;
+}
+.guide_statistics {
+    background: url("../imgs/tongjifenxi.png") no-repeat center;
+    background-size: contain;
+}
+.guide_userInfo {
+    background: url("../imgs/yonghuzhongxin.png") no-repeat center;
+    background-size: contain;
+}

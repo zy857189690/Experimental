@@ -1,0 +1,34 @@
+﻿
+/* 页面公共 */
+html,body{_overflow-y:auto; font-family:'\5FAE\8F6F\96C5\9ED1';  font-size:14px;}
+body{ background:#E3E3E3;margin: 0}
+a:hover{ text-decoration:none;}
+i{ font-family:Bookman Old Style;}
+img{display:block;}
+.clear:after{clear:both; content:'.'; display:block; height:0; font-size:0; visibility:hidden;}
+.clear{zoom:1; clear:both;}
+.hide{display:none;}
+.area_zero{position:absolute; width:0; height:0; border-style:dashed; border-color:transparent; overflow:hidden;}
+pre{font-family:'';}
+strong,em{font-weight:900;}
+.inline,.lay_nav a{display:inline-block; *display:inline; *zoom:1; vertical-align:top; font-size:14px;}
+.btns{display:inline-block; *display:inline; *zoom:1; vertical-align:top; padding:0 15px; line-height:22px; font-size:12px; background-color:#f40; color:#fff; border-radius:5px; box-shadow: 1px 1px 1px #ccc;}
+.btns:hover{background-color:#f60; color:#fff;}
+
+/* 框架模式 */
+.lay_left, .lay_right{position:fixed; top:0; bottom:0; _position:absolute;}
+.lay_left{width:300px;  border-right:1px solid #ccc; _border-right:none; background-color:#3F3F3F; overflow-x:hidden; z-index:100;}
+.lay_right{position:relative; left:0; right:0; padding:0px; margin-left:0px; overflow-x:hidden; overflow-y:auto; background-color:#fff;}
+
+/* 导航 */
+.lay_nav{margin:10px; font-size:0;}
+.lay_nav a{ padding:0 20px; height:30px; line-height:30px;  margin-right:1px;  background-color:#5E5E5E; color:#fff;}
+.lay_nav a:hover{background-color:#262626;}
+.lay_nav .lay_thisnav, .lay_nav .lay_thisnav:hover, .layclick, .layclick:hover{background-color:#99CC66!important; cursor:default!important;}
+
+/* laycode */
+h2{margin:20px 0 10px;}
+.codedown{position:relative; margin:10px 0 0px; height:32px; line-height:32px; background-color:#5D9F06; font-size:14px;}
+.codedown cite{position:absolute; left:0; bottom:-24px; width:143px; line-height:20px; color:#999; text-align:center; font-size:12px;}
+.codeinline a{margin-left:5px;margin-right:5px;margin-top: 10px}
+.codemsg{margin:10px; line-height:32px;}

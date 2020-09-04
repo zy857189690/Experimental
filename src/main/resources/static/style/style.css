@@ -1,0 +1,211 @@
+/*查找工具栏*/
+.table_search {
+    font-family: "微软雅黑";
+    font-size: 12px;
+}
+
+.table_search tr {
+    height: 35px;
+}
+
+.table_search tr .td_label {
+    text-align: left;
+}
+
+.table_search tr .td_input {
+    text-align: left;
+    position: relative;
+}
+
+.table_edit {
+    font-family: "微软雅黑";
+    font-size: 12px;
+    border-collapse: collapse;
+    width: 99%;
+    border: 1px solid #C0C0C0;
+}
+
+/*.table_edit tr {
+    height: 35px;
+    border-collapse: collapse;
+    border: 1px solid #C0C0C0;
+}*/
+
+.table_edit tr .td_label {
+    text-align: left;
+    /*width: 60px;*/
+    border: 1px solid #C0C0C0;
+    padding-left: 10px;
+}
+
+.table_edit tr .td_input {
+    text-align: left;
+    border: 1px solid #C0C0C0;
+    padding-left: 10px;
+    position: relative ;
+}
+
+/*
+菜单
+*/
+#accordion .panel-title {
+    margin-top: 2px;
+}
+
+#accordion .accordion-header {
+    height: 21px;
+}
+
+#accordion .accordion-header-selected {
+    background: #C9C5C5;
+}
+
+#accordion li {
+    height: 28px;
+    background-color: #F6F6F6;
+    margin-bottom: 1px;
+    box-shadow: 2px 2px 2px #95B8E7;
+}
+
+#accordion .tree-node-hover {
+    background-color: #CBEDDC;
+}
+
+#accordion .tree-node-selected {
+    background-color: #D9E4EC;
+}
+
+#accordion .tree-icon {
+    margin-top: 5px;
+}
+
+#accordion .tree-title {
+    margin-top: 5px;
+    height: 25px;
+    width: 150px;
+}
+
+#accordion .tree-title a {
+    text-decoration: none;
+    color: #08c;
+    display: block;
+    height: 25px;
+    width: 150px;
+}
+
+#accordion .tree-node {
+    height: 28px;
+}
+
+/*扩展easyui*/
+.textbox-text,
+.validatebox-text,
+.pagination-num,
+textarea,
+select,
+input,
+.pagination-page-list,
+a {
+    font-family: "微软雅黑";
+    font-size: 12px;
+}
+
+input:read-only,
+input:-moz-read-only {
+    background-color: #EEE;
+}
+
+.datagrid-cell,
+.datagrid-cell-group,
+.datagrid-header-rownumber,
+.datagrid-cell-rownumber {
+    margin: 0px;
+    padding: 0px 4px;
+    white-space: nowrap;
+    word-wrap: normal;
+    overflow: hidden;
+    height: 18px;
+    line-height: 18px;
+    font-size: 12px;
+    font-family: "微软雅黑";
+}
+
+.menu-text,
+.menu-text span {
+    font-size: 12px;
+    font-family: "微软雅黑";
+}
+
+.panel-body {
+    font-size: 12px;
+    font-family: "微软雅黑";
+}
+
+.textbox .textbox-text {
+    font-family: "微软雅黑";
+}
+
+.tree-node {
+    height: 23px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+/*input-fat统一样式 add by yuexw 2017年3月27日*/
+.input-fat {
+    border: 1px solid #ccc;
+    padding-left: 2px;
+    width: 98%;
+    float:left;
+}
+/*供list页面右侧弹出框调用*/
+.bg_button{
+    display: block;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    top: 3px;
+    right: -145px;
+    background: url(../index/logo/icon.gif) no-repeat center center;
+}
+/*供新增/编辑页面弹出框调用*/
+.bg_buttons{
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #fff;
+    position: absolute;
+    top: 7px;
+    background: url(../index/logo/icon.gif) no-repeat center center;
+    background-color: #fff;
+}
+label.error{
+    position: absolute;
+    top: 10px;
+    left: 207px;
+    white-space: nowrap;
+}
+/*.sui-form  .table_edit {
+    border: none;
+}
+.sui-form  .table_edit  tr .td_label{
+    border: none;
+    background: #ffffff;
+}
+.sui-form  .table_edit tr .td_input {
+    border: none;
+}
+.sui-form  .table_edit tr {
+    border: none;
+ }*/
+.panel-noscroll{
+    box-shadow: inset 0 1px 2px 0 rgba(0,0,0,0.21);
+}
+::-webkit-scrollbar {
+    width: 9px;
+}
+::-webkit-scrollbar-thumb {
+    background-color:#3381E9;
+}
+::-webkit-scrollbar-track {
+    background-color:#B9D0EF;
+}

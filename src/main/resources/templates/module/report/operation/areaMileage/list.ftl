@@ -56,10 +56,8 @@
 <body class="easyui-layout" fit="true" id="fullid">
 <div region="center" style="overflow: hidden;width: 100%;">
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
-        <@shiro.hasPermission name="/report/operation/areaMileage/export">
-            <a href="#" onclick="exportDatagrid('${base}/report/operation/areaMileage/downloadAreaMonthly','form_search','table')" class="easyui-linkbutton"
-               data-options="iconCls:'icon-export'" menu="0">导出</a>
-        </@shiro.hasPermission>
+        <#--    <a href="#" onclick="exportDatagrid('${base}/report/operation/areaMileage/downloadAreaMonthly','form_search','table')" class="easyui-linkbutton"
+               data-options="iconCls:'icon-export'" menu="0">导出</a>-->
             <a href="#" onclick="reportSpecification()" data-options="iconCls:'icon-export'" menu="0" style="float: right;margin-top:6px;margin-right: 100px">列表说明&nbsp;&nbsp;</a>
     </div>
 
@@ -150,19 +148,14 @@
     }
 
     $('#table').datagrid({
-        url: '${base}/report/operation/areaMileage/queryAreaMonthly',
+        url: 'datagrid',
         sortName: "createTime",
         sortOrder: "desc",
         rownumbers: true,
-        frozenColumns:[[
-            {field:'shiJian',title:'截止时间',align: 'center'},
-            {field:'chePai',title:'车牌号',align: 'center'},
-            {field:'VIN',title:'VIN',align: 'center'},
-        ]],
         columns: [[
-           // {field: 'shiJian', title: '截止时间', width: 120, align: 'center'},
-           // {field: 'chePai', title: '车牌号', width: 120, align: 'center'},
-           // {field: 'VIN', title: 'VIN', width: 180, align: 'center'},
+            {field: 'shiJian', title: '截止时间', width: 120, align: 'center'},
+            {field: 'chePai', title: '车牌号', width: 120, align: 'center'},
+            {field: 'VIN', title: 'VIN', width: 180, align: 'center'},
             {field: 'shangPai', title: '上牌城市',  align: 'center'},
             {field: 'xingShi', title: '行驶区域', align: 'center'},
             {field: 'yunYing', title: '运营单位',  align: 'center'},
@@ -200,7 +193,7 @@
      */
     function add_item() {
         var title = "增加演示1";
-        var url = "${base}/report/demo1/add";
+        var url = "/report/demo1/add";
         openAddDataWin('report_demo1',title,url,"600",'600','table');
     }
 
@@ -209,7 +202,7 @@
      */
     function view_item() {
         var title = "增加演示1";
-        var url = "${base}/report/demo1/view";
+        var url = "/report/demo1/view";
         openViewDataWin('report_demo1',title,url,"600",'600','table');
     }
 
@@ -219,7 +212,7 @@
      */
     function edit_item(id) {
         var title = "编辑演示1";
-        var url = "${base}/report/demo1/update?id=" + (id);
+        var url = "/report/demo1/update?id=" + (id);
         openUpdateDataWin('report_demo1',title,url,"600",'600','table');
     }
 
@@ -230,28 +223,10 @@
      */
     function del_item() {
         var title = "演示1";
-        var url = "${base}/report/demo1/del";
+        var url = "/report/demo1/del";
         delRecord(title,url,'table');
     }
 
-    /**
-     * 行驶区域下拉框
-     */
-    function queryArea(){
-        $('#xingShi').combotree({
-            url: '${base}/report/operation/areaMileage/getDrivingArea'
-
-        });
-        $('#yunYing').combotree({
-            url: '${base}/report/common/queryUnitList'
-
-        });
-        $('#jieDuan').combobox({
-            url: '${base}/report/common/queryVehStageList',
-            valueField: 'id',
-            textField: 'text'
-        });
-    }
 
 </script>
 </html>

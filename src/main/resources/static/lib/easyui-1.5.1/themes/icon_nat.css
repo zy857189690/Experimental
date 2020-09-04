@@ -1,0 +1,70 @@
+.icon_nat_btn{
+    background:url('icon_nat/btn_48.png') no-repeat center center;
+}
+.icon-nat_module{
+    background:url('IconsExtension/application_tile_horizontal.png') no-repeat center center;
+}
+
+.icon-nat_city_0{
+    background:url('IconsExtension/shaixuan1.png') no-repeat center center;
+}
+.icon-nat_city_1{
+    background:url('IconsExtension/shaixuan2.png') no-repeat center center;
+}
+.icon-nat_city_2{
+    background:url('IconsExtension/shaixuan3.png') no-repeat center center;
+}
+.icon-nat_city_inc{
+    background:url('IconsExtension/house.png') no-repeat center center;
+}
+.icon-nat_city_car{
+    background:url('IconsExtension/car.png') no-repeat center center;
+}
+.icon-nat_city_car1{
+    background:url('IconsExtension/car1.png') no-repeat center center;
+}
+.icon-vehMonitor{
+    background:url('../../../images/model1.png') no-repeat center center;
+}
+
+
+
+.icon-group{background:url('IconsExtension/2012081511913.png') no-repeat center center;}
+.icon-module{background:url('IconsExtension/2012081511767.png') no-repeat center center;}
+.icon-user{background:url('IconsExtension/user_b.png') no-repeat center center;}
+.icon-permit{background:url('IconsExtension/house_key.png') no-repeat center center;}
+.icon-unit{background:url('IconsExtension/2012080111634.png') no-repeat center center;}
+.icon-unitType{background:url('IconsExtension/brick.png') no-repeat center center;}
+.icon-role{background:url('IconsExtension/people.png') no-repeat center center;}
+.icon-ok{background:url('IconsExtension/disk.png') no-repeat center center;}
+.icon-reset{background:url('IconsExtension/arrow_rotate_clockwise.png') no-repeat center center;}
+.icon-search{background:url('IconsExtension/magnifier.png') no-repeat center center;}
+.icon-full{background:url('icon_nat/fullScreen.png') no-repeat center center;}
+.icon-large-clipart{background:url('icon_nat/base.png') no-repeat center center;}
+.icon-large-picture{background:url('icon_nat/monitor.png') no-repeat center center;}
+.icon-large-shapes{background:url('icon_nat/fault.png') no-repeat center center;}
+.icon-large-chart{background:url('icon_nat/report.png') no-repeat center center;}
+.icon-large-smartart{background:url('icon_nat/communication.png') no-repeat center center;}
+.icon-large-rent{background:url('icon_nat/rent.png') no-repeat center center;}
+
+.icon-nat-right-alerm{
+    background:url('IconsExtension/bell.png') no-repeat center center;
+}
+.icon-nat-right-monitoring{
+    background:url('IconsExtension/search.png') no-repeat center center;
+}
+.icon-nat-right-message{
+    background:url('IconsExtension/book.png') no-repeat center center;
+}
+.icon-nat-right-track{
+    background:url('IconsExtension/map.png') no-repeat center center;
+}
+.icon-nat-right-messageQuery{
+    background:url('IconsExtension/comments.png') no-repeat center center;
+}
+.icon-nat-right-hisQuery{
+    background:url('IconsExtension/table.png') no-repeat center center;
+}
+.icon-nat-right-vehDayreport{
+    background:url('IconsExtension/view.gif') no-repeat center center;
+}

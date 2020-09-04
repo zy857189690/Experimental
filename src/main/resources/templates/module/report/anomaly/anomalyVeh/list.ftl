@@ -423,7 +423,6 @@
         var file = document.getElementById("file").files[0];
         if (fileCheck(file)) {
             formData.append("file", file);
-
             //importType 导入查询标识，用于区分SQL拼接
             formData.append("identity", "importType");
             identity = "importType";

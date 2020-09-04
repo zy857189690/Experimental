@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>演示管理1-新增</title>
-    <<#include "../../../inc/meta.ftl">
-    <<#include  "../../../inc/js.ftl">
+    <#include "../../../inc/meta.ftl">
+    <#include  "../../../inc/js.ftl">
 </head>
 <body class="body">
 <form class="layui-form layui-form-pane"  method="post">
@@ -21,7 +21,6 @@
         <div class="layui-form-item">
             <label class="layui-form-label">字典值</label>
             <div class="layui-input-inline">
-                        <@core.select name="dictField" ds="dict" key="REPORT_DEMO1_DICT_FIELD" value="1" />
             </div>
             <div class="layui-form-mid layui-word-aux">选填</div>
         </div>
@@ -46,7 +45,7 @@
         var form = layui.form,layer = layui.layer;
 
         //注册自定义验证
-        form.verify({
+  /*      form.verify({
                 // 名称
                 name: function(value){
                     return '请完善校验规则！';
@@ -59,7 +58,7 @@
                 nameField: function(value){
                     return '请完善校验规则！';
                 },
-        });
+        });*/
         //监听提交
         form.on('submit(save)', function(data){
 

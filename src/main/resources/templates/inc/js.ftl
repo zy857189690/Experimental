@@ -1,64 +1,35 @@
 
-
-<#--<link href="https://cdn.insdep.com/themes/1.0.0/easyui.css" rel="stylesheet" type="text/css">-->
-<#--<link href="https://cdn.insdep.com/themes/1.0.0/easyui_animation.css" rel="stylesheet" type="text/css">-->
-
-
-<#--<link href="https://cdn.insdep.com/themes/1.0.0/easyui_plus.css" rel="stylesheet" type="text/css">-->
-<#--<!---->
-<#--easyui_plus.css-->
-<#--Insdep对easyui的额外增强样式,内涵所有 insdep_xxx.css 的所有组件样式-->
-<#--根据需求可单独引入insdep_xxx.css或不引入，此样式不会对easyui产生影响-->
-<#--&ndash;&gt;-->
-
-<#--<link href="https://cdn.insdep.com/themes/1.0.0/insdep_theme_default.css" rel="stylesheet" type="text/css">-->
-<#--<!---->
-<#--insdep_theme_default.css-->
-<#--Insdep官方默认主题样式,更新需要自行引入，此样式不会对easyui产生影响-->
-<#--&ndash;&gt;-->
-
-
-<!--
-    icon.css
-    美化过的easyui官方icons样式，根据需要自行引入
--->
-
-<link rel="stylesheet" type="text/css" href="${cdn}/lib/easyui-1.5.1/themes/default/easyui2.css">
-<link rel="stylesheet" type="text/css" href="${cdn}/lib/easyui-1.5.1/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="../../libs/easyui-1.5.1/themes/default/easyui2.css">
+<link rel="stylesheet" type="text/css" href="../../libs/easyui-1.5.1/themes/icon.css">
 <#--<link href="https://cdn.insdep.com/themes/1.0.0/icon.css" rel="stylesheet" type="text/css">-->
 
-<link rel="stylesheet" type="text/css" href="${cdn}/lib/easyui-1.5.1/themes/IconExtension.css">
-<link rel="stylesheet" type="text/css" href="${cdn}/lib/easyui-1.5.1/themes/icon_nat.css">
-<link rel="stylesheet" type="text/css" href="${cdn}/style/style.css"/>
-<link rel="stylesheet" type="text/css" href="${cdn}/skin/skincss/iframeblue.css"/>
-<#--<link href="${cdn}/lib/select2/css/select2.min.css" rel="stylesheet"/>-->
+<link rel="stylesheet" type="text/css" href="../../libs/easyui-1.5.1/themes/IconExtension.css">
+<link rel="stylesheet" type="text/css" href="../../libs/easyui-1.5.1/themes/icon_nat.css">
+<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+<link rel="stylesheet" type="text/css" href="../../skin/skincss/iframeblue.css"/>
+<#--<link href="templates/libs/select2/css/select2.min.css" rel="stylesheet"/>-->
 <link href="http://g.alicdn.com/sj/dpl/1.5.1/css/sui.min.css" rel="stylesheet">
-<#--<link rel="stylesheet" href="/lib/layui/css/layui.css">-->
-<link rel="stylesheet" href="${cdn}/style/inputClearIcon.css">
+<#--<link rel="stylesheet" href="/libs/layui/css/layui.css">-->
+<link rel="stylesheet" href="../../style/inputClearIcon.css">
 
 
-<script type="text/javascript" src="${cdn}/lib/jquery/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" charset="utf8" src="${base}/lib/jquery.fileDownload.js"></script>
-<script type="text/javascript" src="${cdn}/lib/layer/layer.js"></script>
-<script type="text/javascript" src="${cdn}/lib/jqueryvalidate/jquery.validate.min.js"></script>
-<script type="text/javascript" src="${cdn}/lib/jqueryvalidate/messages_zh.min2.js"></script>
-<#--<script type="text/javascript" src="${cdn}/lib/easyui-1.4.3/jquery.easyui.min.js"></script>-->
-<#--<script type="text/javascript" src="${cdn}/lib/easyui-1.4.3/locale/easyui-lang-zh_CN.js"></script>-->
+<script type="text/javascript" src="../../libs/jquery/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="../../libs/layer/layer.js"></script>
+<script type="text/javascript" src="../../libs/jqueryvalidate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../../libs/jqueryvalidate/messages_zh.min2.js"></script>
 
-<script type="text/javascript" src="${cdn}/lib/easyui-1.5.1/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="${cdn}/lib/easyui-1.5.1/locale/easyui-lang-zh_CN.js"></script>
-<#--<script type="text/javascript" src="https://cdn.insdep.com/themes/1.0.0/jquery.insdep-extend.min.js"></script>-->
+<script type="text/javascript" src="../../libs/easyui-1.5.1/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../../libs/easyui-1.5.1/locale/easyui-lang-zh_CN.js"></script>
 
-<script type="text/javascript" src="${cdn}/js/easy-extend-validate.js"></script>
-<script type="text/javascript" src="${cdn}/js/ex.js"></script>
-<script src="${cdn}/lib/layui/layui.js"></script>
-<script type="text/javascript" src="${cdn}/js/common.js"></script>
-<script src="${base}/self/js/operation.js"></script>
-<script type="text/javascript" src="${base}/self/js/common.js"></script>
-<script type="text/javascript" src="${cdn}/lib/My97DatePicker/WdatePicker.js"></script>
-<script type="text/javascript" src="${cdn}/lib/select2/js/select2.min.js"></script>
-<script src="${cdn}/js/dialogHelper.js"></script>
-<#--<script type="text/javascript" src="${cdn}/lib/select2/js/select2.full.min.js"></script>-->
+<script type="text/javascript" src="../../self/js/easy-extend-validate.js"></script>
+<script type="text/javascript" src="../../self/js/ex.js"></script>
+<script src="../../libs/layui/layui.js"></script>
+<script type="text/javascript" src="../../self/js/common.js"></script>
+<#--<script src="${base}/self/js/operation.js"></script>
+<script type="text/javascript" src="${base}/self/js/common.js"></script>-->
+<script type="text/javascript" src="../../libs/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="../../libs/select2/js/select2.min.js"></script>
+<script src="../../self/js/dialogHelper.js"></script>
 
 <#--弹出框统一修改：将文本框触发弹出改为放大镜图标触发 add by yuexw 2017年4月27日-->
 <script>

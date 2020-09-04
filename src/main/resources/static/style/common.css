@@ -1,0 +1,48 @@
+
+.form_div{
+    padding:10px 40px 20px 40px
+}
+
+.form_input{
+    width: 155px;
+    height: 30px;
+}
+
+
+.table_search{
+    font-family: "微软雅黑";
+    font-size: 12px;
+
+}
+
+.table_search tr{
+    height: 35px
+}
+
+.table_search tr .td_label{
+    width: 40px;
+    text-align: left;
+}
+
+.table_search tr .td_input{
+    width: 130px;
+    height: 28px;
+    text-align: left;
+}
+
+
+
+.table_edit{
+    font-family: "微软雅黑";
+    font-size: 12px;
+    border: 1px;
+}
+
+.table_edit tr{
+    height: 35px
+}
+
+
+
+
+

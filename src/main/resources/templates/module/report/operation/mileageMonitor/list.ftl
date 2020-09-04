@@ -268,7 +268,7 @@
                 window.setTimeout(function() {
                     window.top.$(win).window('destroy', false);
                 }, 0);
-                window.scrollTo(0,scrollTop);
+                /*window.scrollTo(0,scrollTop);*/
             }
         });
         win.window('open');
