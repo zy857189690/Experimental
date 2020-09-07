@@ -1,8 +1,11 @@
 package com.bitnei.cloud.report.web;
 
+import com.alibaba.fastjson.JSON;
 import com.bitnei.cloud.common.JsonModel;
 import com.bitnei.cloud.report.domain.Demo1;
-import com.bitnei.cloud.report.service.IDemo1Service;
+import com.bitnei.cloud.report.domain.ExperimentalStage;
+import com.bitnei.cloud.report.service.IExperimentalStageService;
+import com.bitnei.cloud.smc.util.DateUtil;
 import com.bitnei.commons.datatables.PagerModel;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +15,23 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.util.*;
+
+/**
+* 实验阶段
+* */
 
 @Controller
 @RequestMapping(value = "/report/experimentalStage")
-public class ExperimentalStage {
+public class ExperimentalStageController {
 
 
     public final static String BASE = "/module/report/experimentalStage/";
     private final Logger logger = Logger.getLogger(getClass());
-    @Autowired
-    private IDemo1Service demo1Service;
 
+    @Autowired
+    private IExperimentalStageService experimentalStageService;
 
     /**
      * 管理页面
@@ -44,8 +53,7 @@ public class ExperimentalStage {
     @PostMapping(value = "/datagrid")
     @ResponseBody
     public PagerModel datagrid() {
-
-        PagerModel pm = demo1Service.pageQuery();
+        PagerModel pm = experimentalStageService.pageQuery();
         return pm;
 
     }
@@ -58,7 +66,7 @@ public class ExperimentalStage {
     @GetMapping(value = "/export")
     public void export() {
 
-        demo1Service.export();
+        experimentalStageService.export();
         return;
 
     }
@@ -72,7 +80,6 @@ public class ExperimentalStage {
      */
     @GetMapping(value = "/add")
     public String add(Model model) {
-
         return BASE + "add";
     }
 
@@ -85,8 +92,10 @@ public class ExperimentalStage {
      */
     @GetMapping(value = "/view")
     public String view(Model model, String id) {
-        Demo1 obj = demo1Service.findById(id);
-        model.addAttribute("demo1", obj);
+        ExperimentalStage experimentalStage = experimentalStageService.findById(id);
+        experimentalStage.setReportImg(experimentalStage.getReportImgs().split(","));
+        model.addAttribute("experimentalStage", experimentalStage);
+
         return BASE + "view";
     }
 
@@ -100,12 +109,28 @@ public class ExperimentalStage {
     @RequestMapping("/edit")
     public String edit(@RequestParam("id") String id, Model model) {
         if (!id.equals("-1")) {
-            Demo1 demo1 = demo1Service.findById(id);
-            model.addAttribute("demo1", demo1);
+            ExperimentalStage experimentalStage = experimentalStageService.findById(id);
+            model.addAttribute("experimentalStage", experimentalStage);
         }
         return BASE + "/edit";
     }
 
+
+
+    /**
+     * 保存
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping("/getImgsById")
+    @ResponseBody
+    public List getImgsById(@RequestParam("id") String id, Model model) {
+            ExperimentalStage experimentalStage = experimentalStageService.findById(id);
+            String[] split = experimentalStage.getReportImgs().split(",");
+            List<String> list = Arrays.asList(split);
+        return list;
+    }
 
     @RequestMapping(value = "/imports")
     public String imports() {
@@ -121,15 +146,15 @@ public class ExperimentalStage {
     @GetMapping(value = "/update")
     public String update(Model model, String id) {
 
-        Demo1 obj = demo1Service.findById(id);
+        Demo1 obj = experimentalStageService.findById(id);
         model.addAttribute("obj", obj);
         return BASE + "update";
     }
 
     @RequestMapping("/save")
     @ResponseBody
-    public JsonModel save(Demo1 demo1) {
-        return demo1Service.saveSubmit(demo1);
+    public JsonModel save(ExperimentalStage experimentalStage) {
+        return experimentalStageService.saveSubmit(experimentalStage);
     }
 
 
@@ -141,7 +166,15 @@ public class ExperimentalStage {
     @RequestMapping("/importHoles")
     @ResponseBody
     public JsonModel importHoles(HttpServletRequest request,  String name, String code, MultipartFile file) throws Exception {
-        return demo1Service.importHoles(name,code,file);
+        return experimentalStageService.importHoles(name,code,file);
 
     }
+
+
+    @ResponseBody
+    @RequestMapping("/uploadImgList")
+    public List uploadPictureList( @RequestParam(value="file",required=false)MultipartFile[] file, HttpServletRequest request){
+     return  experimentalStageService.uploadPictureList(file,  request);
+    }
+
 }

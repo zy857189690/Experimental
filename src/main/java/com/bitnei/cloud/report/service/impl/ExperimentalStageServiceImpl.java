@@ -5,6 +5,7 @@ import com.bitnei.cloud.common.JsonModel;
 import com.bitnei.cloud.common.ServletUtil;
 import com.bitnei.cloud.orm.annation.Mybatis;
 import com.bitnei.cloud.report.domain.Demo1;
+import com.bitnei.cloud.report.domain.ExperimentalStage;
 import com.bitnei.cloud.report.mapper.Demo1Mapper;
 import com.bitnei.cloud.report.service.IDemo1Service;
 import com.bitnei.cloud.report.service.IExperimentalStageService;
@@ -12,6 +13,7 @@ import com.bitnei.cloud.service.impl.BaseService;
 import com.bitnei.commons.datatables.DataGridOptions;
 import com.bitnei.commons.datatables.PagerModel;
 import com.bitnei.commons.util.UtilHelper;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -20,10 +22,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -58,7 +59,7 @@ import java.util.Map;
  * @since JDK1.8
  */
 @Service
-@Mybatis(namespace = "com.bitnei.cloud.report.mapper.Demo1Mapper")
+@Mybatis(namespace = "com.bitnei.cloud.report.mapper.ExperimentalStageMapper")
 public class ExperimentalStageServiceImpl extends BaseService implements IExperimentalStageService {
 
     @Autowired
@@ -93,18 +94,18 @@ public class ExperimentalStageServiceImpl extends BaseService implements IExperi
      */
     @Override
     public int update(Object o) {
-        Demo1 demo1 = (Demo1) o;
+        ExperimentalStage experimentalStage = (ExperimentalStage) o;
         // demo1.setUpdateTime(DateUtil.getNow());
         // demo1.setUpdateBy(ServletUtil.getCurrentUser());
-        return super.update(demo1);
+        return super.update(experimentalStage);
     }
 
     @Override
     public <T> T findById(String id) {
-        Demo1 demo1 = super.findById(id);
+        ExperimentalStage experimentalStage = super.findById(id);
         // DataLoader.loadNames(demo1);
         // DataLoader.loadDictNames(demo1);
-        return (T) demo1;
+        return (T) experimentalStage;
     }
 
     /**
@@ -144,33 +145,37 @@ public class ExperimentalStageServiceImpl extends BaseService implements IExperi
     }
 
     @Override
-    public JsonModel saveSubmit(Demo1 demo1) {
+    public JsonModel saveSubmit(ExperimentalStage experimentalStage) {
         JsonModel jm = new JsonModel();
-        String code = demo1.getCode();
+        String code = experimentalStage.getReportCode();
         Map<String, String> map = new HashMap<>(16);
-        map.put("code", code);
-        List<Demo1> findByCode = findBySqlId("findByCode", map);
+        map.put("reportCode", code);
+        List<ExperimentalStage> findByCode = findBySqlId("pagerModel", map);
+        if (null!=experimentalStage.getReportImg()){
+            String[] reportImg = experimentalStage.getReportImg();
+            String join = StringUtils.join(reportImg, ",");
+            experimentalStage.setReportImgs(join);
+        }
 
         // 新增
-        if (demo1.getId().equals("-1")) {
+        if (experimentalStage.getId().equals("-1")) {
             if (null != findByCode && findByCode.size() > 0) {
                 jm.setFlag(false);
                 jm.setMsg(code + "点样编号已经存在，请重新输入!");
                 return jm;
             }
-            demo1.setId(UtilHelper.getUUID());
-            demo1.setCreateTime(DateUtil.getNow());
-            super.insert(demo1);
+            experimentalStage.setId(UtilHelper.getUUID());
+            super.insert(experimentalStage);
 
         } else {
-            if (!demo1.getId().equals(findByCode.get(0).getId())) {
+            if (!experimentalStage.getId().equals(findByCode.get(0).getId())) {
                 jm.setFlag(false);
                 jm.setMsg(code + "点样编号已经存在，请重新输入!");
                 return jm;
             }
             // 修改
-            demo1.setUpdateTime(DateUtil.getNowTime());
-            update(demo1);
+            experimentalStage.setUpdateTime(DateUtil.getNowTime());
+            update(experimentalStage);
         }
         jm.setFlag(true);
         jm.setMsg("保存成功!");
@@ -242,6 +247,43 @@ public class ExperimentalStageServiceImpl extends BaseService implements IExperi
         }
         jm.setFlag(true);
         return jm;
+    }
+
+    @Override
+    public List uploadPictureList(MultipartFile[] file, HttpServletRequest request) {
+        File targetFile=null;
+        String msg="";//返回存储路径
+        int code=1;
+        List imgList=new ArrayList();
+        if (file!=null && file.length>0) {
+            for (int i = 0; i < file.length; i++) {
+                String fileName=file[i].getOriginalFilename();//获取文件名加后缀
+                if(fileName!=null&&fileName!=""){
+                    String returnUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() +"/upload/imgs/";//存储路径
+                    String path = request.getSession().getServletContext().getRealPath("upload/imgs"); //文件存储位置
+                    String fileF = fileName.substring(fileName.lastIndexOf("."), fileName.length());//文件后缀
+                    fileName=new Date().getTime()+"_"+new Random().nextInt(1000)+fileF;//新的文件名
+
+                    //先判断文件是否存在
+                    String fileAdd = com.bitnei.cloud.smc.util.DateUtil.formatTime(new Date(),"yyyyMMdd");
+                    File file1 =new File(path+"/"+fileAdd);
+                    //如果文件夹不存在则创建
+                    if(!file1 .exists()  && !file1 .isDirectory()){
+                        // 多级目录创建
+                        file1 .mkdirs();
+                    }
+                    targetFile = new File(file1, fileName);
+                    try {
+                        file[i].transferTo(targetFile);
+                        msg=returnUrl+fileAdd+"/"+fileName;
+                        imgList.add(msg);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return  imgList;
     }
 
 }

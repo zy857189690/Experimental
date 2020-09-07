@@ -188,14 +188,7 @@
         $('#report').window("open");
     }
 
-    /**
-     * 增加
-     */
-    function add_item() {
-        var title = "增加演示1";
-        var url = "/report/demo1/add";
-        openAddDataWin('report_demo1',title,url,"600",'600','table');
-    }
+
 
     /**
      * 查看

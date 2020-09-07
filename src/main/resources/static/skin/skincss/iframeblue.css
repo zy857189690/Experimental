@@ -976,7 +976,7 @@ body .amap-info-close:hover {
     letter-spacing: 0;
 }
 .panel-tool-close {
-    background: url(/images/fffclose.png) no-repeat center center !important;
+    background: url(../../images/fffclose.png) no-repeat center center !important;
 }
 .fh4:before{
     content: '';

@@ -2,9 +2,13 @@ package com.bitnei.cloud.report.service;
 
 import com.bitnei.cloud.common.JsonModel;
 import com.bitnei.cloud.report.domain.Demo1;
+import com.bitnei.cloud.report.domain.ExperimentalStage;
 import com.bitnei.cloud.service.IBaseService;
 import com.bitnei.commons.datatables.PagerModel;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 
 /**
@@ -58,7 +62,9 @@ public interface IExperimentalStageService extends IBaseService {
     */
     void export();
 
-    JsonModel saveSubmit(Demo1 demo1);
+    JsonModel saveSubmit(ExperimentalStage experimentalStage);
 
     JsonModel importHoles(String name, String code, MultipartFile file) throws Exception;
+
+    List uploadPictureList(MultipartFile[] file, HttpServletRequest request);
 }

@@ -25,6 +25,7 @@
 <script type="text/javascript" src="../../self/js/ex.js"></script>
 <script src="../../libs/layui/layui.js"></script>
 <script type="text/javascript" src="../../self/js/common.js"></script>
+<script type="text/javascript" src="../../self/js/ajaxfileupload.js"></script>
 <#--<script src="${base}/self/js/operation.js"></script>
 <script type="text/javascript" src="${base}/self/js/common.js"></script>-->
 <script type="text/javascript" src="../../libs/My97DatePicker/WdatePicker.js"></script>

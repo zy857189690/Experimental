@@ -17,34 +17,24 @@
             <a href="#" onclick="view_item()" class="easyui-linkbutton"
                data-options="iconCls:'icon-view'" menu="0">查看</a>
         <a href="#" onclick="add_item()" class="easyui-linkbutton"
-           data-options="iconCls:'icon-add'" menu="0">增加位置图</a>
+           data-options="iconCls:'icon-add'" menu="0">添加实验准备阶段报告</a>
         <a href="#" onclick="edit_item()" class="easyui-linkbutton"
            data-options="iconCls:'icon-edit'" >编辑</a>
-        <a href="#" onclick="import_item()" class="easyui-linkbutton"
-           data-options="iconCls:'icon-remove'" >导入位置图</a>
-          <#--&lt;#&ndash;  <a href="#" onclick="exportDatagrid('${base}/report/demo1/export','form_search','table')" class="easyui-linkbutton"
-               data-options="iconCls:'icon-export'" menu="0">导出</a>-->
     </div>
     <div id="table" name="datagrid" style="width: 100%;height: 100%"></div>
 </div>
 
-<div data-options="region:'north',title:'位置图管理',split:true,collapsable:true" style="width: 100%;height: 190px">
+<div data-options="region:'north',title:'实验准备阶段报告管理',split:true,collapsable:true" style="width: 100%;height: 190px">
     <div style="width: 100%;border: 1;margin:5 5 5 10 ">
         <form id="form_search" name="" class="sui-form cg-form">
             <table class="table_search">
                 <tr>
                         <td class="td_label">
-                            <label>点样编号</label>
+                            <label>实验编号</label>
                         </td>
                       <td class="td_input">
                             <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.code"  autocomplete="off" >
                         </td>
-                <#--      <td class="td_label">
-                        <label>名称值</label>
-                    </td>
-                    <td class="td_input">
-                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.nameField"  autocomplete="off" >
-                    </td>-->
 
                     <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
                         <a href="#" onclick="search_item()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
@@ -65,12 +55,10 @@
         checkOnSelect: false, //此属性必须设置为 false10
         columns: [[
             {field: 'ck', checkbox: true, width: '20'},
-            {field: 'code', title: '点样编号'},
-            {field: 'name', title: '点样人'},
-            {field: 'createTime', title: '点样时间'},
-          /* {field: 'createBy', title: '创建人'},
-            {field: 'updateTime', title: '更新时间'},
-            {field: 'updateBy', title: '更新人'},*/
+            {field: 'reportCode', title: '实验编号'},
+            {field: 'reportUserName', title: '报告人'},
+            {field: 'reportTime', title: '报告时间'},
+
         ]],
         toolbar: "#toolbar",
         pagination: true,
@@ -93,8 +81,7 @@
      * 增加
      */
     function add_item() {
-
-        var title = "添加";
+        var title = "添加实验报告";
         var url = "edit.html?id=-1";
         openEditWin(url, title);
     }
@@ -143,7 +130,7 @@
                 return;
             }
         }
-        var title = "编辑";
+        var title = "编辑22";
         var url = "edit.html?id=" + (id);
         openEditWin(url, title);
     }
