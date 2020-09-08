@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.util.*;
 
 /**
@@ -28,7 +27,6 @@ public class ExperimentalStageController {
 
 
     public final static String BASE = "/module/report/experimentalStage/";
-    private final Logger logger = Logger.getLogger(getClass());
 
     @Autowired
     private IExperimentalStageService experimentalStageService;
@@ -132,10 +130,7 @@ public class ExperimentalStageController {
         return list;
     }
 
-    @RequestMapping(value = "/imports")
-    public String imports() {
-        return BASE + "imports";
-    }
+
 
 
     /*
@@ -146,8 +141,8 @@ public class ExperimentalStageController {
     @GetMapping(value = "/update")
     public String update(Model model, String id) {
 
-        Demo1 obj = experimentalStageService.findById(id);
-        model.addAttribute("obj", obj);
+        ExperimentalStage obj = experimentalStageService.findById(id);
+        model.addAttribute("experimentalStage", obj);
         return BASE + "update";
     }
 

@@ -26,4 +26,5 @@ public class ExperimentalStage {
     private String updateTime;
 
     private String reportImgs;
+
 }

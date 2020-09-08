@@ -60,7 +60,7 @@ public class DateUtil
         return sdf.format(new Date());
     }
     public static String getNowTime(){
-        SimpleDateFormat sdf = new SimpleDateFormat(FULL_ST_FORMAT_S);
+        SimpleDateFormat sdf = new SimpleDateFormat(FULL_ST_FORMAT);
         return sdf.format(new Date());
     }
     public static String getNows(){

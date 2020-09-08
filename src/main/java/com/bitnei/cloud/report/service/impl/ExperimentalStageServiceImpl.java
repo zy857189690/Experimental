@@ -259,8 +259,10 @@ public class ExperimentalStageServiceImpl extends BaseService implements IExperi
             for (int i = 0; i < file.length; i++) {
                 String fileName=file[i].getOriginalFilename();//获取文件名加后缀
                 if(fileName!=null&&fileName!=""){
-                    String returnUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() +"/upload/imgs/";//存储路径
-                    String path = request.getSession().getServletContext().getRealPath("upload/imgs"); //文件存储位置
+                    String path = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\pciture\\";
+
+                    String returnUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() +"/pciture/";//存储路径
+                   // String path = request.getSession().getServletContext().getRealPath("upload/imgs"); //文件存储位置
                     String fileF = fileName.substring(fileName.lastIndexOf("."), fileName.length());//文件后缀
                     fileName=new Date().getTime()+"_"+new Random().nextInt(1000)+fileF;//新的文件名
 
@@ -268,6 +270,7 @@ public class ExperimentalStageServiceImpl extends BaseService implements IExperi
                     String fileAdd = com.bitnei.cloud.smc.util.DateUtil.formatTime(new Date(),"yyyyMMdd");
                     File file1 =new File(path+"/"+fileAdd);
                     //如果文件夹不存在则创建
+
                     if(!file1 .exists()  && !file1 .isDirectory()){
                         // 多级目录创建
                         file1 .mkdirs();
