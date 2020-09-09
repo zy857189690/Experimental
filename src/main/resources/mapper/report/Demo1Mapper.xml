@@ -78,6 +78,8 @@
         <if test="code != null">
         and d.code like CONCAT('%', #{code}, '%')
         </if>
-
+        <if test="byCode != null and byCode!=''">
+            and d.code = #{code}
+        </if>
     </select>
 </mapper>

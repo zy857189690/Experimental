@@ -46,6 +46,38 @@
                 close_win_affirm(id);
             }
         }
+
+        $(function() {
+            var id = $("#id").val();
+            if (id != '-1') {
+            var url = "getImgsById?id=" + (id);
+            $.ajax({
+                url: url,
+                method: 'post',
+                data: id,
+                dataType: 'json',
+                success: function (data) {
+                    if (data != null) {
+                        $.each(data, function (i, url) {
+                            //拼接图片列表
+                            var id = $('#detailImgs li:last').attr('id');
+                            id = id.substr(1);
+                            id = parseInt(id) + 1;
+                            var ids = id;
+                            id = 'P' + id;
+                            var a_hidden = "<li id='" + id + "'><input type='hidden' id='reportImg' value='" + url + "' name='reportImg'>";
+                            var img_html = "<img  src='" + url + "'  onclick='showOriginal(this)' original='" + url + "'>";
+                            var a_html = "<a href='javascript:void(0);' onclick='delespan1(" + ids + ")'>删除</a>";
+                            var li_html = "</li>";
+                            $('#detailImgs').append(a_hidden + img_html + a_html + li_html);
+                        });
+                    }
+                }
+            });
+        }
+                }
+        );
+
         $(function () {
             //1、获取ID，判断操作为新增还是编辑，其中-1为新增，其他的编辑
             var id = $("#id").val();

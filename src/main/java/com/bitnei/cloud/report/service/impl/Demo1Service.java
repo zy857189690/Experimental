@@ -187,6 +187,15 @@ public class Demo1Service extends BaseService implements IDemo1Service {
     @Override
     public JsonModel importHoles(String name, String code, MultipartFile file) throws Exception {
         JsonModel jm = new JsonModel();
+
+        Map<String, String> pram = new HashMap<>(16);
+        pram.put("code", code);
+        List<Demo1> findByCode = findBySqlId("findByCode", pram);
+        if (null!=findByCode&&findByCode.size()>0){
+            jm.setMsg("点样编号已存在，请确认后导入操作！！");
+            jm.setFlag(false);
+            return jm;
+        }
         String fileName = file.getOriginalFilename();
 
         if (file == null) {
@@ -213,24 +222,21 @@ public class Demo1Service extends BaseService implements IDemo1Service {
             wb = new XSSFWorkbook(is);
         }
         Sheet sheet = wb.getSheetAt(0);
-
-        Demo1 demo1 = new Demo1();
+        int number =0;
         Map<String, String> map = new HashMap<>(16);
         //前两行和最后一行不要 默认值
-        for (int r = 2; r <= sheet.getLastRowNum() - 1; r++) {
+        for (int r = 0; r <= sheet.getLastRowNum() ; r++) {
             Row row = sheet.getRow(r);
             if (row == null) {
                 continue;
             }
-            if (row.getCell(0).getCellType() != 1) {
-                // throw new MyException("导入失败(第"+(r+1)+"行,ID单元格格式请设为文本格式)");
-            }
-            //1-10 单元格数量
-            for (int k = 1; k <= row.getLastCellNum() - 2; k++) {
+
+            for (int k = 0; k < row.getLastCellNum() ; k++) {
                 Cell cell0 = row.getCell(k);
                 cell0.setCellType(CellType.STRING);
                 String number0 = cell0.getStringCellValue().toString();
-                String s = String.format("%02d", r * 10 - 20 + k);
+                int keyNumber = ++number;
+                String s = String.format("%02d", keyNumber);
                 String key1 = "hno" + s;
                 map.put(key1, number0);
             }

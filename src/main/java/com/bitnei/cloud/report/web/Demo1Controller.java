@@ -141,11 +141,6 @@ public class Demo1Controller {
     }
 
 
-    /*
-     * 编辑页面
-     * @param model
-     * @return
-     */
     @GetMapping(value = "/update")
     public String update(Model model, String id) {
 
@@ -162,7 +157,7 @@ public class Demo1Controller {
 
 
     /**
-     * 点击查询：导入excel查询车辆信息
+     * 导入excel
      *
      * @return
      */
@@ -170,6 +165,5 @@ public class Demo1Controller {
     @ResponseBody
     public JsonModel importHoles(HttpServletRequest request,  String name, String code, MultipartFile file) throws Exception {
         return demo1Service.importHoles(name,code,file);
-
     }
 }

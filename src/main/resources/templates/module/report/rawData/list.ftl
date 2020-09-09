@@ -16,21 +16,21 @@
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
             <a href="#" onclick="view_item()" class="easyui-linkbutton"
                data-options="iconCls:'icon-view'" menu="0">查看</a>
-        <a href="#" onclick="add_item()" class="easyui-linkbutton"
-           data-options="iconCls:'icon-add'" menu="0">添加实验准备阶段报告</a>
         <a href="#" onclick="edit_item()" class="easyui-linkbutton"
            data-options="iconCls:'icon-edit'" >编辑</a>
+        <a href="#" onclick="import_item()" class="easyui-linkbutton"
+           data-options="iconCls:'icon-remove'" >导入数据</a>
     </div>
     <div id="table" name="datagrid" style="width: 100%;height: 100%"></div>
 </div>
 
-<div data-options="region:'north',title:'实验准备阶段报告管理',split:true,collapsable:true" style="width: 100%;height: 190px">
+<div data-options="region:'north',title:'实验原始数据管理',split:true,collapsable:true" style="width: 100%;height: 190px">
     <div style="width: 100%;border: 1;margin:5 5 5 10 ">
         <form id="form_search" name="" class="sui-form cg-form">
             <table class="table_search">
                 <tr>
                         <td class="td_label">
-                            <label>实验编号</label>
+                            <label>点样编号</label>
                         </td>
                       <td class="td_input">
                             <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.code"  autocomplete="off" >
@@ -55,9 +55,9 @@
         checkOnSelect: false, //此属性必须设置为 false10
         columns: [[
             {field: 'ck', checkbox: true, width: '20'},
-            {field: 'reportCode', title: '实验编号'},
-            {field: 'reportUserName', title: '报告人'},
-            {field: 'reportTime', title: '报告时间'},
+            {field: 'code', title: '点样编号'},
+            {field: 'speople', title: '点样人'},
+            {field: 'stime', title: '点样时间'},
 
         ]],
         toolbar: "#toolbar",
@@ -81,7 +81,8 @@
      * 增加
      */
     function add_item() {
-        var title = "添加实验报告";
+
+        var title = "添加";
         var url = "edit.html?id=-1";
         openEditWin(url, title);
     }

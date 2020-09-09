@@ -33,7 +33,7 @@
     <update id="update" parameterType="java.util.HashMap">
         update sys_experimental_stage set
         id=id,report_code=#{reportCode},report_userName=#{reportUserName},report_time=#{reportTime},
-        theoretical_formula=#{theoreticalFormula},actual_formula=#{actualFormula},report_content=#{reportContent},report_imgs=#{reportImgs},status=#{status}
+        theoretical_formula=#{theoreticalFormula},actual_formula=#{actualFormula},report_content=#{reportContent},report_imgs=#{reportImgs},status=#{status},update_time=#{updateTime}
         <where>
             id = #{id}
 
@@ -64,5 +64,6 @@
 
         </where>
 
+        ORDER  BY icate.update_time  desc
     </select>
 </mapper>
