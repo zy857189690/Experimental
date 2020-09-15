@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitnei.cloud.report.mapper.DrugMapper">
+    <resultMap id="tailResults" type="com.bitnei.cloud.report.domain.Drug" autoMapping="true">
+        <association property="tails" javaType="java.util.HashMap">
+        </association>
+    </resultMap>
+
+    <!-- 权限sql -->
+    <sql id="authSQL">
+        and ${authSQL}
+    </sql>
+
+    <!-- 通用查询结果列 -->
+    <sql id="baseColumns">
+    sd.id  ,sd.d_name ,sd.d_gauge ,sd.d_molecular
+    </sql>
+    <sql id="moreColumns">
+    sd.id  ,sd.d_name ,sd.d_gauge ,sd.d_molecular
+    </sql>
+
+    <!-- 根据id查询 -->
+    <select id="findById" resultType="com.bitnei.cloud.report.domain.Drug"  parameterType="java.util.HashMap">
+        select
+        <include refid="moreColumns"/>
+        from
+        sys_drug sd
+        <where>
+            sd.id=#{id}
+            <if test="authSQL != null">
+                <include refid="authSQL"/>
+            </if>
+        </where>
+    </select>
+
+
+    <!-- 增加 -->
+    <insert id="insert" parameterType="java.util.HashMap">
+        insert into
+        sys_drug (id,d_name,d_gauge,d_molecular)
+        values
+        (#{id},#{dName},#{dGauge},#{dMolecular})
+    </insert>
+
+    <!-- 更新 -->
+    <update id="update" parameterType="java.util.HashMap">
+        update sys_drug set
+        id=id,d_name=#{dName},d_gauge=#{dGauge},d_molecular=#{dMolecular}
+        <where>
+            id = #{id}
+            <if test="authSQL != null">
+                <include refid="authSQL"/>
+            </if>
+        </where>
+
+    </update>
+
+    <!-- 删除 -->
+    <delete id="delete"  parameterType="java.util.HashMap">
+        delete from
+        sys_drug
+        <where>
+            id = #{id}
+            <if test="authSQL != null">
+                <include refid="authSQL"/>
+            </if>
+        </where>
+    </delete>
+
+    <!-- 分页查询 -->
+    <select id="pagerModel" resultMap="tailResults" parameterType="java.util.HashMap" resultOrdered="true">
+        select
+        <include refid="moreColumns"/>
+        from
+        sys_drug sd
+        <where>
+        <if test="authSQL != null">
+        <include refid="authSQL"/>
+        </if>
+        </where>
+
+    </select>
+</mapper>
