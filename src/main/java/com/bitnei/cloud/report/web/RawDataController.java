@@ -1,6 +1,8 @@
 package com.bitnei.cloud.report.web;
 
 import com.bitnei.cloud.common.JsonModel;
+import com.bitnei.cloud.report.domain.Demo1;
+import com.bitnei.cloud.report.domain.RawData;
 import com.bitnei.cloud.report.service.IRawDataService;
 import com.bitnei.commons.datatables.PagerModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 
 @Controller
 @RequestMapping(value = "/report/rawData")
@@ -61,4 +64,12 @@ public class RawDataController {
     public JsonModel importRawDatas(HttpServletRequest request, String name, String code, MultipartFile file) throws Exception {
         return rawDataService.importRawDatas(name,code,file);
     }
+
+    @GetMapping(value = "/view")
+    public String view(Model model, String id) {
+        RawData rawData = rawDataService.findById(id);
+        model.addAttribute("rawData", rawData);
+        return BASE + "view";
+    }
+
 }

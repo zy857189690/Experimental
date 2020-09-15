@@ -1,15 +1,12 @@
 
 <link rel="stylesheet" type="text/css" href="../../libs/easyui-1.5.1/themes/default/easyui2.css">
 <link rel="stylesheet" type="text/css" href="../../libs/easyui-1.5.1/themes/icon.css">
-<#--<link href="https://cdn.insdep.com/themes/1.0.0/icon.css" rel="stylesheet" type="text/css">-->
 
 <link rel="stylesheet" type="text/css" href="../../libs/easyui-1.5.1/themes/IconExtension.css">
 <link rel="stylesheet" type="text/css" href="../../libs/easyui-1.5.1/themes/icon_nat.css">
 <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
 <link rel="stylesheet" type="text/css" href="../../skin/skincss/iframeblue.css"/>
-<#--<link href="templates/libs/select2/css/select2.min.css" rel="stylesheet"/>-->
-<link href="http://g.alicdn.com/sj/dpl/1.5.1/css/sui.min.css" rel="stylesheet">
-<#--<link rel="stylesheet" href="/libs/layui/css/layui.css">-->
+<link rel="stylesheet" type="text/css" href="../../skin/skincss/sui.min.css"/>
 <link rel="stylesheet" href="../../style/inputClearIcon.css">
 
 
@@ -26,13 +23,10 @@
 <script src="../../libs/layui/layui.js"></script>
 <script type="text/javascript" src="../../self/js/common.js"></script>
 <script type="text/javascript" src="../../self/js/ajaxfileupload.js"></script>
-<#--<script src="${base}/self/js/operation.js"></script>
-<script type="text/javascript" src="${base}/self/js/common.js"></script>-->
 <script type="text/javascript" src="../../libs/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="../../libs/select2/js/select2.min.js"></script>
 <script src="../../self/js/dialogHelper.js"></script>
 
-<#--弹出框统一修改：将文本框触发弹出改为放大镜图标触发 add by yuexw 2017年4月27日-->
 <script>
     //供list页面右侧弹出框调用（针对onfocus按钮）
     function openDg(obj){
