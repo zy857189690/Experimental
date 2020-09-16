@@ -1,5 +1,6 @@
 package com.bitnei.cloud.report.service;
 
+import com.bitnei.cloud.common.JsonModel;
 import com.bitnei.cloud.report.domain.Drug;
 import com.bitnei.cloud.service.IBaseService;
 import com.bitnei.commons.datatables.PagerModel;
@@ -24,7 +25,7 @@ public interface IDrugService extends IBaseService {
      */
      Drug get(String id);
 
-
+    Drug getByName(String name);
 
 
     /**
@@ -32,7 +33,7 @@ public interface IDrugService extends IBaseService {
      * @param model  新增model
      * @return
      */
-    void insert(Drug model);
+    JsonModel insert(Drug model);
 
     /**
      * 编辑

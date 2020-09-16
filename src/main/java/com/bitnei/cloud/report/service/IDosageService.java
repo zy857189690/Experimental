@@ -1,5 +1,6 @@
 package com.bitnei.cloud.report.service;
 
+import com.bitnei.cloud.common.JsonModel;
 import com.bitnei.cloud.report.domain.Dosage;
 import com.bitnei.cloud.service.IBaseService;
 import com.bitnei.commons.datatables.PagerModel;
@@ -33,7 +34,7 @@ public interface IDosageService extends IBaseService {
      * @param model  新增model
      * @return
      */
-    void insert(Dosage model);
+    JsonModel insert(Dosage model);
 
     /**
      * 编辑

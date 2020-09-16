@@ -1,24 +1,20 @@
 package com.bitnei.cloud.report.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class Dosage  {
 
     /** 配方编号 **/
     private String id;
-    /** 药品名称 **/
-    private String dName;
+
     /** 药品质量 **/
-    private Double dQuality;
-    /** 药品物质的量 **/
-    private Double dMolar;
+    private Double dquality;
+    /** 药品物质的量  摩尔  摩尔量=质量/分子量**/
+    private Double dmolar;
+
+    private String  formulaid;
+    private String  drugid;
 
 }

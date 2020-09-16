@@ -1,24 +1,20 @@
 package com.bitnei.cloud.report.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class Drug  {
 
-    /** 物料编号 **/
     private String id;
+
+    /** 物料编号 **/
+    private String code;
     /** 药品名称 **/
-    private String dName;
+    private String dname;
     /** 规格 **/
-    private String dGauge;
+    private String dgauge;
     /** 药品分子量 **/
-    private Double dMolecular;
+    private Double dmolecular;
 
 }

@@ -152,7 +152,7 @@
             }else{
                 //批量上传图片
                 $.ajaxFileUpload({
-                    url:"/jiliReport/report/experimentalStage/uploadImgList",//需要链接到服务器地址
+                    url:"/experimentManagement/report/experimentalStage/uploadImgList",//需要链接到服务器地址
                     secureuri:false,
                     fileElementId:"logoFile2",//文件选择框的id属性  ,//文件选择框的id属性
                     dataType: 'json',   //json

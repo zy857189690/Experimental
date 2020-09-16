@@ -1,15 +1,24 @@
 package com.bitnei.cloud.report.service.impl;
 
+import com.alibaba.druid.util.StringUtils;
+import com.bitnei.cloud.common.JsonModel;
+import com.bitnei.cloud.common.ServletUtil;
+import com.bitnei.cloud.common.StringUtil;
 import com.bitnei.cloud.orm.annation.Mybatis;
 import com.bitnei.cloud.report.domain.Drug;
 import com.bitnei.cloud.report.service.IDrugService;
 import com.bitnei.cloud.service.impl.BaseService;
+import com.bitnei.commons.datatables.DataGridOptions;
 import com.bitnei.commons.datatables.PagerModel;
 import com.bitnei.commons.util.MapperUtil;
 import com.bitnei.commons.util.UtilHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @Slf4j
@@ -20,7 +29,9 @@ public class DrugService extends BaseService implements IDrugService {
 
     @Override
     public PagerModel pageQuery() {
-        return null;
+        DataGridOptions dataLayOptions = ServletUtil.getDataLayOptions();
+        PagerModel pm = findPagerModel("pagerModel", dataLayOptions);
+        return pm;
     }
 
     @Override
@@ -37,19 +48,48 @@ public class DrugService extends BaseService implements IDrugService {
        return null;
     }
 
-
+    @Override
+    public Drug getByName(String name) {
+        Map<String,Object> map =new HashMap<>();
+        List<Drug> pagerModel = findBySqlId("pagerModel", map);
+        if (null!=pagerModel&&pagerModel.size()>0){
+         return pagerModel.get(0);
+        }
+        return null;
+    }
 
 
     @Override
-    public void insert(Drug model) {
-
+    public JsonModel insert(Drug model) {
+        JsonModel jm =new JsonModel();
         Drug obj = new Drug();
+        if (!StringUtils.isEmpty(model.getCode())){
+            Map<String,Object> pram =new HashMap<>(16);
+            pram.put("code",model.getCode());
+            List<Object> pagerModel = findBySqlId("pagerModel", pram);
+            if (null!=pagerModel&&pagerModel.size()>0){
+                jm.setFlag(false);
+                jm.setMsg(model.getCode() + "物料编号已经存在，请重新输入!");
+                return jm;
+            }
+        }else {
+            jm.setFlag(false);
+            jm.setMsg("物料编号为空，请重新输入!");
+            return jm;
+        }
+
         BeanUtils.copyProperties(model, obj);
         String id = UtilHelper.getUUID();
         obj.setId(id);
         int res = super.insert(obj);
         if (res == 0 ){
+            jm.setFlag(false);
+            jm.setMsg("新增失败请重新输入!");
+            return jm;
         }
+        jm.setFlag(true);
+        jm.setMsg("新增成功");
+        return jm;
     }
 
     @Override

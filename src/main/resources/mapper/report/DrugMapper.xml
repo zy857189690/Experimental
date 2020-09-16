@@ -6,17 +6,14 @@
         </association>
     </resultMap>
 
-    <!-- 权限sql -->
-    <sql id="authSQL">
-        and ${authSQL}
-    </sql>
+
 
     <!-- 通用查询结果列 -->
     <sql id="baseColumns">
-    sd.id  ,sd.d_name ,sd.d_gauge ,sd.d_molecular
+    sd.id  ,sd.code,sd.d_name ,sd.d_gauge ,sd.d_molecular
     </sql>
     <sql id="moreColumns">
-    sd.id  ,sd.d_name ,sd.d_gauge ,sd.d_molecular
+    sd.id  ,sd.code,sd.d_name ,sd.d_gauge ,sd.d_molecular
     </sql>
 
     <!-- 根据id查询 -->
@@ -27,9 +24,7 @@
         sys_drug sd
         <where>
             sd.id=#{id}
-            <if test="authSQL != null">
-                <include refid="authSQL"/>
-            </if>
+         
         </where>
     </select>
 
@@ -37,20 +32,18 @@
     <!-- 增加 -->
     <insert id="insert" parameterType="java.util.HashMap">
         insert into
-        sys_drug (id,d_name,d_gauge,d_molecular)
+        sys_drug (id,code,d_name,d_gauge,d_molecular)
         values
-        (#{id},#{dName},#{dGauge},#{dMolecular})
+        (#{id},#{code},#{dname},#{dgauge},#{dmolecular})
     </insert>
 
     <!-- 更新 -->
     <update id="update" parameterType="java.util.HashMap">
         update sys_drug set
-        id=id,d_name=#{dName},d_gauge=#{dGauge},d_molecular=#{dMolecular}
+        id=id,code=#{code},d_name=#{dname},d_gauge=#{dgauge},d_molecular=#{dmolecular}
         <where>
             id = #{id}
-            <if test="authSQL != null">
-                <include refid="authSQL"/>
-            </if>
+
         </where>
 
     </update>
@@ -61,22 +54,25 @@
         sys_drug
         <where>
             id = #{id}
-            <if test="authSQL != null">
-                <include refid="authSQL"/>
-            </if>
+
         </where>
     </delete>
 
     <!-- 分页查询 -->
-    <select id="pagerModel" resultMap="tailResults" parameterType="java.util.HashMap" resultOrdered="true">
+    <select id="pagerModel" resultType="com.bitnei.cloud.report.domain.Drug" parameterType="java.util.HashMap" resultOrdered="true">
         select
         <include refid="moreColumns"/>
         from
         sys_drug sd
         <where>
-        <if test="authSQL != null">
-        <include refid="authSQL"/>
-        </if>
+        1=1
+            <if test="dname!=null and dname!=''">
+                AND sd.d_name like  CONCAT ('%',#{dname},'%')
+            </if>
+
+            <if test="code!=null and code!=''">
+                AND sd.code =#{code}
+            </if>
         </where>
 
     </select>

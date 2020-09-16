@@ -6,17 +6,13 @@
         </association>
     </resultMap>
 
-    <!-- 权限sql -->
-    <sql id="authSQL">
-        and ${authSQL}
-    </sql>
 
     <!-- 通用查询结果列 -->
     <sql id="baseColumns">
-    sf.id  ,sf.f_name ,sf.p_id ,sf.f_time ,sf.f_people
+    sf.id  ,sf.code,sf.f_name ,sf.p_id ,sf.f_time ,sf.f_people
     </sql>
     <sql id="moreColumns">
-    sf.id  ,sf.f_name ,sf.p_id ,sf.f_time ,sf.f_people
+    sf.id  ,sf.code ,sf.f_name ,sf.p_id ,sf.f_time ,sf.f_people
     </sql>
 
     <!-- 根据id查询 -->
@@ -27,9 +23,7 @@
         sys_formula sf
         <where>
             sf.id=#{id}
-            <if test="authSQL != null">
-                <include refid="authSQL"/>
-            </if>
+
         </where>
     </select>
 
@@ -37,20 +31,18 @@
     <!-- 增加 -->
     <insert id="insert" parameterType="java.util.HashMap">
         insert into
-        sys_formula (id,f_name,p_id,f_time,f_people)
+        sys_formula (id,code,f_name,p_id,f_time,f_people)
         values
-        (#{id},#{fName},#{pId},#{fTime},#{fPeople})
+        (#{id},#{code},#{fname},#{pid},#{ftime},#{fpeople})
     </insert>
 
     <!-- 更新 -->
     <update id="update" parameterType="java.util.HashMap">
         update sys_formula set
-        id=id,f_name=#{fName},p_id=#{pId},f_time=#{fTime},f_people=#{fPeople}
+        id=id,code=#{code},f_name=#{fname},p_id=#{pid},f_time=#{ftime},f_people=#{fpeople}
         <where>
             id = #{id}
-            <if test="authSQL != null">
-                <include refid="authSQL"/>
-            </if>
+
         </where>
 
     </update>
@@ -61,22 +53,21 @@
         sys_formula
         <where>
             id = #{id}
-            <if test="authSQL != null">
-                <include refid="authSQL"/>
-            </if>
+
         </where>
     </delete>
 
     <!-- 分页查询 -->
-    <select id="pagerModel" resultMap="tailResults" parameterType="java.util.HashMap" resultOrdered="true">
+    <select id="pagerModel" resultType="com.bitnei.cloud.report.domain.Formula" parameterType="java.util.HashMap" resultOrdered="true">
         select
         <include refid="moreColumns"/>
         from
         sys_formula sf
         <where>
-        <if test="authSQL != null">
-        <include refid="authSQL"/>
-        </if>
+       1=1
+            <if test="code!=null and code!=''">
+                AND sf.code like CONCAT('%',#{code},'%')
+            </if>
         </where>
 
     </select>

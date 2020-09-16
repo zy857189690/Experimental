@@ -1,5 +1,6 @@
 package com.bitnei.cloud.report.service.impl;
 
+import com.bitnei.cloud.common.JsonModel;
 import com.bitnei.cloud.orm.annation.Mybatis;
 import com.bitnei.cloud.report.domain.Dosage;
 import com.bitnei.cloud.report.service.IDosageService;
@@ -40,7 +41,7 @@ public class DosageService extends BaseService implements IDosageService {
 
 
     @Override
-    public void insert(Dosage model) {
+    public JsonModel insert(Dosage model) {
 
         Dosage obj = new Dosage();
         BeanUtils.copyProperties(model, obj);
@@ -49,6 +50,7 @@ public class DosageService extends BaseService implements IDosageService {
         int res = super.insert(obj);
         if (res == 0 ){
         }
+        return null;
     }
 
     @Override

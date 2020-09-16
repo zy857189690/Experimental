@@ -81,6 +81,12 @@ function openSelectDialog(obj, title, url, width, height, extData, isDictVeh) {
 
 }
 
+function clearInputValue(obj) {
+    $(obj).prev().val("");
+    if ($(obj).next().length > 0) {
+        $(obj).next().val("");
+    }
+}
 /**
  * 弹出窗口，针对 多个回显值 所改造的弹框
  */
@@ -1408,7 +1414,7 @@ function registerMoreColumns(datagrid, toolbarId, did){
         toolbarId = "toolbar";
     }
     //首次注册需要从系统读取用户配置列
-    $.ajax({
+    /*$.ajax({
         url: '/common/profile/getHiddenColumns.html',
         method: 'post',
         dataType: 'json',
@@ -1506,7 +1512,7 @@ function registerMoreColumns(datagrid, toolbarId, did){
                 $('.cg-tbList[datagridId="'+datagridId+'"]').fadeOut();
             });
         }
-    });
+    });*/
 }
 
 /**

@@ -1,6 +1,6 @@
 server:
   port: 8889
-  context-path: /jiliReport
+  context-path: /experimentManagement
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
