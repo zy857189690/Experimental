@@ -33,7 +33,7 @@
                             <label>配方编号</label>
                         </td>
                       <td class="td_input">
-                            <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.dname"  autocomplete="off" >
+                            <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.code"  autocomplete="off" >
                         </td>
 
                     <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
@@ -137,15 +137,7 @@
     }
 
 
-    /**
-     * 导入
-     * @param id
-     */
-    function import_item() {
-        var title = "导入位置图";
-        var url = "imports.html";
-        openEditWin(url, title);
-    }
+
 
     function diyWindow(winid,url,title,width,height,maximizable){
         if(!url) return;

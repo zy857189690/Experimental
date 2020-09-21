@@ -51,6 +51,7 @@ public class DrugService extends BaseService implements IDrugService {
     @Override
     public Drug getByName(String name) {
         Map<String,Object> map =new HashMap<>();
+        map.put("dnames",name);
         List<Drug> pagerModel = findBySqlId("pagerModel", map);
         if (null!=pagerModel&&pagerModel.size()>0){
          return pagerModel.get(0);

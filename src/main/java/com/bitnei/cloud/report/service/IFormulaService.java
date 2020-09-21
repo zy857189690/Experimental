@@ -6,7 +6,7 @@ import com.bitnei.cloud.service.IBaseService;
 import com.bitnei.commons.datatables.PagerModel;
 import org.springframework.web.multipart.MultipartFile;
 
-
+import java.util.Map;
 
 
 public interface IFormulaService extends IBaseService {
@@ -53,9 +53,5 @@ public interface IFormulaService extends IBaseService {
     int deleteMulti(String ids);
 
 
-
-
-
-
-
+    Map<String,Object> findFormulaById(String id);
 }

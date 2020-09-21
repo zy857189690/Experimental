@@ -120,7 +120,6 @@
 
                 },
                 submitHandler: function (form) {
-                    console.log($("div#window_addCompanyType").length);
                     save();
                     return false;
                 }

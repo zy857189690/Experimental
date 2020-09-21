@@ -71,8 +71,8 @@ public class DosageController{
      * @param
      * @return
      */
-    @RequestMapping("/edit")
-    public String edit(@RequestParam("id") String id, Model model) {
+    @GetMapping( value = "/edit")
+    public String edit(String id,Model model ) {
         if (!id.equals("-1")) {
             Dosage dosage = dosageService.findById(id);
             model.addAttribute("dosage", dosage);

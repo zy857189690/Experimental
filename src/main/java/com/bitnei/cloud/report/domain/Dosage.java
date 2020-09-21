@@ -10,7 +10,7 @@ public class Dosage  {
     private String id;
 
     /** 药品质量 **/
-    private Double dquality;
+    private String dquality;
     /** 药品物质的量  摩尔  摩尔量=质量/分子量**/
     private Double dmolar;
 

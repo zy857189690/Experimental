@@ -19,6 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +36,7 @@ public class FormulaService extends BaseService implements IFormulaService {
 
     @Autowired
     private IDrugService drugService;
+
     @Override
     public PagerModel pageQuery() {
         DataGridOptions dataLayOptions = ServletUtil.getDataLayOptions();
@@ -58,6 +60,7 @@ public class FormulaService extends BaseService implements IFormulaService {
 
 
     @Override
+    @Transactional
     public JsonModel insert(Formula model) {
         JsonModel jm = new JsonModel();
         Map<String, Object> map = new HashMap<>(16);
@@ -71,301 +74,308 @@ public class FormulaService extends BaseService implements IFormulaService {
                 return jm;
             }
         }
+        // 修改操作
+        if (!"-1".equals(model.getId())) {
+            dosageService.deleteMulti(model.getId());
+            deleteMulti(model.getId());
+        }
+
         Formula obj = new Formula();
         BeanUtils.copyProperties(model, obj);
         String id = UtilHelper.getUUID();
         obj.setId(id);
         obj.setFtime(DateUtil.getNowTime());
         int res = super.insert(obj);
-
-        if (StringUtils.isNotEmpty(model.getDrugname01())){
+        if (StringUtils.isNotEmpty(model.getDrugname01()) && StringUtils.isNotEmpty(model.getDrugquality01())) {
             String[] split = model.getDrugname01().split(",");
             Drug drug = drugService.getByName(split[0]);
-            if (null!=drug){
-                Dosage dosage=new Dosage();
+            if (null != drug) {
+                Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
                 dosage.setDrugid(drug.getId());
                 dosage.setFormulaid(obj.getId());
                 dosage.setDquality(model.getDrugquality01());
-                dosage.setDmolar(model.getDrugquality01()/drug.getDmolecular());
+                dosage.setDmolar(Double.parseDouble(model.getDrugquality01()) / Double.parseDouble(drug.getDmolecular()));
                 dosageService.insert(dosage);
             }
         }
-
-        if (StringUtils.isNotEmpty(model.getDrugname02())){
+        if (StringUtils.isNotEmpty(model.getDrugname02()) && StringUtils.isNotEmpty(model.getDrugquality02())) {
             String[] split = model.getDrugname02().split(",");
             Drug drug = drugService.getByName(split[0]);
-            if (null!=drug){
-                Dosage dosage=new Dosage();
+            if (null != drug) {
+                Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
                 dosage.setDrugid(drug.getId());
                 dosage.setFormulaid(obj.getId());
                 dosage.setDquality(model.getDrugquality02());
-                dosage.setDmolar(model.getDrugquality02()/drug.getDmolecular());
+                dosage.setDmolar(Double.parseDouble(model.getDrugquality02()) / Double.parseDouble(drug.getDmolecular()));
                 dosageService.insert(dosage);
             }
         }
 
-        if (StringUtils.isNotEmpty(model.getDrugname03())){
+        if (StringUtils.isNotEmpty(model.getDrugname03()) && StringUtils.isNotEmpty(model.getDrugquality03())) {
             String[] split = model.getDrugname03().split(",");
             Drug drug = drugService.getByName(split[0]);
-            if (null!=drug){
-                Dosage dosage=new Dosage();
+            if (null != drug) {
+                Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
                 dosage.setDrugid(drug.getId());
                 dosage.setFormulaid(obj.getId());
                 dosage.setDquality(model.getDrugquality03());
-                dosage.setDmolar(model.getDrugquality03()/drug.getDmolecular());
+                dosage.setDmolar(Double.parseDouble(model.getDrugquality03()) / Double.parseDouble(drug.getDmolecular()));
                 dosageService.insert(dosage);
             }
         }
 
-        if (StringUtils.isNotEmpty(model.getDrugname04())){
+        if (StringUtils.isNotEmpty(model.getDrugname04()) && StringUtils.isNotEmpty(model.getDrugquality04())) {
             String[] split = model.getDrugname04().split(",");
             Drug drug = drugService.getByName(split[0]);
-            if (null!=drug){
-                Dosage dosage=new Dosage();
+            if (null != drug) {
+                Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
                 dosage.setDrugid(drug.getId());
                 dosage.setFormulaid(obj.getId());
                 dosage.setDquality(model.getDrugquality04());
-                dosage.setDmolar(model.getDrugquality04()/drug.getDmolecular());
+                dosage.setDmolar(Double.parseDouble(model.getDrugquality04()) / Double.parseDouble(drug.getDmolecular()));
                 dosageService.insert(dosage);
             }
         }
 
-        if (StringUtils.isNotEmpty(model.getDrugname05())){
+        if (StringUtils.isNotEmpty(model.getDrugname05()) && StringUtils.isNotEmpty(model.getDrugquality05())) {
             String[] split = model.getDrugname05().split(",");
             Drug drug = drugService.getByName(split[0]);
-            if (null!=drug){
-                
-                Dosage dosage=new Dosage();
+            if (null != drug) {
+                Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
                 dosage.setDrugid(drug.getId());
                 dosage.setFormulaid(obj.getId());
                 dosage.setDquality(model.getDrugquality05());
-                dosage.setDmolar(model.getDrugquality05()/drug.getDmolecular());
+                dosage.setDmolar(Double.parseDouble(model.getDrugquality05()) / Double.parseDouble(drug.getDmolecular()));
                 dosageService.insert(dosage);
             }
         }
 
 
-        if (StringUtils.isNotEmpty(model.getDrugname06())){
+        if (StringUtils.isNotEmpty(model.getDrugname06()) && StringUtils.isNotEmpty(model.getDrugquality06())) {
             String[] split = model.getDrugname06().split(",");
             Drug drug = drugService.getByName(split[0]);
-            if (null!=drug){
-                Dosage dosage=new Dosage();
+            if (null != drug) {
+                Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
                 dosage.setDrugid(drug.getId());
                 dosage.setFormulaid(obj.getId());
                 dosage.setDquality(model.getDrugquality06());
-                dosage.setDmolar(model.getDrugquality06()/drug.getDmolecular());
+                dosage.setDmolar(Double.parseDouble(model.getDrugquality06()) / Double.parseDouble(drug.getDmolecular()));
                 dosageService.insert(dosage);
             }
         }
 
-        if (StringUtils.isNotEmpty(model.getDrugname07())){
+        if (StringUtils.isNotEmpty(model.getDrugname07()) && StringUtils.isNotEmpty(model.getDrugquality07())) {
             String[] split = model.getDrugname07().split(",");
             Drug drug = drugService.getByName(split[0]);
-            if (null!=drug){
-                Dosage dosage=new Dosage();
+            if (null != drug) {
+                Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
                 dosage.setDrugid(drug.getId());
                 dosage.setFormulaid(obj.getId());
                 dosage.setDquality(model.getDrugquality07());
-                dosage.setDmolar(model.getDrugquality07()/drug.getDmolecular());
+                dosage.setDmolar(Double.parseDouble(model.getDrugquality07()) / Double.parseDouble(drug.getDmolecular()));
                 dosageService.insert(dosage);
             }
         }
 
-        if (StringUtils.isNotEmpty(model.getDrugname08())){
+        if (StringUtils.isNotEmpty(model.getDrugname08()) && StringUtils.isNotEmpty(model.getDrugquality08())) {
             String[] split = model.getDrugname08().split(",");
             Drug drug = drugService.getByName(split[0]);
-            if (null!=drug){
-                Dosage dosage=new Dosage();
+            if (null != drug) {
+                Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
                 dosage.setDrugid(drug.getId());
                 dosage.setFormulaid(obj.getId());
                 dosage.setDquality(model.getDrugquality08());
-                dosage.setDmolar(model.getDrugquality08()/drug.getDmolecular());
+                dosage.setDmolar(Double.parseDouble(model.getDrugquality08()) / Double.parseDouble(drug.getDmolecular()));
                 dosageService.insert(dosage);
             }
         }
 
-        if (StringUtils.isNotEmpty(model.getDrugname09())){
+        if (StringUtils.isNotEmpty(model.getDrugname09()) && StringUtils.isNotEmpty(model.getDrugquality09())) {
             String[] split = model.getDrugname09().split(",");
             Drug drug = drugService.getByName(split[0]);
-            if (null!=drug){
-                Dosage dosage=new Dosage();
+            if (null != drug) {
+                Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
                 dosage.setDrugid(drug.getId());
                 dosage.setFormulaid(obj.getId());
                 dosage.setDquality(model.getDrugquality09());
-                dosage.setDmolar(model.getDrugquality09()/drug.getDmolecular());
+                dosage.setDmolar(Double.parseDouble(model.getDrugquality09()) / Double.parseDouble(drug.getDmolecular()));
                 dosageService.insert(dosage);
             }
         }
 
-        if (StringUtils.isNotEmpty(model.getDrugname10())){
+        if (StringUtils.isNotEmpty(model.getDrugname10()) && StringUtils.isNotEmpty(model.getDrugquality10())) {
             String[] split = model.getDrugname10().split(",");
             Drug drug = drugService.getByName(split[0]);
-            if (null!=drug){
-                Dosage dosage=new Dosage();
+            if (null != drug) {
+                Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
                 dosage.setDrugid(drug.getId());
                 dosage.setFormulaid(obj.getId());
                 dosage.setDquality(model.getDrugquality10());
-                dosage.setDmolar(model.getDrugquality10()/drug.getDmolecular());
+                dosage.setDmolar(Double.parseDouble(model.getDrugquality10()) / Double.parseDouble(drug.getDmolecular()));
                 dosageService.insert(dosage);
             }
         }
 
 
-        if (StringUtils.isNotEmpty(model.getDrugname11())){
+        if (StringUtils.isNotEmpty(model.getDrugname11()) && StringUtils.isNotEmpty(model.getDrugquality11())) {
             String[] split = model.getDrugname11().split(",");
             Drug drug = drugService.getByName(split[0]);
-            if (null!=drug){
-                Dosage dosage=new Dosage();
+            if (null != drug) {
+                Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
                 dosage.setDrugid(drug.getId());
                 dosage.setFormulaid(obj.getId());
                 dosage.setDquality(model.getDrugquality11());
-                dosage.setDmolar(model.getDrugquality11()/drug.getDmolecular());
+                dosage.setDmolar(Double.parseDouble(model.getDrugquality11()) / Double.parseDouble(drug.getDmolecular()));
                 dosageService.insert(dosage);
             }
         }
 
-        if (StringUtils.isNotEmpty(model.getDrugname12())){
+        if (StringUtils.isNotEmpty(model.getDrugname12()) && StringUtils.isNotEmpty(model.getDrugquality12())) {
             String[] split = model.getDrugname12().split(",");
             Drug drug = drugService.getByName(split[0]);
-            if (null!=drug){
-                Dosage dosage=new Dosage();
+            if (null != drug) {
+                Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
                 dosage.setDrugid(drug.getId());
                 dosage.setFormulaid(obj.getId());
                 dosage.setDquality(model.getDrugquality12());
-                dosage.setDmolar(model.getDrugquality12()/drug.getDmolecular());
+                dosage.setDmolar(Double.parseDouble(model.getDrugquality12()) / Double.parseDouble(drug.getDmolecular()));
                 dosageService.insert(dosage);
             }
         }
 
-        if (StringUtils.isNotEmpty(model.getDrugname13())){
+        if (StringUtils.isNotEmpty(model.getDrugname13()) && StringUtils.isNotEmpty(model.getDrugquality13())) {
             String[] split = model.getDrugname13().split(",");
             Drug drug = drugService.getByName(split[0]);
-            if (null!=drug){
-                Dosage dosage=new Dosage();
+            if (null != drug) {
+                Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
                 dosage.setDrugid(drug.getId());
                 dosage.setFormulaid(obj.getId());
                 dosage.setDquality(model.getDrugquality13());
-                dosage.setDmolar(model.getDrugquality13()/drug.getDmolecular());
+                dosage.setDmolar(Double.parseDouble(model.getDrugquality13()) / Double.parseDouble(drug.getDmolecular()));
                 dosageService.insert(dosage);
             }
         }
 
-        if (StringUtils.isNotEmpty(model.getDrugname14())){
+        if (StringUtils.isNotEmpty(model.getDrugname14()) && StringUtils.isNotEmpty(model.getDrugquality14())) {
             String[] split = model.getDrugname14().split(",");
             Drug drug = drugService.getByName(split[0]);
-            if (null!=drug){
-                Dosage dosage=new Dosage();
+            if (null != drug) {
+                Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
                 dosage.setDrugid(drug.getId());
                 dosage.setFormulaid(obj.getId());
                 dosage.setDquality(model.getDrugquality14());
-                dosage.setDmolar(model.getDrugquality14()/drug.getDmolecular());
+                dosage.setDmolar(Double.parseDouble(model.getDrugquality14()) / Double.parseDouble(drug.getDmolecular()));
                 dosageService.insert(dosage);
             }
         }
 
-        if (StringUtils.isNotEmpty(model.getDrugname15())){
+        if (StringUtils.isNotEmpty(model.getDrugname15()) && StringUtils.isNotEmpty(model.getDrugquality15())) {
             String[] split = model.getDrugname15().split(",");
             Drug drug = drugService.getByName(split[0]);
-            if (null!=drug){
-                Dosage dosage=new Dosage();
+            if (null != drug) {
+                Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
                 dosage.setDrugid(drug.getId());
                 dosage.setFormulaid(obj.getId());
                 dosage.setDquality(model.getDrugquality15());
-                dosage.setDmolar(model.getDrugquality15()/drug.getDmolecular());
+                dosage.setDmolar(Double.parseDouble(model.getDrugquality15()) / Double.parseDouble(drug.getDmolecular()));
                 dosageService.insert(dosage);
             }
         }
 
 
-        if (StringUtils.isNotEmpty(model.getDrugname16())){
+        if (StringUtils.isNotEmpty(model.getDrugname16()) && StringUtils.isNotEmpty(model.getDrugquality16())) {
             String[] split = model.getDrugname16().split(",");
             Drug drug = drugService.getByName(split[0]);
-            if (null!=drug){
-                Dosage dosage=new Dosage();
+            if (null != drug) {
+                Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
                 dosage.setDrugid(drug.getId());
                 dosage.setFormulaid(obj.getId());
                 dosage.setDquality(model.getDrugquality16());
-                dosage.setDmolar(model.getDrugquality16()/drug.getDmolecular());
+                dosage.setDmolar(Double.parseDouble(model.getDrugquality16()) / Double.parseDouble(drug.getDmolecular()));
                 dosageService.insert(dosage);
             }
         }
 
-        if (StringUtils.isNotEmpty(model.getDrugname17())){
+        if (StringUtils.isNotEmpty(model.getDrugname17()) && StringUtils.isNotEmpty(model.getDrugquality17())) {
             String[] split = model.getDrugname17().split(",");
             Drug drug = drugService.getByName(split[0]);
-            if (null!=drug){
-                Dosage dosage=new Dosage();
+            if (null != drug) {
+                Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
                 dosage.setDrugid(drug.getId());
                 dosage.setFormulaid(obj.getId());
                 dosage.setDquality(model.getDrugquality17());
-                dosage.setDmolar(model.getDrugquality17()/drug.getDmolecular());
+                dosage.setDmolar(Double.parseDouble(model.getDrugquality17()) / Double.parseDouble(drug.getDmolecular()));
                 dosageService.insert(dosage);
             }
         }
 
-        if (StringUtils.isNotEmpty(model.getDrugname18())){
+        if (StringUtils.isNotEmpty(model.getDrugname18()) && StringUtils.isNotEmpty(model.getDrugquality18())) {
             String[] split = model.getDrugname18().split(",");
             Drug drug = drugService.getByName(split[0]);
-            if (null!=drug){
-                Dosage dosage=new Dosage();
+            if (null != drug) {
+                Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
                 dosage.setDrugid(drug.getId());
                 dosage.setFormulaid(obj.getId());
                 dosage.setDquality(model.getDrugquality18());
-                dosage.setDmolar(model.getDrugquality18()/drug.getDmolecular());
+                dosage.setDmolar(Double.parseDouble(model.getDrugquality18()) / Double.parseDouble(drug.getDmolecular()));
                 dosageService.insert(dosage);
             }
         }
 
-        if (StringUtils.isNotEmpty(model.getDrugname19())){
+        if (StringUtils.isNotEmpty(model.getDrugname19()) && StringUtils.isNotEmpty(model.getDrugquality19())) {
             String[] split = model.getDrugname19().split(",");
             Drug drug = drugService.getByName(split[0]);
-            if (null!=drug){
-                Dosage dosage=new Dosage();
+            if (null != drug) {
+                Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
                 dosage.setDrugid(drug.getId());
                 dosage.setFormulaid(obj.getId());
                 dosage.setDquality(model.getDrugquality19());
-                dosage.setDmolar(model.getDrugquality19()/drug.getDmolecular());
+                dosage.setDmolar(Double.parseDouble(model.getDrugquality19()) / Double.parseDouble(drug.getDmolecular()));
                 dosageService.insert(dosage);
             }
         }
 
-        if (StringUtils.isNotEmpty(model.getDrugname20())){
+        if (StringUtils.isNotEmpty(model.getDrugname20()) && StringUtils.isNotEmpty(model.getDrugquality20())) {
             String[] split = model.getDrugname20().split(",");
             Drug drug = drugService.getByName(split[0]);
-            if (null!=drug){
-                Dosage dosage=new Dosage();
+            if (null != drug) {
+                Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
                 dosage.setDrugid(drug.getId());
                 dosage.setFormulaid(obj.getId());
                 dosage.setDquality(model.getDrugquality20());
-                dosage.setDmolar(model.getDrugquality20()/drug.getDmolecular());
+                dosage.setDmolar(Double.parseDouble(model.getDrugquality20()) / Double.parseDouble(drug.getDmolecular()));
                 dosageService.insert(dosage);
             }
         }
 
-
         if (res == 0) {
+            jm.setFlag(false);
+            jm.setMsg("新增失败");
+            return jm;
         }
-        return null;
+        jm.setFlag(true);
+        jm.setMsg("新增成功");
+        return jm;
     }
 
     @Override
@@ -390,20 +400,33 @@ public class FormulaService extends BaseService implements IFormulaService {
      * @return
      */
     @Override
-    public int deleteMulti(String ids) {
+    public int deleteMulti(String id) {
+        return super.delete(id);
+    }
 
-      /*  //获取当权限的map
-        Map<String,Object> params = DataAccessKit.getAuthMap("sys_formula", "sf");
-
-        String[] arr = ids.split(",");
-        int count = 0;
-        for (String id:arr){
-            params.put("id",id);
-            int r = super.deleteByMap(params);
-            count+=r;
+    @Override
+    public Map<String, Object> findFormulaById(String id) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        List<Map<String, Object>> obj = findBySqlId("findFormulaById", map);
+        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> formulaMap = obj.get(0);
+        result.put("id", formulaMap.get("id"));
+        result.put("code", formulaMap.get("code"));
+        result.put("fname", formulaMap.get("f_name"));
+        result.put("pid", formulaMap.get("p_id"));
+        result.put("ftime", formulaMap.get("f_time"));
+        result.put("fpeople", formulaMap.get("f_people"));
+        for (int i = 0; i < obj.size(); i++) {
+            int j = i;
+            String name = obj.get(i).get("d_name") + "," + obj.get(i).get("d_gauge") + "," + obj.get(i).get("d_molecular");
+            String s = String.format("%02d", ++j);
+            String key = "drugname" + s;
+            String value = "drugquality" + s;
+            result.put(key, name);
+            result.put(value, obj.get(i).get("d_quality"));
         }
-        return count;*/
-        return 0;
+        return result;
     }
 
 }

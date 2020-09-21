@@ -16,11 +16,13 @@
     </sql>
 
     <!-- 根据id查询 -->
-    <select id="findById" resultType="com.bitnei.cloud.report.domain.Formula"  parameterType="java.util.HashMap">
+    <select id="findFormulaById" resultType="java.util.HashMap"   parameterType="java.util.HashMap">
         select
-        <include refid="moreColumns"/>
+        *
         from
         sys_formula sf
+        LEFT JOIN  sys_dosage sdo on sf.id=sdo.formula_id
+        LEFT JOIN sys_drug sd on sd.id=sdo.drug_id
         <where>
             sf.id=#{id}
 
@@ -68,6 +70,7 @@
             <if test="code!=null and code!=''">
                 AND sf.code like CONCAT('%',#{code},'%')
             </if>
+
         </where>
 
     </select>

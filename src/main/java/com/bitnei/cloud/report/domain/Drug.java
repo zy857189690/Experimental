@@ -15,6 +15,6 @@ public class Drug  {
     /** 规格 **/
     private String dgauge;
     /** 药品分子量 **/
-    private Double dmolecular;
+    private String dmolecular;
 
 }

@@ -104,8 +104,8 @@ public class ExperimentalStageController {
      * @param
      * @return
      */
-    @RequestMapping("/edit")
-    public String edit(@RequestParam("id") String id, Model model) {
+    @GetMapping( value = "/edit")
+    public String edit(String id,Model model ) {
         if (!id.equals("-1")) {
             ExperimentalStage experimentalStage = experimentalStageService.findById(id);
             model.addAttribute("experimentalStage", experimentalStage);

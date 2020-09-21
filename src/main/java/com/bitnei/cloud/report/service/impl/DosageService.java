@@ -12,9 +12,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Slf4j
 @Service
-@Mybatis(namespace = "com.bitnei.cloud.report.mapper.DosageMapper" )
+@Mybatis(namespace = "com.bitnei.cloud.report.mapper.DosageMapper")
 public class DosageService extends BaseService implements IDosageService {
 
 
@@ -34,10 +37,8 @@ public class DosageService extends BaseService implements IDosageService {
             throw new BusinessException("对象已不存在");
         }
         return Dosage.fromEntry(entry);*/
-       return null;
+        return null;
     }
-
-
 
 
     @Override
@@ -48,7 +49,7 @@ public class DosageService extends BaseService implements IDosageService {
         String id = UtilHelper.getUUID();
         obj.setId(id);
         int res = super.insert(obj);
-        if (res == 0 ){
+        if (res == 0) {
         }
         return null;
     }
@@ -68,27 +69,16 @@ public class DosageService extends BaseService implements IDosageService {
     }
 
     /**
-    * 删除多个
-    * @param ids
-    * @return
-    */
+     * 删除多个
+     *
+     * @param ids
+     * @return
+     */
     @Override
     public int deleteMulti(String ids) {
-/*
-        //获取当权限的map
-        Map<String,Object> params = DataAccessKit.getAuthMap("sys_dosage", "sdo");
-
-        String[] arr = ids.split(",");
-        int count = 0;
-        for (String id:arr){
-            params.put("id",id);
-            int r = super.deleteByMap(params);
-            count+=r;
-        }
-        return count;*/
-return 0;
+        int r = super.delete(ids);
+        return r;
     }
-
 
 
     @Override
@@ -99,22 +89,22 @@ return 0;
         new ExcelBatchHandler<Dosage>(file, messageType, GroupExcelImport.class) {
 
             *//**
-             * 复杂的校验，一般hibernate不能实现校验的，可以在这里进行处理
-             *
-             * @param model
-             * @return
-             *//*
+         * 复杂的校验，一般hibernate不能实现校验的，可以在这里进行处理
+         *
+         * @param model
+         * @return
+         *//*
             @Override
             public List<String> extendValidate(Dosage model) {
                 return null;
             }
 
             *//**
-             *  保存实体
-             *
-             * @param model
-             * @return
-             *//*
+         *  保存实体
+         *
+         * @param model
+         * @return
+         *//*
             @Override
             public void saveObject(Dosage model) {
             	insert(model);
@@ -132,22 +122,22 @@ return 0;
         new ExcelBatchHandler<Dosage>(file, messageType, GroupExcelUpdate.class) {
 
             *//**
-             * 复杂的校验，一般hibernate不能实现校验的，可以在这里进行处理
-             *
-             * @param model
-             * @return
-             *//*
+         * 复杂的校验，一般hibernate不能实现校验的，可以在这里进行处理
+         *
+         * @param model
+         * @return
+         *//*
             @Override
             public List<String> extendValidate(Dosage model) {
                 return null;
             }
 
             *//**
-             *  保存实体
-             *
-             * @param model
-             * @return
-             *//*
+         *  保存实体
+         *
+         * @param model
+         * @return
+         *//*
             @Override
             public void saveObject(Dosage model) {
                 update(model);
@@ -155,7 +145,6 @@ return 0;
         }.work();*/
 
     }
-
 
 
 }

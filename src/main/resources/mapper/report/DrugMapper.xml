@@ -70,6 +70,9 @@
                 AND sd.d_name like  CONCAT ('%',#{dname},'%')
             </if>
 
+            <if test="dnames!=null and dnames!=''">
+                AND sd.d_name =#{dnames}
+            </if>
             <if test="code!=null and code!=''">
                 AND sd.code =#{code}
             </if>

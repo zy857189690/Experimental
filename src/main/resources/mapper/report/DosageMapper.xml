@@ -27,9 +27,7 @@
         sys_dosage sdo
         <where>
             sdo.id=#{id}
-            <if test="authSQL != null">
-                <include refid="authSQL"/>
-            </if>
+
         </where>
     </select>
 
@@ -37,9 +35,9 @@
     <!-- 增加 -->
     <insert id="insert" parameterType="java.util.HashMap">
         insert into
-        sys_dosage (id,d_name,d_quality,d_molar)
+        sys_dosage (id,formula_id,drug_id,d_quality,d_molar)
         values
-        (#{id},#{dName},#{dQuality},#{dMolar})
+        (#{id},#{formulaid},#{drugid},#{dquality},#{dmolar})
     </insert>
 
     <!-- 更新 -->
@@ -48,9 +46,7 @@
         id=id,d_name=#{dName},d_quality=#{dQuality},d_molar=#{dMolar}
         <where>
             id = #{id}
-            <if test="authSQL != null">
-                <include refid="authSQL"/>
-            </if>
+
         </where>
 
     </update>
@@ -60,10 +56,7 @@
         delete from
         sys_dosage
         <where>
-            id = #{id}
-            <if test="authSQL != null">
-                <include refid="authSQL"/>
-            </if>
+            formula_id = #{formulaid}
         </where>
     </delete>
 
