@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.InputStream;
 import java.util.*;
 
-@Controller
+@RestController
 @RequestMapping(value = "/report/demo1")
 public class Demo1Controller {
 

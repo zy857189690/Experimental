@@ -21,7 +21,7 @@ import java.util.*;
 * 实验阶段
 * */
 
-@Controller
+@RestController
 @RequestMapping(value = "/report/experimentalStage")
 public class ExperimentalStageController {
 

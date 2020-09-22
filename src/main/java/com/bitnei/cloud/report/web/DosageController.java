@@ -26,7 +26,7 @@ import java.net.URLDecoder;
  * */
 
 @Slf4j
-@Controller
+@RestController
 @RequestMapping(value = "/report/dosage")
 public class DosageController{
 

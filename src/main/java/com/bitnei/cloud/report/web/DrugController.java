@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * */
 
 @Slf4j
-@Controller
+@RestController
 @RequestMapping(value = "/report/drug")
 public class DrugController{
 
