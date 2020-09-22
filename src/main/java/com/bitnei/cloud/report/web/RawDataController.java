@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 
-@RestController
+@Controller
 @RequestMapping(value = "/report/rawData")
 public class RawDataController {
 

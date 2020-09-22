@@ -23,7 +23,7 @@ import java.util.Map;
  * 实验配方管理
  */
 @Slf4j
-@RestController
+@Controller
 @RequestMapping(value = "/report/formula")
 public class FormulaController {
 
