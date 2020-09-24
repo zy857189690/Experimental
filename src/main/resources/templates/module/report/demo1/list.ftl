@@ -58,7 +58,7 @@
 </body>
 <script>
     $('#table').datagrid({
-        url: 'datagrid',
+        url: '/experimentManagement/report/demo1/datagrid',
         sortName: "createTime",
         sortOrder: "desc",
         singleSelect: true,
@@ -95,7 +95,7 @@
     function add_item() {
 
         var title = "添加";
-        var url = "edit.html?id=-1";
+        var url = "/experimentManagement/report/demo1/edit.html?id=-1";
         openEditWin(url, title);
     }
     function openEditWin(url, title) {
@@ -121,7 +121,7 @@
             }
         }
         var title = "详情";
-        var url = "view.html?id=" + (id);
+        var url = "/experimentManagement/report/demo1/view.html?id=" + (id);
         openEditWin(url, title);
     }
 
@@ -144,7 +144,7 @@
             }
         }
         var title = "编辑";
-        var url = "edit.html?id=" + (id);
+        var url = "/experimentManagement/report/demo1/edit.html?id=" + (id);
         openEditWin(url, title);
     }
 
@@ -155,7 +155,7 @@
      */
     function import_item() {
         var title = "导入位置图";
-        var url = "imports.html";
+        var url = "/experimentManagement/report/demo1/imports.html";
         openEditWin(url, title);
     }
 

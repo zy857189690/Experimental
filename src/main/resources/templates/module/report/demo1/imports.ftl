@@ -12,7 +12,7 @@
                 formData.append("identity", "importType");
                 identity = "importType";
                 $.ajax({
-                    url : "importHoles",
+                    url : "/experimentManagement/report/demo1/importHoles",
                     type : 'POST',
                     data : formData,
                     async : false,
@@ -36,30 +36,7 @@
                 });
             }
 
-            /*var flag=$("#ff").form('validate');
-            if(flag){
-                $.ajax({
-                    url:'save',
-                    method:'post',
-                    data:$("#ff").serialize(),
-                    dataType:'json',
-                    success:function(data){
-                        $.messager.alert("提示", data.msg, "info", function () {
-                            if (data.flag) {
-                                if(window.top.$("div#window_addCompanyType").length > 0){
-                                    close_win("addCompanyType");
-                                }else{
-                                    close_win();
-                                    window.top.m_sysUnitTypeFrame.window.$("#table").datagrid('reload');
-                                }
 
-                            }
-                        });
-                    },
-                    error:function(){
-                    }
-                });
-            }*/
         }
         function cancel() {
             if(window.top.$("div#window_addCompanyType").length>0){

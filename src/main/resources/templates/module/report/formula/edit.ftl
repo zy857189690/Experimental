@@ -16,7 +16,7 @@
             console.log(imgs)
             if (flag) {
                 $.ajax({
-                    url: 'save',
+                    url: '/experimentManagement/report/formula/save',
                     method: 'post',
                     data: $("#ff").serialize(),
                     dataType: 'json',

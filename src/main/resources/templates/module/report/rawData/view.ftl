@@ -1,115 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<#include  "../../../../inc/meta.ftl">
-<#include  "../../../../inc/js.ftl">
+<#include  "../../../inc/meta.ftl">
+<#include  "../../../inc/js.ftl">
 
-    <script type="text/javascript">
-        function save() {
-            var flag=$("#ff").form('validate');
-            if(flag){
-                $.ajax({
-                    url:'save',
-                    method:'post',
-                    data:$("#ff").serialize(),
-                    dataType:'json',
-                    success:function(data){
-                        $.messager.alert("提示", data.msg, "info", function () {
-                            if (data.flag) {
-                                if(window.top.$("div#window_addCompanyType").length > 0){
-                                    close_win("addCompanyType");
-                                }else{
-                                    close_win();
-                                    window.top.m_sysUnitTypeFrame.window.$("#table").datagrid('reload');
-                                }
 
-                            }
-                        });
-                    },
-                    error:function(){
-                    }
-                });
-            }
-        }
-        function cancel() {
-            if(window.top.$("div#window_addCompanyType").length>0){
-                close_win_affirm($("#id").val(), "addCompanyType");
-            }else{
-                var id = $("#id").val();
-                close_win_affirm(id);
-            }
-        }
-        $(function () {
-            //1、获取ID，判断操作为新增还是编辑，其中-1为新增，其他的编辑
-            var id = $("#id").val();
-            //2、初始化组件,比如初始化combotree,combogrid之类的
-            //3、编辑
-            if (id != '-1') {
-//                $("#code").textbox("readonly", true);
-                //$("#name").textbox("readonly", true);
-                // $("#code").attr("readonly", true);
-            }
-            //4、新增
-            else {
-            }
-            $("#ff").validate({
-                onfocusout:function(element) {
-                    var boo = $(element).valid();
-
-                    if(boo) {
-                        $(element).parent().find(".error").each(function(i){
-                            if(i > 0) {
-                                $(this).remove();
-                            }
-                        });
-                    }
-
-                },
-                rules : {
-                    code : {
-                        required: true,
-                        rangelength:[1, 40]
-                    },
-                    name: {
-                        required: true,
-                        rangelength:[2, 20]
-                    }
-                },
-                messages : {
-                    code: {
-                        required: validatew,
-                        rangelength: "<span style='color: red; margin-left: 3px;'>*长度为1-40个字符</span>"
-                    },
-                    name: {
-                        required: validatew,
-                        rangelength: "<span style='color: red; margin-left: 3px;'>*长度为2-20个字符</span>"
-                    }
-                },
-                showErrors: function(errorMap, errorList) {
-
-                    for(var obj in errorMap) {
-                        $('#' + obj).parent().find(".AbleStevenSpan:first").css("display", "none");
-                        this.defaultShowErrors();
-
-                        $('#' + obj).parent().find(".error").each(function(i) {
-                            if(i > 1) {
-                                $(this).remove();
-                            }
-                        });
-
-                        $("#" + obj).parent().find('label:first').removeAttr("for");
-                    }
-
-                },
-                submitHandler:function(form){
-                    console.log($("div#window_addCompanyType").length);
-                    save();
-                    return false;
-                }
-            });
-        });
-
-    </script>
 </head>
 <body class="fbody">
 <div style="padding: 10px" class="fcontainer">
@@ -395,7 +290,7 @@
 
         </table>
 
-        <div class="fbox">
+    <#--    <div class="fbox">
             <span class="fbox-left"></span>
             <span>
                     <td colspan="2" style="text-align: right;">
@@ -405,7 +300,7 @@
                         </span>
                     </td>
                 </span>
-        </div>
+        </div>-->
 
 
 

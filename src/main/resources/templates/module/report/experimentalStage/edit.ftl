@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<#include  "../../../../inc/meta.ftl">
-<#include  "../../../../inc/js.ftl">
+<#include  "../../../inc/meta.ftl">
+<#include  "../../../inc/js.ftl">
 
     <script type="text/javascript">
         function save() {
@@ -16,7 +16,7 @@
             console.log(imgs)
             if(flag){
                 $.ajax({
-                    url:'save',
+                    url:'/experimentManagement/report/experimentalStage/save',
                     method:'post',
                     data:$("#ff").serialize(),
                     dataType:'json',

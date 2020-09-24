@@ -77,15 +77,7 @@
         $("#table").datagrid("load",data);
 
     }
-    /**
-     * 增加
-     */
-    function add_item() {
 
-        var title = "添加";
-        var url = "edit.html?id=-1";
-        openEditWin(url, title);
-    }
     function openEditWin(url, title) {
         var winid = "pop";
         var width = 1230;
@@ -109,7 +101,7 @@
             }
         }
         var title = "详情";
-        var url = "view.html?id=" + (id);
+        var url = "/experimentManagement/report/rawData/view.html?id=" + (id);
         openEditWin(url, title);
     }
 
@@ -132,7 +124,7 @@
             }
         }
         var title = "编辑";
-        var url = "edit.html?id=" + (id);
+        var url = "/experimentManagement/report/rawData/edit.html?id=" + (id);
         openEditWin(url, title);
     }
 
@@ -143,7 +135,7 @@
      */
     function import_item() {
         var title = "导入位置图";
-        var url = "imports.html";
+        var url = "/experimentManagement/report/rawData/imports.html";
         openEditWin(url, title);
     }
 

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 /**
- * 实验配方管理
+ *
  * */
 
 @Slf4j
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/report/dosage")
 public class DosageController{
 
-    public final static String BASE = "/module/report/formula/";
+    public final static String BASE = "/module/report/dosage/";
 
     @Autowired
     private IDosageService dosageService;

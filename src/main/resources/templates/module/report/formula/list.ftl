@@ -48,7 +48,7 @@
 </body>
 <script>
     $('#table').datagrid({
-        url: 'datagrid',
+        url: '/experimentManagement/report/formula/datagrid',
         sortName: "createTime",
         sortOrder: "desc",
         singleSelect: true,
@@ -83,7 +83,7 @@
      */
     function add_item() {
         var title = "添加配方";
-        var url = "edit.html?id=-1";
+        var url = "/experimentManagement/report/formula/edit.html?id=-1";
         openEditWin(url, title);
     }
     function openEditWin(url, title) {
@@ -109,7 +109,7 @@
             }
         }
         var title = "详情";
-        var url = "view.html?id=" + (id);
+        var url = "/experimentManagement/report/formula/view.html?id=" + (id);
         openEditWin(url, title);
     }
 
@@ -132,7 +132,7 @@
             }
         }
         var title = "编辑";
-        var url = "edit.html?id=" + (id);
+        var url = "/experimentManagement/report/formula/edit.html?id=" + (id);
         openEditWin(url, title);
     }
 

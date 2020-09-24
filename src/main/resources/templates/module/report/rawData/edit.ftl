@@ -9,7 +9,7 @@
             var flag=$("#ff").form('validate');
             if(flag){
                 $.ajax({
-                    url:'save',
+                    url:'/experimentManagement/report/rawData/save',
                     method:'post',
                     data:$("#ff").serialize(),
                     dataType:'json',

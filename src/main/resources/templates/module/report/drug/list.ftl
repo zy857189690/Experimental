@@ -46,7 +46,7 @@
 </body>
 <script>
     $('#table').datagrid({
-        url: 'datagrid',
+        url: '/experimentManagement/report/drug/datagrid',
         sortName: "createTime",
         sortOrder: "desc",
         singleSelect: true,
@@ -79,8 +79,8 @@
      * 增加
      */
     function add_item() {
-        var title = "添加实验报告";
-        var url = "edit.html?id=-1";
+        var title = "添加新药品";
+        var url = "/experimentManagement/report/drug/edit.html?id=-1";
         openEditWin(url, title);
     }
     function openEditWin(url, title) {
@@ -106,7 +106,7 @@
             }
         }
         var title = "详情";
-        var url = "view.html?id=" + (id);
+        var url = "/experimentManagement/report/drug/view.html?id=" + (id);
         openEditWin(url, title);
     }
 
@@ -129,7 +129,7 @@
             }
         }
         var title = "编辑";
-        var url = "edit.html?id=" + (id);
+        var url = "/experimentManagement/report/drug/edit.html?id=" + (id);
         openEditWin(url, title);
     }
 
@@ -140,7 +140,7 @@
      */
     function import_item() {
         var title = "导入位置图";
-        var url = "imports.html";
+        var url = "/experimentManagement/report/drug/imports.html";
         openEditWin(url, title);
     }
 

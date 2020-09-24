@@ -12,7 +12,7 @@
                 formData.append("identity", "importType");
                 identity = "importType";
                 $.ajax({
-                    url : "importHoles",
+                    url : "/experimentManagement/report/experimentalStage/importHoles",
                     type : 'POST',
                     data : formData,
                     async : false,

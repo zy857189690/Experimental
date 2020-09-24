@@ -8,7 +8,7 @@
 
         $(function(){
             var id=$("#id").val();
-            var url = "getImgsById?id=" + (id);
+            var url = "/experimentManagement/report/experimentalStage/getImgsById?id=" + (id);
             $.ajax({
                 url:url,
                 method:'post',
