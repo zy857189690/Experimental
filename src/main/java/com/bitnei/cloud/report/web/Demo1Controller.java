@@ -1,17 +1,10 @@
 package com.bitnei.cloud.report.web;
 
-import com.bitnei.cloud.common.ExcelUtil;
 import com.bitnei.cloud.common.JsonModel;
-import com.bitnei.cloud.common.ServletUtil;
 import com.bitnei.cloud.report.domain.Demo1;
 import com.bitnei.cloud.report.service.IDemo1Service;
-import com.bitnei.commons.datatables.DataGridOptions;
 import com.bitnei.commons.datatables.PagerModel;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.InputStream;
-import java.util.*;
 
 @Controller
 @RequestMapping(value = "/report/demo1")
@@ -126,12 +117,12 @@ public class Demo1Controller {
      * @return
      */
     @RequestMapping("/edit")
-    public String edit(@RequestParam("id") String id, Model model) {
+    public String edit(String id, Model model) {
         if (!id.equals("-1")) {
             Demo1 demo1 = demo1Service.findById(id);
             model.addAttribute("demo1", demo1);
         }
-        return BASE + "/edit";
+        return BASE + "edit";
     }
 
 

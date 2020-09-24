@@ -1,13 +1,9 @@
 package com.bitnei.cloud.report.web;
 
-import com.alibaba.fastjson.JSON;
 import com.bitnei.cloud.common.JsonModel;
-import com.bitnei.cloud.report.domain.Demo1;
 import com.bitnei.cloud.report.domain.ExperimentalStage;
 import com.bitnei.cloud.report.service.IExperimentalStageService;
-import com.bitnei.cloud.smc.util.DateUtil;
 import com.bitnei.commons.datatables.PagerModel;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 /**
 * 实验阶段
@@ -110,7 +107,7 @@ public class ExperimentalStageController {
             ExperimentalStage experimentalStage = experimentalStageService.findById(id);
             model.addAttribute("experimentalStage", experimentalStage);
         }
-        return BASE + "/edit";
+        return BASE + "edit";
     }
 
 

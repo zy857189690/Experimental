@@ -69,7 +69,7 @@ public class DrugController{
             ExperimentalStage experimentalStage = drugService.findById(id);
             model.addAttribute("experimentalStage", experimentalStage);
         }
-        return BASE + "/edit";
+        return BASE + "edit";
     }
 
 

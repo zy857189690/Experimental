@@ -2,23 +2,13 @@ package com.bitnei.cloud.report.web;
 
 import com.bitnei.cloud.common.JsonModel;
 import com.bitnei.cloud.report.domain.Dosage;
-import com.bitnei.cloud.report.domain.Drug;
-import com.bitnei.cloud.report.domain.ExperimentalStage;
 import com.bitnei.cloud.report.service.IDosageService;
 import com.bitnei.commons.datatables.PagerModel;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.net.URLDecoder;
 
 
 /**
@@ -77,7 +67,7 @@ public class DosageController{
             Dosage dosage = dosageService.findById(id);
             model.addAttribute("dosage", dosage);
         }
-        return BASE + "/edit";
+        return BASE + "edit";
     }
 
 

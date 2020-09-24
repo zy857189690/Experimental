@@ -1,22 +1,16 @@
 package com.bitnei.cloud.report.web;
 
 import com.bitnei.cloud.common.JsonModel;
-import com.bitnei.cloud.report.domain.Demo1;
-import com.bitnei.cloud.report.domain.Dosage;
 import com.bitnei.cloud.report.domain.Formula;
 import com.bitnei.cloud.report.service.IFormulaService;
 import com.bitnei.commons.datatables.PagerModel;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -65,13 +59,13 @@ public class FormulaController {
      * @param
      * @return
      */
-    @GetMapping(value = "/edit")
+    @RequestMapping("/edit")
     public String edit(String id, Model model) {
-        if (!id.equals("-1")) {
-            Map<String, Object> result = formulaService.findFormulaById(id);
-            model.addAttribute("formula", result);
-        }
-        return BASE + "/edit";
+            if (!id.equals("-1")) {
+                Map<String, Object> result = formulaService.findFormulaById(id);
+                model.addAttribute("formula", result);
+            }
+            return BASE + "edit";
     }
 
 
@@ -85,7 +79,7 @@ public class FormulaController {
     public String view(Model model, String id) {
         Map<String, Object> result = formulaService.findFormulaById(id);
         model.addAttribute("formula", result);
-        return BASE + "/view";
+        return BASE + "view";
     }
 
     @RequestMapping("/save")

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<#include  "../../../../inc/meta.ftl">
-<#include  "../../../../inc/js.ftl">
+<#include  "../../../inc/meta.ftl">
+<#include  "../../../inc/js.ftl">
 
 </head>
 <body class="fbody">
