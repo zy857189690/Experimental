@@ -27,7 +27,7 @@
                                     close_win("addCompanyType");
                                 } else {
                                     close_win();
-                                    window.top.m_sysUnitTypeFrame.window.$("#table").datagrid('reload');
+                                    window.top.m_Frame.window.$("#table").datagrid('reload');
                                 }
 
                             }

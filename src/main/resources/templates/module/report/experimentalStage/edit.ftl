@@ -23,11 +23,11 @@
                     success:function(data){
                         $.messager.alert("提示", data.msg, "info", function () {
                             if (data.flag) {
-                                if(window.top.$("div#window_addCompanyType").length > 0){
+                                if (window.top.$("div#window_addCompanyType").length > 0) {
                                     close_win("addCompanyType");
-                                }else{
+                                } else {
                                     close_win();
-                                    window.top.m_sysUnitTypeFrame.window.$("#table").datagrid('reload');
+                                    window.top.m_Frame.window.$("#table").datagrid('reload');
                                 }
 
                             }

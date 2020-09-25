@@ -24,8 +24,6 @@
                             var searchParames = $('#form_search').serializeObject();
                             searchParames['query.identity'] = "identity";
                             $("#table").datagrid("load", searchParames);
-//                        $('#win').window('close');
-//                        $.messager.alert('提示','查询成功！');
                         } else {
                             $.messager.alert('提示', data.message);
                         }
@@ -36,30 +34,7 @@
                 });
             }
 
-            /*var flag=$("#ff").form('validate');
-            if(flag){
-                $.ajax({
-                    url:'save',
-                    method:'post',
-                    data:$("#ff").serialize(),
-                    dataType:'json',
-                    success:function(data){
-                        $.messager.alert("提示", data.msg, "info", function () {
-                            if (data.flag) {
-                                if(window.top.$("div#window_addCompanyType").length > 0){
-                                    close_win("addCompanyType");
-                                }else{
-                                    close_win();
-                                    window.top.m_sysUnitTypeFrame.window.$("#table").datagrid('reload');
-                                }
 
-                            }
-                        });
-                    },
-                    error:function(){
-                    }
-                });
-            }*/
         }
         function cancel() {
             if(window.top.$("div#window_addCompanyType").length>0){

@@ -24,8 +24,6 @@
                             var searchParames = $('#form_search').serializeObject();
                             searchParames['query.identity'] = "identity";
                             $("#table").datagrid("load", searchParames);
-//                        $('#win').window('close');
-//                        $.messager.alert('提示','查询成功！');
                         } else {
                             $.messager.alert('提示', data.message);
                         }

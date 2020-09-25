@@ -1,65 +1,14 @@
 <div  class="easyui-accordion xy-west" data-options="fit:true,border:false" style="overflow-y: scroll;">
-<#--<ul id="LeftTree" class="easyui-tree"></ul>-->
-<#--<div id="">-->
+
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
             <ul class="nav metismenu" id="side-menu">
-            <#--<li class="active">-->
-            <#--<a href="#"> <span class="nav-label nav-label01">Dashboards</span> <span class="fa arrow"></span></a>-->
-            <#--<ul class="nav nav-second-level">-->
-            <#--<li class="active"><a href="index.html"> Dashboard v.1</a></li>-->
-            <#--<li><a href="dashboard_2.html">Dashboard v.2</a></li>-->
-            <#--<li><a href="dashboard_3.html">Dashboard v.3</a></li>-->
-            <#--<li><a href="dashboard_4_1.html">Dashboard v.4</a></li>-->
-            <#--<li><a href="dashboard_5.html">Dashboard v.5</a></li>-->
-            <#--</ul>-->
-            <#--</li>-->
-            <#--<li>-->
-            <#--<a href="#"> <span class="nav-label">Gallery</span><span class="fa arrow"></span></a>-->
-            <#--<ul class="nav nav-second-level collapse">-->
-            <#--<li><a href="basic_gallery.html">Lightbox Gallery</a></li>-->
-            <#--<li><a href="slick_carousel.html">Slick Carousel</a></li>-->
-            <#--<li><a href="carousel.html">Bootstrap Carousel</a></li>-->
 
-            <#--</ul>-->
-            <#--</li>-->
-            <#--<li>-->
-            <#--<a href="#"> <span class="nav-label">Menu Levels </span><span class="fa arrow"></span></a>-->
-            <#--<ul class="nav nav-second-level collapse">-->
-            <#--<li>-->
-            <#--<a href="index.html#">Third Level <span class="fa arrow"></span></a>-->
-            <#--<ul class="nav nav-third-level">-->
-            <#--<li><a href="index.html#">Third Level Item</a></li>-->
-            <#--<li>-->
-            <#--<a href="index.html#">Third Level Item</a>-->
-            <#--</li>-->
-            <#--<li>-->
-            <#--<a href="index.html#">Third Level Item</a>-->
-            <#--</li>-->
-
-            <#--</ul>-->
-            <#--</li>-->
-            <#--<li><a href="index.html#">Second Level Item</a></li>-->
-            <#--<li>-->
-            <#--<a href="index.html#">Second Level Item</a></li>-->
-            <#--<li>-->
-            <#--<a href="index.html#">Second Level Item</a></li>-->
-            <#--</ul>-->
-            <#--</li>-->
             </ul>
 
         </div>
     </nav>
-<#--</div>-->
-<#--<#list root.children as node>-->
-<#--<div title="${node.name}" data-options="iconCls:'${(node.icon)!}'" style="padding:4px;overflow:auto;">-->
-<#--<ul id="tt1" class="easyui-tree" data-options="animate:true,dnd:true">-->
-<#--<#list node.children as child>-->
-<#--<li ><span><a href='#' iconCls="${(child.icon)!}" onclick="addTabFun('${child.name}','${(child.action)  !}','m_'+'${child.moduleName}','${(child.icon)!}',${child.isFullScreen!})">${child.name}</a></span></li>-->
-<#--</#list>-->
-<#--</ul>-->
-<#--</div>-->
-<#--</#list>-->
+
 </div>
 
 <style>
@@ -519,10 +468,7 @@
                                 if(ctx != undefined && ctx!=""){
                                     u2 = "/"+ctx+"/"+u2;
                                 }
-//                                if (t2.attributes.divs == "" && t2.attributes.url.indexOf("/module-demo")!=-1){
-//                                    var divs = t2.attributes.url.split("/");
-//                                    t2.attributes.divs = divs[2];
-//                                }
+
                                 addTabFun(t2.name, u2, 'm_'+t2.attributes.divs);
                             });
                         }
