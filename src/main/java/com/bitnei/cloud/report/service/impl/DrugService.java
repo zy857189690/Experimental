@@ -3,14 +3,12 @@ package com.bitnei.cloud.report.service.impl;
 import com.alibaba.druid.util.StringUtils;
 import com.bitnei.cloud.common.JsonModel;
 import com.bitnei.cloud.common.ServletUtil;
-import com.bitnei.cloud.common.StringUtil;
 import com.bitnei.cloud.orm.annation.Mybatis;
 import com.bitnei.cloud.report.domain.Drug;
 import com.bitnei.cloud.report.service.IDrugService;
 import com.bitnei.cloud.service.impl.BaseService;
 import com.bitnei.commons.datatables.DataGridOptions;
 import com.bitnei.commons.datatables.PagerModel;
-import com.bitnei.commons.util.MapperUtil;
 import com.bitnei.commons.util.UtilHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -49,9 +47,11 @@ public class DrugService extends BaseService implements IDrugService {
     }
 
     @Override
-    public Drug getByName(String name) {
+    public Drug getByName(String name,String dgauges,String dmoleculars ) {
         Map<String,Object> map =new HashMap<>();
         map.put("dnames",name);
+        map.put("dgauges",dgauges);
+        map.put("dmoleculars",dmoleculars);
         List<Drug> pagerModel = findBySqlId("pagerModel", map);
         if (null!=pagerModel&&pagerModel.size()>0){
          return pagerModel.get(0);
@@ -71,6 +71,12 @@ public class DrugService extends BaseService implements IDrugService {
             if (null!=pagerModel&&pagerModel.size()>0){
                 jm.setFlag(false);
                 jm.setMsg(model.getCode() + "物料编号已经存在，请重新输入!");
+                return jm;
+            }
+            Drug byName = getByName(model.getDname(), model.getDgauge(), model.getDmolecular());
+            if (null!=byName){
+                jm.setFlag(false);
+                jm.setMsg(model.getCode() + "药品重复");
                 return jm;
             }
         }else {

@@ -63,6 +63,9 @@ public class FormulaService extends BaseService implements IFormulaService {
     @Transactional
     public JsonModel insert(Formula model) {
         JsonModel jm = new JsonModel();
+        // 校验药品是否重复
+
+
         Map<String, Object> map = new HashMap<>(16);
         map.put("code", model.getCode());
         List<Formula> pagerModel = findBySqlId("pagerModel", map);
@@ -74,6 +77,8 @@ public class FormulaService extends BaseService implements IFormulaService {
                 return jm;
             }
         }
+
+
         // 修改操作
         if (!"-1".equals(model.getId())) {
             dosageService.deleteMulti(model.getId());
@@ -88,7 +93,7 @@ public class FormulaService extends BaseService implements IFormulaService {
         int res = super.insert(obj);
         if (StringUtils.isNotEmpty(model.getDrugname01()) && StringUtils.isNotEmpty(model.getDrugquality01())) {
             String[] split = model.getDrugname01().split(",");
-            Drug drug = drugService.getByName(split[0]);
+            Drug drug = drugService.getByName(split[0],split[1],split[2]);
             if (null != drug) {
                 Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
@@ -101,7 +106,7 @@ public class FormulaService extends BaseService implements IFormulaService {
         }
         if (StringUtils.isNotEmpty(model.getDrugname02()) && StringUtils.isNotEmpty(model.getDrugquality02())) {
             String[] split = model.getDrugname02().split(",");
-            Drug drug = drugService.getByName(split[0]);
+            Drug drug = drugService.getByName(split[0],split[1],split[2]);
             if (null != drug) {
                 Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
@@ -115,7 +120,7 @@ public class FormulaService extends BaseService implements IFormulaService {
 
         if (StringUtils.isNotEmpty(model.getDrugname03()) && StringUtils.isNotEmpty(model.getDrugquality03())) {
             String[] split = model.getDrugname03().split(",");
-            Drug drug = drugService.getByName(split[0]);
+            Drug drug = drugService.getByName(split[0],split[1],split[2]);
             if (null != drug) {
                 Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
@@ -129,7 +134,7 @@ public class FormulaService extends BaseService implements IFormulaService {
 
         if (StringUtils.isNotEmpty(model.getDrugname04()) && StringUtils.isNotEmpty(model.getDrugquality04())) {
             String[] split = model.getDrugname04().split(",");
-            Drug drug = drugService.getByName(split[0]);
+            Drug drug = drugService.getByName(split[0],split[1],split[2]);
             if (null != drug) {
                 Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
@@ -143,7 +148,7 @@ public class FormulaService extends BaseService implements IFormulaService {
 
         if (StringUtils.isNotEmpty(model.getDrugname05()) && StringUtils.isNotEmpty(model.getDrugquality05())) {
             String[] split = model.getDrugname05().split(",");
-            Drug drug = drugService.getByName(split[0]);
+            Drug drug = drugService.getByName(split[0],split[1],split[2]);
             if (null != drug) {
                 Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
@@ -158,7 +163,7 @@ public class FormulaService extends BaseService implements IFormulaService {
 
         if (StringUtils.isNotEmpty(model.getDrugname06()) && StringUtils.isNotEmpty(model.getDrugquality06())) {
             String[] split = model.getDrugname06().split(",");
-            Drug drug = drugService.getByName(split[0]);
+            Drug drug = drugService.getByName(split[0],split[1],split[2]);
             if (null != drug) {
                 Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
@@ -172,7 +177,7 @@ public class FormulaService extends BaseService implements IFormulaService {
 
         if (StringUtils.isNotEmpty(model.getDrugname07()) && StringUtils.isNotEmpty(model.getDrugquality07())) {
             String[] split = model.getDrugname07().split(",");
-            Drug drug = drugService.getByName(split[0]);
+            Drug drug = drugService.getByName(split[0],split[1],split[2]);
             if (null != drug) {
                 Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
@@ -186,7 +191,7 @@ public class FormulaService extends BaseService implements IFormulaService {
 
         if (StringUtils.isNotEmpty(model.getDrugname08()) && StringUtils.isNotEmpty(model.getDrugquality08())) {
             String[] split = model.getDrugname08().split(",");
-            Drug drug = drugService.getByName(split[0]);
+            Drug drug = drugService.getByName(split[0],split[1],split[2]);
             if (null != drug) {
                 Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
@@ -200,7 +205,7 @@ public class FormulaService extends BaseService implements IFormulaService {
 
         if (StringUtils.isNotEmpty(model.getDrugname09()) && StringUtils.isNotEmpty(model.getDrugquality09())) {
             String[] split = model.getDrugname09().split(",");
-            Drug drug = drugService.getByName(split[0]);
+            Drug drug = drugService.getByName(split[0],split[1],split[2]);
             if (null != drug) {
                 Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
@@ -214,7 +219,7 @@ public class FormulaService extends BaseService implements IFormulaService {
 
         if (StringUtils.isNotEmpty(model.getDrugname10()) && StringUtils.isNotEmpty(model.getDrugquality10())) {
             String[] split = model.getDrugname10().split(",");
-            Drug drug = drugService.getByName(split[0]);
+            Drug drug = drugService.getByName(split[0],split[1],split[2]);
             if (null != drug) {
                 Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
@@ -229,7 +234,7 @@ public class FormulaService extends BaseService implements IFormulaService {
 
         if (StringUtils.isNotEmpty(model.getDrugname11()) && StringUtils.isNotEmpty(model.getDrugquality11())) {
             String[] split = model.getDrugname11().split(",");
-            Drug drug = drugService.getByName(split[0]);
+            Drug drug = drugService.getByName(split[0],split[1],split[2]);
             if (null != drug) {
                 Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
@@ -243,7 +248,7 @@ public class FormulaService extends BaseService implements IFormulaService {
 
         if (StringUtils.isNotEmpty(model.getDrugname12()) && StringUtils.isNotEmpty(model.getDrugquality12())) {
             String[] split = model.getDrugname12().split(",");
-            Drug drug = drugService.getByName(split[0]);
+            Drug drug = drugService.getByName(split[0],split[1],split[2]);
             if (null != drug) {
                 Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
@@ -257,7 +262,7 @@ public class FormulaService extends BaseService implements IFormulaService {
 
         if (StringUtils.isNotEmpty(model.getDrugname13()) && StringUtils.isNotEmpty(model.getDrugquality13())) {
             String[] split = model.getDrugname13().split(",");
-            Drug drug = drugService.getByName(split[0]);
+            Drug drug = drugService.getByName(split[0],split[1],split[2]);
             if (null != drug) {
                 Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
@@ -271,7 +276,7 @@ public class FormulaService extends BaseService implements IFormulaService {
 
         if (StringUtils.isNotEmpty(model.getDrugname14()) && StringUtils.isNotEmpty(model.getDrugquality14())) {
             String[] split = model.getDrugname14().split(",");
-            Drug drug = drugService.getByName(split[0]);
+            Drug drug = drugService.getByName(split[0],split[1],split[2]);
             if (null != drug) {
                 Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
@@ -285,7 +290,7 @@ public class FormulaService extends BaseService implements IFormulaService {
 
         if (StringUtils.isNotEmpty(model.getDrugname15()) && StringUtils.isNotEmpty(model.getDrugquality15())) {
             String[] split = model.getDrugname15().split(",");
-            Drug drug = drugService.getByName(split[0]);
+            Drug drug = drugService.getByName(split[0],split[1],split[2]);
             if (null != drug) {
                 Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
@@ -300,7 +305,7 @@ public class FormulaService extends BaseService implements IFormulaService {
 
         if (StringUtils.isNotEmpty(model.getDrugname16()) && StringUtils.isNotEmpty(model.getDrugquality16())) {
             String[] split = model.getDrugname16().split(",");
-            Drug drug = drugService.getByName(split[0]);
+            Drug drug = drugService.getByName(split[0],split[1],split[2]);
             if (null != drug) {
                 Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
@@ -314,7 +319,7 @@ public class FormulaService extends BaseService implements IFormulaService {
 
         if (StringUtils.isNotEmpty(model.getDrugname17()) && StringUtils.isNotEmpty(model.getDrugquality17())) {
             String[] split = model.getDrugname17().split(",");
-            Drug drug = drugService.getByName(split[0]);
+            Drug drug = drugService.getByName(split[0],split[1],split[2]);
             if (null != drug) {
                 Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
@@ -328,7 +333,7 @@ public class FormulaService extends BaseService implements IFormulaService {
 
         if (StringUtils.isNotEmpty(model.getDrugname18()) && StringUtils.isNotEmpty(model.getDrugquality18())) {
             String[] split = model.getDrugname18().split(",");
-            Drug drug = drugService.getByName(split[0]);
+            Drug drug = drugService.getByName(split[0],split[1],split[2]);
             if (null != drug) {
                 Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
@@ -342,7 +347,7 @@ public class FormulaService extends BaseService implements IFormulaService {
 
         if (StringUtils.isNotEmpty(model.getDrugname19()) && StringUtils.isNotEmpty(model.getDrugquality19())) {
             String[] split = model.getDrugname19().split(",");
-            Drug drug = drugService.getByName(split[0]);
+            Drug drug = drugService.getByName(split[0],split[1],split[2]);
             if (null != drug) {
                 Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
@@ -356,7 +361,7 @@ public class FormulaService extends BaseService implements IFormulaService {
 
         if (StringUtils.isNotEmpty(model.getDrugname20()) && StringUtils.isNotEmpty(model.getDrugquality20())) {
             String[] split = model.getDrugname20().split(",");
-            Drug drug = drugService.getByName(split[0]);
+            Drug drug = drugService.getByName(split[0],split[1],split[2]);
             if (null != drug) {
                 Dosage dosage = new Dosage();
                 dosage.setId(UtilHelper.getUUID());
@@ -396,7 +401,7 @@ public class FormulaService extends BaseService implements IFormulaService {
     /**
      * 删除多个
      *
-     * @param ids
+     * @param
      * @return
      */
     @Override

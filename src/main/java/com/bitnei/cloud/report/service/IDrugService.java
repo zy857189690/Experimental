@@ -4,7 +4,6 @@ import com.bitnei.cloud.common.JsonModel;
 import com.bitnei.cloud.report.domain.Drug;
 import com.bitnei.cloud.service.IBaseService;
 import com.bitnei.commons.datatables.PagerModel;
-import org.springframework.web.multipart.MultipartFile;
 
 
 
@@ -25,7 +24,7 @@ public interface IDrugService extends IBaseService {
      */
      Drug get(String id);
 
-    Drug getByName(String name);
+    Drug getByName(String name,String dgauges,String dmoleculars);
 
 
     /**

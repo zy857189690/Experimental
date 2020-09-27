@@ -8,12 +8,12 @@
         function save() {
             var flag = $("#ff").form('validate');
             var imgs = [];
-            $("input[name='reportImg']").each(function (j, item) {
+          /*  $("input[name='reportImg']").each(function (j, item) {
                 imgs.push(item.value)
                 //imgs.append(item.value)
                 console.log("方法二：" + item.id + ':' + item.value);
-            });
-            console.log(imgs)
+            });*/
+
             if (flag) {
                 $.ajax({
                     url: '/experimentManagement/report/formula/save',
