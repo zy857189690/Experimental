@@ -1,0 +1,78 @@
+<div class="easyui-layout" fit="true">
+    <div data-options="region:'north',title:'',split:true,collapsable:true" style="width: 100%;height: 80px">
+        <div style="width: 100%;">
+            <form id="form_search" class="" style="margin-top: 5px; margin-left: 10px;">
+                <table class="table_search">
+                    <tr>
+                        <td class="td_label">
+                            <label>配方查询：</label>
+                        </td>
+                        <td class="td_input">
+                            <input query_type="lis" type="text" class="input-fat" name="query.dname" id="name">
+                            <!--<input query_type="lis" type="text" class="input-fat" name="query.vehModelName" id="name">-->
+                        </td>
+                        <td style="vertical-align: center;text-align: right;border: 1px">
+                            <a href="#" onclick="search_item()" class="easyui-linkbutton" class="easyui-linkbutton"
+                               data-options="iconCls:'icon-search'">查询</a>
+                            <a href="#" onclick="reset_common()" class="easyui-linkbutton"
+                               class="easyui-linkbutton"
+                               data-options="iconCls:'icon-reset'">重置</a>
+                            <a href="#" onclick="resizeGrid()" class="easyui-linkbutton"
+                               class="easyui-linkbutton"
+                               data-options="iconCls:'icon-reset'">刷新</a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <div region="center" style="overflow: hidden;width: 100%;">
+        <div id="tt" name="datagrid" style="width: 100%;height: 100%"></div>
+    </div>
+
+    <script>
+        var treeDate = null;
+        function initLoad(name, isResize, dname) {
+            $('#tt').treegrid({
+                url: '/experimentManagement/report/formula/datagrid',
+                idField: 'id',
+                treeField: 'dosageName',
+                lines: true,
+                queryParams: {name: name, isResize: isResize, dname:dname},
+                columns: [[
+                    {title: '配方名称', field: 'fname', width: "150"}
+                ]],
+                onClickRow: function (row) {
+                    confirmSelect(row.fname, row.id);
+                },
+                onLoadSuccess: function (row, data) {
+                    var val = getDialogVar("val");
+                    if (val != '' && val != null && null != data) {
+                        for (var i = 0; i < data.length; i ++) {
+                            if (data[i]['id'] == val) {
+                                $("#tt").treegrid("select", val);
+                                return;
+                            }
+                        }
+                    }
+                },
+                pagination: true,
+            });
+        }
+
+        function search_item() {
+            var data = searchData();
+            $("#tt").treegrid("load", data);
+        }
+
+        function reset_common() {
+            $("#name").val("");
+            search_item();
+        }
+
+        function resizeGrid() {
+            initLoad("", "1", $("#name").val());
+        }
+    </script>
+</div>
+

@@ -427,9 +427,11 @@ public class FormulaService extends BaseService implements IFormulaService {
             String name = obj.get(i).get("d_name") + "," + obj.get(i).get("d_gauge") + "," + obj.get(i).get("d_molecular");
             String s = String.format("%02d", ++j);
             String key = "drugname" + s;
+            String flag = "flag" + s;
             String value = "drugquality" + s;
             result.put(key, name);
             result.put(value, obj.get(i).get("d_quality"));
+            result.put(flag, ":");
         }
         return result;
     }
