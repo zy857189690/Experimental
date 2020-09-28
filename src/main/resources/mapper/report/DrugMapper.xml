@@ -74,7 +74,7 @@
                 AND sd.d_name =#{dnames}
             </if>
             <if test="dgauges!=null and dgauges!=''">
-                AND sd.d_gauge =#{dgauge}
+                AND sd.d_gauge =#{dgauges}
             </if>
             <if test="dmoleculars!=null and dmoleculars!=''">
                 AND sd.d_molecular =#{dmoleculars}
