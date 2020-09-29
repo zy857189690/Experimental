@@ -74,7 +74,7 @@
                     },
                     name: {
                         required: true,
-                        rangelength: [2, 20]
+                        rangelength: [1, 40]
                     }
                 },
                 messages: {
@@ -84,7 +84,7 @@
                     },
                     name: {
                         required: validatew,
-                        rangelength: "<span style='color: red; margin-left: 3px;'>*长度为2-20个字符</span>"
+                        rangelength: "<span style='color: red; margin-left: 3px;'>*长度为1-40个字符</span>"
                     }
                 },
                 showErrors: function (errorMap, errorList) {
@@ -230,7 +230,7 @@
                 </td>
                 <td class="td_input">
                     <input type='text' name='hno23' autocomplete="off" id='hno23' value="pbs"
-                           style="height: 26px;width: 50px" readonly/>
+                           style="height: 26px;width: 50px" />
                 </td>
                 <td class="td_input">
                     <input type='text' name='hno24' autocomplete="off" id='hno24' value="pbs"

@@ -96,23 +96,31 @@
 
                 },
                 rules : {
-                    code : {
+                    reportCode : {
                         required: true,
                         rangelength:[1, 40]
                     },
-                    name: {
+                    reportUserName: {
                         required: true,
-                        rangelength:[2, 20]
+                        rangelength:[1, 40]
+                    },
+                    reportTime: {
+                        required: true,
+                        rangelength:[1, 40]
                     }
                 },
                 messages : {
-                    code: {
+                    reportCode: {
                         required: validatew,
                         rangelength: "<span style='color: red; margin-left: 3px;'>*长度为1-40个字符</span>"
                     },
-                    name: {
+                    reportUserName: {
                         required: validatew,
-                        rangelength: "<span style='color: red; margin-left: 3px;'>*长度为2-20个字符</span>"
+                        rangelength: "<span style='color: red; margin-left: 3px;'>*长度为1-40个字符</span>"
+                    },
+                    reportTime: {
+                        required: validatew,
+                        rangelength: "<span style='color: red; margin-left: 3px;'>*长度为1-40个字符</span>"
                     }
                 },
                 showErrors: function(errorMap, errorList) {
@@ -224,7 +232,7 @@
                 <td class="td_label"><label>理论配方:</label></td>
                 <td class="td_input">
                     <input type='text' name='theoreticalFormula' autocomplete="off" id='theoreticalFormula' value="${(experimentalStage.theoreticalFormula)!}"  style="height: 26px;width: 800px"/>
-                    <span name="requireTag" class="requrieTag AbleStevenSpan">*</span>
+                    <#--<span name="requireTag" class="requrieTag AbleStevenSpan">*</span>-->
                 </td>
             </tr>
 
@@ -232,14 +240,14 @@
                 <td class="td_label"><label>实际配方:</label></td>
                 <td class="td_input">
                     <input type='text' name='actualFormula' autocomplete="off" id='actualFormula' value="${(experimentalStage.actualFormula)!}"  style="height: 26px;width: 800px"/>
-                    <span name="requireTag" class="requrieTag AbleStevenSpan">*</span>
+                    <#--<span name="requireTag" class="requrieTag AbleStevenSpan">*</span>-->
                 </td>
             </tr>
             <tr>
                 <td class="td_label"><label>报告内容:</label></td>
                 <td class="td_input">
                     <textarea name="reportContent" id="reportContent"  clos="1800" rows="10" style="width: 800px;height: 150px" >${(experimentalStage.reportContent)!}</textarea>
-                    <span name="requireTag" class="requrieTag AbleStevenSpan">*</span>
+                    <#--<span name="requireTag" class="requrieTag AbleStevenSpan">*</span>-->
                 </td>
             </tr>
             <tr>

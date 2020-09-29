@@ -103,6 +103,18 @@
                     experimentalName: {
                         required: true,
                         rangelength:[1, 40]
+                    },
+                    experimenter: {
+                        required: true,
+                        rangelength:[1, 40]
+                    },
+                    pid: {
+                        required: true,
+                        rangelength:[1, 40]
+                    },
+                    formulaName: {
+                        required: true,
+                        rangelength:[1, 40]
                     }
                 },
                 messages : {
@@ -111,6 +123,18 @@
                         rangelength: "<span style='color: red; margin-left: 3px;'>*长度为1-40个字符</span>"
                     },
                     experimentalName: {
+                        required: validatew,
+                        rangelength: "<span style='color: red; margin-left: 3px;'>*长度为1-40个字符</span>"
+                    },
+                    experimenter: {
+                        required: validatew,
+                        rangelength: "<span style='color: red; margin-left: 3px;'>*长度为1-40个字符</span>"
+                    },
+                    pid: {
+                        required: validatew,
+                        rangelength: "<span style='color: red; margin-left: 3px;'>*长度为1-40个字符</span>"
+                    },
+                    formulaName: {
                         required: validatew,
                         rangelength: "<span style='color: red; margin-left: 3px;'>*长度为1-40个字符</span>"
                     }
@@ -241,7 +265,7 @@
                 <td class="td_label"><label>实验方案:</label></td>
                 <td class="td_input">
                     <textarea name="experimentalScheme" id="experimentalScheme"  clos="1800" rows="10" style="width: 800px;height: 100px" >${(experimentalProcess.experimentalScheme)!}</textarea>
-                    <span name="requireTag" class="requrieTag AbleStevenSpan">*</span>
+                    <#--<span name="requireTag" class="requrieTag AbleStevenSpan">*</span>-->
                 </td>
             </tr>
 
@@ -249,21 +273,21 @@
                 <td class="td_label"><label>实验过程:</label></td>
                 <td class="td_input">
                     <textarea name="procedures" id="procedures"  clos="1800" rows="10" style="width: 800px;height: 100px" >${(experimentalProcess.procedures)!}</textarea>
-                    <span name="requireTag" class="requrieTag AbleStevenSpan">*</span>
+                    <#--<span name="requireTag" class="requrieTag AbleStevenSpan">*</span>-->
                 </td>
             </tr>
             <tr>
                 <td class="td_label"><label>实验观察/结果:</label></td>
                 <td class="td_input">
                     <textarea name="result" id="result"  clos="1800" rows="10" style="width: 800px;height: 100px" >${(experimentalProcess.result)!}</textarea>
-                    <span name="requireTag" class="requrieTag AbleStevenSpan">*</span>
+                    <#--<span name="requireTag" class="requrieTag AbleStevenSpan">*</span>-->
                 </td>
             </tr>
             <tr>
                 <td class="td_label"><label>结果分析(及下一步实验计划):</label></td>
                 <td class="td_input">
                     <textarea name="analysis" id="analysis"  clos="1800" rows="10" style="width: 800px;height: 100px" >${(experimentalProcess.analysis)!}</textarea>
-                    <span name="requireTag" class="requrieTag AbleStevenSpan">*</span>
+                    <#--<span name="requireTag" class="requrieTag AbleStevenSpan">*</span>-->
                 </td>
             </tr>
         </table>

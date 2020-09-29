@@ -16,8 +16,8 @@
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
             <a href="#" onclick="view_item()" class="easyui-linkbutton"
                data-options="iconCls:'icon-view'" menu="0">查看</a>
-        <a href="#" onclick="edit_item()" class="easyui-linkbutton"
-           data-options="iconCls:'icon-edit'" >编辑</a>
+        <#--<a href="#" onclick="edit_item()" class="easyui-linkbutton"
+           data-options="iconCls:'icon-edit'" >编辑</a>-->
         <a href="#" onclick="import_item()" class="easyui-linkbutton"
            data-options="iconCls:'icon-remove'" >导入数据</a>
     </div>
@@ -48,7 +48,7 @@
 </body>
 <script>
     $('#table').datagrid({
-        url: 'datagrid',
+        url: '/experimentManagement/report/rawData/datagrid',
         sortName: "createTime",
         sortOrder: "desc",
         singleSelect: true,

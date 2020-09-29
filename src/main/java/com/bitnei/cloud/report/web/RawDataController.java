@@ -1,19 +1,21 @@
 package com.bitnei.cloud.report.web;
 
 import com.bitnei.cloud.common.JsonModel;
-import com.bitnei.cloud.report.domain.Demo1;
 import com.bitnei.cloud.report.domain.RawData;
 import com.bitnei.cloud.report.service.IRawDataService;
 import com.bitnei.commons.datatables.PagerModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.math.BigDecimal;
 
+// 原始数据
 @Controller
 @RequestMapping(value = "/report/rawData")
 public class RawDataController {

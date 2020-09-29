@@ -7,13 +7,6 @@
     <script type="text/javascript">
         function save() {
             var flag=$("#ff").form('validate');
-            var imgs=[];
-            $("input[name='reportImg']").each(function(j,item){
-                imgs.push(item.value)
-                //imgs.append(item.value)
-                console.log("方法二："+item.id+':'+item.value);
-            });
-            console.log(imgs)
             if(flag){
                 $.ajax({
                     url:'/experimentManagement/report/drug/save',
