@@ -45,7 +45,9 @@ public class RawDataServiceImpl extends BaseService implements IRawDataService {
     }
 
     @Override
-    public JsonModel importRawDatas(String name, String code, MultipartFile file) throws IOException {
+    public JsonModel importRawDatas(String name, String code,String secondaryCoefficient,
+                                    String oneCoefficient,
+                                    String parameter, MultipartFile file) throws IOException {
         JsonModel jm = new JsonModel();
         if (StringUtil.isEmpty(code)) {
             jm.setMsg("点样编号为空，请确认后导入操作！！");
@@ -53,15 +55,17 @@ public class RawDataServiceImpl extends BaseService implements IRawDataService {
             return jm;
         }else {
             Map<String,String> parm=new HashMap<>(16);
-            parm.put("byCode",code);
+            parm.put("code",code);
             List<Object> pagerModel = demo1Service.findBySqlId("pagerModel", parm);
             if (null==pagerModel||pagerModel.size()==0) {
                 jm.setMsg("点样编号不存在，请确认实验阶段后导入操作！！");
                 jm.setFlag(false);
                 return jm;
             }
+            parm.clear();
+            parm.put("byCode",code);
             List<Object> pagerModel1 = findBySqlId("pagerModel", parm);
-            if (null!=pagerModel1||pagerModel1.size()!=0) {
+            if (null!=pagerModel1&&pagerModel1.size()>0) {
                 jm.setMsg("点样编号重复存在，请确认后导入操作！！");
                 jm.setFlag(false);
                 return jm;
@@ -71,7 +75,7 @@ public class RawDataServiceImpl extends BaseService implements IRawDataService {
         String fileName = file.getOriginalFilename();
 
         if (file == null) {
-            return JsonModel.error("文件获取失败！");
+            return JsonModel.error("文件不能为空");
         }
         Long fileSize = file.getSize();
         if (fileSize > 10240 * 1024) {
@@ -118,6 +122,9 @@ public class RawDataServiceImpl extends BaseService implements IRawDataService {
         if (map.size() > 0) {
             map.put("id", UtilHelper.getUUID());
             map.put("code", code);
+            map.put("secondaryCoefficient", secondaryCoefficient);
+            map.put("oneCoefficient", oneCoefficient);
+            map.put("parameter", parameter);
             map.put("createTime", DateUtil.getNow());
             rawDataMapper.insert(map);
         } else {

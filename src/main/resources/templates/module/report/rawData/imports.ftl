@@ -47,6 +47,7 @@
         $(function () {
             //1、获取ID，判断操作为新增还是编辑，其中-1为新增，其他的编辑
             var id = $("#id").val();
+
             $("#ff").validate({
                 onfocusout:function(element) {
                     var boo = $(element).valid();
@@ -113,6 +114,20 @@
             var fenceId = $("#id").val();
             var name = $("#name").val();
             var code = $("#code").val();
+
+            var secondaryCoefficient = $("#secondaryCoefficient").val();
+            var oneCoefficient = $("#oneCoefficient").val();
+            var parameter = $("#parameter").val();
+            var secondaryCoefficientAgain = $("#secondaryCoefficientAgain").val();
+            var oneCoefficientAgain = $("#oneCoefficientAgain").val();
+            var parameterAgain = $("#parameterAgain").val();
+
+            if ((secondaryCoefficient==secondaryCoefficientAgain)&&(oneCoefficient==oneCoefficientAgain)&&(parameter==parameterAgain)){
+            }else {
+                $.messager.alert('提示', '两次输入公式不一致，请重新输入！');
+                return;
+            }
+
             var formData = new FormData($("#form_search")[0]);//新建一个类似表单的对象
             var file = document.getElementById("file").files[0];//获取文件对象
 
@@ -120,6 +135,9 @@
                 formData.append("id", fenceId);
                 formData.append("name",name);
                 formData.append("code",code);
+                formData.append("secondaryCoefficient",secondaryCoefficient);
+                formData.append("oneCoefficient",oneCoefficient);
+                formData.append("parameter",parameter);
                 $.ajax({
                     url: "importRawDatas",
                     type: 'POST',
@@ -136,7 +154,7 @@
                             $("#toolbar").show();
                             $('#table').datagrid('loadData', loadData);
                         } else {
-                            $.messager.alert('提示', data.message);
+                            $.messager.alert('提示', data.msg);
                         }
                     },
                     error: function (data) {
@@ -154,9 +172,11 @@
             <tr>
                 <td class="td_label"><label>点样编号:</label></td>
                 <td class="td_input">
-                    <input type='text' name='code' autocomplete="off" id='code' value="${(demo1.code)!}" class="input-fat" style="height: 26px;width: 178px"/>
+                    <input type='text' name='code' autocomplete="off" id='code' value="${(demo1.code)!}" placeholder="需要和位置图的点样编号对应" class="input-fat" style="height: 26px;width: 178px"/>
                     <span name="requireTag" class="requrieTag AbleStevenSpan"style="top:12px;left: 200px;">*</span>
                 </td>
+            </tr>
+            <tr>
                 <td class="td_label"><label>点样人:</label></td>
                 <td class="td_input">
                     <input type='text' name='name' autocomplete="off" id='name' value="${(demo1.name)!}" class="input-fat" style="height: 26px;width: 178px"/>
@@ -169,6 +189,29 @@
                 </td>
                 <td class="td_input" id="fileinput">
                     <input type="file" id="file" style="height: 30px; width: 168px;" name="query.myfile" />
+                </td>
+            </tr>
+            <tr>
+                <td class="td_label"><label>请输入二次拟合公式:</label></td>
+                <td class="td_input">
+                    <input type='text' name='secondaryCoefficient' autocomplete="off" id='secondaryCoefficient' value="${(demo1.secondaryCoefficient)!}" placeholder="系数"  style="height: 20px;width: 40px"/>
+                    <label>x²+</label>
+                    <input type='text' name='oneCoefficient' autocomplete="off" id='oneCoefficient' value="${(demo1.oneCoefficient)!}" placeholder="系数"  style="height: 20px;width: 40px"/>
+                    <label>x+</label>
+                    <input type='text' name='parameter' autocomplete="off" id='parameter' value="${(demo1.parameter)!}" placeholder="系数" style="height: 20px;width: 40px"/>
+
+                    <span name="requireTag" class="requrieTag AbleStevenSpan"style="top:12px;left: 205px;">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="td_label"><label>请输入精确二次拟合公式:</label></td>
+                <td class="td_input">
+                    <input type='text' name='secondaryCoefficientAgain' autocomplete="off" id='secondaryCoefficientAgain' value="${(demo1.secondaryCoefficientAgain)!}" placeholder="系数"  style="height: 20px;width: 40px"/>
+                    <label>x²+</label>
+                    <input type='text' name='oneCoefficientAgain' autocomplete="off" id='oneCoefficientAgain' value="${(demo1.oneCoefficientAgain)!}" placeholder="系数" style="height: 20px;width: 40px"/>
+                    <label>x+</label>
+                    <input type='text' name='parameterAgain' autocomplete="off" id='parameterAgain' value="${(demo1.parameterAgain)!}" placeholder="系数"  style="height: 20px;width: 40px"/>
+                    <span name="requireTag" class="requrieTag AbleStevenSpan"style="top:12px;left: 205px;">*</span>
                 </td>
             </tr>
         </table>

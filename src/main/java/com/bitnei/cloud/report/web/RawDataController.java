@@ -60,12 +60,15 @@ public class RawDataController {
      */
     @RequestMapping("/importRawDatas")
     @ResponseBody
-    public JsonModel importRawDatas(HttpServletRequest request, String name, String code, MultipartFile file) throws Exception {
-        return rawDataService.importRawDatas(name,code,file);
+    public JsonModel importRawDatas(HttpServletRequest request, String name, String code,    String secondaryCoefficient,
+             String oneCoefficient,
+             String parameter, MultipartFile file) throws Exception {
+        return rawDataService.importRawDatas(name,code,secondaryCoefficient,oneCoefficient,parameter,file);
     }
 
     @GetMapping(value = "/view")
     public String view(Model model, String id) {
+        // TODO 查询功能需要整合公式处理
         RawData rawData = rawDataService.findById(id);
         model.addAttribute("rawData", rawData);
         return BASE + "view";

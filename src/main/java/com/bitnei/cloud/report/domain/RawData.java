@@ -2,8 +2,6 @@ package com.bitnei.cloud.report.domain;
 
 import lombok.Data;
 
-import java.sql.Timestamp;
-
 @Data
 public class RawData {
 
@@ -207,4 +205,11 @@ public class RawData {
     /** 孔位1 **/
     private Double vno96;
 
+    private String secondaryCoefficient;
+    private String oneCoefficient;
+    private String parameter;
+
+    private String secondaryCoefficientAgain;
+    private String oneCoefficientAgain;
+    private String parameterAgain;
 }

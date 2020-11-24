@@ -10,5 +10,7 @@ import java.io.IOException;
 public interface IRawDataService  extends IBaseService {
     PagerModel pageQuery();
 
-    JsonModel importRawDatas(String name, String code, MultipartFile file) throws IOException;
+    JsonModel importRawDatas(String name, String code, String secondaryCoefficient,
+                             String oneCoefficient,
+                             String parameter,MultipartFile file) throws IOException;
 }

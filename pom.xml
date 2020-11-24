@@ -47,18 +47,24 @@
 			<type>pom</type>
 		</dependency>
 
-
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.4</version>
+			<!-- 必须加jdk的版本号 -->
+			<classifier>jdk15</classifier>
+		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.16.10</version>
 		</dependency>
-	<!--	<dependency>
-			<groupId>com.bitnei.cloud</groupId>
-			<artifactId>spring-boot-shiro</artifactId>
-			<version>1.0.0-24.RELEASE</version>
-			<type>pom</type>
-		</dependency>-->
+		<!--	<dependency>
+                <groupId>com.bitnei.cloud</groupId>
+                <artifactId>spring-boot-shiro</artifactId>
+                <version>1.0.0-24.RELEASE</version>
+                <type>pom</type>
+            </dependency>-->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
@@ -79,26 +85,26 @@
 			<artifactId>smc-monitor</artifactId>
 			<version>1.0.0-3.RELEASE</version>
 		</dependency>
-	<!--	<dependency>
-			<groupId>com.bitnei.cloud</groupId>
-			<artifactId>cloud-utils</artifactId>
-			<version>1.0.0-21-RELEASE</version>
-		</dependency>-->
+		<!--	<dependency>
+                <groupId>com.bitnei.cloud</groupId>
+                <artifactId>cloud-utils</artifactId>
+                <version>1.0.0-21-RELEASE</version>
+            </dependency>-->
 		<dependency>
 			<groupId>org.jdom</groupId>
 			<artifactId>jdom2</artifactId>
 			<version>2.0.6</version>
 		</dependency>
-	<!--	<dependency>
-			<groupId>com.bitnei.cloud</groupId>
-			<artifactId>evsmc-module</artifactId>
-			&lt;!&ndash;<version>1.0.1-build20180416-01</version>&ndash;&gt;
-			&lt;!&ndash;<version>1.0.2-20180607-01</version>&ndash;&gt;
-			&lt;!&ndash;<version>1.0.3-201806010-01</version>&ndash;&gt;
-			&lt;!&ndash;<version>1.0.6-20180704-01</version>&ndash;&gt;
-			&lt;!&ndash;<version>1.0.6-20180713-01</version>&ndash;&gt;
-			<version>1.0.6-20180720-01</version>
-		</dependency>-->
+		<!--	<dependency>
+                <groupId>com.bitnei.cloud</groupId>
+                <artifactId>evsmc-module</artifactId>
+                &lt;!&ndash;<version>1.0.1-build20180416-01</version>&ndash;&gt;
+                &lt;!&ndash;<version>1.0.2-20180607-01</version>&ndash;&gt;
+                &lt;!&ndash;<version>1.0.3-201806010-01</version>&ndash;&gt;
+                &lt;!&ndash;<version>1.0.6-20180704-01</version>&ndash;&gt;
+                &lt;!&ndash;<version>1.0.6-20180713-01</version>&ndash;&gt;
+                <version>1.0.6-20180720-01</version>
+            </dependency>-->
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
