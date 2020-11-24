@@ -122,11 +122,7 @@
             var oneCoefficientAgain = $("#oneCoefficientAgain").val();
             var parameterAgain = $("#parameterAgain").val();
 
-            if ((secondaryCoefficient==secondaryCoefficientAgain)&&(oneCoefficient==oneCoefficientAgain)&&(parameter==parameterAgain)){
-            }else {
-                $.messager.alert('提示', '两次输入公式不一致，请重新输入！');
-                return;
-            }
+
 
             var formData = new FormData($("#form_search")[0]);//新建一个类似表单的对象
             var file = document.getElementById("file").files[0];//获取文件对象
@@ -138,6 +134,9 @@
                 formData.append("secondaryCoefficient",secondaryCoefficient);
                 formData.append("oneCoefficient",oneCoefficient);
                 formData.append("parameter",parameter);
+                formData.append("secondaryCoefficientAgain",secondaryCoefficientAgain);
+                formData.append("oneCoefficientAgain",oneCoefficientAgain);
+                formData.append("parameterAgain",parameterAgain);
                 $.ajax({
                     url: "importRawDatas",
                     type: 'POST',

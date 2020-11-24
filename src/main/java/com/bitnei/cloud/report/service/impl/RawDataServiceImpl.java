@@ -45,9 +45,14 @@ public class RawDataServiceImpl extends BaseService implements IRawDataService {
     }
 
     @Override
-    public JsonModel importRawDatas(String name, String code,String secondaryCoefficient,
+    public JsonModel importRawDatas(String name, String code,
+                                    String secondaryCoefficient,
                                     String oneCoefficient,
-                                    String parameter, MultipartFile file) throws IOException {
+                                    String parameter,
+                                    String secondaryCoefficientAgain,
+                                    String oneCoefficientAgain,
+                                    String parameterAgain,
+                                    MultipartFile file) throws IOException {
         JsonModel jm = new JsonModel();
         if (StringUtil.isEmpty(code)) {
             jm.setMsg("点样编号为空，请确认后导入操作！！");
@@ -125,6 +130,12 @@ public class RawDataServiceImpl extends BaseService implements IRawDataService {
             map.put("secondaryCoefficient", secondaryCoefficient);
             map.put("oneCoefficient", oneCoefficient);
             map.put("parameter", parameter);
+
+            map.put("secondaryCoefficientAgain", secondaryCoefficientAgain);
+            map.put("oneCoefficientAgain", oneCoefficientAgain);
+            map.put("parameterAgain", parameterAgain);
+
+
             map.put("createTime", DateUtil.getNow());
             rawDataMapper.insert(map);
         } else {

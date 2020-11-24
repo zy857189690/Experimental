@@ -12,5 +12,9 @@ public interface IRawDataService  extends IBaseService {
 
     JsonModel importRawDatas(String name, String code, String secondaryCoefficient,
                              String oneCoefficient,
-                             String parameter,MultipartFile file) throws IOException;
+                             String parameter,
+                             String secondaryCoefficientAgain,
+                             String oneCoefficientAgain,
+                             String parameterAgain,
+                             MultipartFile file) throws IOException;
 }

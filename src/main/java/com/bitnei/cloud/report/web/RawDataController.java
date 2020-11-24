@@ -24,6 +24,7 @@ public class RawDataController {
 
     @Autowired
     private IRawDataService rawDataService;
+
     /**
      * 管理页面
      *
@@ -60,10 +61,17 @@ public class RawDataController {
      */
     @RequestMapping("/importRawDatas")
     @ResponseBody
-    public JsonModel importRawDatas(HttpServletRequest request, String name, String code,    String secondaryCoefficient,
-             String oneCoefficient,
-             String parameter, MultipartFile file) throws Exception {
-        return rawDataService.importRawDatas(name,code,secondaryCoefficient,oneCoefficient,parameter,file);
+    public JsonModel importRawDatas(HttpServletRequest request, String name, String code,
+                                    String secondaryCoefficient,
+                                    String oneCoefficient,
+                                    String parameter,
+                                    String secondaryCoefficientAgain,
+                                    String oneCoefficientAgain,
+                                    String parameterAgain,
+                                    MultipartFile file) throws Exception {
+        return rawDataService.importRawDatas(name, code,
+                secondaryCoefficient, oneCoefficient, parameter,
+                secondaryCoefficientAgain,oneCoefficientAgain,parameterAgain, file);
     }
 
     @GetMapping(value = "/view")
