@@ -147,5 +147,37 @@ public class RawDataServiceImpl extends BaseService implements IRawDataService {
         return jm;
     }
 
+    @Override
+    public List<Map<String,Object>> get(String id) {
+        Map<String,String> pram=new HashMap<>();
+        pram.put("id",id);
+        List<Map<String,Object>> result = findBySqlId("findById", pram);
+        Map<String,Object> niheMap=new HashMap<>(16);
+        if (null!=result&&result.size()>0){
+            Map<String, Object> map = result.get(0);
+            double secondaryCoefficient = Double.parseDouble(map.get("secondary_coefficient").toString());
+            double oneCoefficient = Double.parseDouble(map.get("one_coefficient").toString());
+            double parameter = Double.parseDouble(map.get("parameter").toString());
+            double secondaryCoefficientAgain = Double.parseDouble(map.get("secondary_coefficient_again").toString());
+            double oneCoefficientAgain = Double.parseDouble(map.get("one_coefficient_again").toString());
+            double parameterAgain = Double.parseDouble(map.get("parameter_again").toString());
+
+            // 96 个原始数据
+            for (int i=1;i<=96;i++){
+                String s = String.format("%02d", i);
+                String key = "v_no" + s;
+                Double v = (Double)map.get(key);
+                //double v = Double.parseDouble(map.get(key));
+                double v1 = secondaryCoefficient * v * v + oneCoefficient * v + parameter;
+                if (v1<=40){
+                    v1 = secondaryCoefficientAgain * v * v + oneCoefficientAgain * v + parameterAgain;
+                }
+                niheMap.put(key+"nh",v1+"");
+            }
+        }
+        result.add(niheMap);
+        return result;
+    }
+
 
 }

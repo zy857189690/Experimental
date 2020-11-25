@@ -16,11 +16,9 @@
     </sql>
 
     <!-- 根据id查询 -->
-    <select id="findById" resultType="com.bitnei.cloud.report.domain.RawData" parameterType="java.util.HashMap">
+    <select id="findById" resultType="java.util.HashMap" parameterType="java.util.HashMap">
         select
-        <include refid="moreColumns"/>,
-        h.name as sPeople,
-        h.create_time as sTime
+      *
         from
         raw_data rd
         LEFT JOIN hole h on rd.code=h.code

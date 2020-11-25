@@ -1,7 +1,6 @@
 package com.bitnei.cloud.report.web;
 
 import com.bitnei.cloud.common.JsonModel;
-import com.bitnei.cloud.report.domain.RawData;
 import com.bitnei.cloud.report.service.IRawDataService;
 import com.bitnei.commons.datatables.PagerModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
 
 // 原始数据
 @Controller
@@ -76,10 +77,21 @@ public class RawDataController {
 
     @GetMapping(value = "/view")
     public String view(Model model, String id) {
-        // TODO 查询功能需要整合公式处理
-        RawData rawData = rawDataService.findById(id);
-        model.addAttribute("rawData", rawData);
+        List<Map<String,Object>> rawData = rawDataService.get(id);
+        if (rawData.size()>0){
+            model.addAttribute("rawData", rawData.get(0));
+            //model.addAttribute("rawDataNh", rawData.get(1));
+        }
         return BASE + "view";
     }
 
+    @GetMapping(value = "/viewNh")
+    public String viewNh(Model model,String id) {
+       List<Map<String,Object>> rawData = rawDataService.get(id);
+        if (rawData.size()>0){
+            model.addAttribute("rawData", rawData.get(0));
+            model.addAttribute("rawDataNh", rawData.get(1));
+        }
+        return BASE + "viewNh";
+    }
 }

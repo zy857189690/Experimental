@@ -6,6 +6,8 @@ import com.bitnei.commons.datatables.PagerModel;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 public interface IRawDataService  extends IBaseService {
     PagerModel pageQuery();
@@ -17,4 +19,6 @@ public interface IRawDataService  extends IBaseService {
                              String oneCoefficientAgain,
                              String parameterAgain,
                              MultipartFile file) throws IOException;
+
+    List<Map<String,Object>> get(String id);
 }
