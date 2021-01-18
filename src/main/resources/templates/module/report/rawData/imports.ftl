@@ -112,7 +112,7 @@
         //导入查询弹窗查询事件
         function importSearchButton() {
             var fenceId = $("#id").val();
-            var name = $("#name").val();
+        /*    var name = $("#name").val();
             var code = $("#code").val();
 
             var secondaryCoefficient = $("#secondaryCoefficient").val();
@@ -120,7 +120,7 @@
             var parameter = $("#parameter").val();
             var secondaryCoefficientAgain = $("#secondaryCoefficientAgain").val();
             var oneCoefficientAgain = $("#oneCoefficientAgain").val();
-            var parameterAgain = $("#parameterAgain").val();
+            var parameterAgain = $("#parameterAgain").val();*/
 
 
 
@@ -128,7 +128,7 @@
             var file = document.getElementById("file").files[0];//获取文件对象
 
                 formData.append("file", file);//在表单对象后面插入文件对象,第二个参数是文件对象
-                formData.append("id", fenceId);
+/*                formData.append("id", fenceId);
                 formData.append("name",name);
                 formData.append("code",code);
                 formData.append("secondaryCoefficient",secondaryCoefficient);
@@ -136,7 +136,7 @@
                 formData.append("parameter",parameter);
                 formData.append("secondaryCoefficientAgain",secondaryCoefficientAgain);
                 formData.append("oneCoefficientAgain",oneCoefficientAgain);
-                formData.append("parameterAgain",parameterAgain);
+                formData.append("parameterAgain",parameterAgain);*/
                 $.ajax({
                     url: "importRawDatas",
                     type: 'POST',
@@ -168,7 +168,7 @@
     <form id="ff" method="post" enctype="" novalidate >
         <input type="hidden" name="id" id="id" value="${(demo1.id)!-1}">
         <table class="table_edit" border="1">
-            <tr>
+          <#--  <tr>
                 <td class="td_label"><label>点样编号:</label></td>
                 <td class="td_input">
                     <input type='text' name='code' autocomplete="off" id='code' value="${(demo1.code)!}" placeholder="需要和位置图的点样编号对应" class="input-fat" style="height: 26px;width: 178px"/>
@@ -181,7 +181,7 @@
                     <input type='text' name='name' autocomplete="off" id='name' value="${(demo1.name)!}" class="input-fat" style="height: 26px;width: 178px"/>
                     <span name="requireTag" class="requrieTag AbleStevenSpan"style="top:12px;left: 200px;">*</span>
                 </td>
-            </tr>
+            </tr>-->
             <tr>
                 <td class="td_label"  id="filetitle">
                     <label>文件上传:</label>
@@ -190,7 +190,7 @@
                     <input type="file" id="file" style="height: 30px; width: 168px;" name="query.myfile" />
                 </td>
             </tr>
-            <tr>
+           <#-- <tr>
                 <td class="td_label"><label>请输入二次拟合公式:</label></td>
                 <td class="td_input">
                     <input type='text' name='secondaryCoefficient' autocomplete="off" id='secondaryCoefficient' value="${(demo1.secondaryCoefficient)!}" placeholder="系数"  style="height: 20px;width: 40px"/>
@@ -212,7 +212,7 @@
                     <input type='text' name='parameterAgain' autocomplete="off" id='parameterAgain' value="${(demo1.parameterAgain)!}" placeholder="系数"  style="height: 20px;width: 40px"/>
                     <span name="requireTag" class="requrieTag AbleStevenSpan"style="top:12px;left: 205px;">*</span>
                 </td>
-            </tr>
+            </tr>-->
         </table>
 
         <div class="fbox">

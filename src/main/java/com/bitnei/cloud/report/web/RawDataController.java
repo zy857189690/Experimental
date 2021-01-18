@@ -62,17 +62,9 @@ public class RawDataController {
      */
     @RequestMapping("/importRawDatas")
     @ResponseBody
-    public JsonModel importRawDatas(HttpServletRequest request, String name, String code,
-                                    String secondaryCoefficient,
-                                    String oneCoefficient,
-                                    String parameter,
-                                    String secondaryCoefficientAgain,
-                                    String oneCoefficientAgain,
-                                    String parameterAgain,
+    public JsonModel importRawDatas(HttpServletRequest request,
                                     MultipartFile file) throws Exception {
-        return rawDataService.importRawDatas(name, code,
-                secondaryCoefficient, oneCoefficient, parameter,
-                secondaryCoefficientAgain,oneCoefficientAgain,parameterAgain, file);
+        return rawDataService.importRawDatas(file);
     }
 
     @GetMapping(value = "/view")
@@ -80,7 +72,7 @@ public class RawDataController {
         List<Map<String,Object>> rawData = rawDataService.get(id);
         if (rawData.size()>0){
             model.addAttribute("rawData", rawData.get(0));
-            //model.addAttribute("rawDataNh", rawData.get(1));
+            model.addAttribute("rawDataNh", rawData.get(1));
         }
         return BASE + "view";
     }

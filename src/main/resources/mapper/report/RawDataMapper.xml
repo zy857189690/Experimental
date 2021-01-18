@@ -9,22 +9,20 @@
 
     <!-- 通用查询结果列 -->
     <sql id="baseColumns">
-    rd.id  ,rd.code ,rd.v_no01 ,rd.v_no02 ,rd.v_no03 ,rd.v_no04 ,rd.v_no05 ,rd.v_no06 ,rd.v_no07 ,rd.v_no08 ,rd.v_no09 ,rd.v_no10 ,rd.v_no11 ,rd.v_no12 ,rd.v_no13 ,rd.v_no14 ,rd.v_no15 ,rd.v_no16 ,rd.v_no17 ,rd.v_no18 ,rd.v_no19 ,rd.v_no20 ,rd.v_no21 ,rd.v_no22 ,rd.v_no23 ,rd.v_no24 ,rd.v_no25 ,rd.v_no26 ,rd.v_no27 ,rd.v_no28 ,rd.v_no29 ,rd.v_no30 ,rd.v_no31 ,rd.v_no32 ,rd.v_no33 ,rd.v_no34 ,rd.v_no35 ,rd.v_no36 ,rd.v_no37 ,rd.v_no38 ,rd.v_no39 ,rd.v_no40 ,rd.v_no41 ,rd.v_no42 ,rd.v_no43 ,rd.v_no44 ,rd.v_no45 ,rd.v_no46 ,rd.v_no47 ,rd.v_no48 ,rd.v_no49 ,rd.v_no50 ,rd.v_no51 ,rd.v_no52 ,rd.v_no53 ,rd.v_no54 ,rd.v_no55 ,rd.v_no56 ,rd.v_no57 ,rd.v_no58 ,rd.v_no59 ,rd.v_no60 ,rd.v_no61 ,rd.v_no62 ,rd.v_no63 ,rd.v_no64 ,rd.v_no65 ,rd.v_no66 ,rd.v_no67 ,rd.v_no68 ,rd.v_no69 ,rd.v_no70 ,rd.v_no71 ,rd.v_no72 ,rd.v_no73 ,rd.v_no74 ,rd.v_no75 ,rd.v_no76 ,rd.v_no77 ,rd.v_no78 ,rd.v_no79 ,rd.v_no80 ,rd.v_no81 ,rd.v_no82 ,rd.v_no83 ,rd.v_no84 ,rd.v_no85 ,rd.v_no86 ,rd.v_no87 ,rd.v_no88 ,rd.v_no89 ,rd.v_no90 ,rd.v_no91 ,rd.v_no92 ,rd.v_no93 ,rd.v_no94 ,rd.v_no95 ,rd.v_no96,rd.secondary_coefficient,rd.one_coefficient,rd.parameter,rd.secondary_coefficient_again,rd.one_coefficient_again,rd.parameter_again
+ rd.code,    rd.v_no01 ,rd.v_no02 ,rd.v_no03 ,rd.v_no04 ,rd.v_no05 ,rd.v_no06 ,rd.v_no07 ,rd.v_no08 ,rd.v_no09 ,rd.v_no10 ,rd.v_no11 ,rd.v_no12 ,rd.v_no13 ,rd.v_no14 ,rd.v_no15 ,rd.v_no16 ,rd.v_no17 ,rd.v_no18 ,rd.v_no19 ,rd.v_no20 ,rd.v_no21 ,rd.v_no22 ,rd.v_no23 ,rd.v_no24 ,rd.v_no25 ,rd.v_no26 ,rd.v_no27 ,rd.v_no28 ,rd.v_no29 ,rd.v_no30 ,rd.v_no31 ,rd.v_no32 ,rd.v_no33 ,rd.v_no34 ,rd.v_no35 ,rd.v_no36 ,rd.v_no37 ,rd.v_no38 ,rd.v_no39 ,rd.v_no40 ,rd.v_no41 ,rd.v_no42 ,rd.v_no43 ,rd.v_no44 ,rd.v_no45 ,rd.v_no46 ,rd.v_no47 ,rd.v_no48 ,rd.v_no49 ,rd.v_no50 ,rd.v_no51 ,rd.v_no52 ,rd.v_no53 ,rd.v_no54 ,rd.v_no55 ,rd.v_no56 ,rd.v_no57 ,rd.v_no58 ,rd.v_no59 ,rd.v_no60 ,rd.v_no61 ,rd.v_no62 ,rd.v_no63 ,rd.v_no64 ,rd.v_no65 ,rd.v_no66 ,rd.v_no67 ,rd.v_no68 ,rd.v_no69 ,rd.v_no70 ,rd.v_no71 ,rd.v_no72 ,rd.v_no73 ,rd.v_no74 ,rd.v_no75 ,rd.v_no76 ,rd.v_no77 ,rd.v_no78 ,rd.v_no79 ,rd.v_no80 ,rd.v_no81 ,rd.v_no82 ,rd.v_no83 ,rd.v_no84 ,rd.v_no85 ,rd.v_no86 ,rd.v_no87 ,rd.v_no88 ,rd.v_no89 ,rd.v_no90 ,rd.v_no91 ,rd.v_no92 ,rd.v_no93 ,rd.v_no94 ,rd.v_no95 ,rd.v_no96
     </sql>
     <sql id="moreColumns">
-    rd.id  ,rd.code,rd.v_no01 ,rd.v_no02 ,rd.v_no03 ,rd.v_no04 ,rd.v_no05 ,rd.v_no06 ,rd.v_no07 ,rd.v_no08 ,rd.v_no09 ,rd.v_no10 ,rd.v_no11 ,rd.v_no12 ,rd.v_no13 ,rd.v_no14 ,rd.v_no15 ,rd.v_no16 ,rd.v_no17 ,rd.v_no18 ,rd.v_no19 ,rd.v_no20 ,rd.v_no21 ,rd.v_no22 ,rd.v_no23 ,rd.v_no24 ,rd.v_no25 ,rd.v_no26 ,rd.v_no27 ,rd.v_no28 ,rd.v_no29 ,rd.v_no30 ,rd.v_no31 ,rd.v_no32 ,rd.v_no33 ,rd.v_no34 ,rd.v_no35 ,rd.v_no36 ,rd.v_no37 ,rd.v_no38 ,rd.v_no39 ,rd.v_no40 ,rd.v_no41 ,rd.v_no42 ,rd.v_no43 ,rd.v_no44 ,rd.v_no45 ,rd.v_no46 ,rd.v_no47 ,rd.v_no48 ,rd.v_no49 ,rd.v_no50 ,rd.v_no51 ,rd.v_no52 ,rd.v_no53 ,rd.v_no54 ,rd.v_no55 ,rd.v_no56 ,rd.v_no57 ,rd.v_no58 ,rd.v_no59 ,rd.v_no60 ,rd.v_no61 ,rd.v_no62 ,rd.v_no63 ,rd.v_no64 ,rd.v_no65 ,rd.v_no66 ,rd.v_no67 ,rd.v_no68 ,rd.v_no69 ,rd.v_no70 ,rd.v_no71 ,rd.v_no72 ,rd.v_no73 ,rd.v_no74 ,rd.v_no75 ,rd.v_no76 ,rd.v_no77 ,rd.v_no78 ,rd.v_no79 ,rd.v_no80 ,rd.v_no81 ,rd.v_no82 ,rd.v_no83 ,rd.v_no84 ,rd.v_no85 ,rd.v_no86 ,rd.v_no87 ,rd.v_no88 ,rd.v_no89 ,rd.v_no90 ,rd.v_no91 ,rd.v_no92 ,rd.v_no93 ,rd.v_no94 ,rd.v_no95 ,rd.v_no96,rd.secondary_coefficient,rd.one_coefficient,rd.parameter,rd.secondary_coefficient_again,rd.one_coefficient_again,rd.parameter_again
+   rd.id  ,rd.code, rd.s_people,rd.s_time, rd.create_time,rd.v_no01 ,rd.v_no02 ,rd.v_no03 ,rd.v_no04 ,rd.v_no05 ,rd.v_no06 ,rd.v_no07 ,rd.v_no08 ,rd.v_no09 ,rd.v_no10 ,rd.v_no11 ,rd.v_no12 ,rd.v_no13 ,rd.v_no14 ,rd.v_no15 ,rd.v_no16 ,rd.v_no17 ,rd.v_no18 ,rd.v_no19 ,rd.v_no20 ,rd.v_no21 ,rd.v_no22 ,rd.v_no23 ,rd.v_no24 ,rd.v_no25 ,rd.v_no26 ,rd.v_no27 ,rd.v_no28 ,rd.v_no29 ,rd.v_no30 ,rd.v_no31 ,rd.v_no32 ,rd.v_no33 ,rd.v_no34 ,rd.v_no35 ,rd.v_no36 ,rd.v_no37 ,rd.v_no38 ,rd.v_no39 ,rd.v_no40 ,rd.v_no41 ,rd.v_no42 ,rd.v_no43 ,rd.v_no44 ,rd.v_no45 ,rd.v_no46 ,rd.v_no47 ,rd.v_no48 ,rd.v_no49 ,rd.v_no50 ,rd.v_no51 ,rd.v_no52 ,rd.v_no53 ,rd.v_no54 ,rd.v_no55 ,rd.v_no56 ,rd.v_no57 ,rd.v_no58 ,rd.v_no59 ,rd.v_no60 ,rd.v_no61 ,rd.v_no62 ,rd.v_no63 ,rd.v_no64 ,rd.v_no65 ,rd.v_no66 ,rd.v_no67 ,rd.v_no68 ,rd.v_no69 ,rd.v_no70 ,rd.v_no71 ,rd.v_no72 ,rd.v_no73 ,rd.v_no74 ,rd.v_no75 ,rd.v_no76 ,rd.v_no77 ,rd.v_no78 ,rd.v_no79 ,rd.v_no80 ,rd.v_no81 ,rd.v_no82 ,rd.v_no83 ,rd.v_no84 ,rd.v_no85 ,rd.v_no86 ,rd.v_no87 ,rd.v_no88 ,rd.v_no89 ,rd.v_no90 ,rd.v_no91 ,rd.v_no92 ,rd.v_no93 ,rd.v_no94 ,rd.v_no95 ,rd.v_no96,rd.secondary_coefficient,rd.one_coefficient,rd.parameter,rd.secondary_coefficient_again,rd.one_coefficient_again,rd.parameter_again
     </sql>
 
     <!-- 根据id查询 -->
     <select id="findById" resultType="java.util.HashMap" parameterType="java.util.HashMap">
         select
-      *
+        <include refid="baseColumns"/>
         from
         raw_data rd
-        LEFT JOIN hole h on rd.code=h.code
         <where>
             rd.id=#{id}
-
         </where>
     </select>
 
@@ -32,10 +30,11 @@
     <!-- 增加 -->
     <insert id="insert" parameterType="java.util.HashMap">
         insert into
-        raw_data (id,code,s_people,s_time,v_no01,v_no02,v_no03,v_no04,v_no05,v_no06,v_no07,v_no08,v_no09,v_no10,v_no11,v_no12,v_no13,v_no14,v_no15,v_no16,v_no17,v_no18,v_no19,v_no20,v_no21,v_no22,v_no23,v_no24,v_no25,v_no26,v_no27,v_no28,v_no29,v_no30,v_no31,v_no32,v_no33,v_no34,v_no35,v_no36,v_no37,v_no38,v_no39,v_no40,v_no41,v_no42,v_no43,v_no44,v_no45,v_no46,v_no47,v_no48,v_no49,v_no50,v_no51,v_no52,v_no53,v_no54,v_no55,v_no56,v_no57,v_no58,v_no59,v_no60,v_no61,v_no62,v_no63,v_no64,v_no65,v_no66,v_no67,v_no68,v_no69,v_no70,v_no71,v_no72,v_no73,v_no74,v_no75,v_no76,v_no77,v_no78,v_no79,v_no80,v_no81,v_no82,v_no83,v_no84,v_no85,v_no86,v_no87,v_no88,v_no89,v_no90,v_no91,v_no92,v_no93,v_no94,v_no95,v_no96,create_time,secondary_coefficient,one_coefficient,parameter,secondary_coefficient_again,one_coefficient_again,parameter_again)
+        raw_data (id,code,s_people,s_time,v_no01,v_no02,v_no03,v_no04,v_no05,v_no06,v_no07,v_no08,v_no09,v_no10,v_no11,v_no12,v_no13,v_no14,v_no15,v_no16,v_no17,v_no18,v_no19,v_no20,v_no21,v_no22,v_no23,v_no24,v_no25,v_no26,v_no27,v_no28,v_no29,v_no30,v_no31,v_no32,v_no33,v_no34,v_no35,v_no36,v_no37,v_no38,v_no39,v_no40,v_no41,v_no42,v_no43,v_no44,v_no45,v_no46,v_no47,v_no48,v_no49,v_no50,v_no51,v_no52,v_no53,v_no54,v_no55,v_no56,v_no57,v_no58,v_no59,v_no60,v_no61,v_no62,v_no63,v_no64,v_no65,v_no66,v_no67,v_no68,v_no69,v_no70,v_no71,v_no72,v_no73,v_no74,v_no75,v_no76,v_no77,v_no78,v_no79,v_no80,v_no81,v_no82,v_no83,v_no84,v_no85,v_no86,v_no87,v_no88,v_no89,v_no90,v_no91,v_no92,v_no93,v_no94,v_no95,v_no96,create_time)
         values
-        (#{id},#{code},#{speople},#{stime},#{vno01},#{vno02},#{vno03},#{vno04},#{vno05},#{vno06},#{vno07},#{vno08},#{vno09},#{vno10},#{vno11},#{vno12},#{vno13},#{vno14},#{vno15},#{vno16},#{vno17},#{vno18},#{vno19},#{vno20},#{vno21},#{vno22},#{vno23},#{vno24},#{vno25},#{vno26},#{vno27},#{vno28},#{vno29},#{vno30},#{vno31},#{vno32},#{vno33},#{vno34},#{vno35},#{vno36},#{vno37},#{vno38},#{vno39},#{vno40},#{vno41},#{vno42},#{vno43},#{vno44},#{vno45},#{vno46},#{vno47},#{vno48},#{vno49},#{vno50},#{vno51},#{vno52},#{vno53},#{vno54},#{vno55},#{vno56},#{vno57},#{vno58},#{vno59},#{vno60},#{vno61},#{vno62},#{vno63},#{vno64},#{vno65},#{vno66},#{vno67},#{vno68},#{vno69},#{vno70},#{vno71},#{vno72},#{vno73},#{vno74},#{vno75},#{vno76},#{vno77},#{vno78},#{vno79},#{vno80},#{vno81},#{vno82},#{vno83},#{vno84},#{vno85},#{vno86},#{vno87},#{vno88},#{vno89},#{vno90},#{vno91},#{vno92},#{vno93},#{vno94},#{vno95},#{vno96},#{createTime},#{secondaryCoefficient},#{oneCoefficient},#{parameter},#{secondaryCoefficientAgain},#{oneCoefficientAgain},#{parameterAgain})
-    </insert>
+        (#{id},#{code},#{speople},#{stime},#{vno01},#{vno02},#{vno03},#{vno04},#{vno05},#{vno06},#{vno07},#{vno08},#{vno09},#{vno10},#{vno11},#{vno12},#{vno13},#{vno14},#{vno15},#{vno16},#{vno17},#{vno18},#{vno19},#{vno20},#{vno21},#{vno22},#{vno23},#{vno24},#{vno25},#{vno26},#{vno27},#{vno28},#{vno29},#{vno30},#{vno31},#{vno32},#{vno33},#{vno34},#{vno35},#{vno36},#{vno37},#{vno38},#{vno39},#{vno40},#{vno41},#{vno42},#{vno43},#{vno44},#{vno45},#{vno46},#{vno47},#{vno48},#{vno49},#{vno50},#{vno51},#{vno52},#{vno53},#{vno54},#{vno55},#{vno56},#{vno57},#{vno58},#{vno59},#{vno60},#{vno61},#{vno62},#{vno63},#{vno64},#{vno65},#{vno66},#{vno67},#{vno68},#{vno69},#{vno70},#{vno71},#{vno72},#{vno73},#{vno74},#{vno75},#{vno76},#{vno77},#{vno78},#{vno79},#{vno80},#{vno81},#{vno82},#{vno83},#{vno84},#{vno85},#{vno86},#{vno87},#{vno88},#{vno89},#{vno90},#{vno91},#{vno92},#{vno93},#{vno94},#{vno95},#{vno96},#{createTime}
+     )
+</insert>
 
     <!-- 更新 -->
     <update id="update" parameterType="java.util.HashMap">
@@ -62,12 +61,10 @@
     <select id="pagerModel" resultType="com.bitnei.cloud.report.domain.RawData" parameterType="java.util.HashMap"
             resultOrdered="true">
         select
-        <include refid="moreColumns"/>,
-        h.name as sPeople,
-        h.create_time as sTime
+        <include refid="moreColumns"/>
         from
         raw_data rd
-        LEFT JOIN hole h on rd.code=h.code
+
         <where>
             1=1
             <if test="code !=null and code  !=''">
@@ -76,6 +73,20 @@
             <if test="byCode != null and byCode!=''">
                 and rd.code = #{code}
             </if>
+            <if test="startTime != null and endTime != null">
+                AND ( s_time BETWEEN #{startTime}  AND  #{endTime})
+            </if>
+            <if test="flag !=null and flag==0 ">
+                ORDER BY code
+            </if>
+
+            <if test="flag !=null and flag==1 ">
+                ORDER BY s_time desc
+            </if>
+            <if test="flag !=null and flag==2 ">
+                ORDER BY create_time desc
+            </if>
+
         </where>
 
     </select>

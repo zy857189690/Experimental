@@ -3,7 +3,7 @@ package com.bitnei.cloud.report.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,5 +40,6 @@ import java.util.Map;
 */
 @Mapper
 public interface Demo1Mapper {
-  int  insert(Map<String,String> map);
+  int  insert(Map<String,Object> map);
+  List<Map<String,Object>> findById(Map<String,String> map);
 }

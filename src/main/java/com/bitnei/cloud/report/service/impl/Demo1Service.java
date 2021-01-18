@@ -192,7 +192,7 @@ public class Demo1Service extends BaseService implements IDemo1Service {
         }
         Sheet sheet = wb.getSheetAt(0);
         int number =0;
-        Map<String, String> map = new HashMap<>(16);
+        Map<String, Object> map = new HashMap<>(16);
         //前两行和最后一行不要 默认值
         for (int r = 0; r <= sheet.getLastRowNum() ; r++) {
             Row row = sheet.getRow(r);

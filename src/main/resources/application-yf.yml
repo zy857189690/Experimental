@@ -6,10 +6,10 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://10.11.6.2:3306/test?useUnicode=true&characterEncoding=utf-8
-  #    url: jdbc:mysql://192.168.1.50:3306/test?useUnicode=true&characterEncoding=utf-8
+    #   url: jdbc:mysql://192.168.1.50:3306/test?useUnicode=true&characterEncoding=utf-8
     username: root
     password: ev@z9w6
-     # password: 123456
+   # password: 123456
     max-wait: 10000
     max-active: 20
     initial-size: 5

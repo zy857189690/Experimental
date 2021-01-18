@@ -12,13 +12,7 @@ import java.util.Map;
 public interface IRawDataService  extends IBaseService {
     PagerModel pageQuery();
 
-    JsonModel importRawDatas(String name, String code, String secondaryCoefficient,
-                             String oneCoefficient,
-                             String parameter,
-                             String secondaryCoefficientAgain,
-                             String oneCoefficientAgain,
-                             String parameterAgain,
-                             MultipartFile file) throws IOException;
+    JsonModel importRawDatas(MultipartFile file) throws IOException;
 
     List<Map<String,Object>> get(String id);
 }

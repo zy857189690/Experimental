@@ -12,6 +12,8 @@ public class RawData {
     private String speople;
     /** 点样时间 **/
     private String stime;
+
+    private String createTime;
     /** 孔位1 **/
     private Double vno01;
     /** 孔位1 **/

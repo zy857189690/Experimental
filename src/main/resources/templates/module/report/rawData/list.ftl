@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
 <#include "../../../inc/meta.ftl">
 <#include  "../../../inc/js.ftl">
@@ -16,7 +16,7 @@
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
             <a href="#" onclick="view_item()" class="easyui-linkbutton"
                data-options="iconCls:'icon-view'" menu="0">查看</a>
-        <#--<a href="#" onclick="edit_item()" class="easyui-linkbutton"
+      <#-- <a href="#" onclick="edit_item()" class="easyui-linkbutton"
            data-options="iconCls:'icon-edit'" >编辑</a>-->
         <a href="#" onclick="import_item()" class="easyui-linkbutton"
            data-options="iconCls:'icon-remove'" >导入数据</a>
@@ -30,15 +30,43 @@
             <table class="table_search">
                 <tr>
                         <td class="td_label">
-                            <label>点样编号</label>
+                            <label>原始数据查询编号</label>
                         </td>
                       <td class="td_input">
                             <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.code"  autocomplete="off" >
                         </td>
+                </tr>
+                </tr>
+                    <td class="td_label">
+                        <label>送检时间筛选</label>
+                    </td>
+
+                    <td class="td_input">
+                        <input type="text" class="input-fat input"  placeholder="年/月/日" onfocus="WdatePicker({isShowClear:false, dateFmt:'yyyy-MM-dd'})" name="query.startTime" id="startTime" query_type="lis" style="width: height: 26px;width:150px;" required><a href="javascript:void(0);" class="clear" onclick="top.clearInputValue(this)">X</a>
+                    </td>
+                    <td class="td_label" >
+                        <label style="margin-left:15px">至:</label>
+                    </td>
+                    <td class="td_input">
+                        <input type="text" class="input-fat input"  placeholder="年/月/日" onfocus="WdatePicker({isShowClear:false, dateFmt:'yyyy-MM-dd'})" name="query.endTime" id="endTime" query_type="lis" style="width: height: 26px;width:150px;" required><a href="javascript:void(0);" class="clear" onclick="top.clearInputValue(this)">X</a>
+                    </td>
 
                     <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
                         <a href="#" onclick="search_item()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
                     </td>
+                </tr>
+                </tr>
+                <td class="td_label">
+                    <label>请选择数据排序方式</label>
+                </td>
+                <td class="td_input" colspan="8">
+                    <select class="select2" data-options="editable:false" name="query.flag" id="flag" style="height: 26px; width: 135px" query_type="eq" formatter:formatBoolean >
+                        <option value="0">默认排序（按照送检编号进行排序）</option>
+                        <option value="1">按照送检时间进行排序</option>
+                        <option value="2">按照数据导入时间进行排序</option>
+                    </select>
+                </td>
+
                 </tr>
             </table>
         </form>
@@ -55,9 +83,10 @@
         checkOnSelect: false, //此属性必须设置为 false10
         columns: [[
             {field: 'ck', checkbox: true, width: '20'},
-            {field: 'code', title: '点样编号'},
-            {field: 'speople', title: '点样人'},
-            {field: 'stime', title: '点样时间'},
+            {field: 'code', title: '送检编号'},
+            {field: 'speople', title: '送检人'},
+            {field: 'stime', title: '送检时间'},
+            {field: 'createTime', title: '数据导入时间'}
 
         ]],
         toolbar: "#toolbar",
@@ -78,10 +107,8 @@
 
     }
 
-    function openEditWin(url, title) {
+    function openEditWin(url, title,width,height) {
         var winid = "pop";
-        var width = 1230;
-        var height = 620;
         diyWindow(winid, url, title, width, height,false);
     }
     /**
@@ -102,7 +129,7 @@
         }
         var title = "详情";
         var url = "/experimentManagement/report/rawData/view.html?id=" + (id);
-        openEditWin(url, title);
+        openEditWin(url, title,1200,600);
     }
 
     /**
@@ -136,7 +163,7 @@
     function import_item() {
         var title = "导入位置图";
         var url = "/experimentManagement/report/rawData/imports.html";
-        openEditWin(url, title);
+        openEditWin(url, title,600,200);
     }
 
     function diyWindow(winid,url,title,width,height,maximizable){
