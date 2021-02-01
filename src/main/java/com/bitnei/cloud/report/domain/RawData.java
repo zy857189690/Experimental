@@ -13,6 +13,8 @@ public class RawData {
     /** 点样时间 **/
     private String stime;
 
+    private String status;
+
     private String createTime;
     /** 孔位1 **/
     private Double vno01;
@@ -207,11 +209,5 @@ public class RawData {
     /** 孔位1 **/
     private Double vno96;
 
-    private String secondaryCoefficient;
-    private String oneCoefficient;
-    private String parameter;
 
-    private String secondaryCoefficientAgain;
-    private String oneCoefficientAgain;
-    private String parameterAgain;
 }

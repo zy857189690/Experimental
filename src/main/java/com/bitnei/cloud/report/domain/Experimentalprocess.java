@@ -34,4 +34,13 @@ public class Experimentalprocess {
     private String analysis;
 
     private String formulaName;
+
+
+    private String secondaryCoefficient;
+    private String oneCoefficient;
+    private String parameter;
+
+    private String secondaryCoefficientAgain;
+    private String oneCoefficientAgain;
+    private String parameterAgain;
 }

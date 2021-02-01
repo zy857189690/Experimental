@@ -13,18 +13,32 @@
     <!-- 根据id查询 -->
     <select id="findById" resultType="com.bitnei.cloud.report.domain.Experimentalprocess"  parameterType="java.util.HashMap">
         select
-        <include refid="moreColumns"/>,
-        sf.f_name as formulaName
+        rd.id,
+        rd.secondary_coefficient,
+        rd.one_coefficient,
+        rd.parameter,
+        rd.secondary_coefficient_again,
+        rd.one_coefficient_again,
+        rd.parameter_again
         from
-        sys_experimental_process sep
-        LEFT JOIN sys_formula sf  on sf.id=sep.formula_id
+        raw_data rd
         <where>
-            sep.id=#{id}
-
+            rd.id=#{id}
         </where>
     </select>
 
+<update id="updateNh" parameterType="java.util.HashMap">
 
+    UPDATE raw_data set
+        secondary_coefficient=#{secondaryCoefficient},
+        one_coefficient=#{oneCoefficient},
+        parameter = #{parameter},
+        secondary_coefficient_again =#{secondaryCoefficientAgain},
+        one_coefficient_again =#{oneCoefficientAgain},
+        parameter_again=#{parameterAgain},
+      status =#{status}
+        WHERE id =#{id}
+</update>
     <!-- 增加 -->
     <insert id="insert" parameterType="java.util.HashMap">
         insert into

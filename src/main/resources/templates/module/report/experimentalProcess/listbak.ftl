@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html xmlns="http://www.w3.org/1999/html">
+<html>
 <head>
 <#include "../../../inc/meta.ftl">
 <#include  "../../../inc/js.ftl">
@@ -14,59 +14,34 @@
 <body class="easyui-layout" fit="true" id="fullid">
 <div region="center" style="overflow: hidden;width: 100%;">
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
-            <a href="#" onclick="view_item()" class="easyui-linkbutton"
-               data-options="iconCls:'icon-view'" menu="0">查看</a>
-      <#-- <a href="#" onclick="edit_item()" class="easyui-linkbutton"
-           data-options="iconCls:'icon-edit'" >编辑</a>-->
+        <a href="#" onclick="view_item()" class="easyui-linkbutton"
+           data-options="iconCls:'icon-view'" menu="0">查看实验详情</a>
+        <a href="#" onclick="add_item()" class="easyui-linkbutton"
+           data-options="iconCls:'icon-add'" menu="0">添加新实验</a>
         <a href="#" onclick="edit_item()" class="easyui-linkbutton"
-           data-options="iconCls:'icon-remove'" >手动拟合</a>
+           data-options="iconCls:'icon-edit'" >修改实验内容</a>
+       <a href="#" onclick="confirm_item()" class="easyui-linkbutton"
+           data-options="iconCls:'icon-edit'" >复核实验</a>
+
     </div>
     <div id="table" name="datagrid" style="width: 100%;height: 100%"></div>
 </div>
 
-<div data-options="region:'north',title:'实验原始数据管理',split:true,collapsable:true" style="width: 100%;height: 190px">
+<div data-options="region:'north',title:'实验管理',split:true,collapsable:true" style="width: 100%;height: 190px">
     <div style="width: 100%;border: 1;margin:5 5 5 10 ">
         <form id="form_search" name="" class="sui-form cg-form">
             <table class="table_search">
                 <tr>
                         <td class="td_label">
-                            <label>原始数据查询编号</label>
+                            <label>实验编号</label>
                         </td>
                       <td class="td_input">
                             <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.code"  autocomplete="off" >
                         </td>
-                </tr>
-                </tr>
-                    <td class="td_label">
-                        <label>送检时间筛选</label>
-                    </td>
-
-                    <td class="td_input">
-                        <input type="text" class="input-fat input"  placeholder="年/月/日" onfocus="WdatePicker({isShowClear:false, dateFmt:'yyyy-MM-dd'})" name="query.startTime" id="startTime" query_type="lis" style="width: height: 26px;width:150px;" required><a href="javascript:void(0);" class="clear" onclick="top.clearInputValue(this)">X</a>
-                    </td>
-                    <td class="td_label" >
-                        <label style="margin-left:15px">至:</label>
-                    </td>
-                    <td class="td_input">
-                        <input type="text" class="input-fat input"  placeholder="年/月/日" onfocus="WdatePicker({isShowClear:false, dateFmt:'yyyy-MM-dd'})" name="query.endTime" id="endTime" query_type="lis" style="width: height: 26px;width:150px;" required><a href="javascript:void(0);" class="clear" onclick="top.clearInputValue(this)">X</a>
-                    </td>
 
                     <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
                         <a href="#" onclick="search_item()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
                     </td>
-                </tr>
-                </tr>
-                <td class="td_label">
-                    <label>请选择数据排序方式</label>
-                </td>
-                <td class="td_input" colspan="8">
-                    <select class="select2" data-options="editable:false" name="query.flag" id="flag" style="height: 26px; width: 135px" query_type="eq" formatter:formatBoolean >
-                        <option value="0">默认排序（按照送检编号进行排序）</option>
-                        <option value="1">按照送检时间进行排序</option>
-                        <option value="2">按照数据导入时间进行排序</option>
-                    </select>
-                </td>
-
                 </tr>
             </table>
         </form>
@@ -76,29 +51,19 @@
 </body>
 <script>
     $('#table').datagrid({
-        url: '/experimentManagement/report/rawData/datagrid',
+        url: '/experimentManagement/report/experimentalProcess/datagrid',
         sortName: "createTime",
         sortOrder: "desc",
         singleSelect: true,
         checkOnSelect: false, //此属性必须设置为 false10
         columns: [[
             {field: 'ck', checkbox: true, width: '20'},
-            {field: 'code', title: '送检编号'},
-            {field: 'speople', title: '送检人'},
-            {field: 'stime', title: '送检时间'},
-            {field: 'createTime', title: '数据导入时间'},
-            {field: 'status', title: '拟合状态',formatter:function(value,row,index){
-                    if(isObj(value)){
-                        if(value==0){
-                            return '未拟合';
-                        }else if(value==1){
-                            return "已拟合";
-                        }else {
-                            return "未知";
-                        }
-                    }
-            }}
-
+            {field: 'code', title: '实验编号'},
+            {field: 'experimentalName', title: '实验名称'},
+            {field: 'experimenter', title: '实验人员'},
+            {field: 'pid', title: '所属项目编号'},
+            {field: 'createTime', title: '实验记录时间'},
+            {field: 'confirmTime', title: '实验复核时间'},
         ]],
         toolbar: "#toolbar",
         pagination: true,
@@ -117,9 +82,18 @@
         $("#table").datagrid("load",data);
 
     }
-
-    function openEditWin(url, title,width,height) {
+    /**
+     * 增加
+     */
+    function add_item() {
+        var title = "添加新实验";
+        var url = "/experimentManagement/report/experimentalProcess/edit.html?id=-1";
+        openEditWin(url, title);
+    }
+    function openEditWin(url, title) {
         var winid = "pop";
+        var width = 1230;
+        var height = 620;
         diyWindow(winid, url, title, width, height,false);
     }
     /**
@@ -140,7 +114,7 @@
         }
         var title = "详情";
         var url = "/experimentManagement/report/experimentalProcess/view.html?id=" + (id);
-        openEditWin(url, title,1200,600);
+        openEditWin(url, title);
     }
 
     /**
@@ -163,15 +137,11 @@
         }
         var title = "编辑";
         var url = "/experimentManagement/report/experimentalProcess/edit.html?id=" + (id);
-        openEditWin(url, title,600,200);
+        openEditWin(url, title);
     }
 
 
-    /**
-     * 导入
-     * @param id
-     */
-    function import_item() {
+    function confirm_item(id) {
         if ('' == id || id == undefined) {
             var row = $("#table").datagrid("getSelections");
             if (row != null && row.length == 1) {
@@ -184,10 +154,9 @@
                 return;
             }
         }
-
-        var title = "手动拟合";
-        var url = "/experimentManagement/report/rawData/imports.html";
-        openEditWin(url, title,600,200);
+        var title = "复核";
+        var url = "/experimentManagement/report/experimentalProcess/view.html?id=" + (id)+"&&flag=1";
+        openEditWin(url, title);
     }
 
     function diyWindow(winid,url,title,width,height,maximizable){

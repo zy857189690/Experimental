@@ -4,8 +4,8 @@ import com.bitnei.cloud.common.JsonModel;
 import com.bitnei.cloud.report.domain.Experimentalprocess;
 import com.bitnei.cloud.report.service.IExperimentalprocessService;
 import com.bitnei.cloud.report.service.IFormulaService;
+import com.bitnei.cloud.report.service.IRawDataService;
 import com.bitnei.commons.datatables.PagerModel;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
+/**
+ *
+ * 实验过程
+* **/
 @Controller
 @RequestMapping(value = "/report/experimentalProcess")
 public class ExperimentalprocessController {
@@ -24,6 +29,10 @@ public class ExperimentalprocessController {
 
     @Autowired
     private IExperimentalprocessService experimentalprocessService;
+
+
+    @Autowired
+    private IRawDataService rawDataService;
 
     @Autowired
     private IFormulaService formulaService;
@@ -62,8 +71,10 @@ public class ExperimentalprocessController {
     @RequestMapping("/edit")
     public String edit(String id, Model model) {
         if (!id.equals("-1")) {
-            Experimentalprocess experimentalProcess = experimentalprocessService.findById(id);
-            model.addAttribute("experimentalProcess", experimentalProcess);
+            // 查询拟合公式
+            // List<Map<String, Object>> maps = rawDataService.get(id);
+           Experimentalprocess experimentalProcess = experimentalprocessService.findById(id);
+           model.addAttribute("experimentalProcess", experimentalProcess);
         }
         return BASE + "edit";
     }
@@ -76,13 +87,18 @@ public class ExperimentalprocessController {
      * @return
      */
     @GetMapping(value = "/view")
-    public String view(Model model, String id,String flag) {
-        Experimentalprocess experimentalProcess = experimentalprocessService.findById(id);
-        Map<String, Object> result = formulaService.findFormulaById(experimentalProcess.getFormulaId());
+    public String view(Model model, String id ) {
+        List<Map<String,Object>> experimentalProcess = experimentalprocessService.findNhBy(id);
+  /*      Map<String, Object> result = formulaService.findFormulaById(experimentalProcess.getFormulaId());
         model.addAttribute("formula", result);
         model.addAttribute("experimentalProcess", experimentalProcess);
         if (StringUtils.isNotEmpty(flag)){
             return    BASE + "confirm";
+        }*/
+
+        if (experimentalProcess.size()>0){
+            model.addAttribute("rawData", experimentalProcess.get(0));
+            model.addAttribute("rawDataNh", experimentalProcess.get(1));
         }
         return BASE + "view";
     }

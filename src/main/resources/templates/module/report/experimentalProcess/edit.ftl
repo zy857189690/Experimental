@@ -6,15 +6,56 @@
 
     <script type="text/javascript">
         function save() {
-            var flag=$("#ff").form('validate');
+
+
+            var id = $("#id").val();
+            var secondaryCoefficient = $("#secondaryCoefficient").val();
+            var oneCoefficient = $("#oneCoefficient").val();
+            var parameter = $("#parameter").val();
+            var secondaryCoefficientAgain = $("#secondaryCoefficientAgain").val();
+            var oneCoefficientAgain = $("#oneCoefficientAgain").val();
+            var parameterAgain = $("#parameterAgain").val();
+
+         /*   var flag=$("#ff").form('validate');
             var imgs=[];
             $("input[name='reportImg']").each(function(j,item){
                 imgs.push(item.value)
                 //imgs.append(item.value)
                 console.log("方法二："+item.id+':'+item.value);
+            });*/
+            var formData = new FormData($("#form_search")[0]);
+            formData.append("id",id);
+            formData.append("secondaryCoefficient",secondaryCoefficient);
+            formData.append("oneCoefficient",oneCoefficient);
+            formData.append("parameter",parameter);
+            formData.append("secondaryCoefficientAgain",secondaryCoefficientAgain);
+            formData.append("oneCoefficientAgain",oneCoefficientAgain);
+            formData.append("parameterAgain",parameterAgain);
+            $.ajax({
+                url: "/experimentManagement/report/experimentalProcess/save",
+                type: 'POST',
+                data: formData,//规定连同请求发送到服务器的数据
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    if (data.flag) {
+                        /*$('#table').datagrid('reload', data);*/
+                        $.messager.alert('提示', '拟合成功！');
+                        close_win();
+                       // window.top.m_experimentalProcessFrame.window.$("#table").datagrid('reload');
+                       /* $("#toolbar").show();
+                        $('#table').datagrid('loadData', loadData);*/
+                    } else {
+                        $.messager.alert('提示', data.msg);
+                    }
+                },
+                error: function (data) {
+                    $.messager.alert('提示', '请求系统失败！！');
+                }
             });
-            console.log(imgs)
-            if(flag){
+          /*  if(flag){
                 $.ajax({
                     url:'/experimentManagement/report/experimentalProcess/save',
                     method:'post',
@@ -36,7 +77,7 @@
                     error:function(){
                     }
                 });
-            }
+            }*/
         }
         function cancel() {
             if(window.top.$("div#window_addCompanyType").length>0){
@@ -224,30 +265,33 @@
         <input type="hidden" name="id" id="id" value="${(experimentalProcess.id)!-1}">
         <table class="table_edit" border="1">
             <tr>
-                <td class="td_label"><label>实验编号:</label></td>
-                <td class="td_input">
-                    <input type='text' name='code' autocomplete="off" id='code' value="${(experimentalProcess.code)!}" class="input-fat" style="height: 26px;width: 178px"/>
-                    <span name="requireTag" class="requrieTag AbleStevenSpan"style="top:12px;left: 200px;">*</span>
-                </td>
-                <td class="td_label"><label>实验名称:</label></td>
-                <td class="td_input">
-                    <input type='text' name='experimentalName' autocomplete="off" id='experimentalName' value="${(experimentalProcess.experimentalName)!}" class="input-fat" style="height: 26px;width: 178px"/>
-                    <span name="requireTag" class="requrieTag AbleStevenSpan"style="top:12px;left: 200px;">*</span>
-                </td>
-            </tr>
-            <tr>
-                <td class="td_label"><label>实验创建人:</label></td>
-                <td class="td_input">
-                    <input type='text' name='experimenter' autocomplete="off" id='experimenter' value="${(experimentalProcess.experimenter)!}" class="input-fat" style="height: 26px;width: 178px"/>
-                    <span name="requireTag" class="requrieTag AbleStevenSpan"style="top:12px;left: 200px;">*</span>
-                </td>
-                <td class="td_label"><label>实验所属项目编号:</label></td>
-                <td class="td_input">
-                    <input type='text' name='pid' autocomplete="off" id='pid' value="${(experimentalProcess.pid)!}" class="input-fat" style="height: 26px;width: 178px"/>
-                    <span name="requireTag" class="requrieTag AbleStevenSpan"style="top:12px;left: 200px;">*</span>
-                </td>
-            </tr>
-            <tr>
+
+
+       <tr>
+            <td class="td_label"><label>普通拟合公式:</label></td>
+            <td class="td_input">
+                <input type='text' name='secondaryCoefficient' autocomplete="off" id='secondaryCoefficient' value="${(experimentalProcess.secondaryCoefficient)!}" placeholder="系数"  style="height: 20px;width: 40px"/>
+                <label>x²+</label>
+                <input type='text' name='oneCoefficient' autocomplete="off" id='oneCoefficient' value="${(experimentalProcess.oneCoefficient)!}" placeholder="系数"  style="height: 20px;width: 40px"/>
+                <label>x+</label>
+                <input type='text' name='parameter' autocomplete="off" id='parameter' value="${(experimentalProcess.parameter)!}" placeholder="系数" style="height: 20px;width: 40px"/>
+
+                <span name="requireTag" class="requrieTag AbleStevenSpan"style="top:12px;left: 205px;">*</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="td_label"><label>精确拟合公式:</label></td>
+            <td class="td_input">
+                <input type='text' name='secondaryCoefficientAgain' autocomplete="off" id='secondaryCoefficientAgain' value="${(experimentalProcess.secondaryCoefficientAgain)!}" placeholder="系数"  style="height: 20px;width: 40px"/>
+                <label>x²+</label>
+                <input type='text' name='oneCoefficientAgain' autocomplete="off" id='oneCoefficientAgain' value="${(experimentalProcess.oneCoefficientAgain)!}" placeholder="系数" style="height: 20px;width: 40px"/>
+                <label>x+</label>
+                <input type='text' name='parameterAgain' autocomplete="off" id='parameterAgain' value="${(experimentalProcess.parameterAgain)!}" placeholder="系数"  style="height: 20px;width: 40px"/>
+                <span name="requireTag" class="requrieTag AbleStevenSpan"style="top:12px;left: 205px;">*</span>
+            </td>
+        </tr>
+
+            <#--<tr>
                 <td class="td_label"><label>实验配方:</label></td>
                 <td class="td_input">
 
@@ -265,7 +309,7 @@
                 <td class="td_label"><label>实验方案:</label></td>
                 <td class="td_input">
                     <textarea name="experimentalScheme" id="experimentalScheme"  clos="1800" rows="10" style="width: 800px;height: 100px" >${(experimentalProcess.experimentalScheme)!}</textarea>
-                    <#--<span name="requireTag" class="requrieTag AbleStevenSpan">*</span>-->
+                    &lt;#&ndash;<span name="requireTag" class="requrieTag AbleStevenSpan">*</span>&ndash;&gt;
                 </td>
             </tr>
 
@@ -273,30 +317,30 @@
                 <td class="td_label"><label>实验过程:</label></td>
                 <td class="td_input">
                     <textarea name="procedures" id="procedures"  clos="1800" rows="10" style="width: 800px;height: 100px" >${(experimentalProcess.procedures)!}</textarea>
-                    <#--<span name="requireTag" class="requrieTag AbleStevenSpan">*</span>-->
+                    &lt;#&ndash;<span name="requireTag" class="requrieTag AbleStevenSpan">*</span>&ndash;&gt;
                 </td>
             </tr>
             <tr>
                 <td class="td_label"><label>实验观察/结果:</label></td>
                 <td class="td_input">
                     <textarea name="result" id="result"  clos="1800" rows="10" style="width: 800px;height: 100px" >${(experimentalProcess.result)!}</textarea>
-                    <#--<span name="requireTag" class="requrieTag AbleStevenSpan">*</span>-->
+                    &lt;#&ndash;<span name="requireTag" class="requrieTag AbleStevenSpan">*</span>&ndash;&gt;
                 </td>
             </tr>
             <tr>
                 <td class="td_label"><label>结果分析(及下一步实验计划):</label></td>
                 <td class="td_input">
                     <textarea name="analysis" id="analysis"  clos="1800" rows="10" style="width: 800px;height: 100px" >${(experimentalProcess.analysis)!}</textarea>
-                    <#--<span name="requireTag" class="requrieTag AbleStevenSpan">*</span>-->
+                    &lt;#&ndash;<span name="requireTag" class="requrieTag AbleStevenSpan">*</span>&ndash;&gt;
                 </td>
-            </tr>
+            </tr>-->
         </table>
         <div class="fbox">
             <span class="fbox-left"></span>
             <span>
                     <td colspan="2" style="text-align: right;">
                         <span style="margin-right: 20px">
-                        <input class="easyui-linkbutton fsave l-btn l-btn-small" type="submit" value="提交">
+                        <input class="easyui-linkbutton fsave l-btn l-btn-small" type="submit" value="确认拟合">
                         <a class="eeasyui-linkbutton fcancel l-btn l-btn-small" href="javascript:void(0)" onclick="cancel()" style="line-height: 25px;">取消</a>
                         </span>
                     </td>

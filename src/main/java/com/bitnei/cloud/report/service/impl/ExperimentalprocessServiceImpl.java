@@ -5,14 +5,16 @@ import com.bitnei.cloud.common.JsonModel;
 import com.bitnei.cloud.common.ServletUtil;
 import com.bitnei.cloud.orm.annation.Mybatis;
 import com.bitnei.cloud.report.domain.Experimentalprocess;
+import com.bitnei.cloud.report.mapper.Demo1Mapper;
 import com.bitnei.cloud.report.service.IExperimentalprocessService;
 import com.bitnei.cloud.service.impl.BaseService;
 import com.bitnei.commons.datatables.DataGridOptions;
 import com.bitnei.commons.datatables.PagerModel;
-import com.bitnei.commons.util.UtilHelper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +24,11 @@ import java.util.Map;
 @Service
 @Mybatis(namespace = "com.bitnei.cloud.report.mapper.ExperimentalprocessMapper" )
 public class ExperimentalprocessServiceImpl extends BaseService implements IExperimentalprocessService {
+
+    @Autowired
+    private Demo1Mapper demo1Mapper;
+    @Autowired
+    private RawDataServiceImpl rawDataService;
     @Override
     public PagerModel pageQuery() {
         DataGridOptions dataLayOptions = ServletUtil.getDataLayOptions();
@@ -36,10 +43,29 @@ public class ExperimentalprocessServiceImpl extends BaseService implements IExpe
 
     @Override
     public JsonModel insert(Experimentalprocess experimentalprocess) {
+
+
         JsonModel jm =new JsonModel();
-        // 新增
-        String code = experimentalprocess.getCode();
+
         Map<String,String> map =new HashMap<>();
+        map.put("id",experimentalprocess.getId());
+        // 拟合状态修改
+        map.put("status","1");
+
+        map.put("oneCoefficient",experimentalprocess.getOneCoefficient());
+        map.put("oneCoefficientAgain",experimentalprocess.getOneCoefficientAgain());
+        map.put("parameter",experimentalprocess.getParameter());
+
+        map.put("secondaryCoefficient",experimentalprocess.getSecondaryCoefficient());
+        map.put("secondaryCoefficientAgain",experimentalprocess.getSecondaryCoefficientAgain());
+        map.put("parameterAgain",experimentalprocess.getParameterAgain());
+
+        super.update("updateNh",map);
+        jm.setFlag(true);
+        jm.setMsg("拟合成功");
+       /* // 新增
+        String code = experimentalprocess.getCode();
+       // Map<String,String> map =new HashMap<>();
         map.put("codes",code);
         List<Experimentalprocess> pagerModel = findBySqlId("pagerModel", map);
         // 编辑
@@ -69,7 +95,7 @@ public class ExperimentalprocessServiceImpl extends BaseService implements IExpe
             int res = super.insert(experimentalprocess);
             jm.setMsg("新增成功");
         }
-        jm.setFlag(true);
+        jm.setFlag(true);*/
         return jm;
     }
 
@@ -89,5 +115,42 @@ public class ExperimentalprocessServiceImpl extends BaseService implements IExpe
             jm.setMsg("复核失败");
         }
         return jm;
+    }
+
+    @Override
+    public List<Map<String,Object>> findNhBy(String id) {
+        Map<String,String> pram=new HashMap<>();
+        List<Map<String,Object>> re=new ArrayList<>();
+        pram.put("id",id);
+        // 原始数据
+        List<Map<String,Object>> result = rawDataService.findBySqlId("findById", pram);
+        // 位置孔位
+        List<Map<String, Object>> maps = demo1Mapper.findById(pram);
+        Experimentalprocess experimentalProcess = findById(id);
+
+            // 原始数据
+            double secondaryCoefficient = Double.parseDouble(experimentalProcess.getSecondaryCoefficient());
+            double oneCoefficient = Double.parseDouble(experimentalProcess.getOneCoefficient());
+            double parameter = Double.parseDouble(experimentalProcess.getParameter());
+            double secondaryCoefficientAgain = Double.parseDouble(experimentalProcess.getSecondaryCoefficientAgain());
+            double oneCoefficientAgain = Double.parseDouble(experimentalProcess.getOneCoefficientAgain());
+            double parameterAgain = Double.parseDouble(experimentalProcess.getParameterAgain());
+
+            Map<String, Object> map = result.get(0);
+            // 96 个原始数据  h_no23
+           for (int i=1;i<=96;i++){
+                String s = String.format("%02d", i);
+                String key = "v_no" + s;
+                Double v = (Double)map.get(key);
+                double v1 = secondaryCoefficient * v * v + oneCoefficient * v + parameter;
+                if (v1<=40){
+                    v1 = secondaryCoefficientAgain * v * v + oneCoefficientAgain * v + parameterAgain;
+                }
+               map.put(key,v1+"");
+            }
+        re.add(map);
+        re.add(maps.get(0));
+        return re;
+
     }
 }
