@@ -18,7 +18,7 @@
                         <#--class="active"--><#-- 自动展开-->
                             <li ><a href="formula"> 配方管理</a></li>
                             <li ><a href="position"> 实验位置图管理</a></li>
-                            <li><a href="dashboard_2.html">实验管理</a></li>
+                            <li><a href="dashboard_2.html">过程数据管理</a></li>
                             <li><a href="dashboard_3.html">点样位置图管理</a></li>
                             <li><a href="dashboard_4_1.html">原始数据管理</a></li>
                             <li><a href="dashboard_5.html">实验过程报告管理</a></li>
