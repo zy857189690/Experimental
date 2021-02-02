@@ -12,9 +12,21 @@
         <input type="hidden" name="id" id="id" value="${(rawData.id)!-1}">
         <table class="table_edit" border="1">
             <tr>
-                <td class="td_label" style="text-align:center ; font-size: 30px">
+                <td class="td_label"  colspan="2" style="text-align:center ; font-size: 30px" >
                   <strong>  <label>${(rawData.code)!-1}</label></strong>
                 </td>
+            </tr>
+            <tr>
+
+               <#-- 拟合公式：2.123x²-1.786x+3.224      -->                           <#--精确拟合公式：1.679x²-0.983x+2.785-->
+                <td class="td_label" style="text-align:center ; font-size: 20px">
+                    <strong>  <label>拟合公式  ${(gs.oneCoefficient)!-1}x²+${(gs.oneCoefficientAgain)!-1}x+${(gs.parameterAgain)!-1}</label></strong>
+                </td>
+                <td class="td_label" style="text-align:center ; font-size: 20px">
+                    <strong>  <label>精确拟合公式  ${(gs.secondaryCoefficient)!-1}x²+${(gs.secondaryCoefficientAgain)!-1}x+${(gs.parameterAgain)!-1}</label></strong>
+                </td>
+
+            </tr>
                <#-- <td class="td_input">
                     <input type='text' name='code' autocomplete="off" id='code' value="${(rawData.code)!-1}" class="input-fat" style="height: 26px;width: 178px"/>
                     <span name="requireTag" class="requrieTag AbleStevenSpan"style="top:12px;left: 200px;">*</span>
@@ -661,7 +673,14 @@
                     <input type='text' name='pbs' autocomplete="off" id='pbs'  value="${(rawDataNh.h_no96)!-1}" style="height: 26px;width: 80px;background-color: #0d8ddb"  />
                 </td>
             </tr>
+            <tr>
+                <td class="td_label"  colspan="12" style="text-align:center ; font-size: 40px" >
 
+                    <a href="#" onclick="edit_item()" class="easyui-linkbutton"
+                       data-options="iconCls:'icon-view'" menu="0">修改拟合公式</a>
+                  <#--  <strong>  <label>${(rawData.code)!-1}</label></strong>-->
+                </td>
+            </tr>
         </table>
     </form>
 </div>
@@ -683,5 +702,13 @@
         var height = 620;
         diyWindow(winid, url, title, width, height,false);
     }
+
+    function edit_item(id) {
+        var id = $("#id").val();
+        var title = "修改拟合公式";
+        var url = "/experimentManagement/report/experimentalProcess/edit.html?id=" + (id);
+        openEditWin(url, title,600,200);
+    }
+
 </script>
 </html>
