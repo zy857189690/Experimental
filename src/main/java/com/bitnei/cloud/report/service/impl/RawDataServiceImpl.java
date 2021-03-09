@@ -7,6 +7,7 @@ import com.bitnei.cloud.orm.annation.Mybatis;
 import com.bitnei.cloud.report.mapper.Demo1Mapper;
 import com.bitnei.cloud.report.mapper.RawDataMapper;
 import com.bitnei.cloud.report.service.IDemo1Service;
+import com.bitnei.cloud.report.service.IExperimentalStageService;
 import com.bitnei.cloud.report.service.IRawDataService;
 import com.bitnei.cloud.service.impl.BaseService;
 import com.bitnei.commons.datatables.DataGridOptions;
@@ -36,6 +37,9 @@ public class RawDataServiceImpl extends BaseService implements IRawDataService {
 
     @Autowired
     private Demo1Mapper demo1Mapper;
+    @Autowired
+    private IExperimentalStageService experimentalStageService;
+
     @Override
     public PagerModel pageQuery() {
         DataGridOptions dataLayOptions = ServletUtil.getDataLayOptions();
@@ -46,33 +50,7 @@ public class RawDataServiceImpl extends BaseService implements IRawDataService {
     @Override
     public JsonModel importRawDatas( MultipartFile file) throws IOException {
         JsonModel jm = new JsonModel();
-       /* if (StringUtil.isEmpty(code)) {
-            jm.setMsg("点样编号为空，请确认后导入操作！！");
-            jm.setFlag(false);
-            return jm;
-        }else {
-            Map<String,String> parm=new HashMap<>(16);
-            parm.put("code",code);
-            List<Object> pagerModel = demo1Service.findBySqlId("pagerModel", parm);
-            if (null==pagerModel||pagerModel.size()==0) {
-                jm.setMsg("点样编号不存在，请确认实验阶段后导入操作！！");
-                jm.setFlag(false);
-                return jm;
-            }
-            parm.clear();
-            parm.put("byCode",code);
-            List<Object> pagerModel1 = findBySqlId("pagerModel", parm);
-            if (null!=pagerModel1&&pagerModel1.size()>0) {
-                jm.setMsg("点样编号重复存在，请确认后导入操作！！");
-                jm.setFlag(false);
-                return jm;
-            }
-
-        }*/
-
-
         String fileName = file.getOriginalFilename();
-
         if (file == null) {
             return JsonModel.error("文件不能为空");
         }
@@ -154,6 +132,12 @@ public class RawDataServiceImpl extends BaseService implements IRawDataService {
             rawDataMapper.insert(map);
             // 位置图
             demo1Mapper.insert(mapHole);
+
+            String exNo="";
+            String startTime = sheet.getRow(35).getCell(0).toString().split(",")[1];
+            String updateTime=DateUtil.getNow();
+            String status="0";
+            experimentalStageService.addEx(map,mapHole,exNo,startTime,updateTime,status);
         } else {
             jm.setMsg("原始数据为空，请确认后导入操作！！");
             jm.setFlag(false);

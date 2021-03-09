@@ -1,7 +1,7 @@
 package com.bitnei.cloud.report.web;
 
 import com.bitnei.cloud.common.JsonModel;
-import com.bitnei.cloud.report.domain.ExperimentalStage;
+import com.bitnei.cloud.report.domain.ExperimentalData;
 import com.bitnei.cloud.report.service.IExperimentalStageService;
 import com.bitnei.commons.datatables.PagerModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
-* 实验阶段
+* 实验数据管理
 * */
 
 @Controller
@@ -87,8 +87,9 @@ public class ExperimentalStageController {
      */
     @GetMapping(value = "/view")
     public String view(Model model, String id) {
-        ExperimentalStage experimentalStage = experimentalStageService.findById(id);
-        experimentalStage.setReportImg(experimentalStage.getReportImgs().split(","));
+
+        Map<String,String> experimentalStage = experimentalStageService.findByView(id);
+      //  experimentalStage.setReportImg(experimentalStage.getReportImgs().split(","));
         model.addAttribute("experimentalStage", experimentalStage);
 
         return BASE + "view";
@@ -101,11 +102,11 @@ public class ExperimentalStageController {
      * @param
      * @return
      */
-    @GetMapping( value = "/edit")
+   @GetMapping( value = "/edit")
     public String edit(String id,Model model ) {
         if (!id.equals("-1")) {
-            ExperimentalStage experimentalStage = experimentalStageService.findById(id);
-            model.addAttribute("experimentalStage", experimentalStage);
+            Map<String, String> byIdZyl = experimentalStageService.findByIdZyl(id);
+            model.addAttribute("experimentalStage", byIdZyl);
         }
         return BASE + "edit";
     }
@@ -118,7 +119,7 @@ public class ExperimentalStageController {
      * @param
      * @return
      */
-    @RequestMapping("/getImgsById")
+  /*  @RequestMapping("/getImgsById")
     @ResponseBody
     public List getImgsById(@RequestParam("id") String id, Model model) {
             ExperimentalStage experimentalStage = experimentalStageService.findById(id);
@@ -126,7 +127,7 @@ public class ExperimentalStageController {
             List<String> list = Arrays.asList(split);
         return list;
     }
-
+*/
 
 
 
@@ -135,18 +136,18 @@ public class ExperimentalStageController {
      * @param model
      * @return
      */
-    @GetMapping(value = "/update")
+ /*   @GetMapping(value = "/update")
     public String update(Model model, String id) {
 
         ExperimentalStage obj = experimentalStageService.findById(id);
         model.addAttribute("experimentalStage", obj);
         return BASE + "update";
-    }
+    }*/
 
     @RequestMapping("/save")
     @ResponseBody
-    public JsonModel save(ExperimentalStage experimentalStage) {
-        return experimentalStageService.saveSubmit(experimentalStage);
+    public JsonModel save(ExperimentalData experimentalData) {
+        return experimentalStageService.saveSubmit(experimentalData);
     }
 
 

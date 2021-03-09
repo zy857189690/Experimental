@@ -1,14 +1,15 @@
 package com.bitnei.cloud.report.service;
 
 import com.bitnei.cloud.common.JsonModel;
-import com.bitnei.cloud.report.domain.Demo1;
-import com.bitnei.cloud.report.domain.ExperimentalStage;
+import com.bitnei.cloud.report.domain.ExperimentalData;
+import com.bitnei.cloud.report.domain.ExperimentalDataDatil;
 import com.bitnei.cloud.service.IBaseService;
 import com.bitnei.commons.datatables.PagerModel;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -46,6 +47,8 @@ import java.util.List;
 
 public interface IExperimentalStageService extends IBaseService {
 
+
+    ExperimentalDataDatil findById(String id);
     /**
     * 分页查询
     * @return
@@ -62,9 +65,15 @@ public interface IExperimentalStageService extends IBaseService {
     */
     void export();
 
-    JsonModel saveSubmit(ExperimentalStage experimentalStage);
+    JsonModel saveSubmit(ExperimentalData experimentalData);
 
     JsonModel importHoles(String name, String code, MultipartFile file) throws Exception;
 
     List uploadPictureList(MultipartFile[] file, HttpServletRequest request);
+
+    void addEx(Map<String, Object> map, Map<String, Object> mapHole, String exNo, String startTime, String updateTime, String status);
+
+    Map<String,String> findByView(String id);
+
+    Map<String,String>  findByIdZyl(String id);
 }

@@ -1,18 +1,22 @@
 package com.bitnei.cloud.report.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.bitnei.cloud.common.DateUtil;
 import com.bitnei.cloud.common.JsonModel;
 import com.bitnei.cloud.common.ServletUtil;
 import com.bitnei.cloud.orm.annation.Mybatis;
 import com.bitnei.cloud.report.domain.Demo1;
+import com.bitnei.cloud.report.domain.ExperimentalData;
+import com.bitnei.cloud.report.domain.ExperimentalDataDatil;
 import com.bitnei.cloud.report.domain.ExperimentalStage;
-import com.bitnei.cloud.report.mapper.Demo1Mapper;
-import com.bitnei.cloud.report.service.IDemo1Service;
+import com.bitnei.cloud.report.mapper.ExperimentalStageMapper;
 import com.bitnei.cloud.report.service.IExperimentalStageService;
 import com.bitnei.cloud.service.impl.BaseService;
 import com.bitnei.commons.datatables.DataGridOptions;
 import com.bitnei.commons.datatables.PagerModel;
 import com.bitnei.commons.util.UtilHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
@@ -25,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.InputStream;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 /**
@@ -60,10 +65,19 @@ import java.util.*;
  */
 @Service
 @Mybatis(namespace = "com.bitnei.cloud.report.mapper.ExperimentalStageMapper")
+@Slf4j
 public class ExperimentalStageServiceImpl extends BaseService implements IExperimentalStageService {
 
     @Autowired
     protected HttpServletRequest request;
+
+    @Autowired
+    private ExperimentalStageMapper experimentalStageMapper;
+
+    @Override
+    public ExperimentalDataDatil findById(String id) {
+        return null;
+    }
 
     @Override
     public PagerModel pageQuery() {
@@ -72,19 +86,6 @@ public class ExperimentalStageServiceImpl extends BaseService implements IExperi
         return pm;
     }
 
-    /**
-     * 新增
-     *
-     * @param o
-     * @return
-     */
-    @Override
-    public int insert(Object o) {
-        Demo1 demo1 = (Demo1) o;
-        demo1.setId(UtilHelper.getUUID());
-        demo1.setCreateTime(DateUtil.getNow());
-        return super.insert(demo1);
-    }
 
     /**
      * 更新
@@ -92,21 +93,7 @@ public class ExperimentalStageServiceImpl extends BaseService implements IExperi
      * @param o
      * @return
      */
-    @Override
-    public int update(Object o) {
-        ExperimentalStage experimentalStage = (ExperimentalStage) o;
-        // demo1.setUpdateTime(DateUtil.getNow());
-        // demo1.setUpdateBy(ServletUtil.getCurrentUser());
-        return super.update(experimentalStage);
-    }
 
-    @Override
-    public <T> T findById(String id) {
-        ExperimentalStage experimentalStage = super.findById(id);
-        // DataLoader.loadNames(demo1);
-        // DataLoader.loadDictNames(demo1);
-        return (T) experimentalStage;
-    }
 
     /**
      * 删除多个
@@ -145,13 +132,14 @@ public class ExperimentalStageServiceImpl extends BaseService implements IExperi
     }
 
     @Override
-    public JsonModel saveSubmit(ExperimentalStage experimentalStage) {
+    public JsonModel saveSubmit(ExperimentalData experimentalData) {
         JsonModel jm = new JsonModel();
-        String code = experimentalStage.getReportCode();
+        jm.setFlag(true);
+      /*  String code = experimentalStage.getReportCode();
         Map<String, String> map = new HashMap<>(16);
         map.put("reportCode", code);
         List<ExperimentalStage> findByCode = findBySqlId("pagerModel", map);
-        if (null!=experimentalStage.getReportImg()){
+        if (null != experimentalStage.getReportImg()) {
             String[] reportImg = experimentalStage.getReportImg();
             String join = StringUtils.join(reportImg, ",");
             experimentalStage.setReportImgs(join);
@@ -176,8 +164,9 @@ public class ExperimentalStageServiceImpl extends BaseService implements IExperi
             // 修改
             experimentalStage.setUpdateTime(DateUtil.getNowTime());
             update(experimentalStage);
-        }
-        jm.setFlag(true);
+
+        }*/
+        update("updateDosage",experimentalData);
         jm.setMsg("保存成功!");
         return jm;
     }
@@ -235,11 +224,11 @@ public class ExperimentalStageServiceImpl extends BaseService implements IExperi
         }
 
         if (map.size() > 0) {
-            map.put("id",UtilHelper.getUUID());
-            map.put("name",name);
-            map.put("code",code);
-            map.put("createTime",DateUtil.getNow());
-         //   demo1Mapper.insert(map);
+            map.put("id", UtilHelper.getUUID());
+            map.put("name", name);
+            map.put("code", code);
+            map.put("createTime", DateUtil.getNow());
+            //   demo1Mapper.insert(map);
         } else {
             jm.setMsg("孔位数据为空，请确认后导入操作！！");
             jm.setFlag(false);
@@ -251,34 +240,34 @@ public class ExperimentalStageServiceImpl extends BaseService implements IExperi
 
     @Override
     public List uploadPictureList(MultipartFile[] file, HttpServletRequest request) {
-        File targetFile=null;
-        String msg="";//返回存储路径
-        int code=1;
-        List imgList=new ArrayList();
-        if (file!=null && file.length>0) {
+        File targetFile = null;
+        String msg = "";//返回存储路径
+        int code = 1;
+        List imgList = new ArrayList();
+        if (file != null && file.length > 0) {
             for (int i = 0; i < file.length; i++) {
-                String fileName=file[i].getOriginalFilename();//获取文件名加后缀
-                if(fileName!=null&&fileName!=""){
-                    String path = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\pciture\\";
+                String fileName = file[i].getOriginalFilename();//获取文件名加后缀
+                if (fileName != null && fileName != "") {
+                    String path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\pciture\\";
 
-                    String returnUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() +"/pciture/";//存储路径
-                   // String path = request.getSession().getServletContext().getRealPath("upload/imgs"); //文件存储位置
+                    String returnUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/pciture/";//存储路径
+                    // String path = request.getSession().getServletContext().getRealPath("upload/imgs"); //文件存储位置
                     String fileF = fileName.substring(fileName.lastIndexOf("."), fileName.length());//文件后缀
-                    fileName=new Date().getTime()+"_"+new Random().nextInt(1000)+fileF;//新的文件名
+                    fileName = new Date().getTime() + "_" + new Random().nextInt(1000) + fileF;//新的文件名
 
                     //先判断文件是否存在
-                    String fileAdd = com.bitnei.cloud.smc.util.DateUtil.formatTime(new Date(),"yyyyMMdd");
-                    File file1 =new File(path+"/"+fileAdd);
+                    String fileAdd = com.bitnei.cloud.smc.util.DateUtil.formatTime(new Date(), "yyyyMMdd");
+                    File file1 = new File(path + "/" + fileAdd);
                     //如果文件夹不存在则创建
 
-                    if(!file1 .exists()  && !file1 .isDirectory()){
+                    if (!file1.exists() && !file1.isDirectory()) {
                         // 多级目录创建
-                        file1 .mkdirs();
+                        file1.mkdirs();
                     }
                     targetFile = new File(file1, fileName);
                     try {
                         file[i].transferTo(targetFile);
-                        msg=returnUrl+fileAdd+"/"+fileName;
+                        msg = returnUrl + fileAdd + "/" + fileName;
                         imgList.add(msg);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -286,7 +275,164 @@ public class ExperimentalStageServiceImpl extends BaseService implements IExperi
                 }
             }
         }
-        return  imgList;
+        return imgList;
     }
 
+    @Override
+    public void addEx(Map<String, Object> map, Map<String, Object> mapHole, String exNo, String startTime, String updateTime, String status) {
+
+       /* for(Map.Entry<String, Object> entry : map.entrySet()){
+            String mapKey = entry.getKey();
+            Object mapValue = entry.getValue();
+            System.out.println(mapKey+":"+mapValue);
+        }*/
+
+        // 去掉id
+        mapHole.remove("id");
+        // 记录已经发现的实验编号
+        Map<String, String> mapOver = new HashMap<>(16);
+        List<ExperimentalData> findaAllExNo = findBySqlId("findaAllExNo", null);
+        Map<String, String> collect = findaAllExNo.stream().collect(Collectors.toMap(ExperimentalData::getExNo, ExperimentalData::getId));
+        for (Map.Entry<String, Object> entry : mapHole.entrySet()) {
+            String key = entry.getKey();
+            String value1 = entry.getValue().toString();
+            if (!"pbs".equals(value1) && value1.length() > 3) {
+                ExperimentalData experimentalData = new ExperimentalData();
+                String[] split = value1.split("-");
+                // 实验编号
+                String exNos = split[0];
+                String day = split[1];
+                String yangpinNumber = split[2];
+                String s = collect.get(exNos);
+                ExperimentalDataDatil experimentalDataDatil = new ExperimentalDataDatil();
+                experimentalDataDatil.setId(UtilHelper.getUUID());
+                experimentalDataDatil.setReportDate(day);
+
+                String replace = key.replace("hno", "vno");
+                String value = map.get(replace).toString();
+                switch (yangpinNumber) {
+                    // 取浓度数值
+                    case "1":
+                        experimentalDataDatil.setExplameOne(value);
+                        break;
+                    case "2":
+                        experimentalDataDatil.setExplameTwo(value);
+                        break;
+                    case "3":
+                        experimentalDataDatil.setExplameThree(value);
+                        break;
+                }
+
+                if (null == s) {
+                    // 赋值ID
+                    String id = UtilHelper.getUUID();
+                    collect.put(exNos, id);
+                    //入库操作
+                    experimentalData.setId(id);
+                    experimentalData.setExNo(exNos);
+                    experimentalData.setStartTime(startTime);
+                    experimentalData.setUpdateTime(updateTime);
+                    experimentalData.setStatus(status);
+                    insert(experimentalData);
+                    // 入库详情
+                    experimentalDataDatil.setExperimentalId(id);
+                    experimentalStageMapper.insertExDataDatil(experimentalDataDatil);
+                    // findBySqlId("insertExDataDatil",experimentalDataDatil);
+                    //insert("insertDatil",experimentalData);
+                } else {
+                    // 全部为更新操作
+                    experimentalDataDatil.setExperimentalId(s);
+                    Map<String, String> parm = new HashMap<>();
+                    parm.put("experimentalId", s);
+                    parm.put("reportDate", experimentalDataDatil.getReportDate());
+                    List<Map<String, String>> findExperimentals = findBySqlId("findExperimentals", parm);
+                    if (findExperimentals.size() >= 1) {
+                        // 更新操作
+                        update(experimentalDataDatil);
+                    } else {
+                        //新增操作
+                        experimentalStageMapper.insertExDataDatil(experimentalDataDatil);
+                    }
+
+                }
+            }
+        }
+    }
+
+    @Override
+    public  Map<String,String> findByView(String id) {
+        Map<String,String> map=new HashMap<>();
+        map.put("id",id);
+        List<ExperimentalDataDatil> findExs = findBySqlId("findExsDatil", map);
+        // 记录加值
+        double yp1ljnd=0l; // 样品1累计浓度
+        double yp12jnd=0l;// 样品2累计浓度
+        double yp13jnd=0l;// 样品3累计浓度
+
+        for (ExperimentalDataDatil e : findExs){
+            double totalnd=0l;
+            if (StringUtils.isNotEmpty(e.getExplameOne())){
+                double one = Double.parseDouble(e.getExplameOne());
+                yp1ljnd+=one;
+                e.setYp1ljnd(yp1ljnd);
+                totalnd+=one;
+            }
+            if (StringUtils.isNotEmpty(e.getExplameTwo())){
+                double tow = Double.parseDouble(e.getExplameTwo());
+                yp12jnd+=tow;
+                e.setYp12jnd(yp12jnd);
+                totalnd+=tow;
+            }
+            if (StringUtils.isNotEmpty(e.getExplameThree())){
+                double three = Double.parseDouble(e.getExplameThree());
+                yp13jnd+=three;
+                e.setYp13jnd(yp13jnd);
+                totalnd+=three;
+            }
+            // 平均浓度
+            e.setTotalnd(totalnd/3);
+            //累计浓度百分比
+            e.setPjljnd((yp1ljnd+yp12jnd+yp13jnd)/3);
+            e.setYp1ljndbf(yp1ljnd/10);
+            e.setYp12jndbf(yp12jnd/10);
+            e.setYp13jndbf(yp13jnd/10);
+            //平均累计百分比
+            e.setPjbf((e.getYp1ljndbf()+e.getYp12jndbf()+e.getYp13jndbf())/3);
+        }
+        log.info(JSON.toJSONString(findExs));
+        // 转换成map到前端显示
+        Map<String,String> remap=new HashMap<>(16);
+        for (ExperimentalDataDatil e: findExs){
+            String reportDate = e.getReportDate();
+            remap.put("exNo",e.getExNo());
+
+            remap.put(reportDate+"explameOne",e.getExplameOne()==null ? "0": e.getExplameOne());
+            remap.put(reportDate+"explameTwo",e.getExplameTwo()==null ? "0": e.getExplameTwo());
+            remap.put(reportDate+"explameThree",e.getExplameThree()==null ? "0": e.getExplameThree());
+            remap.put(reportDate+"totalnd",e.getTotalnd()+"");
+
+            remap.put(reportDate+"yp1ljnd",e.getYp1ljnd()+"");
+            remap.put(reportDate+"yp12jnd",e.getYp12jnd()+"");
+            remap.put(reportDate+"yp13jnd",e.getYp13jnd()+"");
+            remap.put(reportDate+"pjljnd",e.getPjljnd()+"");
+
+            remap.put(reportDate+"yp1ljndbf",e.getYp1ljndbf()+"");
+            remap.put(reportDate+"yp12jndbf",e.getYp12jndbf()+"");
+            remap.put(reportDate+"yp13jndbf",e.getYp13jndbf()+"");
+            remap.put(reportDate+"pjbf",e.getPjbf()+"");
+
+        }
+        remap.put("dosage",findExs.get(0).getDosage());
+        return remap;
+    }
+
+    @Override
+    public Map<String, String> findByIdZyl(String id) {
+        Map<String,String> map =new HashMap<>(16);
+        map.put("id",id);
+        ExperimentalData experimentalData = unique("pagerModel", map);
+        map.put("exNo",experimentalData.getExNo());
+        map.put("dosage",experimentalData.getDosage());
+        return map;
+    }
 }

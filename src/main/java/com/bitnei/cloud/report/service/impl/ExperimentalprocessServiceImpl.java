@@ -149,7 +149,7 @@ public class ExperimentalprocessServiceImpl extends BaseService implements IExpe
         for (int i = 1; i <= 96; i++) {
             String s = String.format("%02d", i);
             String key = "v_no" + s;
-            Double v = (Double) map.get(key);
+            Double v = Double.parseDouble(map.get(key).toString());
             double v1 = secondaryCoefficient * v * v + oneCoefficient * v + parameter;
             if (v1 <= 40) {
                 v1 = secondaryCoefficientAgain * v * v + oneCoefficientAgain * v + parameterAgain;
