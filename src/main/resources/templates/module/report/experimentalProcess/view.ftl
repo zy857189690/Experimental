@@ -20,10 +20,10 @@
 
                <#-- 拟合公式：2.123x²-1.786x+3.224      -->                           <#--精确拟合公式：1.679x²-0.983x+2.785-->
                 <td class="td_label" style="text-align:center ; font-size: 20px">
-                    <strong>  <label>拟合公式  ${(gs.oneCoefficient)!-1}x²+${(gs.oneCoefficientAgain)!-1}x+${(gs.parameterAgain)!-1}</label></strong>
+                    <strong>  <label>拟合公式  ${(gs.oneCoefficient)!""}x²+${(gs.oneCoefficientAgain)!""}x+${(gs.parameterAgain)!""}</label></strong>
                 </td>
                 <td class="td_label" style="text-align:center ; font-size: 20px">
-                    <strong>  <label>精确拟合公式  ${(gs.secondaryCoefficient)!-1}x²+${(gs.secondaryCoefficientAgain)!-1}x+${(gs.parameterAgain)!-1}</label></strong>
+                    <strong>  <label>精确拟合公式  ${(gs.secondaryCoefficient)!""}x²+${(gs.secondaryCoefficientAgain)!""}x+${(gs.parameterAgain)!""}</label></strong>
                 </td>
 
             </tr>

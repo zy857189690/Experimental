@@ -128,7 +128,11 @@ public class ExperimentalprocessServiceImpl extends BaseService implements IExpe
         // 位置孔位
         List<Map<String, Object>> maps = demo1Mapper.findById(pram);
         Experimentalprocess experimentalProcess = findById(id);
-
+        //未拟合的数据 查看原始数据
+        if (null==experimentalProcess.getSecondaryCoefficient()){
+            List<Map<String, Object>> maps1 = rawDataService.get(id);
+            return  maps1;
+        }
         Map<String, Object> mapGs = new HashMap<>();
         // 原始数据
         double secondaryCoefficient = Double.parseDouble(experimentalProcess.getSecondaryCoefficient());

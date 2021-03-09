@@ -99,7 +99,9 @@ public class ExperimentalprocessController {
         if (experimentalProcess.size()>0){
             model.addAttribute("rawData", experimentalProcess.get(0));
             model.addAttribute("rawDataNh", experimentalProcess.get(1));
-            model.addAttribute("gs", experimentalProcess.get(2));
+            if (experimentalProcess.size()==3){
+                model.addAttribute("gs", experimentalProcess.get(2));
+            }
         }
         return BASE + "view";
     }
