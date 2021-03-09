@@ -208,13 +208,22 @@
         <input type="hidden" name="id" id="id" value="${(experimentalStage.id)!-1}">
         <table class="table_edit" border="1">
             <tr>
-                <td class="td_label"><label>实验编号:</label></td>
-                <td class="td_input">
-                    <input type='text' name='reportCode' autocomplete="off" id='reportCode' value="${(experimentalStage.reportCode)!}" class="input-fat" style="height: 26px;width: 178px"/>
-                    <span name="requireTag" class="requrieTag AbleStevenSpan"style="top:12px;left: 200px;">*</span>
+                <td class="td_label"><label>实验编号:</label>
+                </td>
+
+                <td class="td_label">
+                    <input type='text' name='exNo' autocomplete="off" id='exNo' value="${(experimentalStage.exNo)!}" class="input-fat" style="height: 26px;width: 178px" readonly/>
                 </td>
             </tr>
             <tr>
+                <td  class="td_label">
+                    <label>载药量:</label>
+                </td>
+                <td class="td_label">
+                    <input type='text' name='dosage' autocomplete="off" id='dosage' value="${(experimentalStage.dosage)!}" class="input-fat" style="height: 26px;width: 178px"/>
+                </td>
+            </tr>
+         <#--   <tr>
                 <td class="td_label"><label>报告人:</label></td>
                 <td class="td_input">
                     <input type='text' name='reportUserName' autocomplete="off" id='reportUserName' value="${(experimentalStage.reportUserName)!}" class="input-fat" style="height: 26px;width: 178px"/>
@@ -232,7 +241,7 @@
                 <td class="td_label"><label>理论配方:</label></td>
                 <td class="td_input">
                     <input type='text' name='theoreticalFormula' autocomplete="off" id='theoreticalFormula' value="${(experimentalStage.theoreticalFormula)!}"  style="height: 26px;width: 800px"/>
-                    <#--<span name="requireTag" class="requrieTag AbleStevenSpan">*</span>-->
+                    &lt;#&ndash;<span name="requireTag" class="requrieTag AbleStevenSpan">*</span>&ndash;&gt;
                 </td>
             </tr>
 
@@ -240,14 +249,14 @@
                 <td class="td_label"><label>实际配方:</label></td>
                 <td class="td_input">
                     <input type='text' name='actualFormula' autocomplete="off" id='actualFormula' value="${(experimentalStage.actualFormula)!}"  style="height: 26px;width: 800px"/>
-                    <#--<span name="requireTag" class="requrieTag AbleStevenSpan">*</span>-->
+                    &lt;#&ndash;<span name="requireTag" class="requrieTag AbleStevenSpan">*</span>&ndash;&gt;
                 </td>
             </tr>
             <tr>
                 <td class="td_label"><label>报告内容:</label></td>
                 <td class="td_input">
                     <textarea name="reportContent" id="reportContent"  clos="1800" rows="10" style="width: 800px;height: 150px" >${(experimentalStage.reportContent)!}</textarea>
-                    <#--<span name="requireTag" class="requrieTag AbleStevenSpan">*</span>-->
+                    &lt;#&ndash;<span name="requireTag" class="requrieTag AbleStevenSpan">*</span>&ndash;&gt;
                 </td>
             </tr>
             <tr>
@@ -267,7 +276,7 @@
                         <span id="hiddenss1"></span>
                     </div>
                 </td>
-            </tr>
+            </tr>-->
         </table>
         <div class="fbox">
             <span class="fbox-left"></span>

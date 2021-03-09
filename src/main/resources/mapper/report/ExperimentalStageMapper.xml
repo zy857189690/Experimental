@@ -10,7 +10,7 @@
     <select id="findById" resultType="com.bitnei.cloud.report.domain.ExperimentalStage"
             parameterType="java.util.HashMap">
         select
-       *
+        *
         from
         sys_experimental_stage icate
 
@@ -21,26 +21,76 @@
     </select>
 
 
+    <!--    &lt;!&ndash; 增加 &ndash;&gt;
+        <insert id="insert" parameterType="java.util.HashMap">
+            insert into
+            sys_experimental_stage (id,report_code,report_userName,report_time,theoretical_formula,actual_formula,report_content,report_imgs,status)
+            values
+            (#{id},#{reportCode},#{reportUserName},#{reportTime},#{theoreticalFormula},#{actualFormula},#{reportContent},#{reportImgs},#{status})
+        </insert>-->
+
+
     <!-- 增加 -->
     <insert id="insert" parameterType="java.util.HashMap">
         insert into
-        sys_experimental_stage (id,report_code,report_userName,report_time,theoretical_formula,actual_formula,report_content,report_imgs,status)
+        sys_experimental_data (id,start_time,update_time,status,ex_no)
         values
-        (#{id},#{reportCode},#{reportUserName},#{reportTime},#{theoreticalFormula},#{actualFormula},#{reportContent},#{reportImgs},#{status})
+        (#{id},#{startTime},#{updateTime},#{status},#{exNo})
     </insert>
 
-    <!-- 更新 -->
-    <update id="update" parameterType="java.util.HashMap">
-        update sys_experimental_stage set
-        id=id,report_code=#{reportCode},report_userName=#{reportUserName},report_time=#{reportTime},
-        theoretical_formula=#{theoreticalFormula},actual_formula=#{actualFormula},report_content=#{reportContent},report_imgs=#{reportImgs},status=#{status},update_time=#{updateTime}
-        <where>
-            id = #{id}
+    <insert id="insertExDataDatil" parameterType="java.util.HashMap">
+        INSERT INTO sys_experimental_data_datil(id,report_date,explame_one,explame_two,explame_three,experimental_id)
+        VALUES (#{id},#{reportDate},#{explameOne},#{explameTwo},#{explameThree},#{experimentalId})
+    </insert>
+    <!--   &lt;!&ndash; 更新 &ndash;&gt;
+       <update id="update" parameterType="java.util.HashMap">
+           update sys_experimental_stage set
+           id=id,report_code=#{reportCode},report_userName=#{reportUserName},report_time=#{reportTime},
+           theoretical_formula=#{theoreticalFormula},actual_formula=#{actualFormula},report_content=#{reportContent},report_imgs=#{reportImgs},status=#{status},update_time=#{updateTime}
+           <where>
+               id = #{id}
 
+           </where>
+
+       </update>
+   -->
+
+
+    <update id="updateDosage" parameterType="java.util.HashMap">
+        update sys_experimental_data set
+        dosage=#{dosage}
+        <where>
+          id=#{id}
         </where>
 
     </update>
 
+    <update id="update" parameterType="java.util.HashMap">
+        update sys_experimental_data_datil set
+        <if test="explameOne !=null and explameOne !=''">
+            explame_one=#{explameOne}
+        </if>
+        <if test="explameTwo !=null and explameTwo !=''">
+            explame_two =#{explameTwo}
+        </if>
+        <if test="explameThree !=null and explameThree !=''">
+            explame_three=#{explameThree}
+        </if>
+
+        <where>
+            experimental_id = #{experimentalId} and report_date=#{reportDate}
+        </where>
+
+    </update>
+
+    <select id="findaAllExNo" resultType="com.bitnei.cloud.report.domain.ExperimentalData"
+            parameterType="java.util.HashMap">
+        SELECT ex_no ,id from sys_experimental_data
+    </select>
+    <select id="findExperimentals" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+
+        SELECT id from sys_experimental_data_datil where report_date =#{reportDate} AND  experimental_id = #{experimentalId}
+    </select>
     <!-- 删除 -->
     <delete id="delete" parameterType="java.util.HashMap">
         delete from
@@ -52,18 +102,31 @@
     </delete>
 
     <!-- 分页查询 -->
-    <select id="pagerModel" resultType="com.bitnei.cloud.report.domain.ExperimentalStage" parameterType="java.util.HashMap" resultOrdered="true">
+    <select id="pagerModel" resultType="com.bitnei.cloud.report.domain.ExperimentalData"
+            parameterType="java.util.HashMap" resultOrdered="true">
         select
-       *
+        *
         from
-        sys_experimental_stage icate
+        sys_experimental_data sed
         <where>
             1=1
-            <if test="reportCode !=null and reportCode !=''">
-                AND icate.report_code=#{reportCode}</if>
+            <if test="id !=null and id !=''">
+                AND id=#{id}
+            </if>
+            <if test="code !=null and code != ''">
+                AND sed.ex_no=#{code}
+            </if>
+
+            <if test="flag !=null and flag != ''">
+                ORDER by ${flag} desc
+            </if>
 
         </where>
+    </select>
 
-        ORDER  BY icate.update_time  desc
+    <select id="findExsDatil" resultType="com.bitnei.cloud.report.domain.ExperimentalDataDatil"
+            parameterType="java.util.HashMap">
+       select * from sys_experimental_data_datil sdd LEFT JOIN sys_experimental_data sed on sdd.experimental_id= sed.id
+      where sdd.experimental_id =#{id} ORDER BY  report_date ASC
     </select>
 </mapper>

@@ -16,29 +16,57 @@
     <div id="toolbar" style="padding:5px" class="cg-moreBox">
             <a href="#" onclick="view_item()" class="easyui-linkbutton"
                data-options="iconCls:'icon-view'" menu="0">查看</a>
-        <a href="#" onclick="add_item()" class="easyui-linkbutton"
-           data-options="iconCls:'icon-add'" menu="0">添加实验准备阶段报告</a>
+        <#--<a href="#" onclick="add_item()" class="easyui-linkbutton"
+           data-options="iconCls:'icon-add'" menu="0">添加实验准备阶段报告</a>-->
         <a href="#" onclick="edit_item()" class="easyui-linkbutton"
-           data-options="iconCls:'icon-edit'" >编辑</a>
+           data-options="iconCls:'icon-edit'" >添加载药量</a>
     </div>
     <div id="table" name="datagrid" style="width: 100%;height: 100%"></div>
 </div>
 
-<div data-options="region:'north',title:'实验准备阶段报告管理',split:true,collapsable:true" style="width: 100%;height: 190px">
+<div data-options="region:'north',title:'实验原始数据管理',split:true,collapsable:true" style="width: 100%;height: 190px">
     <div style="width: 100%;border: 1;margin:5 5 5 10 ">
         <form id="form_search" name="" class="sui-form cg-form">
             <table class="table_search">
                 <tr>
-                        <td class="td_label">
-                            <label>实验编号</label>
-                        </td>
-                      <td class="td_input">
-                            <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.code"  autocomplete="off" >
-                        </td>
-
-                    <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
-                        <a href="#" onclick="search_item()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+                    <td class="td_label">
+                        <label>原始数据查询编号</label>
                     </td>
+                    <td class="td_input">
+                        <input type="text"class="input-fat input" style="width: height: 26px;width:150px;"   name="query.code"  autocomplete="off" >
+                    </td>
+                </tr>
+                </tr>
+                <td class="td_label">
+                    <label>送检时间筛选</label>
+                </td>
+
+                <td class="td_input">
+                    <input type="text" class="input-fat input"  placeholder="年/月/日" onfocus="WdatePicker({isShowClear:false, dateFmt:'yyyy-MM-dd'})" name="query.startTime" id="startTime" query_type="lis" style="width: height: 26px;width:150px;" required><a href="javascript:void(0);" class="clear" onclick="top.clearInputValue(this)">X</a>
+                </td>
+                <td class="td_label" >
+                    <label style="margin-left:15px">至:</label>
+                </td>
+                <td class="td_input">
+                    <input type="text" class="input-fat input"  placeholder="年/月/日" onfocus="WdatePicker({isShowClear:false, dateFmt:'yyyy-MM-dd'})" name="query.endTime" id="endTime" query_type="lis" style="width: height: 26px;width:150px;" required><a href="javascript:void(0);" class="clear" onclick="top.clearInputValue(this)">X</a>
+                </td>
+
+                <td style="vertical-align: center;text-align: right;border: 1px" class="cg-btnGroup">
+                    <a href="#" onclick="search_item()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+                </td>
+                </tr>
+                </tr>
+                <td class="td_label">
+                    <label>请选择数据排序方式</label>
+                </td>
+                <td class="td_input" colspan="8">
+                    <select class="select2" data-options="editable:false" name="query.flag" id="flag" style="height: 26px; width: 135px" query_type="eq" formatter:formatBoolean >
+                        <option value="ex_no">默认排序（实验编号进行排序）</option>
+                        <option value="start_time">实验开始时间进行排序</option>
+                        <option value="update_time">最后更新时间进行排序</option>
+                    </select>
+                </td>
+
                 </tr>
             </table>
         </form>
@@ -47,17 +75,29 @@
 
 </body>
 <script>
+    var sortOrder = $("#flag").val();
     $('#table').datagrid({
         url: '/experimentManagement/report/experimentalStage/datagrid',
-        sortName: "createTime",
+        sortName: sortOrder,
         sortOrder: "desc",
         singleSelect: true,
         checkOnSelect: false, //此属性必须设置为 false10
         columns: [[
             {field: 'ck', checkbox: true, width: '20'},
-            {field: 'reportCode', title: '实验编号'},
-            {field: 'reportUserName', title: '报告人'},
-            {field: 'reportTime', title: '报告时间'},
+            {field: 'exNo', title: '实验编号'},
+            {field: 'startTime', title: '实验开始时间'},
+            {field: 'updateTime', title: '最后更新时间'},
+            {field: 'status', title: '实验状态',formatter:function(value,row,index){
+                    if(isObj(value)){
+                        if(value==0){
+                            return '正在进行';
+                        }else if(value==1){
+                            return "结束";
+                        }else {
+                            return "未知";
+                        }
+                    }
+                }}
 
         ]],
         toolbar: "#toolbar",
@@ -85,12 +125,12 @@
         var url = "/experimentManagement/report/experimentalStage/edit.html?id=-1";
         openEditWin(url, title);
     }
-    function openEditWin(url, title) {
+    function openEditWin(url, title,width,height) {
         var winid = "pop";
-        var width = 1230;
-        var height = 620;
+
         diyWindow(winid, url, title, width, height,false);
     }
+
     /**
      * 查看
      */
@@ -109,7 +149,9 @@
         }
         var title = "详情";
         var url = "/experimentManagement/report/experimentalStage/view.html?id=" + (id);
-        openEditWin(url, title);
+        var width = 1230;
+        var height = 620;
+        openEditWin(url, title,width,height);
     }
 
     /**
@@ -130,9 +172,11 @@
                 return;
             }
         }
-        var title = "编辑";
+        var title = "载药量添加";
         var url = "/experimentManagement/report/experimentalStage/edit.html?id=" + (id);
-        openEditWin(url, title);
+        var width = 620;
+        var height = 320;
+        openEditWin(url, title,width,height);
     }
 
 
