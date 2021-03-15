@@ -133,11 +133,7 @@ public class RawDataServiceImpl extends BaseService implements IRawDataService {
             // 位置图
             demo1Mapper.insert(mapHole);
 
-            String exNo="";
-            String startTime = sheet.getRow(35).getCell(0).toString().split(",")[1];
-            String updateTime=DateUtil.getNow();
-            String status="0";
-            experimentalStageService.addEx(map,mapHole,exNo,startTime,updateTime,status);
+
         } else {
             jm.setMsg("原始数据为空，请确认后导入操作！！");
             jm.setFlag(false);

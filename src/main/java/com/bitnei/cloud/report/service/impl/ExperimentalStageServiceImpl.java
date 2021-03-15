@@ -1,7 +1,6 @@
 package com.bitnei.cloud.report.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.bitnei.cloud.common.DateUtil;
 import com.bitnei.cloud.common.JsonModel;
 import com.bitnei.cloud.common.ServletUtil;
@@ -9,7 +8,6 @@ import com.bitnei.cloud.orm.annation.Mybatis;
 import com.bitnei.cloud.report.domain.Demo1;
 import com.bitnei.cloud.report.domain.ExperimentalData;
 import com.bitnei.cloud.report.domain.ExperimentalDataDatil;
-import com.bitnei.cloud.report.domain.ExperimentalStage;
 import com.bitnei.cloud.report.mapper.ExperimentalStageMapper;
 import com.bitnei.cloud.report.service.IExperimentalStageService;
 import com.bitnei.cloud.service.impl.BaseService;
@@ -308,7 +306,7 @@ public class ExperimentalStageServiceImpl extends BaseService implements IExperi
                 experimentalDataDatil.setId(UtilHelper.getUUID());
                 experimentalDataDatil.setReportDate(day);
 
-                String replace = key.replace("hno", "vno");
+                String replace = key.replace("h_no", "v_no");
                 String value = map.get(replace).toString();
                 switch (yangpinNumber) {
                     // 取浓度数值
@@ -364,6 +362,9 @@ public class ExperimentalStageServiceImpl extends BaseService implements IExperi
         Map<String,String> map=new HashMap<>();
         map.put("id",id);
         List<ExperimentalDataDatil> findExs = findBySqlId("findExsDatil", map);
+
+        // 改实验是否已经拟合完成
+
         // 记录加值
         double yp1ljnd=0l; // 样品1累计浓度
         double yp12jnd=0l;// 样品2累计浓度

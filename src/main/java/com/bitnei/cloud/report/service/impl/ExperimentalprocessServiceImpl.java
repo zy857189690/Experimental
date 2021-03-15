@@ -6,6 +6,7 @@ import com.bitnei.cloud.common.ServletUtil;
 import com.bitnei.cloud.orm.annation.Mybatis;
 import com.bitnei.cloud.report.domain.Experimentalprocess;
 import com.bitnei.cloud.report.mapper.Demo1Mapper;
+import com.bitnei.cloud.report.service.IExperimentalStageService;
 import com.bitnei.cloud.report.service.IExperimentalprocessService;
 import com.bitnei.cloud.service.impl.BaseService;
 import com.bitnei.commons.datatables.DataGridOptions;
@@ -30,6 +31,8 @@ public class ExperimentalprocessServiceImpl extends BaseService implements IExpe
     @Autowired
     private RawDataServiceImpl rawDataService;
 
+    @Autowired
+    private IExperimentalStageService experimentalStageService;
     @Override
     public PagerModel pageQuery() {
         DataGridOptions dataLayOptions = ServletUtil.getDataLayOptions();
@@ -163,6 +166,13 @@ public class ExperimentalprocessServiceImpl extends BaseService implements IExpe
         re.add(map);
         re.add(maps.get(0));
         re.add(mapGs);
+
+        String exNo="";
+        String startTime = "";//sheet.getRow(35).getCell(0).toString().split(",")[1];
+        String updateTime=DateUtil.getNow();
+        String status="0";
+        experimentalStageService.addEx(map,maps.get(0),exNo,startTime,updateTime,status);
+
         return re;
 
     }
