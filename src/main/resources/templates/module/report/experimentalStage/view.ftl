@@ -57,7 +57,7 @@
               <tr>
                   <td class="td_label"  colspan="13" height="50px" style="background-color: #00E8D7;text-align: center">
                       <label style="font-size: 20px">${(experimentalStage.exNo)!0}</label>&nbsp;&nbsp;&nbsp;
-                      <label>载药量:${(experimentalStage.dosage)!0} </label>
+                      <label>载药量:${(experimentalStage.dosage)!-1} </label>
                   </td>
               </tr>
 
