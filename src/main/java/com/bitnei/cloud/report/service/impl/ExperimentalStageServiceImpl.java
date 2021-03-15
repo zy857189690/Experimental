@@ -394,9 +394,13 @@ public class ExperimentalStageServiceImpl extends BaseService implements IExperi
             e.setTotalnd(totalnd/3);
             //累计浓度百分比
             e.setPjljnd((yp1ljnd+yp12jnd+yp13jnd)/3);
-            e.setYp1ljndbf(yp1ljnd/10);
-            e.setYp12jndbf(yp12jnd/10);
-            e.setYp13jndbf(yp13jnd/10);
+            double donumber=-1L;
+            if (StringUtils.isNotEmpty(e.getDosage())){
+                donumber=Double.parseDouble(e.getDosage());
+            }
+            e.setYp1ljndbf(yp1ljnd/donumber);
+            e.setYp12jndbf(yp12jnd/donumber);
+            e.setYp13jndbf(yp13jnd/donumber);
             //平均累计百分比
             e.setPjbf((e.getYp1ljndbf()+e.getYp12jndbf()+e.getYp13jndbf())/3);
         }
@@ -417,9 +421,9 @@ public class ExperimentalStageServiceImpl extends BaseService implements IExperi
             remap.put(reportDate+"yp13jnd",e.getYp13jnd()+"");
             remap.put(reportDate+"pjljnd",e.getPjljnd()+"");
 
-            remap.put(reportDate+"yp1ljndbf",e.getYp1ljndbf()+"");
-            remap.put(reportDate+"yp12jndbf",e.getYp12jndbf()+"");
-            remap.put(reportDate+"yp13jndbf",e.getYp13jndbf()+"");
+            remap.put(reportDate+"yp1ljndbf",e.getYp1ljndbf()+"%");
+            remap.put(reportDate+"yp12jndbf",e.getYp12jndbf()+"%");
+            remap.put(reportDate+"yp13jndbf",e.getYp13jndbf()+"%");
             remap.put(reportDate+"pjbf",e.getPjbf()+"");
 
         }
