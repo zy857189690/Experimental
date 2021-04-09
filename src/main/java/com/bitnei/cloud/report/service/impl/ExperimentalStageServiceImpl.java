@@ -297,10 +297,20 @@ public class ExperimentalStageServiceImpl extends BaseService implements IExperi
             if (!"pbs".equals(value1) && value1.length() > 3) {
                 ExperimentalData experimentalData = new ExperimentalData();
                 String[] split = value1.split("-");
-                // 实验编号
-                String exNos = split[0];
-                String day = split[1];
-                String yangpinNumber = split[2];
+                String exNos ;
+                String day ;
+                String yangpinNumber;
+                if (split.length==4){
+                    exNos = split[0]+"-"+split[1];
+                    day = split[2];
+                    yangpinNumber = split[3];
+                }else {
+                    // 实验编号
+                     exNos = split[0];
+                     day = split[1];
+                     yangpinNumber = split[2];
+                }
+
                 String s = collect.get(exNos);
                 ExperimentalDataDatil experimentalDataDatil = new ExperimentalDataDatil();
                 experimentalDataDatil.setId(UtilHelper.getUUID());
@@ -421,10 +431,11 @@ public class ExperimentalStageServiceImpl extends BaseService implements IExperi
             remap.put(reportDate+"yp13jnd",e.getYp13jnd()+"");
             remap.put(reportDate+"pjljnd",e.getPjljnd()+"");
 
-            remap.put(reportDate+"yp1ljndbf",e.getYp1ljndbf()+"%");
-            remap.put(reportDate+"yp12jndbf",e.getYp12jndbf()+"%");
-            remap.put(reportDate+"yp13jndbf",e.getYp13jndbf()+"%");
-            remap.put(reportDate+"pjbf",e.getPjbf()+"");
+
+            remap.put(reportDate+"yp1ljndbf", String.format("%.8f",e.getYp1ljndbf())+"%");
+            remap.put(reportDate+"yp12jndbf",String.format("%.8f",e.getYp12jndbf())+"%");
+            remap.put(reportDate+"yp13jndbf",String.format("%.8f",e.getYp13jndbf())+"%");
+            remap.put(reportDate+"pjbf",String.format("%.8f",e.getPjbf())+"%");
 
         }
         remap.put("dosage",findExs.get(0).getDosage());
